@@ -798,12 +798,127 @@
     <div class="ecg-card">
       <div class="ecg-label"><span class="pulse-dot"></span>Monitor ECG en tiempo real</div>
       <div class="ecg-line">
-        <svg viewBox="0 0 400 60" class="ecg-svg" preserveAspectRatio="none">
-          <path class="ecg-path" d="M0,30 L60,30 L70,30 L75,10 L80,50 L90,5 L100,55 L108,30 L160,30 L170,30 L175,18 L180,42 L188,15 L196,48 L202,30 L260,30 L270,30 L275,12 L280,50 L290,6 L300,54 L308,30 L360,30 L400,30"
-            fill="none" stroke="#A6DAF1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
+        <canvas id="ecgCanvas" style="width:100%; height:60px; display:block;"></canvas>
       </div>
     </div>
+
+    <script>
+      (function() {
+        var canvas = document.getElementById('ecgCanvas');
+        var ctx = canvas.getContext('2d');
+
+        // ECG waveform shape: one full heartbeat cycle (normalized 0–1 x, amplitude y)
+        var beat = [
+          [0,    0],
+          [0.15, 0],
+          [0.18, -0.05],
+          [0.21, 0.05],
+          [0.24, -0.3],   // Q
+          [0.27, 1],      // R peak
+          [0.30, -0.35],  // S
+          [0.36, -0.1],
+          [0.42, -0.1],
+          [0.48, 0.35],   // T wave start
+          [0.55, 0.38],   // T peak
+          [0.62, 0],
+          [1,    0]
+        ];
+
+        var W, H, points = [], head = 0, speed = 2.5;
+
+        function resize() {
+          var rect = canvas.parentElement.getBoundingClientRect();
+          W = canvas.width  = rect.width  || 400;
+          H = canvas.height = 60;
+          points = new Array(W).fill(H / 2);
+        }
+
+        // Build one beat's worth of y-values for `beatLen` pixels
+        function buildBeat(beatLen) {
+          var arr = [];
+          for (var i = 0; i < beatLen; i++) {
+            var t = i / beatLen;
+            // interpolate through beat shape
+            var y = 0;
+            for (var j = 0; j < beat.length - 1; j++) {
+              if (t >= beat[j][0] && t <= beat[j+1][0]) {
+                var frac = (t - beat[j][0]) / (beat[j+1][0] - beat[j][0]);
+                y = beat[j][1] + frac * (beat[j+1][1] - beat[j][1]);
+                break;
+              }
+            }
+            arr.push(H / 2 - y * (H * 0.42));
+          }
+          return arr;
+        }
+
+        var beatLen = 120;  // pixels per heartbeat
+        var beatPixels = buildBeat(beatLen);
+        var beatPos = 0;    // position within current beat cycle
+
+        function step() {
+          // Advance head by speed pixels
+          for (var s = 0; s < speed; s++) {
+            points[head] = beatPixels[beatPos % beatLen];
+            // Blank a small trail ahead of head to simulate moving line
+            for (var b = 1; b <= 18; b++) {
+              points[(head + b) % W] = H / 2;
+            }
+            head = (head + 1) % W;
+            beatPos++;
+          }
+
+          // Draw
+          ctx.clearRect(0, 0, W, H);
+
+          // Grid lines (subtle)
+          ctx.strokeStyle = 'rgba(166,218,241,0.07)';
+          ctx.lineWidth = 1;
+          for (var gx = 0; gx < W; gx += 40) {
+            ctx.beginPath(); ctx.moveTo(gx, 0); ctx.lineTo(gx, H); ctx.stroke();
+          }
+          ctx.beginPath(); ctx.moveTo(0, H/2); ctx.lineTo(W, H/2); ctx.stroke();
+
+          // Glow layer
+          ctx.beginPath();
+          ctx.strokeStyle = 'rgba(166,218,241,0.18)';
+          ctx.lineWidth = 5;
+          ctx.lineJoin = 'round';
+          ctx.lineCap  = 'round';
+          for (var x = 0; x < W; x++) {
+            var px = (head + x) % W;
+            if (x === 0) ctx.moveTo(x, points[px]);
+            else ctx.lineTo(x, points[px]);
+          }
+          ctx.stroke();
+
+          // Main line
+          ctx.beginPath();
+          ctx.strokeStyle = '#A6DAF1';
+          ctx.lineWidth = 2;
+          for (var x = 0; x < W; x++) {
+            var px = (head + x) % W;
+            if (x === 0) ctx.moveTo(x, points[px]);
+            else ctx.lineTo(x, points[px]);
+          }
+          ctx.stroke();
+
+          // Bright tip at head - 1
+          var tipX = W - 19;
+          var tipPx = (head + tipX) % W;
+          ctx.beginPath();
+          ctx.arc(tipX, points[tipPx], 3, 0, Math.PI * 2);
+          ctx.fillStyle = '#ffffff';
+          ctx.fill();
+
+          requestAnimationFrame(step);
+        }
+
+        resize();
+        window.addEventListener('resize', resize);
+        requestAnimationFrame(step);
+      })();
+    </script>
 
     <div class="ecg-card">
       <div class="ecg-label">Signos Vitales</div>
@@ -1243,6 +1358,16 @@
 </section>
 
 <!-- INFO / LOCATION -->
+<!-- CTA BAND -->
+<div class="cta-band" id="nosotros">
+  <h2>Un corazón sano,<br>una vida plena</h2>
+  <p>No esperes síntomas para cuidar tu corazón. Agendá tu consulta preventiva hoy y tomá el control de tu salud cardiovascular.</p>
+  <div class="cta-band-actions">
+    <a href="#turno" class="btn-white">🗓 Pedir turno ahora</a>
+    <a href="https://wa.me/541140000000" class="btn-outline" style="color:white; border-color:rgba(255,255,255,0.3);">💬 WhatsApp</a>
+  </div>
+</div>
+
 <section class="info-section" id="contacto">
   <div style="text-align:center; margin-bottom: 64px;">
     <div class="section-tag" style="justify-content:center;">Información</div>
@@ -1277,7 +1402,7 @@
       <div class="info-card-content">
         <strong>Turnos:</strong> +54 11 4000-0000<br><br>
         <strong>WhatsApp:</strong> +54 11 4000-0000<br><br>
-        <strong>Email:</strong> <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="8bfffef9e5e4f8cbe8e2e8eaf9e9eaf9f9e2e4e5e4f9ffeea5e8e4e6">[email&#160;protected]</a><br><br>
+        <strong>Email:</strong> <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c7b3b2b5a9a8b487a4aea4a6b5a5a6b5b5aea8a9a8b5b3a2e9a4a8aa">[email&#160;protected]</a><br><br>
         <strong>Web:</strong> cicarbarrionorte.com
       </div>
     </div>
@@ -1291,16 +1416,6 @@
     </div>
   </div>
 </section>
-
-<!-- CTA BAND -->
-<div class="cta-band" id="nosotros">
-  <h2>Un corazón sano,<br>una vida plena</h2>
-  <p>No esperes síntomas para cuidar tu corazón. Agendá tu consulta preventiva hoy y tomá el control de tu salud cardiovascular.</p>
-  <div class="cta-band-actions">
-    <a href="#turno" class="btn-white">🗓 Pedir turno ahora</a>
-    <a href="https://wa.me/541140000000" class="btn-outline" style="color:white; border-color:rgba(255,255,255,0.3);">💬 WhatsApp</a>
-  </div>
-</div>
 
 <!-- FOOTER -->
 <footer>
@@ -1360,7 +1475,7 @@
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   // Smooth active nav
   const sections = document.querySelectorAll('section[id], div[id]');
   const navLinks = document.querySelectorAll('.nav-links a');
@@ -1392,10 +1507,4 @@
     }
   });
 
-  // Animated counters
-  function animateCounter(el, target) {
-    let start = 0;
-    const duration = 1500;
-    const step = (timestamp) => {
-      if (!start) start = timestamp;
-      const progress = Math.min((timestamp - start) / duration, 1);
+  // Animated
