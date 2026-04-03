@@ -144,15 +144,7 @@
   }
   .btn-outline:hover { border-color: white; background: rgba(255,255,255,0.06); }
 
-  .hero-stats {
-    display: flex; gap: 40px;
-    margin-top: 60px; padding-top: 40px;
-    border-top: 1px solid rgba(255,255,255,0.1);
-  }
-  .hero-stat {}
-  .hero-stat-num { font-size: 34px; font-weight: 800; color: white; line-height: 1; }
-  .hero-stat-num span { color: var(--light); }
-  .hero-stat-label { font-size: 12px; color: rgba(255,255,255,0.5); margin-top: 4px; letter-spacing: 0.5px; }
+
 
   .hero-visual {
     position: absolute; right: 5%; top: 50%; transform: translateY(-50%);
@@ -246,10 +238,11 @@
     border-radius: var(--radius-lg);
     padding: 36px 32px;
     border: 1.5px solid transparent;
-    transition: all 0.3s;
+    transition: all 0.3s, opacity 0.25s, transform 0.25s;
     cursor: pointer;
     position: relative; overflow: hidden;
   }
+  .service-card[style*="none"] { display: none; }
   .service-card::before {
     content: '';
     position: absolute; bottom: 0; right: 0;
@@ -429,38 +422,8 @@
   .tech-item-text { font-size: 15px; line-height: 1.6; color: var(--text-muted); }
   .tech-item-text strong { color: var(--navy); font-weight: 700; }
 
-  /* ─── TESTIMONIALS ─── */
-  .testimonials { background: var(--pale); }
-  .testimonials-header { text-align: center; margin-bottom: 64px; }
-  .testimonials-header .section-tag { justify-content: center; }
 
-  .testimonials-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 24px;
-  }
 
-  .testimonial-card {
-    background: white;
-    border-radius: var(--radius-lg);
-    padding: 36px 32px;
-    border: 1px solid rgba(29,132,199,0.1);
-    transition: all 0.3s;
-  }
-  .testimonial-card:hover { box-shadow: 0 16px 48px rgba(29,132,199,0.1); transform: translateY(-4px); }
-
-  .testimonial-stars { color: #f5a623; font-size: 16px; margin-bottom: 16px; letter-spacing: 2px; }
-  .testimonial-text { font-size: 15px; line-height: 1.75; color: var(--text-muted); margin-bottom: 28px; font-style: italic; }
-  .testimonial-author { display: flex; align-items: center; gap: 14px; }
-  .author-avatar {
-    width: 48px; height: 48px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--light), var(--mid));
-    display: flex; align-items: center; justify-content: center;
-    font-size: 18px; font-weight: 700; color: var(--navy);
-  }
-  .author-name { font-size: 15px; font-weight: 700; color: var(--navy); }
-  .author-meta { font-size: 12px; color: var(--text-muted); }
 
   /* ─── CTA BAND ─── */
   .cta-band {
@@ -567,7 +530,7 @@
     .footer-top { grid-template-columns: 1fr 1fr; }
     .nav-links { display: none; }
     .hero h1 { font-size: 38px; }
-    .hero-stats { gap: 24px; flex-wrap: wrap; }
+
   }
   @media (max-width: 600px) {
     .footer-top { grid-template-columns: 1fr; }
@@ -654,6 +617,150 @@
 </head>
 <body>
 
+<!-- PRELOADER -->
+<div id="preloader">
+  <div class="preloader-inner">
+    <div class="preloader-logo">
+      <div class="preloader-logo-icon">🫀</div>
+      <div class="preloader-logo-text">
+        <span class="preloader-cicar">CICAR</span>
+        <span class="preloader-sub">BARRIO NORTE</span>
+      </div>
+    </div>
+    <div class="preloader-ecg">
+      <svg viewBox="0 0 600 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path id="ecg-anim-path"
+          d="M0,40 L80,40 L90,40 L95,20 L100,60 L110,5 L120,75 L128,40 L200,40 L210,40 L215,22 L220,58 L228,8 L238,72 L244,40 L320,40 L330,40 L335,18 L340,62 L350,4 L360,76 L368,40 L440,40 L450,40 L455,20 L460,60 L470,5 L480,75 L488,40 L560,40 L600,40"
+          fill="none" stroke="#1D84C7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <path id="ecg-glow-path"
+          d="M0,40 L80,40 L90,40 L95,20 L100,60 L110,5 L120,75 L128,40 L200,40 L210,40 L215,22 L220,58 L228,8 L238,72 L244,40 L320,40 L330,40 L335,18 L340,62 L350,4 L360,76 L368,40 L440,40 L450,40 L455,20 L460,60 L470,5 L480,75 L488,40 L560,40 L600,40"
+          fill="none" stroke="#A6DAF1" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity="0.3"/>
+      </svg>
+      <div class="preloader-scanner"></div>
+    </div>
+    <div class="preloader-status">
+      <span class="preloader-dot"></span>
+      <span class="preloader-msg">Iniciando sistema de diagnóstico...</span>
+    </div>
+  </div>
+</div>
+
+<style>
+  #preloader {
+    position: fixed; inset: 0; z-index: 9999;
+    background: #0d1e2e;
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column;
+    transition: opacity 0.6s ease, visibility 0.6s ease;
+  }
+  #preloader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+
+  .preloader-inner {
+    display: flex; flex-direction: column; align-items: center; gap: 40px;
+    width: 90%; max-width: 560px;
+  }
+
+  .preloader-logo {
+    display: flex; align-items: center; gap: 16px;
+    animation: preloaderFadeIn 0.6s ease forwards;
+    opacity: 0;
+  }
+  .preloader-logo-icon {
+    width: 56px; height: 56px;
+    background: linear-gradient(135deg, #A6DAF1, #1D84C7);
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 28px;
+  }
+  .preloader-logo-text { display: flex; flex-direction: column; }
+  .preloader-cicar {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 32px; font-weight: 800; letter-spacing: 4px;
+    color: #A6DAF1; line-height: 1;
+  }
+  .preloader-sub {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px; font-weight: 500; letter-spacing: 4px;
+    color: rgba(166,218,241,0.5);
+    text-transform: uppercase; margin-top: 2px;
+  }
+
+  .preloader-ecg {
+    width: 100%; position: relative;
+    animation: preloaderFadeIn 0.6s 0.2s ease forwards;
+    opacity: 0;
+  }
+  .preloader-ecg svg {
+    width: 100%; height: 80px; display: block;
+    overflow: visible;
+  }
+
+  #ecg-anim-path {
+    stroke-dasharray: 1200;
+    stroke-dashoffset: 1200;
+    animation: drawECGLoader 1.8s ease-in-out forwards 0.4s;
+  }
+  #ecg-glow-path {
+    stroke-dasharray: 1200;
+    stroke-dashoffset: 1200;
+    animation: drawECGLoader 1.8s ease-in-out forwards 0.4s;
+  }
+  @keyframes drawECGLoader {
+    to { stroke-dashoffset: 0; }
+  }
+
+  /* scanning line that sweeps across */
+  .preloader-scanner {
+    position: absolute; top: 0; left: -4px;
+    width: 4px; height: 100%;
+    background: linear-gradient(to bottom, transparent, #1D84C7, #A6DAF1, #1D84C7, transparent);
+    border-radius: 2px;
+    animation: scanLine 1.8s ease-in-out forwards 0.4s;
+    opacity: 0;
+  }
+  @keyframes scanLine {
+    0%   { left: 0%; opacity: 1; }
+    100% { left: 100%; opacity: 0.3; }
+  }
+
+  .preloader-status {
+    display: flex; align-items: center; gap: 10px;
+    animation: preloaderFadeIn 0.6s 0.3s ease forwards;
+    opacity: 0;
+  }
+  .preloader-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: #4ade80;
+    animation: pulseGreen 1s ease-in-out infinite;
+  }
+  @keyframes pulseGreen {
+    0%,100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.7); }
+  }
+  .preloader-msg {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px; font-weight: 500; letter-spacing: 0.5px;
+    color: rgba(166,218,241,0.6);
+  }
+
+  @keyframes preloaderFadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Prevent scroll while preloader is active */
+  body.loading { overflow: hidden; }
+</style>
+
+<script>
+  document.body.classList.add('loading');
+  setTimeout(() => {
+    const preloader = document.getElementById('preloader');
+    preloader.classList.add('hidden');
+    document.body.classList.remove('loading');
+  }, 2400);
+</script>
+
 <!-- NAVIGATION -->
 <nav>
   <a href="#inicio" class="nav-logo">
@@ -683,24 +790,7 @@
       <a href="#turno" class="btn-primary">🗓 Sacar Turno</a>
       <a href="#servicios" class="btn-outline">Ver Servicios →</a>
     </div>
-    <div class="hero-stats">
-      <div class="hero-stat">
-        <div class="hero-stat-num">+15<span>K</span></div>
-        <div class="hero-stat-label">Pacientes atendidos</div>
-      </div>
-      <div class="hero-stat">
-        <div class="hero-stat-num">12<span>+</span></div>
-        <div class="hero-stat-label">Especialidades</div>
-      </div>
-      <div class="hero-stat">
-        <div class="hero-stat-num">98<span>%</span></div>
-        <div class="hero-stat-label">Satisfacción</div>
-      </div>
-      <div class="hero-stat">
-        <div class="hero-stat-num">24<span>h</span></div>
-        <div class="hero-stat-label">Urgencias</div>
-      </div>
-    </div>
+
   </div>
 
   <!-- Hero Visual Panel -->
@@ -790,63 +880,78 @@
   </div>
 
   <div class="specialty-pills">
-    <span class="specialty-pill active">Todas</span>
-    <span class="specialty-pill">Diagnóstico</span>
-    <span class="specialty-pill">Tratamiento</span>
-    <span class="specialty-pill">Prevención</span>
-    <span class="specialty-pill">Rehabilitación</span>
+    <span class="specialty-pill active" onclick="filterServices('todas', this)">Todas</span>
+    <span class="specialty-pill" onclick="filterServices('diagnostico', this)">Diagnóstico</span>
+    <span class="specialty-pill" onclick="filterServices('tratamiento', this)">Tratamiento</span>
+    <span class="specialty-pill" onclick="filterServices('prevencion', this)">Prevención</span>
+    <span class="specialty-pill" onclick="filterServices('rehabilitacion', this)">Rehabilitación</span>
   </div>
 
-  <div class="services-grid" style="margin-top: 36px;">
-    <div class="service-card featured">
+  <script>
+    function filterServices(filter, clickedPill) {
+      document.querySelectorAll('.specialty-pill').forEach(p => p.classList.remove('active'));
+      clickedPill.classList.add('active');
+      document.querySelectorAll('#services-grid .service-card').forEach(function(card) {
+        if (filter === 'todas') {
+          card.style.display = '';
+        } else {
+          var cats = card.getAttribute('data-category') || '';
+          card.style.display = cats.indexOf(filter) !== -1 ? '' : 'none';
+        }
+      });
+    }
+  </script>
+
+  <div class="services-grid" id="services-grid" style="margin-top: 36px;">
+    <div class="service-card featured" data-category="diagnostico tratamiento">
       <div class="service-icon">🫀</div>
       <div class="service-title">Cardiología Clínica</div>
       <div class="service-desc">Diagnóstico y tratamiento integral de enfermedades cardiovasculares. Consultas con especialistas certificados y seguimiento personalizado.</div>
       <a href="#" class="service-link">Ver más →</a>
     </div>
-    <div class="service-card">
+    <div class="service-card" data-category="diagnostico">
       <div class="service-icon">📡</div>
       <div class="service-title">Ecocardiografía</div>
       <div class="service-desc">Evaluación por ultrasonido de la estructura y función cardíaca. Ecocardiogramas 2D, 3D, Doppler y de estrés.</div>
       <a href="#" class="service-link">Ver más →</a>
     </div>
-    <div class="service-card">
+    <div class="service-card" data-category="diagnostico">
       <div class="service-icon">📈</div>
       <div class="service-title">Electrocardiografía</div>
       <div class="service-desc">ECG de reposo y Holter 24/48h. Monitoreo continuo del ritmo cardíaco para detectar arritmias y alteraciones.</div>
       <a href="#" class="service-link">Ver más →</a>
     </div>
-    <div class="service-card">
+    <div class="service-card" data-category="diagnostico">
       <div class="service-icon">🏃</div>
       <div class="service-title">Ergometría</div>
       <div class="service-desc">Prueba de esfuerzo controlada para evaluar la respuesta cardiovascular al ejercicio y detectar isquemia.</div>
       <a href="#" class="service-link">Ver más →</a>
     </div>
-    <div class="service-card">
+    <div class="service-card" data-category="prevencion tratamiento">
       <div class="service-icon">💊</div>
       <div class="service-title">Cese Tabáquico</div>
       <div class="service-desc">Programa integral de abandono del tabaco con soporte médico y seguimiento para reducir el riesgo cardiovascular.</div>
       <a href="#" class="service-link">Ver más →</a>
     </div>
-    <div class="service-card">
+    <div class="service-card" data-category="tratamiento">
       <div class="service-icon">🩸</div>
       <div class="service-title">Nefrología</div>
       <div class="service-desc">Atención de enfermedades renales con enfoque en su impacto cardiovascular. Manejo de hipertensión y enfermedad renal crónica.</div>
       <a href="#" class="service-link">Ver más →</a>
     </div>
-    <div class="service-card">
+    <div class="service-card" data-category="prevencion">
       <div class="service-icon">🍎</div>
       <div class="service-title">Nutrición Cardiovascular</div>
       <div class="service-desc">Plan nutricional personalizado para reducir factores de riesgo cardiovascular: colesterol, triglicéridos y presión arterial.</div>
       <a href="#" class="service-link">Ver más →</a>
     </div>
-    <div class="service-card">
+    <div class="service-card" data-category="prevencion tratamiento">
       <div class="service-icon">🧠</div>
       <div class="service-title">Salud Mental</div>
       <div class="service-desc">Abordaje del estrés, ansiedad y depresión como factores de riesgo cardiovascular. Atención psicológica integrada.</div>
       <a href="#" class="service-link">Ver más →</a>
     </div>
-    <div class="service-card">
+    <div class="service-card" data-category="rehabilitacion">
       <div class="service-icon">🔄</div>
       <div class="service-title">Rehabilitación Cardíaca</div>
       <div class="service-desc">Programa de recuperación post-evento cardiovascular con ejercicio supervisado, educación y apoyo psicológico.</div>
@@ -1095,49 +1200,6 @@
   </div>
 </section>
 
-<!-- TESTIMONIALS -->
-<section class="testimonials" id="testimonios">
-  <div class="testimonials-header">
-    <div class="section-tag">Testimonios</div>
-    <h2 class="section-title">Lo que dicen<br>nuestros <em>pacientes</em></h2>
-  </div>
-
-  <div class="testimonials-grid">
-    <div class="testimonial-card">
-      <div class="testimonial-stars">★★★★★</div>
-      <p class="testimonial-text">"El Dr. Ciancaglini me atendió con una calidad y calidez excepcionales. El diagnóstico fue rápido y preciso. Me siento en las mejores manos posibles."</p>
-      <div class="testimonial-author">
-        <div class="author-avatar">RG</div>
-        <div>
-          <div class="author-name">Roberto García</div>
-          <div class="author-meta">Paciente · Cardiología Clínica</div>
-        </div>
-      </div>
-    </div>
-    <div class="testimonial-card">
-      <div class="testimonial-stars">★★★★★</div>
-      <p class="testimonial-text">"Llevé a mi mamá con la Dra. Croissant y fue una experiencia increíble. Explicó todo con claridad, el ecocardiograma fue el mismo día. Muy recomendado."</p>
-      <div class="testimonial-author">
-        <div class="author-avatar">LP</div>
-        <div>
-          <div class="author-name">Laura Peralta</div>
-          <div class="author-meta">Familiar · Ecocardiografía</div>
-        </div>
-      </div>
-    </div>
-    <div class="testimonial-card">
-      <div class="testimonial-stars">★★★★★</div>
-      <p class="testimonial-text">"El programa de rehabilitación cardíaca me cambió la vida. Volví a hacer deportes después de mi infarto. El equipo es extraordinario en todos los aspectos."</p>
-      <div class="testimonial-author">
-        <div class="author-avatar">AM</div>
-        <div>
-          <div class="author-name">Alejandro Martínez</div>
-          <div class="author-meta">Paciente · Rehabilitación Cardíaca</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- NEWS / BLOG -->
 <section class="news-section" id="blog">
@@ -1215,7 +1277,7 @@
       <div class="info-card-content">
         <strong>Turnos:</strong> +54 11 4000-0000<br><br>
         <strong>WhatsApp:</strong> +54 11 4000-0000<br><br>
-        <strong>Email:</strong> turnos@cicarbarrionorte.com<br><br>
+        <strong>Email:</strong> <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="8bfffef9e5e4f8cbe8e2e8eaf9e9eaf9f9e2e4e5e4f9ffeea5e8e4e6">[email&#160;protected]</a><br><br>
         <strong>Web:</strong> cicarbarrionorte.com
       </div>
     </div>
@@ -1249,12 +1311,7 @@
         <span class="footer-logo-text">CICAR</span>
       </div>
       <p class="footer-desc">Centro Integral de Cardiología y Atención Especializada de Barrio Norte. Atención integral en prevención, diagnóstico y tratamiento de patologías cardiovasculares y comorbilidades.</p>
-      <div class="footer-social">
-        <a href="#" class="social-btn">📘</a>
-        <a href="#" class="social-btn">📸</a>
-        <a href="#" class="social-btn">💼</a>
-        <a href="#" class="social-btn">🐦</a>
-      </div>
+
     </div>
 
     <div class="footer-col">
@@ -1303,7 +1360,7 @@
   </div>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   // Smooth active nav
   const sections = document.querySelectorAll('section[id], div[id]');
   const navLinks = document.querySelectorAll('.nav-links a');
@@ -1323,13 +1380,7 @@
 
   sections.forEach(s => observer.observe(s));
 
-  // Specialty pills filter
-  document.querySelectorAll('.specialty-pill').forEach(pill => {
-    pill.addEventListener('click', () => {
-      document.querySelectorAll('.specialty-pill').forEach(p => p.classList.remove('active'));
-      pill.classList.add('active');
-    });
-  });
+
 
   // Nav scroll effect
   window.addEventListener('scroll', () => {
@@ -1348,12 +1399,3 @@
     const step = (timestamp) => {
       if (!start) start = timestamp;
       const progress = Math.min((timestamp - start) / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      el.textContent = Math.floor(eased * target).toLocaleString();
-      if (progress < 1) requestAnimationFrame(step);
-    };
-    requestAnimationFrame(step);
-  }
-</script>
-</body>
-</html>
