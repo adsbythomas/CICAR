@@ -797,127 +797,100 @@
   <div class="hero-visual">
     <div class="ecg-card">
       <div class="ecg-label"><span class="pulse-dot"></span>Monitor ECG en tiempo real</div>
-      <div class="ecg-line">
-        <canvas id="ecgCanvas" style="width:100%; height:60px; display:block;"></canvas>
+      <div class="ecg-line" style="background:#0a1a2a; border-radius:8px; padding:4px 0;">
+        <svg id="ecg-monitor" viewBox="0 0 500 60" preserveAspectRatio="none" style="width:100%;height:60px;display:block;">
+          <!-- grid -->
+          <line x1="0" y1="30" x2="500" y2="30" stroke="rgba(166,218,241,0.08)" stroke-width="1"/>
+          <line x1="125" y1="0" x2="125" y2="60" stroke="rgba(166,218,241,0.05)" stroke-width="1"/>
+          <line x1="250" y1="0" x2="250" y2="60" stroke="rgba(166,218,241,0.05)" stroke-width="1"/>
+          <line x1="375" y1="0" x2="375" y2="60" stroke="rgba(166,218,241,0.05)" stroke-width="1"/>
+          <!-- glow line -->
+          <polyline id="ecg-glow" points="" fill="none" stroke="rgba(166,218,241,0.2)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+          <!-- main line -->
+          <polyline id="ecg-line-main" points="" fill="none" stroke="#A6DAF1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <!-- tip dot -->
+          <circle id="ecg-tip" cx="0" cy="30" r="3" fill="white"/>
+        </svg>
       </div>
     </div>
 
     <script>
-      (function() {
-        var canvas = document.getElementById('ecgCanvas');
-        var ctx = canvas.getContext('2d');
+    (function(){
+      // One heartbeat shape: [x_fraction, y_fraction] y=0 is baseline, y=1 is top
+      var shape = [
+        [0,     0],
+        [0.13,  0],
+        [0.17, -0.08],
+        [0.20,  0.1],
+        [0.23, -0.45],
+        [0.27,  1],
+        [0.31, -0.5],
+        [0.37, -0.08],
+        [0.44, -0.08],
+        [0.50,  0.32],
+        [0.57,  0.35],
+        [0.64,  0],
+        [1,     0]
+      ];
 
-        // ECG waveform shape: one full heartbeat cycle (normalized 0–1 x, amplitude y)
-        var beat = [
-          [0,    0],
-          [0.15, 0],
-          [0.18, -0.05],
-          [0.21, 0.05],
-          [0.24, -0.3],   // Q
-          [0.27, 1],      // R peak
-          [0.30, -0.35],  // S
-          [0.36, -0.1],
-          [0.42, -0.1],
-          [0.48, 0.35],   // T wave start
-          [0.55, 0.38],   // T peak
-          [0.62, 0],
-          [1,    0]
-        ];
+      var W = 500, H = 60, MID = H / 2, AMP = MID * 0.85;
+      var totalPts = W;
+      var buf = new Array(totalPts).fill(MID); // y values ring buffer
+      var head = 0;
+      var beatLen = 110; // pixels per beat
+      var beatPos = 0;
 
-        var W, H, points = [], head = 0, speed = 2.5;
+      function getBeatY(pos) {
+        var t = (pos % beatLen) / beatLen;
+        for (var i = 0; i < shape.length - 1; i++) {
+          if (t >= shape[i][0] && t <= shape[i+1][0]) {
+            var frac = (t - shape[i][0]) / (shape[i+1][0] - shape[i][0]);
+            var y = shape[i][1] + frac * (shape[i+1][1] - shape[i][1]);
+            return MID - y * AMP;
+          }
+        }
+        return MID;
+      }
 
-        function resize() {
-          var rect = canvas.parentElement.getBoundingClientRect();
-          W = canvas.width  = rect.width  || 400;
-          H = canvas.height = 60;
-          points = new Array(W).fill(H / 2);
+      var lineEl  = document.getElementById('ecg-line-main');
+      var glowEl  = document.getElementById('ecg-glow');
+      var tipEl   = document.getElementById('ecg-tip');
+      var BLANK   = 22; // blank gap ahead of head
+
+      function frame() {
+        // advance 2 pixels per frame
+        for (var s = 0; s < 2; s++) {
+          buf[head] = getBeatY(beatPos);
+          // blank ahead
+          for (var b = 1; b <= BLANK; b++) {
+            buf[(head + b) % totalPts] = MID;
+          }
+          head = (head + 1) % totalPts;
+          beatPos++;
         }
 
-        // Build one beat's worth of y-values for `beatLen` pixels
-        function buildBeat(beatLen) {
-          var arr = [];
-          for (var i = 0; i < beatLen; i++) {
-            var t = i / beatLen;
-            // interpolate through beat shape
-            var y = 0;
-            for (var j = 0; j < beat.length - 1; j++) {
-              if (t >= beat[j][0] && t <= beat[j+1][0]) {
-                var frac = (t - beat[j][0]) / (beat[j+1][0] - beat[j][0]);
-                y = beat[j][1] + frac * (beat[j+1][1] - beat[j][1]);
-                break;
-              }
-            }
-            arr.push(H / 2 - y * (H * 0.42));
-          }
-          return arr;
+        // build points string starting from head (oldest) to head-1 (newest)
+        var pts = '';
+        var tipX = 0, tipY = MID;
+        for (var x = 0; x < totalPts; x++) {
+          var idx = (head + x) % totalPts;
+          var px = (x / totalPts) * W;
+          var py = buf[idx];
+          pts += px.toFixed(1) + ',' + py.toFixed(1) + ' ';
+          // tip is just before the blank gap
+          if (x === totalPts - BLANK - 2) { tipX = px; tipY = py; }
         }
 
-        var beatLen = 120;  // pixels per heartbeat
-        var beatPixels = buildBeat(beatLen);
-        var beatPos = 0;    // position within current beat cycle
+        lineEl.setAttribute('points', pts);
+        glowEl.setAttribute('points', pts);
+        tipEl.setAttribute('cx', tipX.toFixed(1));
+        tipEl.setAttribute('cy', tipY.toFixed(1));
 
-        function step() {
-          // Advance head by speed pixels
-          for (var s = 0; s < speed; s++) {
-            points[head] = beatPixels[beatPos % beatLen];
-            // Blank a small trail ahead of head to simulate moving line
-            for (var b = 1; b <= 18; b++) {
-              points[(head + b) % W] = H / 2;
-            }
-            head = (head + 1) % W;
-            beatPos++;
-          }
+        requestAnimationFrame(frame);
+      }
 
-          // Draw
-          ctx.clearRect(0, 0, W, H);
-
-          // Grid lines (subtle)
-          ctx.strokeStyle = 'rgba(166,218,241,0.07)';
-          ctx.lineWidth = 1;
-          for (var gx = 0; gx < W; gx += 40) {
-            ctx.beginPath(); ctx.moveTo(gx, 0); ctx.lineTo(gx, H); ctx.stroke();
-          }
-          ctx.beginPath(); ctx.moveTo(0, H/2); ctx.lineTo(W, H/2); ctx.stroke();
-
-          // Glow layer
-          ctx.beginPath();
-          ctx.strokeStyle = 'rgba(166,218,241,0.18)';
-          ctx.lineWidth = 5;
-          ctx.lineJoin = 'round';
-          ctx.lineCap  = 'round';
-          for (var x = 0; x < W; x++) {
-            var px = (head + x) % W;
-            if (x === 0) ctx.moveTo(x, points[px]);
-            else ctx.lineTo(x, points[px]);
-          }
-          ctx.stroke();
-
-          // Main line
-          ctx.beginPath();
-          ctx.strokeStyle = '#A6DAF1';
-          ctx.lineWidth = 2;
-          for (var x = 0; x < W; x++) {
-            var px = (head + x) % W;
-            if (x === 0) ctx.moveTo(x, points[px]);
-            else ctx.lineTo(x, points[px]);
-          }
-          ctx.stroke();
-
-          // Bright tip at head - 1
-          var tipX = W - 19;
-          var tipPx = (head + tipX) % W;
-          ctx.beginPath();
-          ctx.arc(tipX, points[tipPx], 3, 0, Math.PI * 2);
-          ctx.fillStyle = '#ffffff';
-          ctx.fill();
-
-          requestAnimationFrame(step);
-        }
-
-        resize();
-        window.addEventListener('resize', resize);
-        requestAnimationFrame(step);
-      })();
+      requestAnimationFrame(frame);
+    })();
     </script>
 
     <div class="ecg-card">
@@ -1466,7 +1439,7 @@
   </div>
 
   <div class="footer-bottom">
-    <p>© 2025 CICAR Barrio Norte. Todos los derechos reservados. Diseño por Teems Agency.</p>
+    <p>© 2025 CICAR Barrio Norte. Todos los derechos reservados.</p>
     <div class="footer-certifications">
       <span class="cert-badge">ISO 9001</span>
       <span class="cert-badge">FAC Certificado</span>
