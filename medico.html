@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CICAR — Panel Medico</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#172E44;--blue:#1D84C7;--light:#A6DAF1;--pale:#E8F4FB;--text:#172E44;--muted:#4a6275;--r:12px;--rl:20px}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Montserrat',sans-serif;background:#f0f6fb;color:var(--text);min-height:100vh}
+.topbar{background:var(--navy);padding:0 5%;height:64px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.tlogo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.tlogo-i{width:36px;height:36px;background:linear-gradient(135deg,var(--light),var(--blue));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px}
+.tlogo-t{font-size:16px;font-weight:800;letter-spacing:2px;color:var(--light)}
+.tbadge{background:rgba(29,132,199,0.3);color:var(--light);font-size:11px;font-weight:700;padding:4px 10px;border-radius:100px;letter-spacing:1px}
+.tright{display:flex;align-items:center;gap:12px}
+.tuser{font-size:13px;color:rgba(255,255,255,0.6)}
+.tuser strong{color:white}
+.btn-out{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.7);font-size:12px;font-weight:600;padding:7px 16px;border-radius:8px;cursor:pointer;font-family:'Montserrat',sans-serif}
+.auth-screen{min-height:100vh;background:linear-gradient(160deg,var(--navy) 0%,#1a3a54 50%,#1D84C7 100%);display:flex;align-items:center;justify-content:center;padding:20px}
+.auth-card{background:white;border-radius:var(--rl);padding:48px 40px;width:100%;max-width:420px;box-shadow:0 32px 80px rgba(0,0,0,0.2)}
+.auth-logo{text-align:center;margin-bottom:32px}
+.auth-logo-i{width:64px;height:64px;background:linear-gradient(135deg,var(--light),var(--blue));border-radius:16px;display:inline-flex;align-items:center;justify-content:center;font-size:32px;margin-bottom:12px}
+.auth-logo h1{font-size:22px;font-weight:800;letter-spacing:2px;color:var(--navy)}
+.auth-logo p{font-size:12px;color:var(--muted);margin-top:4px}
+.med-selector{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
+.med-btn{border:2px solid #e8f0f5;border-radius:var(--r);padding:16px;cursor:pointer;text-align:center;background:white;font-family:'Montserrat',sans-serif;transition:all 0.2s}
+.med-btn:hover,.med-btn.selected{border-color:var(--blue);background:var(--pale)}
+.med-btn-name{font-size:13px;font-weight:700;color:var(--navy)}
+.med-btn-esp{font-size:11px;color:var(--muted);margin-top:2px}
+.fg{margin-bottom:16px}
+.fl{font-size:12px;font-weight:600;color:var(--muted);display:block;margin-bottom:6px}
+.fi{width:100%;padding:12px 16px;border:1.5px solid #e2eaf0;border-radius:10px;font-size:14px;font-family:'Montserrat',sans-serif;color:var(--text);outline:none;background:white}
+.fi:focus{border-color:var(--blue)}
+.btn-p{width:100%;padding:14px;background:var(--blue);color:white;border:none;border-radius:10px;font-size:15px;font-weight:700;font-family:'Montserrat',sans-serif;cursor:pointer;margin-top:8px}
+.aerr{background:#fef2f2;border:1px solid #fecaca;color:#dc2626;font-size:13px;padding:10px 14px;border-radius:8px;margin-bottom:16px;display:none}
+.portal{display:none}
+.portal.active{display:block}
+.playout{display:grid;grid-template-columns:260px 1fr;min-height:calc(100vh - 64px)}
+.sidebar{background:white;border-right:1px solid #e8f0f5;padding:32px 0}
+.sp{padding:0 24px 28px;border-bottom:1px solid #e8f0f5;margin-bottom:20px}
+.savatar{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#A6DAF1,#1D84C7);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;color:white;margin-bottom:12px}
+.sname{font-size:15px;font-weight:700;color:var(--navy)}
+.srole{font-size:11px;color:var(--blue);margin-top:2px;font-weight:600;text-transform:uppercase}
+.sesp{font-size:12px;color:var(--muted);margin-top:2px}
+.snav{list-style:none}
+.snav li a{display:flex;align-items:center;gap:12px;padding:12px 24px;font-size:14px;font-weight:500;color:var(--muted);text-decoration:none;border-left:3px solid transparent}
+.snav li a:hover{background:var(--pale);color:var(--navy)}
+.snav li a.active{background:var(--pale);color:var(--blue);font-weight:700;border-left-color:var(--blue)}
+.ni{font-size:18px;width:24px;text-align:center}
+.main{padding:36px 40px;background:#f0f6fb}
+.page{display:none}
+.page.active{display:block}
+.ptitle{font-size:22px;font-weight:800;color:var(--navy);margin-bottom:6px}
+.psub{font-size:14px;color:var(--muted);margin-bottom:32px}
+.sgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;margin-bottom:32px}
+.sc{background:white;border-radius:var(--r);padding:24px;border:1px solid #e8f0f5}
+.si{font-size:28px;margin-bottom:10px}
+.sv{font-size:26px;font-weight:800;color:var(--navy)}
+.sl{font-size:12px;color:var(--muted);margin-top:2px}
+.card{background:white;border-radius:var(--rl);padding:28px;border:1px solid #e8f0f5;margin-bottom:20px}
+.ctitle{font-size:16px;font-weight:700;color:var(--navy);margin-bottom:20px}
+.ftabs{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap}
+.ftab{padding:8px 18px;border-radius:100px;font-size:13px;font-weight:600;cursor:pointer;border:1.5px solid #e8f0f5;background:white;color:var(--muted);font-family:'Montserrat',sans-serif}
+.ftab.active{background:var(--blue);color:white;border-color:var(--blue)}
+.turno-row{display:grid;grid-template-columns:60px 1fr 120px 80px 80px;gap:16px;align-items:center;padding:16px;border-radius:var(--r);border:1px solid #e8f0f5;margin-bottom:10px;background:white}
+.turno-row.today{border-color:var(--blue);background:#f0f9ff}
+.tr-dia{font-size:20px;font-weight:800;color:var(--blue);line-height:1;text-align:center}
+.tr-mes{font-size:10px;font-weight:600;color:var(--muted);text-transform:uppercase;text-align:center}
+.tr-pac{font-size:14px;font-weight:700;color:var(--navy)}
+.tr-os{font-size:12px;color:var(--muted);margin-top:2px}
+.tr-hora{font-size:14px;font-weight:700;color:var(--navy);text-align:center}
+.badge{display:inline-flex;align-items:center;padding:5px 12px;border-radius:100px;font-size:11px;font-weight:700}
+.bg{background:#dcfce7;color:#16a34a}
+.bb{background:var(--pale);color:var(--blue)}
+.btn-sm{padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;border:none;font-family:'Montserrat',sans-serif;background:var(--pale);color:var(--blue)}
+.search-bar{margin-bottom:20px}
+.search-input{width:100%;padding:10px 16px;border:1.5px solid #e2eaf0;border-radius:10px;font-size:14px;font-family:'Montserrat',sans-serif;outline:none}
+.search-input:focus{border-color:var(--blue)}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:1000;display:none;align-items:center;justify-content:center;padding:20px}
+.modal-overlay.active{display:flex}
+.modal{background:white;border-radius:var(--rl);padding:36px;width:100%;max-width:560px;max-height:90vh;overflow-y:auto}
+.modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}
+.modal-title{font-size:18px;font-weight:800;color:var(--navy)}
+.modal-close{background:none;border:none;font-size:24px;cursor:pointer;color:var(--muted)}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.info-label{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
+.info-val{font-size:14px;font-weight:600;color:var(--navy)}
+.divider{border:none;border-top:1px solid #e8f0f5;margin:20px 0}
+.th{padding:12px;border-radius:var(--r);background:var(--pale);margin-bottom:8px}
+.th-fecha{font-size:13px;font-weight:700;color:var(--navy)}
+.th-esp{font-size:12px;color:var(--muted)}
+.empty{text-align:center;padding:48px 20px;color:var(--muted)}
+.empty-i{font-size:48px;margin-bottom:12px}
+.loading{display:flex;align-items:center;justify-content:center;padding:48px}
+.spin{width:32px;height:32px;border:3px solid var(--pale);border-top-color:var(--blue);border-radius:50%;animation:spin 0.8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+
+<div id="authScreen" class="auth-screen">
+  <div class="auth-card">
+    <div class="auth-logo">
+      <div class="auth-logo-i">🩺</div>
+      <h1>CICAR</h1>
+      <p>Panel Medico — Barrio Norte</p>
+    </div>
+    <div id="aerr" class="aerr"></div>
+    <p style="font-size:13px;font-weight:600;color:var(--muted);margin-bottom:12px">Selecciona tu perfil:</p>
+    <div class="med-selector" id="medSelector"></div>
+    <div class="fg">
+      <label class="fl">Contrasena</label>
+      <input type="password" id="lPass" class="fi" placeholder="Contrasena del centro">
+    </div>
+    <button class="btn-p" id="btnLogin">Ingresar al panel</button>
+    <p style="text-align:center;margin-top:16px;font-size:12px;color:var(--muted)">
+      Sos paciente? <a href="portal.html" style="color:var(--blue);font-weight:600">Ir al portal</a>
+    </p>
+  </div>
+</div>
+
+<div id="portal" class="portal">
+  <div class="topbar">
+    <div style="display:flex;align-items:center;gap:12px">
+      <a href="index.html" class="tlogo"><div class="tlogo-i">🫀</div><span class="tlogo-t">CICAR</span></a>
+      <span class="tbadge">PANEL MEDICO</span>
+    </div>
+    <div class="tright">
+      <span class="tuser">Dr/a. <strong id="tname">-</strong></span>
+      <button class="btn-out" id="btnOut">Cerrar sesion</button>
+    </div>
+  </div>
+  <div class="playout">
+    <aside class="sidebar">
+      <div class="sp">
+        <div class="savatar" id="savatar">-</div>
+        <div class="sname" id="sname">-</div>
+        <div class="srole">Medico</div>
+        <div class="sesp" id="sesp">-</div>
+      </div>
+      <ul class="snav">
+        <li><a href="#" class="active" id="nav-hoy"><span class="ni">📅</span> Turnos de hoy</a></li>
+        <li><a href="#" id="nav-proximos"><span class="ni">🗓</span> Proximos turnos</a></li>
+        <li><a href="#" id="nav-pacientes"><span class="ni">👥</span> Mis pacientes</a></li>
+        <li><a href="#" id="nav-historial"><span class="ni">📋</span> Historial completo</a></li>
+      </ul>
+    </aside>
+    <main class="main">
+      <div id="page-hoy" class="page active">
+        <div class="ptitle">Turnos de hoy</div>
+        <div class="psub" id="subHoy">Cargando...</div>
+        <div class="sgrid">
+          <div class="sc"><div class="si">📅</div><div class="sv" id="stHoy">-</div><div class="sl">Turnos hoy</div></div>
+          <div class="sc"><div class="si">⏳</div><div class="sv" id="stPend">-</div><div class="sl">Pendientes</div></div>
+          <div class="sc"><div class="si">👥</div><div class="sv" id="stTotal">-</div><div class="sl">Total pacientes</div></div>
+          <div class="sc"><div class="si">📆</div><div class="sv" id="stSemana">-</div><div class="sl">Esta semana</div></div>
+        </div>
+        <div class="card">
+          <div class="ctitle">Agenda de hoy</div>
+          <div id="listHoy"><div class="loading"><div class="spin"></div></div></div>
+        </div>
+      </div>
+      <div id="page-proximos" class="page">
+        <div class="ptitle">Proximos turnos</div>
+        <div class="psub">Todos tus turnos confirmados.</div>
+        <div class="card">
+          <div class="ftabs">
+            <button class="ftab active" data-days="7">Proximos 7 dias</button>
+            <button class="ftab" data-days="30">Proximos 30 dias</button>
+            <button class="ftab" data-days="0">Todos</button>
+          </div>
+          <div id="listProximos"><div class="loading"><div class="spin"></div></div></div>
+        </div>
+      </div>
+      <div id="page-pacientes" class="page">
+        <div class="ptitle">Mis pacientes</div>
+        <div class="psub">Todos los pacientes que tuvieron turno con vos.</div>
+        <div class="card">
+          <div class="search-bar">
+            <input type="text" id="searchPac" class="search-input" placeholder="Buscar por nombre o DNI...">
+          </div>
+          <div id="listPacientes"><div class="loading"><div class="spin"></div></div></div>
+        </div>
+      </div>
+      <div id="page-historial" class="page">
+        <div class="ptitle">Historial completo</div>
+        <div class="psub">Todos los turnos registrados.</div>
+        <div class="card">
+          <div id="listHistorial"><div class="loading"><div class="spin"></div></div></div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Ficha del paciente</div>
+      <button class="modal-close" id="btnCloseModal">x</button>
+    </div>
+    <div id="modalContent"></div>
+  </div>
+</div>
+
+<script src="https://unpkg.com/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script>
+var SURL = 'https://fuvlddjukosqqwjpjwif.supabase.co';
+var SKEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ1dmxkZGp1a29zcXF3anBqd2lmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU4MjU5NDQsImV4cCI6MjA5MTQwMTk0NH0.90Rp7V91wcmeV6Psotks59TVn4UQjEuJMt_bj79BkfU';
+var PASS = 'cicar2025';
+var MEDICOS = [
+  {id:'m1',nombre:'Yanina Croissant',esp:'Cardiologia Clinica',emoji:'👩‍⚕️'},
+  {id:'m2',nombre:'Belen Barbosa',esp:'Arritmias y Electrofisiologia',emoji:'👩‍⚕️'},
+  {id:'m3',nombre:'Nicolas Ciancaglini',esp:'Cardiologia Intervencionista',emoji:'👨‍⚕️'},
+  {id:'m4',nombre:'Martin Pereyra',esp:'Nefrologia',emoji:'👨‍⚕️'}
+];
+var sb, medico, allTurnos=[], allPacs=[];
+
+document.addEventListener('DOMContentLoaded', function() {
+  sb = window.supabase.createClient(SURL, SKEY);
+
+  document.getElementById('medSelector').innerHTML = MEDICOS.map(function(m){
+    return '<button class="med-btn" data-id="'+m.id+'"><div style="font-size:28px;margin-bottom:6px">'+m.emoji+'</div><div class="med-btn-name">'+m.nombre.split(' ')[0]+'</div><div class="med-btn-esp">'+m.esp+'</div></button>';
+  }).join('');
+
+  document.querySelectorAll('.med-btn').forEach(function(b){
+    b.addEventListener('click', function(){
+      document.querySelectorAll('.med-btn').forEach(function(x){ x.classList.remove('selected'); });
+      b.classList.add('selected');
+      medico = MEDICOS.find(function(m){ return m.id===b.dataset.id; });
+    });
+  });
+
+  document.getElementById('btnLogin').addEventListener('click', function(){
+    if (!medico){ showErr('Selecciona tu perfil.'); return; }
+    if (document.getElementById('lPass').value !== PASS){ showErr('Contrasena incorrecta.'); return; }
+    loadPortal();
+  });
+
+  document.getElementById('btnOut').addEventListener('click', function(){
+    document.getElementById('authScreen').style.display='flex';
+    document.getElementById('portal').classList.remove('active');
+  });
+
+  document.getElementById('btnCloseModal').addEventListener('click', function(){
+    document.getElementById('modalOverlay').classList.remove('active');
+  });
+
+  document.getElementById('nav-hoy').addEventListener('click', function(e){ e.preventDefault(); showPage('hoy',this); });
+  document.getElementById('nav-proximos').addEventListener('click', function(e){ e.preventDefault(); showPage('proximos',this); renderProximos(7); });
+  document.getElementById('nav-pacientes').addEventListener('click', function(e){ e.preventDefault(); showPage('pacientes',this); renderPacientes(allPacs); });
+  document.getElementById('nav-historial').addEventListener('click', function(e){ e.preventDefault(); showPage('historial',this); renderTurnos('listHistorial', allTurnos); });
+
+  document.querySelectorAll('.ftab').forEach(function(t){
+    t.addEventListener('click', function(){
+      document.querySelectorAll('.ftab').forEach(function(x){ x.classList.remove('active'); });
+      t.classList.add('active');
+      renderProximos(parseInt(t.dataset.days));
+    });
+  });
+
+  document.getElementById('searchPac').addEventListener('input', function(){
+    var q = this.value.toLowerCase();
+    if (!q){ renderPacientes(allPacs); return; }
+    renderPacientes(allPacs.filter(function(p){
+      return ((p.nombre||'')+(p.apellido||'')).toLowerCase().includes(q) || (p.dni||'').includes(q);
+    }));
+  });
+});
+
+function showErr(m){ var e=document.getElementById('aerr'); e.textContent=m; e.style.display='block'; }
+
+async function loadPortal() {
+  document.getElementById('tname').textContent = medico.nombre;
+  document.getElementById('sname').textContent = 'Dr/a. '+medico.nombre;
+  document.getElementById('sesp').textContent = medico.esp;
+  document.getElementById('savatar').textContent = medico.nombre.charAt(0);
+  document.getElementById('authScreen').style.display='none';
+  document.getElementById('portal').classList.add('active');
+
+  var r = await sb.from('turnos').select('*').ilike('medico_nombre','%'+medico.nombre.split(' ')[1]+'%').order('fecha').order('hora');
+  allTurnos = r.data || [];
+
+  var pacIds = [...new Set(allTurnos.map(function(t){ return t.paciente_id; }))];
+  if (pacIds.length) {
+    var rp = await sb.from('profiles').select('*').in('id', pacIds);
+    allPacs = rp.data || [];
+  }
+
+  loadHoy();
+}
+
+function getPaciente(id) {
+  return allPacs.find(function(p){ return p.id===id; });
+}
+
+function loadHoy() {
+  var hoy = new Date().toISOString().split('T')[0];
+  var hoyT = allTurnos.filter(function(t){ return t.fecha===hoy; });
+  var semFin = new Date(); semFin.setDate(semFin.getDate()+7);
+  var sem = allTurnos.filter(function(t){ return t.fecha>=hoy && t.fecha<=semFin.toISOString().split('T')[0]; });
+  document.getElementById('stHoy').textContent = hoyT.length;
+  document.getElementById('stPend').textContent = hoyT.filter(function(t){ return t.estado==='confirmado'; }).length;
+  document.getElementById('stTotal').textContent = [...new Set(allTurnos.map(function(t){ return t.paciente_id; }))].length;
+  document.getElementById('stSemana').textContent = sem.length;
+  var f = new Date().toLocaleDateString('es-AR',{weekday:'long',day:'numeric',month:'long'});
+  document.getElementById('subHoy').textContent = f.charAt(0).toUpperCase()+f.slice(1);
+  renderTurnos('listHoy', hoyT);
+}
+
+function renderProximos(days) {
+  var hoy = new Date().toISOString().split('T')[0];
+  var list = allTurnos.filter(function(t){
+    if (days===0) return true;
+    var fin = new Date(); fin.setDate(fin.getDate()+days);
+    return t.fecha>=hoy && t.fecha<=fin.toISOString().split('T')[0];
+  });
+  renderTurnos('listProximos', list);
+}
+
+function renderTurnos(id, list) {
+  var el = document.getElementById(id);
+  if (!list.length){ el.innerHTML='<div class="empty"><div class="empty-i">📅</div><div>No hay turnos.</div></div>'; return; }
+  var hoy = new Date().toISOString().split('T')[0];
+  el.innerHTML = list.map(function(t){
+    var f = new Date(t.fecha+'T12:00:00');
+    var dia = f.getDate(), mes = f.toLocaleString('es',{month:'short'}).toUpperCase();
+    var p = getPaciente(t.paciente_id);
+    var nom = p ? (p.nombre+' '+p.apellido) : 'Sin perfil';
+    var os = p?.obra_social || t.obra_social || '-';
+    var isHoy = t.fecha===hoy;
+    return '<div class="turno-row'+(isHoy?' today':'')+'">'+
+      '<div><div class="tr-dia">'+dia+'</div><div class="tr-mes">'+mes+'</div></div>'+
+      '<div><div class="tr-pac">'+nom+'</div><div class="tr-os">'+os+'</div></div>'+
+      '<div class="tr-hora">'+t.hora.slice(0,5)+'h</div>'+
+      '<span class="badge '+(isHoy?'bb':'bg')+'">'+(isHoy?'HOY':'OK')+'</span>'+
+      '<button class="btn-sm" data-pid="'+t.paciente_id+'">Ver ficha</button>'+
+      '</div>';
+  }).join('');
+  el.querySelectorAll('.btn-sm').forEach(function(b){
+    b.addEventListener('click', function(){ showPaciente(b.dataset.pid); });
+  });
+}
+
+function renderPacientes(list) {
+  var el = document.getElementById('listPacientes');
+  if (!list.length){ el.innerHTML='<div class="empty"><div class="empty-i">👥</div><div>No hay pacientes.</div></div>'; return; }
+  el.innerHTML = list.map(function(p){
+    var nom = (p.nombre||'')+' '+(p.apellido||'');
+    var turnos = allTurnos.filter(function(t){ return t.paciente_id===p.id; });
+    return '<div class="turno-row" style="grid-template-columns:48px 1fr 100px 80px;cursor:pointer">'+
+      '<div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--light),var(--blue));display:flex;align-items:center;justify-content:center;font-weight:700;color:white">'+nom.charAt(0)+'</div>'+
+      '<div><div class="tr-pac">'+nom+'</div><div class="tr-os">DNI: '+(p.dni||'-')+' · '+(p.obra_social||'-')+'</div></div>'+
+      '<div style="font-size:13px;color:var(--muted)">'+turnos.length+' turno'+(turnos.length!==1?'s':'')+'</div>'+
+      '<button class="btn-sm" data-pid="'+p.id+'">Ver ficha</button>'+
+      '</div>';
+  }).join('');
+  el.querySelectorAll('.btn-sm').forEach(function(b){
+    b.addEventListener('click', function(){ showPaciente(b.dataset.pid); });
+  });
+}
+
+async function showPaciente(pid) {
+  var modal = document.getElementById('modalOverlay');
+  var content = document.getElementById('modalContent');
+  content.innerHTML = '<div class="loading"><div class="spin"></div></div>';
+  modal.classList.add('active');
+  var p = getPaciente(pid);
+  var rt = await sb.from('turnos').select('*').eq('paciente_id',pid).order('fecha',{ascending:false});
+  var turnos = rt.data || [];
+  if (!p){ content.innerHTML='<div class="empty"><div class="empty-i">⚠️</div><div>Paciente sin perfil completo.</div></div>'; return; }
+  content.innerHTML =
+    '<div class="info-grid">'+
+      '<div><div class="info-label">Nombre</div><div class="info-val">'+(p.nombre||'-')+' '+(p.apellido||'')+'</div></div>'+
+      '<div><div class="info-label">DNI</div><div class="info-val">'+(p.dni||'-')+'</div></div>'+
+      '<div><div class="info-label">Telefono</div><div class="info-val">'+(p.telefono||'-')+'</div></div>'+
+      '<div><div class="info-label">Obra Social</div><div class="info-val">'+(p.obra_social||'-')+'</div></div>'+
+      '<div><div class="info-label">N Afiliado</div><div class="info-val">'+(p.numero_afiliado||'-')+'</div></div>'+
+      '<div><div class="info-label">Total turnos</div><div class="info-val">'+turnos.length+'</div></div>'+
+    '</div>'+
+    '<hr class="divider">'+
+    '<div style="font-size:14px;font-weight:700;color:var(--navy);margin-bottom:12px">Ultimos turnos</div>'+
+    (turnos.slice(0,5).map(function(t){
+      var f = new Date(t.fecha+'T12:00:00');
+      return '<div class="th"><div class="th-fecha">'+f.toLocaleDateString('es-AR',{weekday:'short',day:'numeric',month:'long',year:'numeric'})+' - '+t.hora.slice(0,5)+'h</div><div class="th-esp">'+t.especialidad+'</div></div>';
+    }).join('') || '<div style="color:var(--muted);font-size:13px">Sin turnos</div>');
+}
+
+function showPage(id, el) {
+  document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('active'); });
+  document.getElementById('page-'+id).classList.add('active');
+  document.querySelectorAll('.snav a').forEach(function(a){ a.classList.remove('active'); });
+  if (el) el.classList.add('active');
+}
+</script>
+</body>
+</html>
