@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CICAR — Portal del Paciente</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://unpkg.com/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 <style>
   :root {
     --navy: #172E44;
@@ -557,8 +557,7 @@
 // ══ SUPABASE ══
 const SUPA_URL  = 'https://fuvlddjukosqqwjpjwif.supabase.co';
 const SUPA_KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ1dmxkZGp1a29zcXF3anBqd2lmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU4MjU5NDQsImV4cCI6MjA5MTQwMTk0NH0.90Rp7V91wcmeV6Psotks59TVn4UQjEuJMt_bj79BkfU';
-const { createClient } = supabase;
-const sb = createClient(SUPA_URL, SUPA_KEY);
+const sb = window.supabase.createClient(SUPA_URL, SUPA_KEY);
 
 // ══ MÉDICOS HARDCODED (después se pueden cargar de DB) ══
 const MEDICOS = [
