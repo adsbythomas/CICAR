@@ -5,897 +5,580 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CICAR — Portal del Paciente</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-<script src="https://unpkg.com/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 <style>
-  :root {
-    --navy: #172E44;
-    --blue: #1D84C7;
-    --mid: #53A1C6;
-    --light: #A6DAF1;
-    --pale: #E8F4FB;
-    --white: #ffffff;
-    --text: #172E44;
-    --muted: #4a6275;
-    --radius: 12px;
-    --radius-lg: 20px;
-    --success: #4ade80;
-    --error: #f87171;
-  }
-  * { margin:0; padding:0; box-sizing:border-box; }
-  body { font-family:'Montserrat',sans-serif; background:#f0f6fb; color:var(--text); min-height:100vh; }
-
-  /* ── TOPBAR ── */
-  .topbar {
-    background: var(--navy);
-    padding: 0 5%;
-    height: 64px;
-    display: flex; align-items: center; justify-content: space-between;
-    position: sticky; top:0; z-index:100;
-  }
-  .topbar-logo { display:flex; align-items:center; gap:10px; text-decoration:none; }
-  .topbar-logo-icon { width:36px; height:36px; background:linear-gradient(135deg,var(--light),var(--blue)); border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:18px; }
-  .topbar-logo-text { font-size:16px; font-weight:800; letter-spacing:2px; color:var(--light); }
-  .topbar-right { display:flex; align-items:center; gap:12px; }
-  .topbar-user { font-size:13px; color:rgba(255,255,255,0.6); }
-  .topbar-user strong { color:white; }
-  .btn-logout { background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15); color:rgba(255,255,255,0.7); font-size:12px; font-weight:600; padding:7px 16px; border-radius:8px; cursor:pointer; font-family:'Montserrat',sans-serif; transition:all 0.2s; }
-  .btn-logout:hover { background:rgba(255,255,255,0.15); color:white; }
-
-  /* ── AUTH SCREEN ── */
-  .auth-screen {
-    min-height:100vh;
-    background: linear-gradient(160deg, var(--navy) 0%, #1a3a54 50%, #1D84C7 100%);
-    display:flex; align-items:center; justify-content:center;
-    padding:20px;
-  }
-  .auth-card {
-    background:white;
-    border-radius:var(--radius-lg);
-    padding:48px 40px;
-    width:100%; max-width:440px;
-    box-shadow: 0 32px 80px rgba(0,0,0,0.2);
-  }
-  .auth-logo { text-align:center; margin-bottom:32px; }
-  .auth-logo-icon { width:64px; height:64px; background:linear-gradient(135deg,var(--light),var(--blue)); border-radius:16px; display:inline-flex; align-items:center; justify-content:center; font-size:32px; margin-bottom:12px; }
-  .auth-logo h1 { font-size:22px; font-weight:800; letter-spacing:2px; color:var(--navy); }
-  .auth-logo p { font-size:12px; color:var(--muted); margin-top:4px; }
-
-  .auth-tabs { display:flex; gap:0; margin-bottom:28px; border-radius:10px; overflow:hidden; border:1.5px solid var(--pale); }
-  .auth-tab { flex:1; padding:11px; text-align:center; font-size:13px; font-weight:600; cursor:pointer; background:var(--pale); color:var(--muted); transition:all 0.2s; border:none; font-family:'Montserrat',sans-serif; }
-  .auth-tab.active { background:var(--blue); color:white; }
-
-  .form-group { margin-bottom:16px; }
-  .form-label { font-size:12px; font-weight:600; color:var(--muted); display:block; margin-bottom:6px; letter-spacing:0.5px; }
-  .form-input {
-    width:100%; padding:12px 16px;
-    border:1.5px solid #e2eaf0;
-    border-radius:10px;
-    font-size:14px; font-family:'Montserrat',sans-serif; color:var(--text);
-    transition:all 0.2s; outline:none; background:white;
-  }
-  .form-input:focus { border-color:var(--blue); box-shadow:0 0 0 3px rgba(29,132,199,0.1); }
-  .form-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
-  .form-select { appearance:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%234a6275' stroke-width='1.5' fill='none'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 14px center; }
-
-  .btn-primary {
-    width:100%; padding:14px;
-    background:var(--blue); color:white;
-    border:none; border-radius:10px;
-    font-size:15px; font-weight:700; font-family:'Montserrat',sans-serif;
-    cursor:pointer; transition:all 0.2s; margin-top:8px;
-  }
-  .btn-primary:hover { background:#1672ad; transform:translateY(-1px); }
-  .btn-primary:disabled { opacity:0.6; cursor:not-allowed; transform:none; }
-
-  .auth-error { background:#fef2f2; border:1px solid #fecaca; color:#dc2626; font-size:13px; padding:10px 14px; border-radius:8px; margin-bottom:16px; display:none; }
-  .auth-success { background:#f0fdf4; border:1px solid #bbf7d0; color:#16a34a; font-size:13px; padding:10px 14px; border-radius:8px; margin-bottom:16px; display:none; }
-
-  /* ── PORTAL LAYOUT ── */
-  .portal { display:none; }
-  .portal.active { display:block; }
-  .portal-layout { display:grid; grid-template-columns:260px 1fr; min-height:calc(100vh - 64px); }
-
-  /* ── SIDEBAR ── */
-  .sidebar {
-    background:white;
-    border-right:1px solid #e8f0f5;
-    padding:32px 0;
-  }
-  .sidebar-profile { padding:0 24px 28px; border-bottom:1px solid #e8f0f5; margin-bottom:20px; }
-  .profile-avatar {
-    width:56px; height:56px; border-radius:50%;
-    background:linear-gradient(135deg,var(--light),var(--blue));
-    display:flex; align-items:center; justify-content:center;
-    font-size:20px; font-weight:700; color:white;
-    margin-bottom:12px;
-  }
-  .profile-name { font-size:15px; font-weight:700; color:var(--navy); }
-  .profile-role { font-size:11px; color:var(--muted); margin-top:2px; letter-spacing:0.5px; text-transform:uppercase; }
-
-  .sidebar-nav { list-style:none; }
-  .sidebar-nav li a {
-    display:flex; align-items:center; gap:12px;
-    padding:12px 24px;
-    font-size:14px; font-weight:500; color:var(--muted);
-    text-decoration:none; transition:all 0.2s;
-    border-left:3px solid transparent;
-  }
-  .sidebar-nav li a:hover { background:var(--pale); color:var(--navy); }
-  .sidebar-nav li a.active { background:var(--pale); color:var(--blue); font-weight:700; border-left-color:var(--blue); }
-  .nav-icon { font-size:18px; width:24px; text-align:center; }
-
-  /* ── MAIN CONTENT ── */
-  .main { padding:36px 40px; background:#f0f6fb; }
-  .page { display:none; }
-  .page.active { display:block; }
-
-  .page-title { font-size:22px; font-weight:800; color:var(--navy); margin-bottom:6px; }
-  .page-sub { font-size:14px; color:var(--muted); margin-bottom:32px; }
-
-  /* ── CARDS ── */
-  .stats-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:16px; margin-bottom:32px; }
-  .stat-card { background:white; border-radius:var(--radius); padding:24px; border:1px solid #e8f0f5; }
-  .stat-icon { font-size:28px; margin-bottom:10px; }
-  .stat-val { font-size:26px; font-weight:800; color:var(--navy); }
-  .stat-label { font-size:12px; color:var(--muted); margin-top:2px; }
-
-  .card { background:white; border-radius:var(--radius-lg); padding:28px; border:1px solid #e8f0f5; margin-bottom:20px; }
-  .card-title { font-size:16px; font-weight:700; color:var(--navy); margin-bottom:20px; display:flex; align-items:center; gap:8px; }
-
-  /* ── TURNOS ── */
-  .turno-item { display:flex; align-items:center; gap:16px; padding:16px 0; border-bottom:1px solid #f0f6fb; }
-  .turno-item:last-child { border-bottom:none; }
-  .turno-fecha { width:52px; height:52px; background:var(--pale); border-radius:12px; display:flex; flex-direction:column; align-items:center; justify-content:center; }
-  .turno-dia { font-size:18px; font-weight:800; color:var(--blue); line-height:1; }
-  .turno-mes { font-size:10px; font-weight:600; color:var(--muted); text-transform:uppercase; }
-  .turno-info { flex:1; }
-  .turno-medico { font-size:14px; font-weight:700; color:var(--navy); }
-  .turno-especialidad { font-size:12px; color:var(--muted); margin-top:2px; }
-  .turno-hora { font-size:13px; font-weight:600; color:var(--blue); }
-  .badge { display:inline-flex; align-items:center; padding:4px 10px; border-radius:100px; font-size:11px; font-weight:600; }
-  .badge-green { background:#dcfce7; color:#16a34a; }
-  .badge-blue { background:var(--pale); color:var(--blue); }
-  .badge-red { background:#fef2f2; color:#dc2626; }
-
-  /* ── BOOKING WIZARD ── */
-  .wizard-steps { display:flex; gap:0; margin-bottom:32px; }
-  .wizard-step { flex:1; text-align:center; position:relative; }
-  .wizard-step::after { content:''; position:absolute; top:16px; left:50%; width:100%; height:2px; background:#e8f0f5; z-index:0; }
-  .wizard-step:last-child::after { display:none; }
-  .step-circle { width:32px; height:32px; border-radius:50%; background:#e8f0f5; color:var(--muted); font-size:13px; font-weight:700; display:inline-flex; align-items:center; justify-content:center; position:relative; z-index:1; transition:all 0.3s; }
-  .wizard-step.active .step-circle { background:var(--blue); color:white; }
-  .wizard-step.done .step-circle { background:var(--success); color:white; }
-  .step-label { font-size:11px; color:var(--muted); margin-top:6px; font-weight:600; }
-  .wizard-step.active .step-label { color:var(--blue); }
-
-  .wizard-panel { display:none; }
-  .wizard-panel.active { display:block; }
-
-  .medico-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:16px; }
-  .medico-option {
-    border:2px solid #e8f0f5; border-radius:var(--radius); padding:20px;
-    cursor:pointer; transition:all 0.2s; text-align:center;
-  }
-  .medico-option:hover { border-color:var(--blue); background:var(--pale); }
-  .medico-option.selected { border-color:var(--blue); background:var(--pale); }
-  .medico-option-avatar { font-size:40px; margin-bottom:10px; }
-  .medico-option-name { font-size:14px; font-weight:700; color:var(--navy); }
-  .medico-option-esp { font-size:12px; color:var(--muted); margin-top:3px; }
-  .medico-option-dias { font-size:11px; color:var(--blue); font-weight:600; margin-top:6px; }
-
-  .horario-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(90px,1fr)); gap:10px; }
-  .horario-btn {
-    padding:10px; border-radius:8px; border:1.5px solid #e8f0f5;
-    font-size:13px; font-weight:600; color:var(--navy);
-    cursor:pointer; text-align:center; transition:all 0.2s;
-    background:white;
-  }
-  .horario-btn:hover { border-color:var(--blue); color:var(--blue); background:var(--pale); }
-  .horario-btn.selected { border-color:var(--blue); background:var(--blue); color:white; }
-  .horario-btn.ocupado { background:#f9fafb; color:#ccc; cursor:not-allowed; border-color:#f0f0f0; }
-
-  .calendar-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:6px; }
-  .cal-header { font-size:11px; font-weight:700; color:var(--muted); text-align:center; padding:6px 0; }
-  .cal-day {
-    aspect-ratio:1; border-radius:8px; display:flex; align-items:center; justify-content:center;
-    font-size:13px; font-weight:600; cursor:pointer; transition:all 0.2s;
-    border:1.5px solid transparent;
-  }
-  .cal-day:hover { border-color:var(--blue); color:var(--blue); }
-  .cal-day.selected { background:var(--blue); color:white; }
-  .cal-day.disabled { color:#ccc; cursor:not-allowed; }
-  .cal-day.today { border-color:var(--mid); color:var(--blue); }
-  .cal-month { font-size:15px; font-weight:700; color:var(--navy); text-align:center; margin-bottom:16px; display:flex; align-items:center; justify-content:space-between; }
-  .cal-nav { background:none; border:none; cursor:pointer; font-size:18px; color:var(--muted); padding:4px 8px; }
-  .cal-nav:hover { color:var(--blue); }
-
-  .resumen-card { background:var(--pale); border-radius:var(--radius); padding:24px; margin-bottom:24px; }
-  .resumen-row { display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid rgba(29,132,199,0.1); font-size:14px; }
-  .resumen-row:last-child { border-bottom:none; }
-  .resumen-key { color:var(--muted); }
-  .resumen-val { font-weight:700; color:var(--navy); }
-
-  .wizard-actions { display:flex; gap:12px; margin-top:24px; justify-content:flex-end; }
-  .btn-sec { padding:12px 28px; border-radius:10px; border:1.5px solid #e8f0f5; background:white; font-size:14px; font-weight:600; color:var(--muted); cursor:pointer; font-family:'Montserrat',sans-serif; transition:all 0.2s; }
-  .btn-sec:hover { border-color:var(--blue); color:var(--blue); }
-  .btn-blue { padding:12px 28px; border-radius:10px; border:none; background:var(--blue); color:white; font-size:14px; font-weight:700; cursor:pointer; font-family:'Montserrat',sans-serif; transition:all 0.2s; }
-  .btn-blue:hover { background:#1672ad; }
-  .btn-blue:disabled { opacity:0.5; cursor:not-allowed; }
-
-  /* ── PERFIL ── */
-  .perfil-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
-
-  /* ── SUCCESS ── */
-  .success-screen { text-align:center; padding:60px 40px; }
-  .success-icon { font-size:64px; margin-bottom:20px; }
-  .success-title { font-size:24px; font-weight:800; color:var(--navy); margin-bottom:10px; }
-  .success-sub { font-size:15px; color:var(--muted); margin-bottom:32px; }
-
-  /* ── LOADING ── */
-  .loading { display:flex; align-items:center; justify-content:center; padding:60px; }
-  .spinner { width:36px; height:36px; border:3px solid var(--pale); border-top-color:var(--blue); border-radius:50%; animation:spin 0.8s linear infinite; }
-  @keyframes spin { to { transform:rotate(360deg); } }
-
-  /* ── RESPONSIVE ── */
-  @media(max-width:768px) {
-    .portal-layout { grid-template-columns:1fr; }
-    .sidebar { display:none; }
-    .main { padding:20px; }
-    .form-grid { grid-template-columns:1fr; }
-    .perfil-grid { grid-template-columns:1fr; }
-    .auth-card { padding:32px 24px; }
-  }
-
-  .empty-state { text-align:center; padding:48px 20px; color:var(--muted); }
-  .empty-icon { font-size:48px; margin-bottom:12px; }
-  .empty-text { font-size:14px; }
+:root{--navy:#172E44;--blue:#1D84C7;--light:#A6DAF1;--pale:#E8F4FB;--text:#172E44;--muted:#4a6275;--r:12px;--rl:20px}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Montserrat',sans-serif;background:#f0f6fb;color:var(--text);min-height:100vh}
+.topbar{background:var(--navy);padding:0 5%;height:64px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.tlogo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.tlogo-i{width:36px;height:36px;background:linear-gradient(135deg,var(--light),var(--blue));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px}
+.tlogo-t{font-size:16px;font-weight:800;letter-spacing:2px;color:var(--light)}
+.tright{display:flex;align-items:center;gap:12px}
+.tuser{font-size:13px;color:rgba(255,255,255,0.6)}
+.tuser strong{color:white}
+.btn-out{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.7);font-size:12px;font-weight:600;padding:7px 16px;border-radius:8px;cursor:pointer;font-family:'Montserrat',sans-serif}
+.auth-screen{min-height:100vh;background:linear-gradient(160deg,var(--navy) 0%,#1a3a54 50%,#1D84C7 100%);display:flex;align-items:center;justify-content:center;padding:20px}
+.auth-card{background:white;border-radius:var(--rl);padding:48px 40px;width:100%;max-width:440px;box-shadow:0 32px 80px rgba(0,0,0,0.2)}
+.auth-logo{text-align:center;margin-bottom:32px}
+.auth-logo-i{width:64px;height:64px;background:linear-gradient(135deg,var(--light),var(--blue));border-radius:16px;display:inline-flex;align-items:center;justify-content:center;font-size:32px;margin-bottom:12px}
+.auth-logo h1{font-size:22px;font-weight:800;letter-spacing:2px;color:var(--navy)}
+.auth-logo p{font-size:12px;color:var(--muted);margin-top:4px}
+.auth-tabs{display:flex;margin-bottom:28px;border-radius:10px;overflow:hidden;border:1.5px solid var(--pale)}
+.auth-tab{flex:1;padding:11px;text-align:center;font-size:13px;font-weight:600;cursor:pointer;background:var(--pale);color:var(--muted);border:none;font-family:'Montserrat',sans-serif}
+.auth-tab.active{background:var(--blue);color:white}
+.fg{margin-bottom:16px}
+.fl{font-size:12px;font-weight:600;color:var(--muted);display:block;margin-bottom:6px}
+.fi{width:100%;padding:12px 16px;border:1.5px solid #e2eaf0;border-radius:10px;font-size:14px;font-family:'Montserrat',sans-serif;color:var(--text);outline:none;background:white}
+.fi:focus{border-color:var(--blue)}
+.fg2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.fsel{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%234a6275' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center}
+.btn-p{width:100%;padding:14px;background:var(--blue);color:white;border:none;border-radius:10px;font-size:15px;font-weight:700;font-family:'Montserrat',sans-serif;cursor:pointer;margin-top:8px}
+.btn-p:hover{background:#1672ad}
+.aerr{background:#fef2f2;border:1px solid #fecaca;color:#dc2626;font-size:13px;padding:10px 14px;border-radius:8px;margin-bottom:16px;display:none}
+.aok{background:#f0fdf4;border:1px solid #bbf7d0;color:#16a34a;font-size:13px;padding:10px 14px;border-radius:8px;margin-bottom:16px;display:none}
+.portal{display:none}
+.portal.active{display:block}
+.playout{display:grid;grid-template-columns:260px 1fr;min-height:calc(100vh - 64px)}
+.sidebar{background:white;border-right:1px solid #e8f0f5;padding:32px 0}
+.sp{padding:0 24px 28px;border-bottom:1px solid #e8f0f5;margin-bottom:20px}
+.savatar{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--light),var(--blue));display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;color:white;margin-bottom:12px}
+.sname{font-size:15px;font-weight:700;color:var(--navy)}
+.srole{font-size:11px;color:var(--muted);margin-top:2px;letter-spacing:0.5px;text-transform:uppercase}
+.snav{list-style:none}
+.snav li a{display:flex;align-items:center;gap:12px;padding:12px 24px;font-size:14px;font-weight:500;color:var(--muted);text-decoration:none;border-left:3px solid transparent}
+.snav li a:hover{background:var(--pale);color:var(--navy)}
+.snav li a.active{background:var(--pale);color:var(--blue);font-weight:700;border-left-color:var(--blue)}
+.ni{font-size:18px;width:24px;text-align:center}
+.main{padding:36px 40px;background:#f0f6fb}
+.page{display:none}
+.page.active{display:block}
+.ptitle{font-size:22px;font-weight:800;color:var(--navy);margin-bottom:6px}
+.psub{font-size:14px;color:var(--muted);margin-bottom:32px}
+.sgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:32px}
+.sc{background:white;border-radius:var(--r);padding:24px;border:1px solid #e8f0f5}
+.si{font-size:28px;margin-bottom:10px}
+.sv{font-size:26px;font-weight:800;color:var(--navy)}
+.sl{font-size:12px;color:var(--muted);margin-top:2px}
+.card{background:white;border-radius:var(--rl);padding:28px;border:1px solid #e8f0f5;margin-bottom:20px}
+.ctitle{font-size:16px;font-weight:700;color:var(--navy);margin-bottom:20px}
+.ti{display:flex;align-items:center;gap:16px;padding:16px 0;border-bottom:1px solid #f0f6fb}
+.ti:last-child{border-bottom:none}
+.tdate{width:52px;height:52px;background:var(--pale);border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.td{font-size:18px;font-weight:800;color:var(--blue);line-height:1}
+.tm{font-size:10px;font-weight:600;color:var(--muted);text-transform:uppercase}
+.tinfo{flex:1}
+.tmed{font-size:14px;font-weight:700;color:var(--navy)}
+.tesp{font-size:12px;color:var(--muted);margin-top:2px}
+.thora{font-size:13px;font-weight:600;color:var(--blue)}
+.badge{display:inline-flex;align-items:center;padding:4px 10px;border-radius:100px;font-size:11px;font-weight:600}
+.bg{background:#dcfce7;color:#16a34a}
+.wsteps{display:flex;gap:0;margin-bottom:32px}
+.wstep{flex:1;text-align:center;position:relative}
+.wstep::after{content:'';position:absolute;top:16px;left:50%;width:100%;height:2px;background:#e8f0f5;z-index:0}
+.wstep:last-child::after{display:none}
+.sc2{width:32px;height:32px;border-radius:50%;background:#e8f0f5;color:var(--muted);font-size:13px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;position:relative;z-index:1}
+.wstep.active .sc2{background:var(--blue);color:white}
+.wstep.done .sc2{background:#4ade80;color:white}
+.slbl{font-size:11px;color:var(--muted);margin-top:6px;font-weight:600}
+.wstep.active .slbl{color:var(--blue)}
+.wp{display:none}
+.wp.active{display:block}
+.mgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
+.mopt{border:2px solid #e8f0f5;border-radius:var(--r);padding:20px;cursor:pointer;text-align:center}
+.mopt:hover,.mopt.selected{border-color:var(--blue);background:var(--pale)}
+.mavatar{font-size:40px;margin-bottom:10px}
+.mname{font-size:14px;font-weight:700;color:var(--navy)}
+.mesp{font-size:12px;color:var(--muted);margin-top:3px}
+.mdias{font-size:11px;color:var(--blue);font-weight:600;margin-top:6px}
+.hgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:10px}
+.hbtn{padding:10px;border-radius:8px;border:1.5px solid #e8f0f5;font-size:13px;font-weight:600;color:var(--navy);cursor:pointer;text-align:center;background:white}
+.hbtn:hover,.hbtn.selected{border-color:var(--blue);color:var(--blue);background:var(--pale)}
+.hbtn.selected{background:var(--blue);color:white}
+.cgrid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.ch{font-size:11px;font-weight:700;color:var(--muted);text-align:center;padding:6px 0}
+.cd{aspect-ratio:1;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;cursor:pointer;border:1.5px solid transparent}
+.cd:hover{border-color:var(--blue);color:var(--blue)}
+.cd.selected{background:var(--blue);color:white}
+.cd.disabled{color:#ccc;cursor:not-allowed}
+.cd.today{border-color:var(--blue);color:var(--blue)}
+.cmonth{font-size:15px;font-weight:700;color:var(--navy);text-align:center;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between}
+.cnav{background:none;border:none;cursor:pointer;font-size:18px;color:var(--muted);padding:4px 8px}
+.rcard{background:var(--pale);border-radius:var(--r);padding:24px;margin-bottom:24px}
+.rrow{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(29,132,199,0.1);font-size:14px}
+.rrow:last-child{border-bottom:none}
+.rk{color:var(--muted)}
+.rv{font-weight:700;color:var(--navy)}
+.wact{display:flex;gap:12px;margin-top:24px;justify-content:flex-end}
+.btn-sec{padding:12px 28px;border-radius:10px;border:1.5px solid #e8f0f5;background:white;font-size:14px;font-weight:600;color:var(--muted);cursor:pointer;font-family:'Montserrat',sans-serif}
+.btn-b{padding:12px 28px;border-radius:10px;border:none;background:var(--blue);color:white;font-size:14px;font-weight:700;cursor:pointer;font-family:'Montserrat',sans-serif}
+.btn-b:disabled{opacity:0.5;cursor:not-allowed}
+.pgrid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.suc{text-align:center;padding:60px 40px}
+.suc-i{font-size:64px;margin-bottom:20px}
+.suc-t{font-size:24px;font-weight:800;color:var(--navy);margin-bottom:10px}
+.suc-s{font-size:15px;color:var(--muted);margin-bottom:32px}
+.loading{display:flex;align-items:center;justify-content:center;padding:60px}
+.spin{width:36px;height:36px;border:3px solid var(--pale);border-top-color:var(--blue);border-radius:50%;animation:spin 0.8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.empty{text-align:center;padding:48px 20px;color:var(--muted)}
+.empty-i{font-size:48px;margin-bottom:12px}
+@media(max-width:768px){.playout{grid-template-columns:1fr}.sidebar{display:none}.main{padding:20px}.fg2{grid-template-columns:1fr}.pgrid{grid-template-columns:1fr}.auth-card{padding:32px 24px}}
 </style>
 </head>
 <body>
 
-<!-- ══ AUTH SCREEN ══ -->
 <div id="authScreen" class="auth-screen">
   <div class="auth-card">
     <div class="auth-logo">
-      <div class="auth-logo-icon">🫀</div>
+      <div class="auth-logo-i">🫀</div>
       <h1>CICAR</h1>
       <p>Portal del Paciente — Barrio Norte</p>
     </div>
-
     <div class="auth-tabs">
-      <button class="auth-tab active" onclick="switchTab('login')">Ingresar</button>
-      <button class="auth-tab" onclick="switchTab('register')">Registrarse</button>
+      <button class="auth-tab active" id="tabLogin">Ingresar</button>
+      <button class="auth-tab" id="tabReg">Registrarse</button>
     </div>
-
-    <div id="authError" class="auth-error"></div>
-    <div id="authSuccess" class="auth-success"></div>
-
-    <!-- LOGIN -->
+    <div id="aerr" class="aerr"></div>
+    <div id="aok" class="aok"></div>
     <div id="loginForm">
-      <div class="form-group">
-        <label class="form-label">Email</label>
-        <input type="email" id="loginEmail" class="form-input" placeholder="tu@email.com">
-      </div>
-      <div class="form-group">
-        <label class="form-label">Contraseña</label>
-        <input type="password" id="loginPassword" class="form-input" placeholder="••••••••">
-      </div>
-      <button class="btn-primary" onclick="handleLogin()">Ingresar</button>
+      <div class="fg"><label class="fl">Email</label><input type="email" id="lEmail" class="fi" placeholder="tu correo electronico"></div>
+      <div class="fg"><label class="fl">Contraseña</label><input type="password" id="lPass" class="fi" placeholder="••••••••"></div>
+      <button class="btn-p" id="btnLogin">Ingresar</button>
     </div>
-
-    <!-- REGISTER -->
-    <div id="registerForm" style="display:none;">
-      <div class="form-grid">
-        <div class="form-group">
-          <label class="form-label">Nombre</label>
-          <input type="text" id="regNombre" class="form-input" placeholder="Juan">
-        </div>
-        <div class="form-group">
-          <label class="form-label">Apellido</label>
-          <input type="text" id="regApellido" class="form-input" placeholder="García">
-        </div>
+    <div id="regForm" style="display:none">
+      <div class="fg2">
+        <div class="fg"><label class="fl">Nombre</label><input type="text" id="rNombre" class="fi" placeholder="Juan"></div>
+        <div class="fg"><label class="fl">Apellido</label><input type="text" id="rApellido" class="fi" placeholder="García"></div>
       </div>
-      <div class="form-group">
-        <label class="form-label">Email</label>
-        <input type="email" id="regEmail" class="form-input" placeholder="tu@email.com">
+      <div class="fg"><label class="fl">Email</label><input type="email" id="rEmail" class="fi" placeholder="tu correo electronico"></div>
+      <div class="fg"><label class="fl">Contraseña</label><input type="password" id="rPass" class="fi" placeholder="Mínimo 6 caracteres"></div>
+      <div class="fg2">
+        <div class="fg"><label class="fl">DNI</label><input type="text" id="rDni" class="fi" placeholder="12345678"></div>
+        <div class="fg"><label class="fl">Teléfono</label><input type="tel" id="rTel" class="fi" placeholder="1112345678"></div>
       </div>
-      <div class="form-group">
-        <label class="form-label">Contraseña</label>
-        <input type="password" id="regPassword" class="form-input" placeholder="Mínimo 6 caracteres">
-      </div>
-      <div class="form-grid">
-        <div class="form-group">
-          <label class="form-label">DNI</label>
-          <input type="text" id="regDni" class="form-input" placeholder="12345678">
-        </div>
-        <div class="form-group">
-          <label class="form-label">Teléfono</label>
-          <input type="tel" id="regTelefono" class="form-input" placeholder="1112345678">
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Obra Social</label>
-        <select id="regObraSocial" class="form-input form-select">
+      <div class="fg">
+        <label class="fl">Obra Social</label>
+        <select id="rOS" class="fi fsel">
           <option value="">Seleccioná tu obra social</option>
-          <option>OSDE</option>
-          <option>Swiss Medical</option>
-          <option>IOMA</option>
-          <option>PAMI</option>
-          <option>Galeno</option>
-          <option>Medicus</option>
-          <option>Accord Salud</option>
-          <option>Luis Pasteur</option>
-          <option>Particular</option>
+          <option>OSDE</option><option>Swiss Medical</option><option>IOMA</option>
+          <option>PAMI</option><option>Galeno</option><option>Medicus</option>
+          <option>Accord Salud</option><option>Luis Pasteur</option><option>Particular</option>
         </select>
       </div>
-      <div class="form-group">
-        <label class="form-label">N° de Afiliado</label>
-        <input type="text" id="regAfiliado" class="form-input" placeholder="Número de afiliado">
-      </div>
-      <button class="btn-primary" onclick="handleRegister()">Crear cuenta</button>
+      <div class="fg"><label class="fl">N° de Afiliado</label><input type="text" id="rAfil" class="fi" placeholder="Número de afiliado"></div>
+      <button class="btn-p" id="btnReg">Crear cuenta</button>
     </div>
-
-    <p style="text-align:center; margin-top:20px; font-size:12px; color:var(--muted);">
-      ¿Sos médico del centro? <a href="/cdn-cgi/l/email-protection#bbdadfd6d2d5fbd8d2d8dac995d8d4d6" style="color:var(--blue); font-weight:600;">Contactá al administrador</a>
-    </p>
+    <p style="text-align:center;margin-top:20px;font-size:12px;color:var(--muted)">¿Sos médico del centro? Contactá al administrador</p>
   </div>
 </div>
 
-<!-- ══ PORTAL ══ -->
 <div id="portal" class="portal">
-  <!-- Topbar -->
   <div class="topbar">
-    <a href="index.html" class="topbar-logo">
-      <div class="topbar-logo-icon">🫀</div>
-      <span class="topbar-logo-text">CICAR</span>
-    </a>
-    <div class="topbar-right">
-      <span class="topbar-user">Hola, <strong id="topbarName">—</strong></span>
-      <button class="btn-logout" onclick="handleLogout()">Cerrar sesión</button>
+    <a href="index.html" class="tlogo"><div class="tlogo-i">🫀</div><span class="tlogo-t">CICAR</span></a>
+    <div class="tright">
+      <span class="tuser">Hola, <strong id="tname">—</strong></span>
+      <button class="btn-out" id="btnOut">Cerrar sesión</button>
     </div>
   </div>
-
-  <div class="portal-layout">
-    <!-- Sidebar -->
+  <div class="playout">
     <aside class="sidebar">
-      <div class="sidebar-profile">
-        <div class="profile-avatar" id="sidebarAvatar">—</div>
-        <div class="profile-name" id="sidebarName">—</div>
-        <div class="profile-role">Paciente</div>
+      <div class="sp">
+        <div class="savatar" id="savatar">—</div>
+        <div class="sname" id="sname">—</div>
+        <div class="srole">Paciente</div>
       </div>
-      <ul class="sidebar-nav">
-        <li><a href="#" class="active" onclick="showPage('inicio',this)"><span class="nav-icon">🏠</span> Inicio</a></li>
-        <li><a href="#" onclick="showPage('turnos',this)"><span class="nav-icon">📅</span> Mis Turnos</a></li>
-        <li><a href="#" onclick="showPage('nuevo-turno',this); initBooking()"><span class="nav-icon">➕</span> Sacar Turno</a></li>
-        <li><a href="#" onclick="showPage('estudios',this)"><span class="nav-icon">🔬</span> Mis Estudios</a></li>
-        <li><a href="#" onclick="showPage('perfil',this); loadPerfil()"><span class="nav-icon">👤</span> Mi Perfil</a></li>
+      <ul class="snav">
+        <li><a href="#" class="active" id="nav-inicio"><span class="ni">🏠</span> Inicio</a></li>
+        <li><a href="#" id="nav-turnos"><span class="ni">📅</span> Mis Turnos</a></li>
+        <li><a href="#" id="nav-nuevo"><span class="ni">➕</span> Sacar Turno</a></li>
+        <li><a href="#" id="nav-estudios"><span class="ni">🔬</span> Mis Estudios</a></li>
+        <li><a href="#" id="nav-perfil"><span class="ni">👤</span> Mi Perfil</a></li>
       </ul>
     </aside>
-
-    <!-- Main -->
     <main class="main">
-
-      <!-- INICIO -->
       <div id="page-inicio" class="page active">
-        <div class="page-title">Bienvenido a tu portal 👋</div>
-        <div class="page-sub">Desde acá podés gestionar tus turnos y ver tu historial médico.</div>
-        <div class="stats-grid">
-          <div class="stat-card">
-            <div class="stat-icon">📅</div>
-            <div class="stat-val" id="statTurnos">—</div>
-            <div class="stat-label">Turnos activos</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-icon">✅</div>
-            <div class="stat-val" id="statRealizados">—</div>
-            <div class="stat-label">Consultas realizadas</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-icon">🔬</div>
-            <div class="stat-val">0</div>
-            <div class="stat-label">Estudios cargados</div>
-          </div>
+        <div class="ptitle">Bienvenido a tu portal 👋</div>
+        <div class="psub">Desde acá podés gestionar tus turnos y ver tu historial médico.</div>
+        <div class="sgrid">
+          <div class="sc"><div class="si">📅</div><div class="sv" id="stProx">—</div><div class="sl">Turnos activos</div></div>
+          <div class="sc"><div class="si">✅</div><div class="sv" id="stReal">—</div><div class="sl">Consultas realizadas</div></div>
+          <div class="sc"><div class="si">🔬</div><div class="sv">0</div><div class="sl">Estudios cargados</div></div>
         </div>
-
-        <div class="card">
-          <div class="card-title">📅 Próximos turnos</div>
-          <div id="proximosTurnos"><div class="loading"><div class="spinner"></div></div></div>
-        </div>
+        <div class="card"><div class="ctitle">📅 Próximos turnos</div><div id="proxTurnos"><div class="loading"><div class="spin"></div></div></div></div>
       </div>
 
-      <!-- MIS TURNOS -->
       <div id="page-turnos" class="page">
-        <div class="page-title">Mis Turnos</div>
-        <div class="page-sub">Historial completo de tus consultas.</div>
-        <div class="card">
-          <div id="todosTurnos"><div class="loading"><div class="spinner"></div></div></div>
-        </div>
+        <div class="ptitle">Mis Turnos</div>
+        <div class="psub">Historial completo de tus consultas.</div>
+        <div class="card"><div id="todosTurnos"><div class="loading"><div class="spin"></div></div></div></div>
       </div>
 
-      <!-- NUEVO TURNO -->
-      <div id="page-nuevo-turno" class="page">
-        <div class="page-title">Sacar Turno</div>
-        <div class="page-sub">Elegí tu médico, día y horario.</div>
-
+      <div id="page-nuevo" class="page">
+        <div class="ptitle">Sacar Turno</div>
+        <div class="psub">Elegí tu médico, día y horario.</div>
         <div class="card">
-          <!-- Wizard steps -->
-          <div class="wizard-steps">
-            <div class="wizard-step active" id="ws1">
-              <div class="step-circle">1</div>
-              <div class="step-label">Médico</div>
-            </div>
-            <div class="wizard-step" id="ws2">
-              <div class="step-circle">2</div>
-              <div class="step-label">Fecha</div>
-            </div>
-            <div class="wizard-step" id="ws3">
-              <div class="step-circle">3</div>
-              <div class="step-label">Horario</div>
-            </div>
-            <div class="wizard-step" id="ws4">
-              <div class="step-circle">4</div>
-              <div class="step-label">Confirmar</div>
-            </div>
+          <div class="wsteps">
+            <div class="wstep active" id="ws1"><div class="sc2">1</div><div class="slbl">Médico</div></div>
+            <div class="wstep" id="ws2"><div class="sc2">2</div><div class="slbl">Fecha</div></div>
+            <div class="wstep" id="ws3"><div class="sc2">3</div><div class="slbl">Horario</div></div>
+            <div class="wstep" id="ws4"><div class="sc2">4</div><div class="slbl">Confirmar</div></div>
           </div>
-
-          <!-- Panel 1: elegir médico -->
-          <div id="wp1" class="wizard-panel active">
-            <div class="card-title">👨‍⚕️ Elegí tu especialista</div>
-            <div class="medico-grid" id="medicoGrid"></div>
-            <div class="wizard-actions">
-              <button class="btn-blue" id="btnStep1" onclick="goStep(2)" disabled>Continuar →</button>
-            </div>
+          <div id="wp1" class="wp active">
+            <div class="ctitle">👨‍⚕️ Elegí tu especialista</div>
+            <div class="mgrid" id="mGrid"></div>
+            <div class="wact"><button class="btn-b" id="btnW1" disabled>Continuar →</button></div>
           </div>
-
-          <!-- Panel 2: elegir fecha -->
-          <div id="wp2" class="wizard-panel">
-            <div class="card-title">📆 Elegí la fecha</div>
-            <div class="cal-month">
-              <button class="cal-nav" onclick="changeMonth(-1)">‹</button>
-              <span id="calTitle"></span>
-              <button class="cal-nav" onclick="changeMonth(1)">›</button>
-            </div>
-            <div class="calendar-grid" id="calHeaders"></div>
-            <div class="calendar-grid" id="calDays" style="margin-top:6px;"></div>
-            <div class="wizard-actions">
-              <button class="btn-sec" onclick="goStep(1)">← Volver</button>
-              <button class="btn-blue" id="btnStep2" onclick="goStep(3)" disabled>Continuar →</button>
-            </div>
+          <div id="wp2" class="wp">
+            <div class="ctitle">📆 Elegí la fecha</div>
+            <div class="cmonth"><button class="cnav" id="btnPrevM">‹</button><span id="calTitle"></span><button class="cnav" id="btnNextM">›</button></div>
+            <div class="cgrid" id="calH"></div>
+            <div class="cgrid" id="calD" style="margin-top:6px"></div>
+            <div class="wact"><button class="btn-sec" id="btnBack2">← Volver</button><button class="btn-b" id="btnW2" disabled>Continuar →</button></div>
           </div>
-
-          <!-- Panel 3: elegir horario -->
-          <div id="wp3" class="wizard-panel">
-            <div class="card-title">🕐 Elegí el horario</div>
-            <div class="horario-grid" id="horarioGrid"></div>
-            <div class="wizard-actions">
-              <button class="btn-sec" onclick="goStep(2)">← Volver</button>
-              <button class="btn-blue" id="btnStep3" onclick="goStep(4)" disabled>Continuar →</button>
-            </div>
+          <div id="wp3" class="wp">
+            <div class="ctitle">🕐 Elegí el horario</div>
+            <div class="hgrid" id="hGrid"></div>
+            <div class="wact"><button class="btn-sec" id="btnBack3">← Volver</button><button class="btn-b" id="btnW3" disabled>Continuar →</button></div>
           </div>
-
-          <!-- Panel 4: confirmar -->
-          <div id="wp4" class="wizard-panel">
-            <div id="confirmContent">
-              <div class="card-title">✅ Confirmá tu turno</div>
-              <div class="resumen-card" id="resumenTurno"></div>
-              <div class="wizard-actions">
-                <button class="btn-sec" onclick="goStep(3)">← Volver</button>
-                <button class="btn-blue" onclick="confirmarTurno()">Confirmar turno 🗓</button>
-              </div>
+          <div id="wp4" class="wp">
+            <div id="confContent">
+              <div class="ctitle">✅ Confirmá tu turno</div>
+              <div class="rcard" id="resumen"></div>
+              <div class="wact"><button class="btn-sec" id="btnBack4">← Volver</button><button class="btn-b" id="btnConf">Confirmar turno 🗓</button></div>
             </div>
-            <div id="successContent" style="display:none;">
-              <div class="success-screen">
-                <div class="success-icon">🎉</div>
-                <div class="success-title">¡Turno confirmado!</div>
-                <div class="success-sub" id="successMsg"></div>
-                <button class="btn-blue" onclick="showPage('turnos', null); loadTurnos()">Ver mis turnos</button>
-              </div>
+            <div id="sucContent" style="display:none">
+              <div class="suc"><div class="suc-i">🎉</div><div class="suc-t">¡Turno confirmado!</div><div class="suc-s" id="sucMsg"></div><button class="btn-b" id="btnVerTurnos">Ver mis turnos</button></div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- ESTUDIOS -->
       <div id="page-estudios" class="page">
-        <div class="page-title">Mis Estudios</div>
-        <div class="page-sub">Historial de análisis y estudios médicos.</div>
-        <div class="card">
-          <div class="empty-state">
-            <div class="empty-icon">🔬</div>
-            <div class="empty-text">Todavía no tenés estudios cargados.<br>Tu médico los irá agregando después de cada consulta.</div>
-          </div>
-        </div>
+        <div class="ptitle">Mis Estudios</div>
+        <div class="psub">Historial de análisis y estudios médicos.</div>
+        <div class="card"><div class="empty"><div class="empty-i">🔬</div><div>Todavía no tenés estudios cargados.<br>Tu médico los irá agregando después de cada consulta.</div></div></div>
       </div>
 
-      <!-- PERFIL -->
       <div id="page-perfil" class="page">
-        <div class="page-title">Mi Perfil</div>
-        <div class="page-sub">Tus datos personales y de cobertura.</div>
+        <div class="ptitle">Mi Perfil</div>
+        <div class="psub">Tus datos personales y de cobertura.</div>
         <div class="card">
-          <div class="card-title">👤 Datos personales</div>
-          <div class="perfil-grid">
-            <div class="form-group">
-              <label class="form-label">Nombre</label>
-              <input type="text" id="perfNombre" class="form-input">
-            </div>
-            <div class="form-group">
-              <label class="form-label">Apellido</label>
-              <input type="text" id="perfApellido" class="form-input">
-            </div>
-            <div class="form-group">
-              <label class="form-label">DNI</label>
-              <input type="text" id="perfDni" class="form-input">
-            </div>
-            <div class="form-group">
-              <label class="form-label">Teléfono</label>
-              <input type="tel" id="perfTelefono" class="form-input">
-            </div>
-            <div class="form-group">
-              <label class="form-label">Obra Social</label>
-              <select id="perfObraSocial" class="form-input form-select">
+          <div class="ctitle">👤 Datos personales</div>
+          <div class="pgrid">
+            <div class="fg"><label class="fl">Nombre</label><input type="text" id="pNombre" class="fi"></div>
+            <div class="fg"><label class="fl">Apellido</label><input type="text" id="pApellido" class="fi"></div>
+            <div class="fg"><label class="fl">DNI</label><input type="text" id="pDni" class="fi"></div>
+            <div class="fg"><label class="fl">Teléfono</label><input type="tel" id="pTel" class="fi"></div>
+            <div class="fg"><label class="fl">Obra Social</label>
+              <select id="pOS" class="fi fsel">
                 <option value="">Seleccioná</option>
                 <option>OSDE</option><option>Swiss Medical</option><option>IOMA</option>
                 <option>PAMI</option><option>Galeno</option><option>Medicus</option>
                 <option>Accord Salud</option><option>Luis Pasteur</option><option>Particular</option>
               </select>
             </div>
-            <div class="form-group">
-              <label class="form-label">N° de Afiliado</label>
-              <input type="text" id="perfAfiliado" class="form-input">
-            </div>
+            <div class="fg"><label class="fl">N° de Afiliado</label><input type="text" id="pAfil" class="fi"></div>
           </div>
-          <div id="perfilMsg" style="margin-top:12px; font-size:13px; display:none;"></div>
-          <button class="btn-blue" style="margin-top:20px;" onclick="guardarPerfil()">Guardar cambios</button>
+          <div id="pMsg" style="font-size:13px;margin-top:12px;display:none"></div>
+          <button class="btn-b" id="btnGuardar" style="margin-top:20px">Guardar cambios</button>
         </div>
       </div>
-
     </main>
   </div>
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-// ══ SUPABASE ══
-const SUPA_URL  = 'https://fuvlddjukosqqwjpjwif.supabase.co';
-const SUPA_KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ1dmxkZGp1a29zcXF3anBqd2lmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU4MjU5NDQsImV4cCI6MjA5MTQwMTk0NH0.90Rp7V91wcmeV6Psotks59TVn4UQjEuJMt_bj79BkfU';
-const sb = window.supabase.createClient(SUPA_URL, SUPA_KEY);
+<script src="https://unpkg.com/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script>
+var SURL = 'https://fuvlddjukosqqwjpjwif.supabase.co';
+var SKEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ1dmxkZGp1a29zcXF3anBqd2lmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU4MjU5NDQsImV4cCI6MjA5MTQwMTk0NH0.90Rp7V91wcmeV6Psotks59TVn4UQjEuJMt_bj79BkfU';
 
-// ══ MÉDICOS HARDCODED (después se pueden cargar de DB) ══
-const MEDICOS = [
-  { id: 'medico-1', nombre: 'Dra. Yanina Croissant', especialidad: 'Cardiología Clínica', emoji: '👩‍⚕️', dias: [1,3], diasTexto: 'Lun y Mié', horaInicio: 9, horaFin: 13 },
-  { id: 'medico-2', nombre: 'Dra. Belén Barbosa',   especialidad: 'Arritmias y Electrofisiología', emoji: '👩‍⚕️', dias: [2,4], diasTexto: 'Mar y Jue', horaInicio: 14, horaFin: 18 },
-  { id: 'medico-3', nombre: 'Dr. Nicolás Ciancaglini', especialidad: 'Cardiología Intervencionista', emoji: '👨‍⚕️', dias: [1,2,3,4,5], diasTexto: 'Lun a Vie', horaInicio: 8, horaFin: 12 },
-  { id: 'medico-4', nombre: 'Dr. Martín Pereyra',   especialidad: 'Nefrología', emoji: '👨‍⚕️', dias: [3,5], diasTexto: 'Mié y Vie', horaInicio: 10, horaFin: 16 },
+var MEDICOS = [
+  {id:'m1',nombre:'Dra. Yanina Croissant',esp:'Cardiología Clínica',emoji:'👩‍⚕️',dias:[1,3],diasTxt:'Lun y Mié',hi:9,hf:13},
+  {id:'m2',nombre:'Dra. Belén Barbosa',esp:'Arritmias y Electrofisiología',emoji:'👩‍⚕️',dias:[2,4],diasTxt:'Mar y Jue',hi:14,hf:18},
+  {id:'m3',nombre:'Dr. Nicolás Ciancaglini',esp:'Cardiología Intervencionista',emoji:'👨‍⚕️',dias:[1,2,3,4,5],diasTxt:'Lun a Vie',hi:8,hf:12},
+  {id:'m4',nombre:'Dr. Martín Pereyra',esp:'Nefrología',emoji:'👨‍⚕️',dias:[3,5],diasTxt:'Mié y Vie',hi:10,hf:16}
 ];
 
-let currentUser = null;
-let currentProfile = null;
+var sb, user, profile;
+var booking = {medico:null,fecha:null,hora:null};
+var calY, calM;
 
-// Booking state
-let booking = { medico: null, fecha: null, hora: null };
-let calYear, calMonth;
+function init() {
+  sb = window.supabase.createClient(SURL, SKEY);
 
-// ══ AUTH ══
-function switchTab(tab) {
-  document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.auth-tab')[tab === 'login' ? 0 : 1].classList.add('active');
-  document.getElementById('loginForm').style.display    = tab === 'login' ? '' : 'none';
-  document.getElementById('registerForm').style.display = tab === 'register' ? '' : 'none';
-  clearAuthMsgs();
-}
+  // Auth tabs
+  document.getElementById('tabLogin').addEventListener('click', function(){ switchTab('login'); });
+  document.getElementById('tabReg').addEventListener('click', function(){ switchTab('reg'); });
+  document.getElementById('btnLogin').addEventListener('click', doLogin);
+  document.getElementById('btnReg').addEventListener('click', doRegister);
+  document.getElementById('btnOut').addEventListener('click', doLogout);
 
-function showAuthError(msg) {
-  var el = document.getElementById('authError');
-  el.textContent = msg; el.style.display = 'block';
-  document.getElementById('authSuccess').style.display = 'none';
-}
-function showAuthSuccess(msg) {
-  var el = document.getElementById('authSuccess');
-  el.textContent = msg; el.style.display = 'block';
-  document.getElementById('authError').style.display = 'none';
-}
-function clearAuthMsgs() {
-  document.getElementById('authError').style.display = 'none';
-  document.getElementById('authSuccess').style.display = 'none';
-}
+  // Nav
+  document.getElementById('nav-inicio').addEventListener('click', function(e){ e.preventDefault(); showPage('inicio', this); });
+  document.getElementById('nav-turnos').addEventListener('click', function(e){ e.preventDefault(); showPage('turnos', this); loadTurnos(); });
+  document.getElementById('nav-nuevo').addEventListener('click', function(e){ e.preventDefault(); showPage('nuevo', this); initBooking(); });
+  document.getElementById('nav-estudios').addEventListener('click', function(e){ e.preventDefault(); showPage('estudios', this); });
+  document.getElementById('nav-perfil').addEventListener('click', function(e){ e.preventDefault(); showPage('perfil', this); loadPerfil(); });
 
-async function handleLogin() {
-  var email = document.getElementById('loginEmail').value.trim();
-  var pass  = document.getElementById('loginPassword').value;
-  if (!email || !pass) { showAuthError('Completá todos los campos.'); return; }
-  var { data, error } = await sb.auth.signInWithPassword({ email, password: pass });
-  if (error) { showAuthError('Email o contraseña incorrectos.'); return; }
-  await loadPortal(data.user);
-}
+  // Wizard buttons
+  document.getElementById('btnW1').addEventListener('click', function(){ goStep(2); });
+  document.getElementById('btnBack2').addEventListener('click', function(){ goStep(1); });
+  document.getElementById('btnW2').addEventListener('click', function(){ goStep(3); });
+  document.getElementById('btnBack3').addEventListener('click', function(){ goStep(2); });
+  document.getElementById('btnW3').addEventListener('click', function(){ goStep(4); });
+  document.getElementById('btnBack4').addEventListener('click', function(){ goStep(3); });
+  document.getElementById('btnConf').addEventListener('click', confirmarTurno);
+  document.getElementById('btnVerTurnos').addEventListener('click', function(){ showPage('turnos', document.getElementById('nav-turnos')); loadTurnos(); });
+  document.getElementById('btnPrevM').addEventListener('click', function(){ changeMonth(-1); });
+  document.getElementById('btnNextM').addEventListener('click', function(){ changeMonth(1); });
+  document.getElementById('btnGuardar').addEventListener('click', guardarPerfil);
 
-async function handleRegister() {
-  var nombre    = document.getElementById('regNombre').value.trim();
-  var apellido  = document.getElementById('regApellido').value.trim();
-  var email     = document.getElementById('regEmail').value.trim();
-  var pass      = document.getElementById('regPassword').value;
-  var dni       = document.getElementById('regDni').value.trim();
-  var telefono  = document.getElementById('regTelefono').value.trim();
-  var obraSocial= document.getElementById('regObraSocial').value;
-  var afiliado  = document.getElementById('regAfiliado').value.trim();
-
-  if (!nombre || !apellido || !email || !pass || !obraSocial) {
-    showAuthError('Completá todos los campos obligatorios.'); return;
-  }
-  if (pass.length < 6) { showAuthError('La contraseña debe tener al menos 6 caracteres.'); return; }
-
-  var { data, error } = await sb.auth.signUp({ email, password: pass });
-  if (error) { showAuthError(error.message); return; }
-
-  // Crear perfil
-  var { error: pErr } = await sb.from('profiles').insert({
-    id: data.user.id, rol: 'paciente',
-    nombre, apellido, dni, telefono, obra_social: obraSocial, numero_afiliado: afiliado
+  // Check session
+  sb.auth.getSession().then(function(r){
+    if (r.data.session) loadPortal(r.data.session.user);
   });
+}
 
-  if (pErr) { showAuthError('Error al crear el perfil: ' + pErr.message); return; }
-  showAuthSuccess('¡Cuenta creada! Ya podés ingresar.');
+function switchTab(tab) {
+  var isLogin = tab === 'login';
+  document.getElementById('tabLogin').classList.toggle('active', isLogin);
+  document.getElementById('tabReg').classList.toggle('active', !isLogin);
+  document.getElementById('loginForm').style.display = isLogin ? '' : 'none';
+  document.getElementById('regForm').style.display = isLogin ? 'none' : '';
+  document.getElementById('aerr').style.display = 'none';
+  document.getElementById('aok').style.display = 'none';
+}
+
+function showErr(msg){ var e=document.getElementById('aerr'); e.textContent=msg; e.style.display='block'; document.getElementById('aok').style.display='none'; }
+function showOk(msg){ var e=document.getElementById('aok'); e.textContent=msg; e.style.display='block'; document.getElementById('aerr').style.display='none'; }
+
+async function doLogin() {
+  var email = document.getElementById('lEmail').value.trim();
+  var pass = document.getElementById('lPass').value;
+  if (!email||!pass){ showErr('Completá todos los campos.'); return; }
+  var r = await sb.auth.signInWithPassword({email:email, password:pass});
+  if (r.error){ showErr('Email o contraseña incorrectos.'); return; }
+  await loadPortal(r.data.user);
+}
+
+async function doRegister() {
+  var nombre=document.getElementById('rNombre').value.trim();
+  var apellido=document.getElementById('rApellido').value.trim();
+  var email=document.getElementById('rEmail').value.trim();
+  var pass=document.getElementById('rPass').value;
+  var dni=document.getElementById('rDni').value.trim();
+  var tel=document.getElementById('rTel').value.trim();
+  var os=document.getElementById('rOS').value;
+  var afil=document.getElementById('rAfil').value.trim();
+  if (!nombre||!apellido||!email||!pass||!os){ showErr('Completá todos los campos obligatorios.'); return; }
+  if (pass.length<6){ showErr('La contraseña debe tener al menos 6 caracteres.'); return; }
+  var r = await sb.auth.signUp({email:email, password:pass});
+  if (r.error){ showErr(r.error.message); return; }
+  await sb.from('profiles').insert({id:r.data.user.id,rol:'paciente',nombre:nombre,apellido:apellido,dni:dni,telefono:tel,obra_social:os,numero_afiliado:afil});
+  showOk('¡Cuenta creada! Ya podés ingresar.');
   switchTab('login');
 }
 
-async function handleLogout() {
+async function doLogout() {
   await sb.auth.signOut();
-  document.getElementById('authScreen').style.display = 'flex';
+  document.getElementById('authScreen').style.display='flex';
   document.getElementById('portal').classList.remove('active');
 }
 
-// ══ PORTAL ══
-async function loadPortal(user) {
-  currentUser = user;
-  var { data: profile } = await sb.from('profiles').select('*').eq('id', user.id).single();
-  currentProfile = profile;
-
-  var nombre = profile ? profile.nombre : user.email;
-  document.getElementById('topbarName').textContent = nombre;
-  document.getElementById('sidebarName').textContent = (profile?.nombre || '') + ' ' + (profile?.apellido || '');
-  document.getElementById('sidebarAvatar').textContent = nombre.charAt(0).toUpperCase();
-
-  document.getElementById('authScreen').style.display = 'none';
+async function loadPortal(u) {
+  user = u;
+  var r = await sb.from('profiles').select('*').eq('id',u.id).single();
+  profile = r.data;
+  var nom = profile ? profile.nombre : u.email;
+  document.getElementById('tname').textContent = nom;
+  document.getElementById('sname').textContent = (profile?.nombre||'')+' '+(profile?.apellido||'');
+  document.getElementById('savatar').textContent = nom.charAt(0).toUpperCase();
+  document.getElementById('authScreen').style.display='none';
   document.getElementById('portal').classList.add('active');
-
   loadDashboard();
 }
 
 async function loadDashboard() {
-  if (!currentUser) return;
-  var { data: turnos } = await sb.from('turnos').select('*').eq('paciente_id', currentUser.id).order('fecha');
+  if (!user) return;
+  var r = await sb.from('turnos').select('*').eq('paciente_id',user.id).order('fecha');
   var hoy = new Date().toISOString().split('T')[0];
-  var proximos = (turnos || []).filter(t => t.fecha >= hoy && t.estado === 'confirmado');
-  var realizados = (turnos || []).filter(t => t.fecha < hoy);
-
-  document.getElementById('statTurnos').textContent = proximos.length;
-  document.getElementById('statRealizados').textContent = realizados.length;
-
-  renderTurnosList('proximosTurnos', proximos.slice(0, 3), true);
+  var prox = (r.data||[]).filter(function(t){ return t.fecha>=hoy && t.estado==='confirmado'; });
+  var real = (r.data||[]).filter(function(t){ return t.fecha<hoy; });
+  document.getElementById('stProx').textContent = prox.length;
+  document.getElementById('stReal').textContent = real.length;
+  renderList('proxTurnos', prox.slice(0,3));
 }
 
 async function loadTurnos() {
-  if (!currentUser) return;
-  var { data: turnos } = await sb.from('turnos').select('*').eq('paciente_id', currentUser.id).order('fecha', { ascending: false });
-  renderTurnosList('todosTurnos', turnos || [], false);
+  if (!user) return;
+  var r = await sb.from('turnos').select('*').eq('paciente_id',user.id).order('fecha',{ascending:false});
+  renderList('todosTurnos', r.data||[]);
 }
 
-function renderTurnosList(containerId, turnos, isProximo) {
-  var el = document.getElementById(containerId);
-  if (!turnos.length) {
-    el.innerHTML = '<div class="empty-state"><div class="empty-icon">📅</div><div class="empty-text">No tenés turnos ' + (isProximo ? 'próximos' : '') + '.<br><button class="btn-blue" style="margin-top:16px;" onclick="showPage(\'nuevo-turno\',null);initBooking()">Sacar un turno</button></div></div>';
+function renderList(id, list) {
+  var el = document.getElementById(id);
+  if (!list.length) {
+    el.innerHTML='<div class="empty"><div class="empty-i">📅</div><div>No tenés turnos. <button class="btn-b" style="margin-top:16px" id="btnNuevoT">Sacar un turno</button></div></div>';
+    var btn = document.getElementById('btnNuevoT');
+    if (btn) btn.addEventListener('click', function(){ showPage('nuevo', document.getElementById('nav-nuevo')); initBooking(); });
     return;
   }
-  el.innerHTML = turnos.map(function(t) {
-    var fecha = new Date(t.fecha + 'T12:00:00');
-    var dia = fecha.getDate();
-    var mes = fecha.toLocaleString('es', { month: 'short' }).toUpperCase();
-    var badge = t.estado === 'confirmado'
-      ? '<span class="badge badge-green">Confirmado</span>'
-      : '<span class="badge badge-red">Cancelado</span>';
-    return '<div class="turno-item">' +
-      '<div class="turno-fecha"><div class="turno-dia">' + dia + '</div><div class="turno-mes">' + mes + '</div></div>' +
-      '<div class="turno-info"><div class="turno-medico">' + (t.medico_nombre || t.especialidad) + '</div>' +
-      '<div class="turno-especialidad">' + t.especialidad + '</div></div>' +
-      '<div class="turno-hora">' + t.hora.slice(0,5) + 'h</div>' +
-      badge + '</div>';
+  el.innerHTML = list.map(function(t){
+    var f = new Date(t.fecha+'T12:00:00');
+    var dia = f.getDate();
+    var mes = f.toLocaleString('es',{month:'short'}).toUpperCase();
+    return '<div class="ti"><div class="tdate"><div class="td">'+dia+'</div><div class="tm">'+mes+'</div></div>'+
+      '<div class="tinfo"><div class="tmed">'+(t.medico_nombre||t.especialidad)+'</div><div class="tesp">'+t.especialidad+'</div></div>'+
+      '<div class="thora">'+t.hora.slice(0,5)+'h</div>'+
+      '<span class="badge bg">Confirmado</span></div>';
   }).join('');
 }
 
-// ══ BOOKING WIZARD ══
-var currentStep = 1;
-
+// BOOKING
 function initBooking() {
-  booking = { medico: null, fecha: null, hora: null };
-  currentStep = 1;
-  renderMedicos();
+  booking={medico:null,fecha:null,hora:null};
   goStep(1);
-  document.getElementById('successContent').style.display = 'none';
-  document.getElementById('confirmContent').style.display = 'block';
-}
-
-function renderMedicos() {
-  document.getElementById('medicoGrid').innerHTML = MEDICOS.map(function(m) {
-    return '<div class="medico-option" id="mopt-' + m.id + '" onclick="selectMedico(\'' + m.id + '\')">' +
-      '<div class="medico-option-avatar">' + m.emoji + '</div>' +
-      '<div class="medico-option-name">' + m.nombre + '</div>' +
-      '<div class="medico-option-esp">' + m.especialidad + '</div>' +
-      '<div class="medico-option-dias">📅 ' + m.diasTexto + '</div>' +
-      '</div>';
+  document.getElementById('sucContent').style.display='none';
+  document.getElementById('confContent').style.display='block';
+  document.getElementById('mGrid').innerHTML = MEDICOS.map(function(m){
+    return '<div class="mopt" data-id="'+m.id+'"><div class="mavatar">'+m.emoji+'</div><div class="mname">'+m.nombre+'</div><div class="mesp">'+m.esp+'</div><div class="mdias">📅 '+m.diasTxt+'</div></div>';
   }).join('');
-}
-
-function selectMedico(id) {
-  booking.medico = MEDICOS.find(function(m) { return m.id === id; });
-  booking.fecha = null; booking.hora = null;
-  document.querySelectorAll('.medico-option').forEach(function(el) { el.classList.remove('selected'); });
-  document.getElementById('mopt-' + id).classList.add('selected');
-  document.getElementById('btnStep1').disabled = false;
-  // Pre-fill obra social from profile
-  if (currentProfile) booking.obraSocial = currentProfile.obra_social;
+  document.querySelectorAll('.mopt').forEach(function(el){
+    el.addEventListener('click', function(){
+      document.querySelectorAll('.mopt').forEach(function(x){ x.classList.remove('selected'); });
+      el.classList.add('selected');
+      booking.medico = MEDICOS.find(function(m){ return m.id===el.dataset.id; });
+      document.getElementById('btnW1').disabled = false;
+    });
+  });
 }
 
 function goStep(n) {
-  currentStep = n;
-  for (var i = 1; i <= 4; i++) {
-    document.getElementById('wp' + i).classList.toggle('active', i === n);
-    var ws = document.getElementById('ws' + i);
-    ws.classList.toggle('active', i === n);
-    ws.classList.toggle('done', i < n);
+  for (var i=1;i<=4;i++) {
+    document.getElementById('wp'+i).classList.toggle('active', i===n);
+    var w=document.getElementById('ws'+i);
+    w.classList.toggle('active', i===n);
+    w.classList.toggle('done', i<n);
   }
-  if (n === 2) renderCalendar();
-  if (n === 3) renderHorarios();
-  if (n === 4) renderResumen();
+  if (n===2) renderCal();
+  if (n===3) renderHoras();
+  if (n===4) renderResumen();
 }
 
-// Calendar
-var calViewYear, calViewMonth;
-function renderCalendar() {
-  var now = new Date();
-  if (!calViewYear) { calViewYear = now.getFullYear(); calViewMonth = now.getMonth(); }
-  var diasSemana = ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
-  document.getElementById('calHeaders').innerHTML = diasSemana.map(function(d) {
-    return '<div class="cal-header">' + d + '</div>';
-  }).join('');
-
-  document.getElementById('calTitle').textContent =
-    new Date(calViewYear, calViewMonth, 1).toLocaleString('es', { month: 'long', year: 'numeric' });
-
-  var firstDay = new Date(calViewYear, calViewMonth, 1).getDay();
-  var daysInMonth = new Date(calViewYear, calViewMonth + 1, 0).getDate();
-  var html = '';
-  for (var i = 0; i < firstDay; i++) html += '<div></div>';
-
-  var medicosDias = booking.medico ? booking.medico.dias : [];
-  for (var d = 1; d <= daysInMonth; d++) {
-    var fecha = new Date(calViewYear, calViewMonth, d);
-    var dow = fecha.getDay();
-    var dateStr = calViewYear + '-' + String(calViewMonth+1).padStart(2,'0') + '-' + String(d).padStart(2,'0');
-    var isPast = fecha < new Date(now.getFullYear(), now.getMonth(), now.getDate());
-    var isDisabled = isPast || !medicosDias.includes(dow);
-    var isSelected = booking.fecha === dateStr;
-    var isToday = dateStr === now.toISOString().split('T')[0];
-    var cls = 'cal-day' + (isDisabled ? ' disabled' : '') + (isSelected ? ' selected' : '') + (isToday && !isSelected ? ' today' : '');
-    var onclick = isDisabled ? '' : 'onclick="selectFecha(\'' + dateStr + '\')"';
-    html += '<div class="' + cls + '" ' + onclick + '>' + d + '</div>';
+function renderCal() {
+  var now=new Date();
+  if (!calY){ calY=now.getFullYear(); calM=now.getMonth(); }
+  document.getElementById('calTitle').textContent = new Date(calY,calM,1).toLocaleString('es',{month:'long',year:'numeric'});
+  var dias=['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
+  document.getElementById('calH').innerHTML = dias.map(function(d){ return '<div class="ch">'+d+'</div>'; }).join('');
+  var first=new Date(calY,calM,1).getDay();
+  var total=new Date(calY,calM+1,0).getDate();
+  var mediaDias=booking.medico?booking.medico.dias:[];
+  var html='';
+  for(var i=0;i<first;i++) html+='<div></div>';
+  var todayStr=now.toISOString().split('T')[0];
+  for(var d=1;d<=total;d++){
+    var dt=new Date(calY,calM,d);
+    var ds=calY+'-'+String(calM+1).padStart(2,'0')+'-'+String(d).padStart(2,'0');
+    var past=dt<new Date(now.getFullYear(),now.getMonth(),now.getDate());
+    var dis=past||!mediaDias.includes(dt.getDay());
+    var cls='cd'+(dis?' disabled':'')+(booking.fecha===ds?' selected':'')+(ds===todayStr&&booking.fecha!==ds?' today':'');
+    html+='<div class="'+cls+'" data-d="'+ds+'"'+(dis?'':' tabindex="0"')+'>'+d+'</div>';
   }
-  document.getElementById('calDays').innerHTML = html;
+  document.getElementById('calD').innerHTML=html;
+  if (!dis) {
+    document.querySelectorAll('#calD .cd:not(.disabled)').forEach(function(el){
+      el.addEventListener('click', function(){
+        booking.fecha=el.dataset.d; booking.hora=null;
+        document.getElementById('btnW2').disabled=false;
+        renderCal();
+      });
+    });
+  }
 }
 
-function changeMonth(dir) {
-  calViewMonth += dir;
-  if (calViewMonth > 11) { calViewMonth = 0; calViewYear++; }
-  if (calViewMonth < 0)  { calViewMonth = 11; calViewYear--; }
-  renderCalendar();
-}
+function changeMonth(d){ calM+=d; if(calM>11){calM=0;calY++;} if(calM<0){calM=11;calY--;} renderCal(); }
 
-function selectFecha(dateStr) {
-  booking.fecha = dateStr;
-  booking.hora = null;
-  document.getElementById('btnStep2').disabled = false;
-  renderCalendar();
-}
-
-function renderHorarios() {
+function renderHoras() {
   if (!booking.medico) return;
-  var m = booking.medico;
-  var html = '';
-  for (var h = m.horaInicio; h < m.horaFin; h++) {
-    for (var min = 0; min < 60; min += 20) {
-      var timeStr = String(h).padStart(2,'0') + ':' + String(min).padStart(2,'0');
-      var isSelected = booking.hora === timeStr;
-      html += '<div class="horario-btn' + (isSelected ? ' selected' : '') + '" onclick="selectHora(\'' + timeStr + '\')">' + timeStr + '</div>';
+  var m=booking.medico; var html='';
+  for(var h=m.hi;h<m.hf;h++){
+    for(var min=0;min<60;min+=20){
+      var t=String(h).padStart(2,'0')+':'+String(min).padStart(2,'0');
+      html+='<div class="hbtn'+(booking.hora===t?' selected':'')+'" data-t="'+t+'">'+t+'</div>';
     }
   }
-  document.getElementById('horarioGrid').innerHTML = html;
-}
-
-function selectHora(hora) {
-  booking.hora = hora;
-  document.getElementById('btnStep3').disabled = false;
-  renderHorarios();
+  document.getElementById('hGrid').innerHTML=html;
+  document.querySelectorAll('.hbtn').forEach(function(el){
+    el.addEventListener('click', function(){
+      booking.hora=el.dataset.t;
+      document.getElementById('btnW3').disabled=false;
+      renderHoras();
+    });
+  });
 }
 
 function renderResumen() {
-  if (!booking.medico || !booking.fecha || !booking.hora) return;
-  var fecha = new Date(booking.fecha + 'T12:00:00');
-  var fechaStr = fecha.toLocaleDateString('es-AR', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
-  document.getElementById('resumenTurno').innerHTML =
-    '<div class="resumen-row"><span class="resumen-key">Médico</span><span class="resumen-val">' + booking.medico.nombre + '</span></div>' +
-    '<div class="resumen-row"><span class="resumen-key">Especialidad</span><span class="resumen-val">' + booking.medico.especialidad + '</span></div>' +
-    '<div class="resumen-row"><span class="resumen-key">Fecha</span><span class="resumen-val">' + fechaStr + '</span></div>' +
-    '<div class="resumen-row"><span class="resumen-key">Horario</span><span class="resumen-val">' + booking.hora + 'h</span></div>' +
-    '<div class="resumen-row"><span class="resumen-key">Obra Social</span><span class="resumen-val">' + (booking.obraSocial || currentProfile?.obra_social || '—') + '</span></div>';
+  if (!booking.medico||!booking.fecha||!booking.hora) return;
+  var f=new Date(booking.fecha+'T12:00:00');
+  var fs=f.toLocaleDateString('es-AR',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+  document.getElementById('resumen').innerHTML=
+    '<div class="rrow"><span class="rk">Médico</span><span class="rv">'+booking.medico.nombre+'</span></div>'+
+    '<div class="rrow"><span class="rk">Especialidad</span><span class="rv">'+booking.medico.esp+'</span></div>'+
+    '<div class="rrow"><span class="rk">Fecha</span><span class="rv">'+fs+'</span></div>'+
+    '<div class="rrow"><span class="rk">Horario</span><span class="rv">'+booking.hora+'h</span></div>'+
+    '<div class="rrow"><span class="rk">Obra Social</span><span class="rv">'+(profile?.obra_social||'—')+'</span></div>';
 }
 
 async function confirmarTurno() {
-  if (!currentUser || !booking.medico || !booking.fecha || !booking.hora) return;
-  var { error } = await sb.from('turnos').insert({
-    paciente_id: currentUser.id,
-    medico_id: null,
-    medico_nombre: booking.medico.nombre,
-    fecha: booking.fecha,
-    hora: booking.hora + ':00',
-    especialidad: booking.medico.especialidad,
-    obra_social: currentProfile?.obra_social || '',
-    estado: 'confirmado'
+  if (!user||!booking.medico||!booking.fecha||!booking.hora) return;
+  var r=await sb.from('turnos').insert({
+    paciente_id:user.id, medico_nombre:booking.medico.nombre,
+    fecha:booking.fecha, hora:booking.hora+':00',
+    especialidad:booking.medico.esp, obra_social:profile?.obra_social||'', estado:'confirmado'
   });
-  if (error) { alert('Error al confirmar el turno: ' + error.message); return; }
-  var fecha = new Date(booking.fecha + 'T12:00:00');
-  document.getElementById('successMsg').textContent =
-    'Tu turno con ' + booking.medico.nombre + ' está confirmado para el ' +
-    fecha.toLocaleDateString('es-AR', { weekday:'long', day:'numeric', month:'long' }) + ' a las ' + booking.hora + 'h.';
-  document.getElementById('confirmContent').style.display = 'none';
-  document.getElementById('successContent').style.display = 'block';
+  if (r.error){ alert('Error: '+r.error.message); return; }
+  var f=new Date(booking.fecha+'T12:00:00');
+  document.getElementById('sucMsg').textContent='Tu turno con '+booking.medico.nombre+' está confirmado para el '+f.toLocaleDateString('es-AR',{weekday:'long',day:'numeric',month:'long'})+' a las '+booking.hora+'h.';
+  document.getElementById('confContent').style.display='none';
+  document.getElementById('sucContent').style.display='block';
   loadDashboard();
 }
 
-// ══ PERFIL ══
 function loadPerfil() {
-  if (!currentProfile) return;
-  document.getElementById('perfNombre').value      = currentProfile.nombre || '';
-  document.getElementById('perfApellido').value    = currentProfile.apellido || '';
-  document.getElementById('perfDni').value         = currentProfile.dni || '';
-  document.getElementById('perfTelefono').value    = currentProfile.telefono || '';
-  document.getElementById('perfObraSocial').value  = currentProfile.obra_social || '';
-  document.getElementById('perfAfiliado').value    = currentProfile.numero_afiliado || '';
+  if (!profile) return;
+  document.getElementById('pNombre').value=profile.nombre||'';
+  document.getElementById('pApellido').value=profile.apellido||'';
+  document.getElementById('pDni').value=profile.dni||'';
+  document.getElementById('pTel').value=profile.telefono||'';
+  document.getElementById('pOS').value=profile.obra_social||'';
+  document.getElementById('pAfil').value=profile.numero_afiliado||'';
 }
 
 async function guardarPerfil() {
-  var updates = {
-    nombre:          document.getElementById('perfNombre').value.trim(),
-    apellido:        document.getElementById('perfApellido').value.trim(),
-    dni:             document.getElementById('perfDni').value.trim(),
-    telefono:        document.getElementById('perfTelefono').value.trim(),
-    obra_social:     document.getElementById('perfObraSocial').value,
-    numero_afiliado: document.getElementById('perfAfiliado').value.trim(),
-  };
-  var { error } = await sb.from('profiles').update(updates).eq('id', currentUser.id);
-  var msg = document.getElementById('perfilMsg');
-  if (error) {
-    msg.style.color = '#dc2626'; msg.textContent = 'Error al guardar.';
-  } else {
-    currentProfile = { ...currentProfile, ...updates };
-    document.getElementById('sidebarName').textContent = updates.nombre + ' ' + updates.apellido;
-    document.getElementById('topbarName').textContent = updates.nombre;
-    document.getElementById('sidebarAvatar').textContent = updates.nombre.charAt(0).toUpperCase();
-    msg.style.color = '#16a34a'; msg.textContent = '✓ Cambios guardados correctamente.';
-  }
-  msg.style.display = 'block';
-  setTimeout(function() { msg.style.display = 'none'; }, 3000);
+  var u={nombre:document.getElementById('pNombre').value.trim(),apellido:document.getElementById('pApellido').value.trim(),
+    dni:document.getElementById('pDni').value.trim(),telefono:document.getElementById('pTel').value.trim(),
+    obra_social:document.getElementById('pOS').value,numero_afiliado:document.getElementById('pAfil').value.trim()};
+  var r=await sb.from('profiles').update(u).eq('id',user.id);
+  var m=document.getElementById('pMsg');
+  if (r.error){ m.style.color='#dc2626'; m.textContent='Error al guardar.'; }
+  else { profile={...profile,...u}; document.getElementById('sname').textContent=u.nombre+' '+u.apellido; document.getElementById('tname').textContent=u.nombre; m.style.color='#16a34a'; m.textContent='✓ Cambios guardados.'; }
+  m.style.display='block';
+  setTimeout(function(){ m.style.display='none'; }, 3000);
 }
 
-// ══ NAVIGATION ══
-function showPage(pageId, linkEl) {
-  document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('active'); });
-  document.getElementById('page-' + pageId).classList.add('active');
-  document.querySelectorAll('.sidebar-nav a').forEach(function(a) { a.classList.remove('active'); });
-  if (linkEl) linkEl.classList.add('active');
-  if (pageId === 'turnos') loadTurnos();
+function showPage(id, el) {
+  document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('active'); });
+  document.getElementById('page-'+id).classList.add('active');
+  document.querySelectorAll('.snav a').forEach(function(a){ a.classList.remove('active'); });
+  if (el) el.classList.add('active');
 }
 
-// ══ INIT ══
-(async function() {
-  var { data: { session } } = await sb.auth.getSession();
-  if (session) {
-    await loadPortal(session.user);
-  }
-  sb.auth.onAuthStateChange
+// Init cuando DOM está listo
+document.addEventListener('DOMContentLoaded', function() {
+  init();
+});
+</script>
+
+</body>
+</html>
