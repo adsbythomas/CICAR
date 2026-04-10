@@ -336,7 +336,7 @@
     </div>
 
     <p style="text-align:center; margin-top:20px; font-size:12px; color:var(--muted);">
-      ¿Sos médico del centro? <a href="mailto:admin@cicar.com" style="color:var(--blue); font-weight:600;">Contactá al administrador</a>
+      ¿Sos médico del centro? <a href="/cdn-cgi/l/email-protection#bbdadfd6d2d5fbd8d2d8dac995d8d4d6" style="color:var(--blue); font-weight:600;">Contactá al administrador</a>
     </p>
   </div>
 </div>
@@ -553,10 +553,10 @@
   </div>
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // ══ SUPABASE ══
 const SUPA_URL  = 'https://fuvlddjukosqqwjpjwif.supabase.co';
-const SUPA_KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ1dmxkZGp1a29zcXF3anBqd2lmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDM2OTY2NzIsImV4cCI6MjA1OTI3MjY3Mn0.placeholder';
+const SUPA_KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ1dmxkZGp1a29zcXF3anBqd2lmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU4MjU5NDQsImV4cCI6MjA5MTQwMTk0NH0.90Rp7V91wcmeV6Psotks59TVn4UQjEuJMt_bj79BkfU';
 const { createClient } = supabase;
 const sb = createClient(SUPA_URL, SUPA_KEY);
 
@@ -899,10 +899,4 @@ function showPage(pageId, linkEl) {
   if (session) {
     await loadPortal(session.user);
   }
-  sb.auth.onAuthStateChange(async function(event, session) {
-    if (event === 'SIGNED_IN' && session) await loadPortal(session.user);
-  });
-})();
-</script>
-</body>
-</html>
+  sb.auth.onAuthStateChange
