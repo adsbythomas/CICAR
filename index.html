@@ -105,7 +105,7 @@
     padding: 8px 18px; border-radius: 100px;
     margin-bottom: 32px;
   }
-  .hero-badge::before { content: '♥'; font-size: 10px; }
+  .hero-badge svg { width: 12px; height: 12px; }
 
   .hero h1 {
     font-family: 'DM Serif Display', serif;
@@ -199,9 +199,10 @@
     background: white;
     border-radius: 10px;
     display: flex; align-items: center; justify-content: center;
-    font-size: 20px;
+    color: var(--blue);
     box-shadow: 0 2px 8px rgba(29,132,199,0.12);
   }
+  .trust-icon svg { width: 22px; height: 22px; }
   .trust-text { font-size: 13px; }
   .trust-text strong { display: block; font-weight: 700; color: var(--navy); font-size: 14px; }
   .trust-text span { color: var(--text-muted); }
@@ -269,9 +270,12 @@
     background: white;
     border-radius: 14px;
     display: flex; align-items: center; justify-content: center;
-    font-size: 26px; margin-bottom: 24px;
+    color: var(--blue);
+    margin-bottom: 24px;
     box-shadow: 0 4px 16px rgba(29,132,199,0.1);
   }
+  .service-icon svg { width: 28px; height: 28px; }
+  .service-card.featured .service-icon { color: var(--light); }
   .service-title { font-size: 18px; font-weight: 700; color: var(--navy); margin-bottom: 10px; }
   .service-desc { font-size: 14px; line-height: 1.65; color: var(--text-muted); margin-bottom: 20px; }
   .service-link { font-size: 13px; font-weight: 700; color: var(--blue); text-decoration: none; display: flex; align-items: center; gap: 6px; }
@@ -308,6 +312,11 @@
     font-size: 72px;
     position: relative;
   }
+  .doctor-photo-silhouette {
+    background: linear-gradient(135deg, #E8F0F6, #CBD9E4);
+    color: rgba(23,46,68,0.32);
+  }
+  .doctor-photo-silhouette svg { width: 110px; height: 110px; }
   .doctor-photo-overlay {
     position: absolute; bottom: 0; left: 0; right: 0;
     height: 50px;
@@ -409,7 +418,8 @@
   }
   .tech-card:hover { border-color: var(--blue); background: white; box-shadow: 0 12px 40px rgba(29,132,199,0.1); }
   .tech-card.span2 { grid-column: span 2; }
-  .tech-card-icon { font-size: 32px; margin-bottom: 12px; }
+  .tech-card-icon { color: var(--blue); margin-bottom: 14px; display: inline-flex; }
+  .tech-card-icon svg { width: 30px; height: 30px; }
   .tech-card-title { font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
   .tech-card-desc { font-size: 13px; line-height: 1.6; color: var(--text-muted); }
 
@@ -464,7 +474,8 @@
     border-radius: var(--radius-lg);
     border: 1px solid rgba(29,132,199,0.12);
   }
-  .info-card-icon { font-size: 36px; margin-bottom: 18px; }
+  .info-card-icon { color: var(--blue); margin-bottom: 18px; display: inline-flex; width: 52px; height: 52px; align-items: center; justify-content: center; background: var(--pale); border-radius: 12px; }
+  .info-card-icon svg { width: 26px; height: 26px; }
   .info-card-title { font-size: 18px; font-weight: 700; color: var(--navy); margin-bottom: 12px; }
   .info-card-content { font-size: 14px; line-height: 1.75; color: var(--text-muted); }
   .info-card-content strong { color: var(--navy); font-weight: 600; }
@@ -552,20 +563,6 @@
   .ecg-path { stroke-dasharray: 1000; stroke-dashoffset: 1000; animation: drawECG 3s linear forwards 0.8s; }
   @keyframes drawECG { to { stroke-dashoffset: 0; } }
 
-  /* Floating heart pulse */
-  .floating-pulse {
-    position: absolute; top: 18%; right: 47%;
-    width: 12px; height: 12px;
-    border-radius: 50%; background: rgba(77, 222, 128, 0.9);
-    box-shadow: 0 0 0 0 rgba(77,222,128,0.4);
-    animation: ripple 2s ease-in-out infinite 1s;
-  }
-  @keyframes ripple {
-    0% { box-shadow: 0 0 0 0 rgba(77,222,128,0.4); }
-    70% { box-shadow: 0 0 0 14px rgba(77,222,128,0); }
-    100% { box-shadow: 0 0 0 0 rgba(77,222,128,0); }
-  }
-
   /* Active nav item indicator */
   .nav-links a.active { color: white; }
 
@@ -603,8 +600,11 @@
   .news-thumb {
     height: 180px;
     display: flex; align-items: center; justify-content: center;
-    font-size: 56px;
+    color: rgba(23,46,68,0.35);
   }
+  .news-thumb svg { width: 64px; height: 64px; }
+  .news-meta svg { width: 13px; height: 13px; vertical-align: -2px; margin-right: 4px; }
+  .news-meta span { display: inline-flex; align-items: center; }
   .news-thumb.bg1 { background: linear-gradient(135deg, #E8F4FB, #B5D4F4); }
   .news-thumb.bg2 { background: linear-gradient(135deg, #EBF8F2, #9FE1CB); }
   .news-thumb.bg3 { background: linear-gradient(135deg, #EEF2FF, #C7D2FE); }
@@ -621,7 +621,9 @@
 <div id="preloader">
   <div class="preloader-inner">
     <div class="preloader-logo">
-      <div class="preloader-logo-icon">🫀</div>
+      <div class="preloader-logo-icon">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      </div>
       <div class="preloader-logo-text">
         <span class="preloader-cicar">CICAR</span>
         <span class="preloader-sub">BARRIO NORTE</span>
@@ -640,7 +642,7 @@
     </div>
     <div class="preloader-status">
       <span class="preloader-dot"></span>
-      <span class="preloader-msg">Iniciando sistema de diagnóstico...</span>
+      <span class="preloader-msg">Cargando</span>
     </div>
   </div>
 </div>
@@ -764,7 +766,9 @@
 <!-- NAVIGATION -->
 <nav>
   <a href="#inicio" class="nav-logo">
-    <div class="nav-logo-icon">🫀</div>
+    <div class="nav-logo-icon">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+    </div>
     <div class="nav-logo-text">
       <span>CICAR</span>
       <span>Barrio Norte</span>
@@ -783,11 +787,11 @@
 <!-- HERO -->
 <section class="hero" id="inicio">
   <div class="hero-content">
-    <div class="hero-badge fade-in">Centro de Cardiología Especializada</div>
+    <div class="hero-badge fade-in"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Centro de Cardiología Especializada</div>
     <h1 class="fade-in-2">Tu corazón,<br>en las mejores <em>manos</em></h1>
     <p class="fade-in-3">Diagnósticos cardiovasculares de alta precisión, atención integral y tecnología de vanguardia. CICAR Barrio Norte: donde la excelencia médica cuida tu vida.</p>
     <div class="hero-actions fade-in-3">
-      <a href="portal.html" class="btn-primary">🗓 Sacar Turno</a>
+      <a href="portal.html" class="btn-primary"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Sacar Turno</a>
       <a href="#servicios" class="btn-outline">Ver Servicios →</a>
     </div>
 
@@ -916,40 +920,39 @@
         <div>
           <div style="font-size:12px; color: rgba(166,218,241,0.7); margin-bottom:4px; letter-spacing:1px; text-transform:uppercase;">Próximo turno</div>
           <div style="font-size:20px; font-weight:700; color:white;">Hoy, 15:30</div>
-          <div style="font-size:13px; color:rgba(255,255,255,0.55); margin-top:4px;">Dr. Croissant — Cardiología</div>
+          <div style="font-size:13px; color:rgba(255,255,255,0.55); margin-top:4px;">Consulta de Cardiología Clínica</div>
         </div>
         <div style="background:rgba(77,222,128,0.15); border: 1px solid rgba(77,222,128,0.3); padding:6px 12px; border-radius:8px; font-size:12px; font-weight:700; color:#4ade80;">CONFIRMADO</div>
       </div>
     </div>
   </div>
-  <div class="floating-pulse"></div>
 </section>
 
 <!-- TRUST BAR -->
 <div class="trust-bar">
   <div class="trust-item">
-    <div class="trust-icon">🏥</div>
+    <div class="trust-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3 5 5 .7-3.7 3.6.9 5.1L12 14l-5.1 2.4.9-5.1L4 7.7 9 7z"/></svg></div>
     <div class="trust-text">
       <strong>Centro Certificado</strong>
       <span>ISO 9001 en calidad médica</span>
     </div>
   </div>
   <div class="trust-item">
-    <div class="trust-icon">⚡</div>
+    <div class="trust-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg></div>
     <div class="trust-text">
       <strong>Diagnóstico inmediato</strong>
       <span>Resultados el mismo día</span>
     </div>
   </div>
   <div class="trust-item">
-    <div class="trust-icon">👨‍⚕️</div>
+    <div class="trust-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3v7a4 4 0 0 0 8 0V3"/><path d="M5 3h3M12 3h3"/><path d="M10 14v3a4 4 0 0 0 4 4 4 4 0 0 0 4-4v-2"/><circle cx="18" cy="11" r="2"/></svg></div>
     <div class="trust-text">
       <strong>Equipo especializado</strong>
       <span>Cardiólogos certificados</span>
     </div>
   </div>
   <div class="trust-item">
-    <div class="trust-icon">🔬</div>
+    <div class="trust-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 2h6v4l-1 1v4l4 8a2 2 0 0 1-2 3H8a2 2 0 0 1-2-3l4-8V7l-1-1z"/><line x1="8" y1="14" x2="16" y2="14"/></svg></div>
     <div class="trust-text">
       <strong>Alta tecnología</strong>
       <span>Equipamiento de última generación</span>
@@ -992,55 +995,55 @@
 
   <div class="services-grid" id="services-grid" style="margin-top: 36px;">
     <div class="service-card featured" data-category="diagnostico tratamiento">
-      <div class="service-icon">🫀</div>
+      <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/><polyline points="3.5 12 7.5 12 9 9 11 15 13 11 15 13 17 13"/></svg></div>
       <div class="service-title">Cardiología Clínica</div>
       <div class="service-desc">Diagnóstico y tratamiento integral de enfermedades cardiovasculares. Consultas con especialistas certificados y seguimiento personalizado.</div>
       <a href="#" class="service-link">Ver más →</a>
     </div>
     <div class="service-card" data-category="diagnostico">
-      <div class="service-icon">📡</div>
+      <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12a10 10 0 0 1 20 0"/><path d="M5.5 12a6.5 6.5 0 0 1 13 0"/><circle cx="12" cy="12" r="2"/><line x1="12" y1="14" x2="12" y2="22"/></svg></div>
       <div class="service-title">Ecocardiografía</div>
       <div class="service-desc">Evaluación por ultrasonido de la estructura y función cardíaca. Ecocardiogramas 2D, 3D, Doppler y de estrés.</div>
       <a href="#" class="service-link">Ver más →</a>
     </div>
     <div class="service-card" data-category="diagnostico">
-      <div class="service-icon">📈</div>
+      <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
       <div class="service-title">Electrocardiografía</div>
       <div class="service-desc">ECG de reposo y Holter 24/48h. Monitoreo continuo del ritmo cardíaco para detectar arritmias y alteraciones.</div>
       <a href="#" class="service-link">Ver más →</a>
     </div>
     <div class="service-card" data-category="diagnostico">
-      <div class="service-icon">🏃</div>
+      <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="13" cy="4" r="2"/><path d="M4 22l5-7-2-5 4-3 3 4 4 1"/><path d="M15 22l-2-7 2-3"/></svg></div>
       <div class="service-title">Ergometría</div>
       <div class="service-desc">Prueba de esfuerzo controlada para evaluar la respuesta cardiovascular al ejercicio y detectar isquemia.</div>
       <a href="#" class="service-link">Ver más →</a>
     </div>
     <div class="service-card" data-category="prevencion tratamiento">
-      <div class="service-icon">💊</div>
+      <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10.5 20.5a6 6 0 0 1-8.5-8.5l9.5-9.5a6 6 0 0 1 8.5 8.5z"/><line x1="8.5" y1="8.5" x2="15.5" y2="15.5"/></svg></div>
       <div class="service-title">Cese Tabáquico</div>
       <div class="service-desc">Programa integral de abandono del tabaco con soporte médico y seguimiento para reducir el riesgo cardiovascular.</div>
       <a href="#" class="service-link">Ver más →</a>
     </div>
     <div class="service-card" data-category="tratamiento">
-      <div class="service-icon">🩸</div>
+      <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2s7 7.5 7 13a7 7 0 0 1-14 0c0-5.5 7-13 7-13z"/></svg></div>
       <div class="service-title">Nefrología</div>
       <div class="service-desc">Atención de enfermedades renales con enfoque en su impacto cardiovascular. Manejo de hipertensión y enfermedad renal crónica.</div>
       <a href="#" class="service-link">Ver más →</a>
     </div>
     <div class="service-card" data-category="prevencion">
-      <div class="service-icon">🍎</div>
+      <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v4"/><path d="M10 3h4"/><path d="M18 13a6 6 0 0 1-12 0c0-3 2-6 6-6s6 3 6 6z"/><path d="M12 13v8"/></svg></div>
       <div class="service-title">Nutrición Cardiovascular</div>
       <div class="service-desc">Plan nutricional personalizado para reducir factores de riesgo cardiovascular: colesterol, triglicéridos y presión arterial.</div>
       <a href="#" class="service-link">Ver más →</a>
     </div>
     <div class="service-card" data-category="prevencion tratamiento">
-      <div class="service-icon">🧠</div>
+      <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3a3 3 0 0 0-3 3c0 1-1 2-1 3 0 1 1 2 1 3 0 1-1 2-1 3a3 3 0 0 0 3 3"/><path d="M15 3a3 3 0 0 1 3 3c0 1 1 2 1 3 0 1-1 2-1 3 0 1 1 2 1 3a3 3 0 0 1-3 3"/><line x1="9" y1="3" x2="15" y2="3"/><line x1="9" y1="21" x2="15" y2="21"/><line x1="12" y1="8" x2="12" y2="16"/></svg></div>
       <div class="service-title">Salud Mental</div>
       <div class="service-desc">Abordaje del estrés, ansiedad y depresión como factores de riesgo cardiovascular. Atención psicológica integrada.</div>
       <a href="#" class="service-link">Ver más →</a>
     </div>
     <div class="service-card" data-category="rehabilitacion">
-      <div class="service-icon">🔄</div>
+      <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.5 9a9 9 0 0 1 15-3.5L23 10"/><path d="M20.5 15a9 9 0 0 1-15 3.5L1 14"/></svg></div>
       <div class="service-title">Rehabilitación Cardíaca</div>
       <div class="service-desc">Programa de recuperación post-evento cardiovascular con ejercicio supervisado, educación y apoyo psicológico.</div>
       <a href="#" class="service-link">Ver más →</a>
@@ -1065,7 +1068,7 @@
       <div class="doctor-info">
         <div class="doctor-specialty">Cardiología Clínica</div>
         <div class="doctor-name">Dra. Yanina Croissant</div>
-        <div class="doctor-role">Aspirante a médica. (Yo, si fuese ustedes, no me atendería con ella.)</div>
+        <div class="doctor-role">Cardióloga clínica · Especialista en prevención cardiovascular y ecocardiografía Doppler</div>
         <div class="doctor-credentials">
           <span class="credential-badge">MN 88421</span>
           <span class="credential-badge">Certificada FAC</span>
@@ -1074,8 +1077,8 @@
       </div>
     </div>
     <div class="doctor-card">
-      <div class="doctor-photo" style="background: linear-gradient(135deg, #EBF8F2, #9FE1CB);">
-        👩‍⚕️
+      <div class="doctor-photo doctor-photo-silhouette">
+        <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="32" cy="24" r="10"/><path d="M12 56c0-11 9-18 20-18s20 7 20 18"/></svg>
         <div class="doctor-photo-overlay"></div>
       </div>
       <div class="doctor-info">
@@ -1090,8 +1093,8 @@
       </div>
     </div>
     <div class="doctor-card">
-      <div class="doctor-photo" style="background: linear-gradient(135deg, #EEF2FF, #C7D2FE);">
-        👨‍⚕️
+      <div class="doctor-photo doctor-photo-silhouette">
+        <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="32" cy="24" r="10"/><path d="M12 56c0-11 9-18 20-18s20 7 20 18"/></svg>
         <div class="doctor-photo-overlay"></div>
       </div>
       <div class="doctor-info">
@@ -1106,8 +1109,8 @@
       </div>
     </div>
     <div class="doctor-card">
-      <div class="doctor-photo" style="background: linear-gradient(135deg, #FFF7E6, #FDE68A);">
-        👨‍⚕️
+      <div class="doctor-photo doctor-photo-silhouette">
+        <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="32" cy="24" r="10"/><path d="M12 56c0-11 9-18 20-18s20 7 20 18"/></svg>
         <div class="doctor-photo-overlay"></div>
       </div>
       <div class="doctor-info">
@@ -1169,7 +1172,7 @@
     </div>
 
     <div class="process-visual">
-      <div class="process-visual-title">🗓 Reservar Turno</div>
+      <div class="process-visual-title" style="display:flex; align-items:center; gap:8px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Reservar Turno</div>
       <div class="appointment-form">
         <div class="form-row">
           <label class="form-label">Nombre completo</label>
@@ -1218,7 +1221,8 @@
           <input type="text" class="form-input" placeholder="OSDE, Swiss Medical, IOMA…">
         </div>
         <button class="btn-primary" style="width:100%; justify-content:center; margin-top:8px;">
-          Confirmar Turno 🗓
+          Confirmar Turno
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
         </button>
         <p style="font-size:12px; color:rgba(166,218,241,0.5); text-align:center; margin-top:14px;">También por WhatsApp: +54 11 4000-0000</p>
       </div>
@@ -1260,27 +1264,27 @@
 
     <div class="tech-visual">
       <div class="tech-card">
-        <div class="tech-card-icon">📡</div>
+        <div class="tech-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12a10 10 0 0 1 20 0"/><path d="M5.5 12a6.5 6.5 0 0 1 13 0"/><circle cx="12" cy="12" r="2"/><line x1="12" y1="14" x2="12" y2="22"/></svg></div>
         <div class="tech-card-title">Ecocardiografía 3D</div>
         <div class="tech-card-desc">Evaluación volumétrica del corazón en tiempo real. Alta resolución para valvulopatías y miocardiopatías.</div>
       </div>
       <div class="tech-card">
-        <div class="tech-card-icon">⚡</div>
+        <div class="tech-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
         <div class="tech-card-title">ECG Digital</div>
         <div class="tech-card-desc">Electrocardiograma de reposo de 12 derivaciones con análisis computarizado automático.</div>
       </div>
       <div class="tech-card">
-        <div class="tech-card-icon">🌙</div>
+        <div class="tech-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg></div>
         <div class="tech-card-title">Holter 24/48h</div>
         <div class="tech-card-desc">Monitoreo ambulatorio del ritmo cardíaco. Detecta arritmias que no se capturan en el ECG de reposo.</div>
       </div>
       <div class="tech-card">
-        <div class="tech-card-icon">💻</div>
+        <div class="tech-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="18" x2="12" y2="21"/></svg></div>
         <div class="tech-card-title">Telemedicina</div>
         <div class="tech-card-desc">Consultas y seguimiento remoto. Accedé a tu historial médico y resultados de forma segura desde la app.</div>
       </div>
       <div class="tech-card span2" style="background: linear-gradient(135deg, var(--pale), #dbeeff); border-color: rgba(29,132,199,0.2);">
-        <div class="tech-card-icon">🏃</div>
+        <div class="tech-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="13" cy="4" r="2"/><path d="M4 22l5-7-2-5 4-3 3 4 4 1"/><path d="M15 22l-2-7 2-3"/></svg></div>
         <div class="tech-card-title">Ergometría con análisis metabólico</div>
         <div class="tech-card-desc">Prueba de esfuerzo completa con análisis de gases respiratorios, determinación del VO₂ máximo y monitoreo cardiovascular continuo. Indicada para deportistas de alto rendimiento, pre-quirúrgico y evaluación de insuficiencia cardíaca.</div>
       </div>
@@ -1301,30 +1305,30 @@
 
   <div class="news-grid">
     <div class="news-card">
-      <div class="news-thumb bg1">❤️</div>
+      <div class="news-thumb bg1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
       <div class="news-body">
         <div class="news-category">Prevención</div>
         <div class="news-title">10 hábitos que cuidan tu corazón todos los días</div>
         <div class="news-excerpt">Pequeños cambios en tu rutina diaria pueden reducir significativamente el riesgo cardiovascular. Desde la alimentación hasta el manejo del estrés.</div>
-        <div class="news-meta"><span>🗓 15 Mar 2025</span><span>5 min lectura</span></div>
+        <div class="news-meta"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>15 Mar 2025</span><span>5 min lectura</span></div>
       </div>
     </div>
     <div class="news-card">
-      <div class="news-thumb bg2">🩺</div>
+      <div class="news-thumb bg2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3v7a4 4 0 0 0 8 0V3"/><path d="M5 3h3M12 3h3"/><path d="M10 14v3a4 4 0 0 0 4 4 4 4 0 0 0 4-4v-2"/><circle cx="18" cy="11" r="2"/></svg></div>
       <div class="news-body">
         <div class="news-category">Diagnóstico</div>
         <div class="news-title">¿Cuándo hacerse un ecocardiograma? Todo lo que necesitás saber</div>
         <div class="news-excerpt">El ecocardiograma es uno de los estudios más completos para evaluar la salud del corazón. Conocé sus indicaciones y qué esperar del procedimiento.</div>
-        <div class="news-meta"><span>🗓 28 Feb 2025</span><span>4 min lectura</span></div>
+        <div class="news-meta"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>28 Feb 2025</span><span>4 min lectura</span></div>
       </div>
     </div>
     <div class="news-card">
-      <div class="news-thumb bg3">🏃</div>
+      <div class="news-thumb bg3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="13" cy="4" r="2"/><path d="M4 22l5-7-2-5 4-3 3 4 4 1"/><path d="M15 22l-2-7 2-3"/></svg></div>
       <div class="news-body">
         <div class="news-category">Rehabilitación</div>
         <div class="news-title">Rehabilitación cardíaca: el camino de vuelta a la vida activa</div>
         <div class="news-excerpt">Después de un evento cardiovascular, la rehabilitación es fundamental. Conocé cómo funciona nuestro programa y los resultados que logra.</div>
-        <div class="news-meta"><span>🗓 10 Feb 2025</span><span>6 min lectura</span></div>
+        <div class="news-meta"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>10 Feb 2025</span><span>6 min lectura</span></div>
       </div>
     </div>
   </div>
@@ -1336,8 +1340,8 @@
   <h2>Un corazón sano,<br>una vida plena</h2>
   <p>No esperes síntomas para cuidar tu corazón. Agendá tu consulta preventiva hoy y tomá el control de tu salud cardiovascular.</p>
   <div class="cta-band-actions">
-    <a href="portal.html" class="btn-white">🗓 Pedir turno ahora</a>
-    <a href="https://wa.me/541140000000" class="btn-outline" style="color:white; border-color:rgba(255,255,255,0.3);">💬 WhatsApp</a>
+    <a href="portal.html" class="btn-white"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Pedir turno ahora</a>
+    <a href="https://wa.me/541140000000" class="btn-outline" style="color:white; border-color:rgba(255,255,255,0.3);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-6.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>WhatsApp</a>
   </div>
 </div>
 
@@ -1349,7 +1353,7 @@
 
   <div class="info-grid">
     <div class="info-card">
-      <div class="info-card-icon">📍</div>
+      <div class="info-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
       <div class="info-card-title">Ubicación</div>
       <div class="info-card-content">
         <strong>Av. Santa Fe 2500, Piso 3</strong><br>
@@ -1359,7 +1363,7 @@
       </div>
     </div>
     <div class="info-card">
-      <div class="info-card-icon">🕐</div>
+      <div class="info-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg></div>
       <div class="info-card-title">Horarios</div>
       <div class="info-card-content">
         <strong>Lunes a Viernes</strong><br>
@@ -1370,7 +1374,7 @@
       </div>
     </div>
     <div class="info-card">
-      <div class="info-card-icon">📞</div>
+      <div class="info-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
       <div class="info-card-title">Contacto</div>
       <div class="info-card-content">
         <strong>Turnos:</strong> +54 11 4000-0000<br><br>
@@ -1380,7 +1384,7 @@
       </div>
     </div>
     <div class="info-card">
-      <div class="info-card-icon">💳</div>
+      <div class="info-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></div>
       <div class="info-card-title">Coberturas</div>
       <div class="info-card-content">
         Aceptamos todas las obras sociales y prepagas principales:<br><br>
@@ -1395,7 +1399,9 @@
   <div class="footer-top">
     <div class="footer-brand">
       <div class="footer-logo">
-        <div class="footer-logo-mark">🫀</div>
+        <div class="footer-logo-mark">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </div>
         <span class="footer-logo-text">CICAR</span>
       </div>
       <p class="footer-desc">Centro Integral de Cardiología y Atención Especializada de Barrio Norte. Atención integral en prevención, diagnóstico y tratamiento de patologías cardiovasculares y comorbilidades.</p>
@@ -1429,11 +1435,11 @@
     <div class="footer-col">
       <h4>Contacto</h4>
       <ul>
-        <li><a href="#">📍 Av. Santa Fe 2500</a></li>
-        <li><a href="#">📞 11 4000-0000</a></li>
-        <li><a href="#">💬 WhatsApp</a></li>
-        <li><a href="#">✉️ Correo</a></li>
-        <li><a href="#">🗓 Turnos online</a></li>
+        <li><a href="#">Av. Santa Fe 2500</a></li>
+        <li><a href="#">11 4000-0000</a></li>
+        <li><a href="#">WhatsApp</a></li>
+        <li><a href="#">Correo</a></li>
+        <li><a href="#">Turnos online</a></li>
       </ul>
     </div>
   </div>
