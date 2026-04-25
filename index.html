@@ -334,7 +334,11 @@
     font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
     color: var(--blue); margin-bottom: 6px;
   }
-  .doctor-name { font-size: 17px; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
+  .doctor-name {
+    font-size: 17px; font-weight: 700; color: var(--navy);
+    margin-bottom: 8px; line-height: 1.25;
+    word-break: normal; overflow-wrap: break-word; hyphens: none;
+  }
   .doctor-role { font-size: 13px; color: var(--text-muted); margin-bottom: 16px; line-height: 1.5; }
   .doctor-credentials {
     display: flex; gap: 6px; flex-wrap: wrap;
@@ -616,6 +620,158 @@
     margin-bottom: 8px;
   }
   .pillar-desc { font-size: 13px; line-height: 1.6; color: var(--text-muted); }
+
+  /* ─── SERVICES (mosaico compacto) ─── */
+  .services-mosaic {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 14px;
+    margin-top: 36px;
+  }
+  .service-tile {
+    background: var(--pale);
+    border: 1.5px solid transparent;
+    border-radius: 14px;
+    padding: 26px 16px 22px;
+    text-align: center;
+    cursor: pointer;
+    font-family: var(--font-body);
+    transition: all 0.22s;
+    display: flex; flex-direction: column; align-items: center; gap: 12px;
+  }
+  .service-tile:hover {
+    border-color: var(--blue);
+    background: white;
+    box-shadow: 0 12px 32px rgba(29, 132, 199, 0.14);
+    transform: translateY(-3px);
+  }
+  .service-tile-icon {
+    width: 48px; height: 48px; border-radius: 12px;
+    background: white;
+    color: var(--blue);
+    display: inline-flex; align-items: center; justify-content: center;
+    box-shadow: 0 2px 8px rgba(29,132,199,0.10);
+  }
+  .service-tile-icon svg { width: 26px; height: 26px; }
+  .service-tile:hover .service-tile-icon {
+    background: var(--blue); color: white;
+  }
+  .service-tile-name {
+    font-size: 13px; font-weight: 700; color: var(--navy);
+    line-height: 1.3; letter-spacing: 0.2px;
+  }
+
+  /* Modal de detalle de cada area */
+  .service-modal {
+    position: fixed; inset: 0; z-index: 2000;
+    background: rgba(23, 46, 68, 0.55);
+    display: none; align-items: center; justify-content: center;
+    padding: 24px; backdrop-filter: blur(4px);
+  }
+  .service-modal.open { display: flex; }
+  .service-modal-card {
+    background: white;
+    border-radius: var(--radius-lg);
+    padding: 40px 36px 32px;
+    max-width: 460px; width: 100%;
+    position: relative;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.25);
+    animation: fadeUp 0.25s ease;
+  }
+  .service-modal-close {
+    position: absolute; top: 14px; right: 16px;
+    background: none; border: none; cursor: pointer;
+    font-size: 28px; line-height: 1; color: var(--text-muted);
+    width: 32px; height: 32px; border-radius: 8px;
+  }
+  .service-modal-close:hover { background: var(--pale); color: var(--navy); }
+  .service-modal-title {
+    font-family: var(--font-display);
+    font-size: 24px; color: var(--navy);
+    margin-bottom: 14px; letter-spacing: -0.3px;
+  }
+  .service-modal-desc {
+    font-size: 14.5px; line-height: 1.65;
+    color: var(--text-muted);
+    margin-bottom: 24px;
+  }
+
+  /* ─── PROCESS (flujo de 4 pasos + CTA al portal) ─── */
+  .process { padding-top: 100px; padding-bottom: 100px; }
+  .process-header {
+    text-align: center; max-width: 720px; margin: 0 auto 64px;
+  }
+  .process-header .section-tag { justify-content: center; display: inline-flex; }
+  .process-header .section-sub { margin: 0 auto; }
+
+  .process-flow {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    max-width: 1100px; margin: 0 auto 56px;
+    position: relative;
+  }
+  .process-flow::before {
+    content: '';
+    position: absolute;
+    top: 38px; left: 12.5%; right: 12.5%; height: 2px;
+    background: rgba(166,218,241,0.18);
+    z-index: 0;
+  }
+
+  .flow-step {
+    display: flex; flex-direction: column; align-items: center;
+    text-align: center; padding: 0 14px;
+    position: relative; z-index: 1;
+  }
+  .flow-step-num {
+    font-family: var(--font-display);
+    font-size: 13px; font-weight: 700; letter-spacing: 2.5px;
+    color: var(--light); margin-bottom: 12px;
+  }
+  .flow-step-icon {
+    width: 76px; height: 76px;
+    border-radius: 50%;
+    background: var(--navy);
+    border: 2px solid var(--blue);
+    color: var(--light);
+    display: inline-flex; align-items: center; justify-content: center;
+    margin-bottom: 18px;
+    transition: all 0.25s;
+  }
+  .flow-step-icon svg { width: 32px; height: 32px; }
+  .flow-step:hover .flow-step-icon {
+    background: var(--blue); color: white; transform: translateY(-3px);
+  }
+  .flow-step-title {
+    font-size: 16px; font-weight: 700; color: white;
+    margin-bottom: 6px;
+  }
+  .flow-step-desc {
+    font-size: 13px; line-height: 1.55;
+    color: rgba(255, 255, 255, 0.6);
+    max-width: 200px;
+  }
+
+  .process-cta { text-align: center; }
+  .btn-large {
+    padding: 18px 40px; font-size: 16px;
+    border-radius: 12px;
+  }
+  .process-cta-note {
+    font-size: 13px; color: rgba(255, 255, 255, 0.55);
+    margin-top: 18px;
+  }
+  .process-cta-note a {
+    color: var(--light); text-decoration: none; border-bottom: 1px solid rgba(166,218,241,0.4);
+  }
+  .process-cta-note a:hover { color: white; border-color: white; }
+
+  @media (max-width: 760px) {
+    .process-flow { grid-template-columns: repeat(2, 1fr); gap: 36px 0; }
+    .process-flow::before { display: none; }
+    .services-mosaic { grid-template-columns: repeat(2, 1fr); }
+  }
 </style>
 </head>
 <body>
@@ -624,9 +780,9 @@
 <div id="preloader">
   <div class="preloader-inner">
     <img class="preloader-logo-img" src="assets/logos/CICAR-06.png" alt="CICAR Barrio Norte">
-    <div class="preloader-progress">
-      <div class="preloader-progress-bar"></div>
-    </div>
+    <svg class="preloader-ecg" viewBox="0 0 400 60" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0 30 L120 30 L138 30 L146 8 L154 52 L162 30 L200 30 L218 30 L226 4 L234 56 L242 30 L280 30 L298 30 L306 14 L314 46 L322 30 L400 30"/>
+    </svg>
     <div class="preloader-status">
       <span class="preloader-msg">Cargando</span>
     </div>
@@ -654,24 +810,26 @@
     opacity: 0;
   }
 
-  .preloader-progress {
-    width: 100%; height: 3px;
-    background: rgba(166,218,241,0.1);
-    border-radius: 3px;
-    overflow: hidden;
+  .preloader-ecg {
+    width: 100%; max-width: 420px; height: 56px;
     animation: preloaderFadeIn 0.6s 0.2s ease forwards;
     opacity: 0;
   }
-  .preloader-progress-bar {
-    height: 100%;
-    width: 0%;
-    background: linear-gradient(90deg, #1D84C7, #A6DAF1);
-    border-radius: 3px;
-    animation: preloaderFill 1.8s ease-in-out forwards 0.4s;
+  .preloader-ecg path {
+    stroke: var(--light);
+    stroke-width: 2;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 600;
+    stroke-dashoffset: 600;
+    animation: ecgTrace 1.8s linear infinite;
+    filter: drop-shadow(0 0 6px rgba(166,218,241,0.55));
   }
-  @keyframes preloaderFill {
-    0%   { width: 0%; }
-    100% { width: 100%; }
+  @keyframes ecgTrace {
+    0%   { stroke-dashoffset: 600; }
+    70%  { stroke-dashoffset: 0; }
+    100% { stroke-dashoffset: -600; }
   }
 
   .preloader-status {
@@ -783,14 +941,77 @@
   </div>
 </div>
 
+<!-- TECHNOLOGY -->
+<section class="technology" id="tecnologia">
+  <div class="tech-layout">
+    <div>
+      <div class="section-tag">Tecnología</div>
+      <h2 class="section-title">Diagnósticos precisos<br>con la mejor <em>tecnología</em></h2>
+      <p class="section-sub">Contamos con equipamiento de última generación para garantizar diagnósticos exactos y seguros.</p>
+
+      <div class="tech-list">
+        <div class="tech-item">
+          <div class="tech-item-dot"></div>
+          <div class="tech-item-text"><strong>Ecocardiógrafo de alta resolución</strong> — imágenes 3D en tiempo real para evaluar con precisión la función ventricular.</div>
+        </div>
+        <div class="tech-item">
+          <div class="tech-item-dot"></div>
+          <div class="tech-item-text"><strong>Holter digital de 12 derivaciones</strong> — monitoreo continuo del ritmo cardíaco durante 24 a 72 horas.</div>
+        </div>
+        <div class="tech-item">
+          <div class="tech-item-dot"></div>
+          <div class="tech-item-text"><strong>Treadmill y ergómetro</strong> — pruebas de esfuerzo con análisis de gases y monitoreo electrocardiográfico en tiempo real.</div>
+        </div>
+        <div class="tech-item">
+          <div class="tech-item-dot"></div>
+          <div class="tech-item-text"><strong>Historia clínica digital integrada</strong> — acceso seguro a resultados, imágenes y evoluciones desde cualquier dispositivo.</div>
+        </div>
+        <div class="tech-item">
+          <div class="tech-item-dot"></div>
+          <div class="tech-item-text"><strong>Telemedicina</strong> — consultas y seguimientos por videollamada sin salir de tu hogar.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tech-visual">
+      <div class="tech-card">
+        <div class="tech-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12a10 10 0 0 1 20 0"/><path d="M5.5 12a6.5 6.5 0 0 1 13 0"/><circle cx="12" cy="12" r="2"/><line x1="12" y1="14" x2="12" y2="22"/></svg></div>
+        <div class="tech-card-title">Ecocardiografía 3D</div>
+        <div class="tech-card-desc">Evaluación volumétrica del corazón en tiempo real. Alta resolución para valvulopatías y miocardiopatías.</div>
+      </div>
+      <div class="tech-card">
+        <div class="tech-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+        <div class="tech-card-title">ECG Digital</div>
+        <div class="tech-card-desc">Electrocardiograma de reposo de 12 derivaciones con análisis computarizado automático.</div>
+      </div>
+      <div class="tech-card">
+        <div class="tech-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg></div>
+        <div class="tech-card-title">Holter 24/48h</div>
+        <div class="tech-card-desc">Monitoreo ambulatorio del ritmo cardíaco. Detecta arritmias que no se capturan en el ECG de reposo.</div>
+      </div>
+      <div class="tech-card">
+        <div class="tech-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="18" x2="12" y2="21"/></svg></div>
+        <div class="tech-card-title">Telemedicina</div>
+        <div class="tech-card-desc">Consultas y seguimiento remoto. Accedé a tu historial médico y resultados de forma segura desde la app.</div>
+      </div>
+      <div class="tech-card span2" style="background: linear-gradient(135deg, rgba(166,218,241,0.15), rgba(166,218,241,0.4)); border-color: rgba(29,132,199,0.2);">
+        <div class="tech-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="13" cy="4" r="2"/><path d="M4 22l5-7-2-5 4-3 3 4 4 1"/><path d="M15 22l-2-7 2-3"/></svg></div>
+        <div class="tech-card-title">Ergometría con análisis metabólico</div>
+        <div class="tech-card-desc">Prueba de esfuerzo completa con análisis de gases respiratorios, determinación del VO₂ máximo y monitoreo cardiovascular continuo. Indicada para deportistas de alto rendimiento, pre-quirúrgico y evaluación de insuficiencia cardíaca.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
 <!-- SERVICES -->
 <section class="services" id="servicios">
   <div class="services-header">
     <div>
       <div class="section-tag">Especialidades</div>
-      <h2 class="section-title">Atención integral<br>en <em>cardiología</em></h2>
+      <h2 class="section-title">9 áreas, un solo<br><em>centro</em></h2>
     </div>
-    <p class="section-sub">Contamos con todas las subespecialidades para cubrir de manera completa la salud cardiovascular de nuestros pacientes.</p>
+    <p class="section-sub">Cubrimos integralmente la salud cardiovascular y todas sus comorbilidades en un mismo lugar.</p>
   </div>
 
   <div class="specialty-pills">
@@ -805,73 +1026,86 @@
     function filterServices(filter, clickedPill) {
       document.querySelectorAll('.specialty-pill').forEach(p => p.classList.remove('active'));
       clickedPill.classList.add('active');
-      document.querySelectorAll('#services-grid .service-card').forEach(function(card) {
+      document.querySelectorAll('#services-mosaic .service-tile').forEach(function(tile) {
         if (filter === 'todas') {
-          card.style.display = '';
+          tile.style.display = '';
         } else {
-          var cats = card.getAttribute('data-category') || '';
-          card.style.display = cats.indexOf(filter) !== -1 ? '' : 'none';
+          var cats = tile.getAttribute('data-category') || '';
+          tile.style.display = cats.indexOf(filter) !== -1 ? '' : 'none';
         }
       });
     }
   </script>
 
-  <div class="services-grid" id="services-grid" style="margin-top: 36px;">
-    <div class="service-card featured" data-category="diagnostico tratamiento">
-      <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/><polyline points="3.5 12 7.5 12 9 9 11 15 13 11 15 13 17 13"/></svg></div>
-      <div class="service-title">Cardiología Clínica</div>
-      <div class="service-desc">Diagnóstico y tratamiento integral de enfermedades cardiovasculares. Consultas con especialistas certificados y seguimiento personalizado.</div>
-      <a href="#" class="service-link">Ver más →</a>
-    </div>
-    <div class="service-card" data-category="diagnostico">
-      <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12a10 10 0 0 1 20 0"/><path d="M5.5 12a6.5 6.5 0 0 1 13 0"/><circle cx="12" cy="12" r="2"/><line x1="12" y1="14" x2="12" y2="22"/></svg></div>
-      <div class="service-title">Ecocardiografía</div>
-      <div class="service-desc">Evaluación por ultrasonido de la estructura y función cardíaca. Ecocardiogramas 2D, 3D, Doppler y de estrés.</div>
-      <a href="#" class="service-link">Ver más →</a>
-    </div>
-    <div class="service-card" data-category="diagnostico">
-      <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
-      <div class="service-title">Electrocardiografía</div>
-      <div class="service-desc">ECG de reposo y Holter 24/48h. Monitoreo continuo del ritmo cardíaco para detectar arritmias y alteraciones.</div>
-      <a href="#" class="service-link">Ver más →</a>
-    </div>
-    <div class="service-card" data-category="diagnostico">
-      <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="13" cy="4" r="2"/><path d="M4 22l5-7-2-5 4-3 3 4 4 1"/><path d="M15 22l-2-7 2-3"/></svg></div>
-      <div class="service-title">Ergometría</div>
-      <div class="service-desc">Prueba de esfuerzo controlada para evaluar la respuesta cardiovascular al ejercicio y detectar isquemia.</div>
-      <a href="#" class="service-link">Ver más →</a>
-    </div>
-    <div class="service-card" data-category="prevencion tratamiento">
-      <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10.5 20.5a6 6 0 0 1-8.5-8.5l9.5-9.5a6 6 0 0 1 8.5 8.5z"/><line x1="8.5" y1="8.5" x2="15.5" y2="15.5"/></svg></div>
-      <div class="service-title">Cese Tabáquico</div>
-      <div class="service-desc">Programa integral de abandono del tabaco con soporte médico y seguimiento para reducir el riesgo cardiovascular.</div>
-      <a href="#" class="service-link">Ver más →</a>
-    </div>
-    <div class="service-card" data-category="tratamiento">
-      <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2s7 7.5 7 13a7 7 0 0 1-14 0c0-5.5 7-13 7-13z"/></svg></div>
-      <div class="service-title">Nefrología</div>
-      <div class="service-desc">Atención de enfermedades renales con enfoque en su impacto cardiovascular. Manejo de hipertensión y enfermedad renal crónica.</div>
-      <a href="#" class="service-link">Ver más →</a>
-    </div>
-    <div class="service-card" data-category="prevencion">
-      <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v4"/><path d="M10 3h4"/><path d="M18 13a6 6 0 0 1-12 0c0-3 2-6 6-6s6 3 6 6z"/><path d="M12 13v8"/></svg></div>
-      <div class="service-title">Nutrición Cardiovascular</div>
-      <div class="service-desc">Plan nutricional personalizado para reducir factores de riesgo cardiovascular: colesterol, triglicéridos y presión arterial.</div>
-      <a href="#" class="service-link">Ver más →</a>
-    </div>
-    <div class="service-card" data-category="prevencion tratamiento">
-      <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3a3 3 0 0 0-3 3c0 1-1 2-1 3 0 1 1 2 1 3 0 1-1 2-1 3a3 3 0 0 0 3 3"/><path d="M15 3a3 3 0 0 1 3 3c0 1 1 2 1 3 0 1-1 2-1 3 0 1 1 2 1 3a3 3 0 0 1-3 3"/><line x1="9" y1="3" x2="15" y2="3"/><line x1="9" y1="21" x2="15" y2="21"/><line x1="12" y1="8" x2="12" y2="16"/></svg></div>
-      <div class="service-title">Salud Mental</div>
-      <div class="service-desc">Abordaje del estrés, ansiedad y depresión como factores de riesgo cardiovascular. Atención psicológica integrada.</div>
-      <a href="#" class="service-link">Ver más →</a>
-    </div>
-    <div class="service-card" data-category="rehabilitacion">
-      <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.5 9a9 9 0 0 1 15-3.5L23 10"/><path d="M20.5 15a9 9 0 0 1-15 3.5L1 14"/></svg></div>
-      <div class="service-title">Rehabilitación Cardíaca</div>
-      <div class="service-desc">Programa de recuperación post-evento cardiovascular con ejercicio supervisado, educación y apoyo psicológico.</div>
-      <a href="#" class="service-link">Ver más →</a>
+  <div class="services-mosaic" id="services-mosaic">
+    <button type="button" class="service-tile" data-category="diagnostico tratamiento" data-title="Cardiología Clínica" data-desc="Diagnóstico y tratamiento integral de enfermedades cardiovasculares. Consultas con especialistas certificados y seguimiento personalizado.">
+      <div class="service-tile-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/><polyline points="3.5 12 7.5 12 9 9 11 15 13 11 15 13 17 13"/></svg></div>
+      <div class="service-tile-name">Cardiología Clínica</div>
+    </button>
+    <button type="button" class="service-tile" data-category="diagnostico" data-title="Ecocardiografía" data-desc="Evaluación por ultrasonido de la estructura y función cardíaca. Ecocardiogramas 2D, 3D, Doppler y de estrés.">
+      <div class="service-tile-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12a10 10 0 0 1 20 0"/><path d="M5.5 12a6.5 6.5 0 0 1 13 0"/><circle cx="12" cy="12" r="2"/><line x1="12" y1="14" x2="12" y2="22"/></svg></div>
+      <div class="service-tile-name">Ecocardiografía</div>
+    </button>
+    <button type="button" class="service-tile" data-category="diagnostico" data-title="Electrocardiografía" data-desc="ECG de reposo y Holter 24/48h. Monitoreo continuo del ritmo cardíaco para detectar arritmias y alteraciones.">
+      <div class="service-tile-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+      <div class="service-tile-name">Electrocardiografía</div>
+    </button>
+    <button type="button" class="service-tile" data-category="diagnostico" data-title="Ergometría" data-desc="Prueba de esfuerzo controlada para evaluar la respuesta cardiovascular al ejercicio y detectar isquemia.">
+      <div class="service-tile-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="13" cy="4" r="2"/><path d="M4 22l5-7-2-5 4-3 3 4 4 1"/><path d="M15 22l-2-7 2-3"/></svg></div>
+      <div class="service-tile-name">Ergometría</div>
+    </button>
+    <button type="button" class="service-tile" data-category="prevencion tratamiento" data-title="Cese Tabáquico" data-desc="Programa integral de abandono del tabaco con soporte médico y seguimiento para reducir el riesgo cardiovascular.">
+      <div class="service-tile-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10.5 20.5a6 6 0 0 1-8.5-8.5l9.5-9.5a6 6 0 0 1 8.5 8.5z"/><line x1="8.5" y1="8.5" x2="15.5" y2="15.5"/></svg></div>
+      <div class="service-tile-name">Cese Tabáquico</div>
+    </button>
+    <button type="button" class="service-tile" data-category="tratamiento" data-title="Nefrología" data-desc="Atención de enfermedades renales con enfoque en su impacto cardiovascular. Manejo de hipertensión y enfermedad renal crónica.">
+      <div class="service-tile-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2s7 7.5 7 13a7 7 0 0 1-14 0c0-5.5 7-13 7-13z"/></svg></div>
+      <div class="service-tile-name">Nefrología</div>
+    </button>
+    <button type="button" class="service-tile" data-category="prevencion" data-title="Nutrición Cardiovascular" data-desc="Plan nutricional personalizado para reducir factores de riesgo cardiovascular: colesterol, triglicéridos y presión arterial.">
+      <div class="service-tile-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v4"/><path d="M10 3h4"/><path d="M18 13a6 6 0 0 1-12 0c0-3 2-6 6-6s6 3 6 6z"/><path d="M12 13v8"/></svg></div>
+      <div class="service-tile-name">Nutrición</div>
+    </button>
+    <button type="button" class="service-tile" data-category="prevencion tratamiento" data-title="Salud Mental" data-desc="Abordaje del estrés, ansiedad y depresión como factores de riesgo cardiovascular. Atención psicológica integrada.">
+      <div class="service-tile-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3a3 3 0 0 0-3 3c0 1-1 2-1 3 0 1 1 2 1 3 0 1-1 2-1 3a3 3 0 0 0 3 3"/><path d="M15 3a3 3 0 0 1 3 3c0 1 1 2 1 3 0 1-1 2-1 3 0 1 1 2 1 3a3 3 0 0 1-3 3"/><line x1="9" y1="3" x2="15" y2="3"/><line x1="9" y1="21" x2="15" y2="21"/><line x1="12" y1="8" x2="12" y2="16"/></svg></div>
+      <div class="service-tile-name">Salud Mental</div>
+    </button>
+    <button type="button" class="service-tile" data-category="rehabilitacion" data-title="Rehabilitación Cardíaca" data-desc="Programa de recuperación post-evento cardiovascular con ejercicio supervisado, educación y apoyo psicológico.">
+      <div class="service-tile-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.5 9a9 9 0 0 1 15-3.5L23 10"/><path d="M20.5 15a9 9 0 0 1-15 3.5L1 14"/></svg></div>
+      <div class="service-tile-name">Rehabilitación</div>
+    </button>
+  </div>
+
+  <!-- Modal popup para el detalle de cada area -->
+  <div class="service-modal" id="serviceModal" role="dialog" aria-modal="true" aria-labelledby="serviceModalTitle">
+    <div class="service-modal-card">
+      <button class="service-modal-close" aria-label="Cerrar" onclick="closeServiceModal()">&times;</button>
+      <h3 id="serviceModalTitle" class="service-modal-title"></h3>
+      <p id="serviceModalDesc" class="service-modal-desc"></p>
+      <a href="portal.html" class="btn-primary">Sacar turno en esta área <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></a>
     </div>
   </div>
+  <script>
+    (function () {
+      var modal = document.getElementById('serviceModal');
+      var titleEl = document.getElementById('serviceModalTitle');
+      var descEl = document.getElementById('serviceModalDesc');
+      document.querySelectorAll('.service-tile').forEach(function (tile) {
+        tile.addEventListener('click', function () {
+          titleEl.textContent = tile.dataset.title;
+          descEl.textContent = tile.dataset.desc;
+          modal.classList.add('open');
+        });
+      });
+      modal.addEventListener('click', function (e) {
+        if (e.target === modal) modal.classList.remove('open');
+      });
+      window.closeServiceModal = function () { modal.classList.remove('open'); };
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') modal.classList.remove('open');
+      });
+    })();
+  </script>
 </section>
 
 <!-- DOCTORS -->
@@ -954,168 +1188,6 @@
   </div>
 </section>
 
-<!-- HOW IT WORKS / PROCESS -->
-<section class="process" id="turno">
-  <div class="process-layout">
-    <div>
-      <div class="section-tag">¿Cómo funciona?</div>
-      <h2 class="section-title">Tu cuidado,<br><em>simple y rápido</em></h2>
-      <p class="section-sub">Reservar tu turno y recibir atención de excelencia es un proceso sencillo y sin demoras.</p>
-
-      <div class="process-steps" style="margin-top: 48px;">
-        <div class="process-step">
-          <div class="step-num">01</div>
-          <div class="step-content">
-            <div class="step-title">Elegí tu especialidad</div>
-            <div class="step-desc">Seleccioná el área o el especialista que necesitás. Si tenés dudas, nuestro equipo te orienta.</div>
-          </div>
-        </div>
-        <div class="process-step">
-          <div class="step-num">02</div>
-          <div class="step-content">
-            <div class="step-title">Reservá tu turno</div>
-            <div class="step-desc">Online, por teléfono o WhatsApp. Turnos disponibles en el día para casos urgentes.</div>
-          </div>
-        </div>
-        <div class="process-step">
-          <div class="step-num">03</div>
-          <div class="step-content">
-            <div class="step-title">Recibí atención personalizada</div>
-            <div class="step-desc">Consultación, diagnóstico y plan de tratamiento en una misma jornada cuando es posible.</div>
-          </div>
-        </div>
-        <div class="process-step">
-          <div class="step-num">04</div>
-          <div class="step-content">
-            <div class="step-title">Seguimiento continuo</div>
-            <div class="step-desc">Historia clínica digital, recordatorios y contacto directo con tu médico tratante.</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="process-visual">
-      <div class="process-visual-title" style="display:flex; align-items:center; gap:8px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Reservar Turno</div>
-      <div class="appointment-form">
-        <div class="form-row">
-          <label class="form-label">Nombre completo</label>
-          <input type="text" class="form-input" placeholder="Ej: María González">
-        </div>
-        <div class="form-grid">
-          <div class="form-row">
-            <label class="form-label">Teléfono</label>
-            <input type="tel" class="form-input" placeholder="+54 11 ····">
-          </div>
-          <div class="form-row">
-            <label class="form-label">Email</label>
-            <input type="email" class="form-input" placeholder="tu@email.com">
-          </div>
-        </div>
-        <div class="form-row">
-          <label class="form-label">Especialidad</label>
-          <select class="form-input">
-            <option>Cardiología Clínica</option>
-            <option>Ecocardiografía</option>
-            <option>Electrocardiografía / Holter</option>
-            <option>Ergometría</option>
-            <option>Nefrología</option>
-            <option>Nutrición Cardiovascular</option>
-            <option>Rehabilitación Cardíaca</option>
-            <option>Salud Mental</option>
-            <option>Cese Tabáquico</option>
-          </select>
-        </div>
-        <div class="form-grid">
-          <div class="form-row">
-            <label class="form-label">Fecha preferida</label>
-            <input type="date" class="form-input">
-          </div>
-          <div class="form-row">
-            <label class="form-label">Horario preferido</label>
-            <select class="form-input">
-              <option>Mañana (8–12h)</option>
-              <option>Tarde (13–17h)</option>
-              <option>Noche (17–20h)</option>
-            </select>
-          </div>
-        </div>
-        <div class="form-row">
-          <label class="form-label">Obra Social / Prepaga</label>
-          <input type="text" class="form-input" placeholder="OSDE, Swiss Medical, IOMA…">
-        </div>
-        <button class="btn-primary" style="width:100%; justify-content:center; margin-top:8px;">
-          Confirmar Turno
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-        </button>
-        <p style="font-size:12px; color:rgba(166,218,241,0.5); text-align:center; margin-top:14px;">También por WhatsApp: +54 11 4000-0000</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- TECHNOLOGY -->
-<section class="technology" id="tecnologia">
-  <div class="tech-layout">
-    <div>
-      <div class="section-tag">Tecnología</div>
-      <h2 class="section-title">Diagnósticos precisos<br>con la mejor <em>tecnología</em></h2>
-      <p class="section-sub">Contamos con equipamiento de última generación para garantizar diagnósticos exactos y seguros.</p>
-
-      <div class="tech-list">
-        <div class="tech-item">
-          <div class="tech-item-dot"></div>
-          <div class="tech-item-text"><strong>Ecocardiógrafo de alta resolución</strong> — imágenes 3D en tiempo real para evaluar con precisión la función ventricular.</div>
-        </div>
-        <div class="tech-item">
-          <div class="tech-item-dot"></div>
-          <div class="tech-item-text"><strong>Holter digital de 12 derivaciones</strong> — monitoreo continuo del ritmo cardíaco durante 24 a 72 horas.</div>
-        </div>
-        <div class="tech-item">
-          <div class="tech-item-dot"></div>
-          <div class="tech-item-text"><strong>Treadmill y ergómetro</strong> — pruebas de esfuerzo con análisis de gases y monitoreo electrocardiográfico en tiempo real.</div>
-        </div>
-        <div class="tech-item">
-          <div class="tech-item-dot"></div>
-          <div class="tech-item-text"><strong>Historia clínica digital integrada</strong> — acceso seguro a resultados, imágenes y evoluciones desde cualquier dispositivo.</div>
-        </div>
-        <div class="tech-item">
-          <div class="tech-item-dot"></div>
-          <div class="tech-item-text"><strong>Telemedicina</strong> — consultas y seguimientos por videollamada sin salir de tu hogar.</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="tech-visual">
-      <div class="tech-card">
-        <div class="tech-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12a10 10 0 0 1 20 0"/><path d="M5.5 12a6.5 6.5 0 0 1 13 0"/><circle cx="12" cy="12" r="2"/><line x1="12" y1="14" x2="12" y2="22"/></svg></div>
-        <div class="tech-card-title">Ecocardiografía 3D</div>
-        <div class="tech-card-desc">Evaluación volumétrica del corazón en tiempo real. Alta resolución para valvulopatías y miocardiopatías.</div>
-      </div>
-      <div class="tech-card">
-        <div class="tech-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
-        <div class="tech-card-title">ECG Digital</div>
-        <div class="tech-card-desc">Electrocardiograma de reposo de 12 derivaciones con análisis computarizado automático.</div>
-      </div>
-      <div class="tech-card">
-        <div class="tech-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg></div>
-        <div class="tech-card-title">Holter 24/48h</div>
-        <div class="tech-card-desc">Monitoreo ambulatorio del ritmo cardíaco. Detecta arritmias que no se capturan en el ECG de reposo.</div>
-      </div>
-      <div class="tech-card">
-        <div class="tech-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="18" x2="12" y2="21"/></svg></div>
-        <div class="tech-card-title">Telemedicina</div>
-        <div class="tech-card-desc">Consultas y seguimiento remoto. Accedé a tu historial médico y resultados de forma segura desde la app.</div>
-      </div>
-      <div class="tech-card span2" style="background: linear-gradient(135deg, rgba(166,218,241,0.15), rgba(166,218,241,0.4)); border-color: rgba(29,132,199,0.2);">
-        <div class="tech-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="13" cy="4" r="2"/><path d="M4 22l5-7-2-5 4-3 3 4 4 1"/><path d="M15 22l-2-7 2-3"/></svg></div>
-        <div class="tech-card-title">Ergometría con análisis metabólico</div>
-        <div class="tech-card-desc">Prueba de esfuerzo completa con análisis de gases respiratorios, determinación del VO₂ máximo y monitoreo cardiovascular continuo. Indicada para deportistas de alto rendimiento, pre-quirúrgico y evaluación de insuficiencia cardíaca.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
 <!-- NOSOTROS -->
 <section class="about-section" id="nosotros">
   <div class="about-layout">
@@ -1147,6 +1219,50 @@
         <div class="pillar-desc">Articulamos cardiología, nefrología, nutrición, salud mental y rehabilitación en un mismo lugar.</div>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS / PROCESS -->
+<section class="process" id="turno">
+  <div class="process-header">
+    <div class="section-tag">Sacar turno</div>
+    <h2 class="section-title">Reservá online en<br><em>menos de 2 minutos</em></h2>
+    <p class="section-sub">Cuatro pasos guiados desde el portal del paciente. Sin llamadas, sin papeles.</p>
+  </div>
+
+  <div class="process-flow">
+    <div class="flow-step">
+      <div class="flow-step-num">01</div>
+      <div class="flow-step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg></div>
+      <div class="flow-step-title">Crea tu cuenta</div>
+      <div class="flow-step-desc">Datos básicos y obra social. Una sola vez.</div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-step-num">02</div>
+      <div class="flow-step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 22a8 8 0 0 1 16 0"/></svg></div>
+      <div class="flow-step-title">Elegí especialista</div>
+      <div class="flow-step-desc">Filtrá por área y mirá disponibilidad real.</div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-step-num">03</div>
+      <div class="flow-step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+      <div class="flow-step-title">Elegí día y hora</div>
+      <div class="flow-step-desc">Reservá al instante en la agenda en vivo.</div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-step-num">04</div>
+      <div class="flow-step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <div class="flow-step-title">Listo</div>
+      <div class="flow-step-desc">Confirmación por email y WhatsApp.</div>
+    </div>
+  </div>
+
+  <div class="process-cta">
+    <a href="portal.html" class="btn-primary btn-large">
+      Empezar ahora
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+    </a>
+    <p class="process-cta-note">Si preferís hablar con alguien, escribinos por <a href="https://wa.me/541140000000">WhatsApp</a> o llamá al <strong>+54 11 4000-0000</strong>.</p>
   </div>
 </section>
 
