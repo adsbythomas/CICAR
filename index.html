@@ -69,6 +69,23 @@
   }
   .nav-cta:hover { background: #13628f !important; }
 
+  /* Burger button — visible solo en mobile */
+  .nav-burger {
+    display: none;
+    background: none; border: none; cursor: pointer;
+    width: 40px; height: 40px;
+    flex-direction: column; align-items: center; justify-content: center;
+    gap: 5px; padding: 0;
+  }
+  .nav-burger span {
+    display: block; width: 22px; height: 2px;
+    background: var(--light); border-radius: 2px;
+    transition: transform 0.25s ease, opacity 0.2s ease;
+  }
+  .nav-burger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-burger.open span:nth-child(2) { opacity: 0; }
+  .nav-burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
   /* ─── HERO ─── */
   .hero {
     min-height: 100vh;
@@ -595,18 +612,85 @@
     .process-layout { grid-template-columns: 1fr; }
     .tech-layout { grid-template-columns: 1fr; }
     .about-layout { grid-template-columns: 1fr; gap: 48px; }
-    .footer-top { grid-template-columns: 1fr 1fr; }
-    .nav-links { display: none; }
+    .footer-top { grid-template-columns: 1fr 1fr; gap: 36px; }
     .hero h1 { font-size: 38px; }
+    /* Mobile nav: dropdown drawer */
+    .nav-burger { display: inline-flex; }
+    nav { padding: 0 5%; }
+    .nav-links {
+      position: absolute; top: 100%; left: 0; right: 0;
+      flex-direction: column; align-items: stretch; gap: 0;
+      background: var(--navy);
+      padding: 12px 5%;
+      border-top: 1px solid rgba(166,218,241,0.12);
+      max-height: 0; overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+    }
+    .nav-links.open { max-height: 60vh; padding: 16px 5% 22px; }
+    .nav-links a {
+      width: 100%; padding: 14px 4px;
+      border-bottom: 1px solid rgba(166,218,241,0.08);
+      font-size: 15px;
+    }
+    .nav-links a:last-child { border-bottom: none; }
+    .nav-links a.nav-cta {
+      margin-top: 12px; text-align: center;
+      border: none !important;
+      padding: 12px 22px !important;
+    }
+    /* Stats band: 2 columns on tablet, smaller font */
+    .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 28px 16px; }
+    .stat-num { font-size: clamp(36px, 9vw, 52px); }
+    /* Trust bar: smaller gaps */
+    .trust-bar { gap: 24px 32px; padding: 24px 5%; }
   }
   @media (max-width: 600px) {
-    .footer-top { grid-template-columns: 1fr; }
-    .trust-bar { gap: 28px; }
+    body { font-size: 14.5px; }
+    .footer-top { grid-template-columns: 1fr; gap: 32px; }
+    .footer-bottom { flex-direction: column; align-items: flex-start; gap: 18px; }
+    .trust-bar { gap: 20px; padding: 22px 5%; flex-direction: column; align-items: flex-start; }
+    .trust-item { width: 100%; }
     section { padding: 64px 5%; }
     .about-pillars { grid-template-columns: 1fr; }
+    .hero { min-height: auto; padding: 120px 5% 80px; }
+    .hero h1 { font-size: clamp(32px, 9vw, 42px); }
+    .hero p { font-size: 15px; }
+    .hero-info { margin-top: 48px; }
+    .hero-watermark { width: 480px; opacity: 0.05 !important; }
+    .hero-ecg { display: none; }
+    .hero-hours-card { padding: 22px 20px; }
     .hero-hours-grid { grid-template-columns: 1fr; }
     .hero-hours-col { border-left: none; border-top: 1px solid rgba(166,218,241,0.12); padding: 14px 0; }
     .hero-hours-col:first-child { border-top: none; }
+    /* Stats: stack 2x2 with smaller numbers */
+    .stats-band { padding: 60px 5%; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 28px 14px; }
+    .stat-num { font-size: clamp(34px, 11vw, 46px); }
+    .stat-label { font-size: 11px; letter-spacing: 1px; }
+    .stat-foot { font-size: 11.5px; }
+    /* Section titles */
+    h2.section-title { font-size: clamp(28px, 8vw, 38px); line-height: 1.15; }
+    .section-sub { font-size: 14px; }
+    /* Info cards: stack */
+    .info-grid { grid-template-columns: 1fr; gap: 16px; }
+    .info-card { padding: 26px 22px; }
+    /* CTA band */
+    .cta-band { padding: 60px 5%; }
+    .cta-band h2 { font-size: clamp(28px, 8vw, 36px); }
+    .cta-band p { font-size: 15px; }
+    /* Pillars on mobile: vertical line + smaller padding */
+    .pillar { padding: 22px 20px; }
+    /* Buttons full width on very narrow */
+    .hero-actions { flex-direction: column; width: 100%; }
+    .hero-actions a { width: 100%; justify-content: center; }
+    .cta-band-actions { flex-direction: column; width: 100%; }
+    .cta-band-actions a { width: 100%; justify-content: center; }
+    /* Service modal: less padding */
+    .service-modal-card { padding: 30px 24px 24px; }
+    .service-modal-title { font-size: 22px; }
+    /* Specialty pills: tighter */
+    .specialty-pills { gap: 8px; margin-top: 28px; }
+    .specialty-pill { padding: 7px 14px; font-size: 12px; }
   }
 
   /* ─── ANIMATIONS ─── */
@@ -834,17 +918,62 @@
     50%      { transform: translate(-50%, 4px); opacity: 1; }
   }
 
-  /* Mobile fallback: stack vertical */
+  /* Mobile fallback: deshabilitar el viaje horizontal y stackear vertical */
   @media (max-width: 900px) {
-    .hscroll { height: auto; background: transparent; }
-    .hscroll-stick { position: static; height: auto; background: var(--navy); }
-    .hscroll-track { display: block; width: 100%; transform: none !important; }
-    .hpanel { width: 100%; height: auto; min-height: auto; padding: 80px 5%; }
-    .hpanel::before { display: none; }
-    .hscroll-progress, .hscroll-hint { display: none; }
-    .hpanel .services-mosaic { grid-template-columns: repeat(2, 1fr); }
-    .hpanel .doctors-grid { grid-template-columns: 1fr; }
-    .hpanel .tech-layout { grid-template-columns: 1fr; gap: 32px; }
+    .hscroll { height: auto !important; background: transparent !important; }
+    .hscroll-stick {
+      position: static !important; height: auto !important;
+      background: var(--navy);
+      overflow: visible;
+    }
+    .hscroll-stick::before { display: none; }
+    .hscroll-track {
+      display: flex !important;
+      flex-direction: column !important;
+      width: 100% !important;
+      height: auto !important;
+      transform: none !important;
+    }
+    .hpanel {
+      flex: 0 0 auto !important;
+      width: 100% !important;
+      height: auto !important;
+      min-height: 0 !important;
+      padding: 64px 6vw !important;
+      border-bottom: 1px solid rgba(166, 218, 241, 0.08);
+    }
+    .hpanel:last-child { border-bottom: none; }
+    .hpanel::before { display: none !important; }
+    .hpanel-inner { max-width: 100%; }
+    .hscroll-progress, .hscroll-hint { display: none !important; }
+
+    .hpanel h2.section-title { font-size: clamp(28px, 8vw, 40px) !important; line-height: 1.15; }
+    .hpanel .section-sub { font-size: 14px; }
+
+    /* Tech panel */
+    .hpanel .tech-layout { grid-template-columns: 1fr !important; gap: 28px !important; }
+    .hpanel .tech-visual { grid-template-columns: 1fr 1fr; gap: 10px; }
+    .hpanel .tech-card.span2 { grid-column: span 2; }
+
+    /* Services panel */
+    .hpanel .services-mosaic { grid-template-columns: repeat(2, 1fr) !important; gap: 10px !important; }
+    .hpanel .service-tile { padding: 18px 10px 14px; }
+    .hpanel .service-tile-name { font-size: 11.5px; }
+
+    /* Doctors panel */
+    .hpanel .doctors-grid { grid-template-columns: 1fr 1fr !important; gap: 12px !important; }
+    .hpanel .doctor-photo { height: 140px; }
+    .hpanel .doctor-card .doctor-info { padding: 14px; }
+    .hpanel .doctor-name { font-size: 14px; }
+    .hpanel .doctor-role { font-size: 11.5px; }
+    .hpanel .credential-badge { font-size: 10px; padding: 3px 8px; }
+
+    /* Process panel */
+    .hpanel .process-flow { grid-template-columns: repeat(2, 1fr) !important; gap: 28px 14px !important; }
+    .hpanel .process-flow::before { display: none; }
+    .hpanel .flow-step-icon { width: 60px; height: 60px; }
+    .hpanel .btn-large { padding: 14px 28px; font-size: 14px; }
+    .hpanel .process-cta-note { font-size: 12px; }
   }
 
   /* ─── STATS BAND (signature de marca con ECG) ─── */
@@ -910,9 +1039,10 @@
     line-height: 1.4;
   }
 
-  /* Reveal on scroll */
-  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.8s ease, transform 0.8s ease; }
-  .reveal.in { opacity: 1; transform: translateY(0); }
+  /* Reveal on scroll — solo se oculta si JS marca .js-reveal en <html>.
+     Si JS no corrio, el contenido queda visible (defensive). */
+  .js-reveal .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.8s ease, transform 0.8s ease; }
+  .js-reveal .reveal.in { opacity: 1; transform: translateY(0); }
 
   /* ─── SERVICES (mosaico compacto) ─── */
   .services-mosaic {
@@ -1065,6 +1195,99 @@
     .process-flow::before { display: none; }
     .services-mosaic { grid-template-columns: repeat(2, 1fr); }
   }
+
+  /* ─── RESPONSIVE OVERRIDES (al final para ganar el cascade) ─── */
+  @media (max-width: 900px) {
+    .nav-burger { display: inline-flex; }
+    .nav-links {
+      position: absolute; top: 100%; left: 0; right: 0;
+      flex-direction: column; align-items: stretch; gap: 0;
+      background: var(--navy);
+      max-height: 0; overflow: hidden;
+      padding: 0 5%;
+      border-top: 1px solid rgba(166,218,241,0.12);
+      transition: max-height 0.3s ease, padding 0.3s ease;
+    }
+    .nav-links.open { max-height: 70vh; padding: 16px 5% 22px; }
+    .nav-links a {
+      width: 100%; padding: 14px 4px;
+      border-bottom: 1px solid rgba(166,218,241,0.08);
+      font-size: 15px;
+    }
+    .nav-links a:last-child { border-bottom: none; }
+    .nav-links a.nav-cta {
+      margin-top: 12px; text-align: center; padding: 12px 22px !important;
+      border-bottom: none;
+    }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 28px 16px; }
+    .stat-num { font-size: clamp(36px, 9vw, 52px); }
+    .trust-bar { gap: 24px 32px; padding: 24px 5%; }
+    .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
+    .tech-layout, .process-layout, .about-layout { grid-template-columns: 1fr; gap: 32px; }
+  }
+
+  @media (max-width: 600px) {
+    body { font-size: 14.5px; }
+    section { padding: 64px 5%; }
+    .footer-top { grid-template-columns: 1fr; gap: 28px; }
+    .footer-bottom { flex-direction: column; align-items: flex-start; gap: 16px; }
+    .trust-bar { gap: 18px; padding: 22px 5%; flex-direction: column; align-items: flex-start; }
+    .trust-item { width: 100%; }
+    .about-pillars { grid-template-columns: 1fr; }
+    /* Hero */
+    .hero { min-height: auto; padding: 120px 5% 80px; }
+    .hero h1 { font-size: clamp(32px, 9vw, 42px); }
+    .hero p { font-size: 15px; }
+    .hero-info { margin-top: 48px; }
+    .hero-watermark { width: 460px; opacity: 0.05 !important; }
+    .hero-ecg { display: none; }
+    .hero-hours-card { padding: 22px 18px; }
+    .hero-hours-grid { grid-template-columns: 1fr; }
+    .hero-hours-col { border-left: none; border-top: 1px solid rgba(166,218,241,0.12); padding: 14px 0; }
+    .hero-hours-col:first-child { border-top: none; }
+    .hero-actions { flex-direction: column; width: 100%; }
+    .hero-actions a { width: 100%; justify-content: center; }
+    /* Stats */
+    .stats-band { padding: 56px 5%; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 32px 14px; }
+    .stat-num { font-size: clamp(32px, 11vw, 44px); }
+    .stat-label { font-size: 11px; letter-spacing: 1px; }
+    .stat-foot { font-size: 11.5px; }
+    /* Section titles */
+    h2.section-title { font-size: clamp(28px, 8vw, 38px); line-height: 1.15; }
+    .section-sub { font-size: 14px; }
+    /* CTA band */
+    .cta-band { padding: 56px 5%; }
+    .cta-band h2 { font-size: clamp(28px, 8vw, 36px); }
+    .cta-band p { font-size: 15px; }
+    .cta-band-actions { flex-direction: column; width: 100%; }
+    .cta-band-actions a { width: 100%; justify-content: center; }
+    /* Info cards */
+    .info-grid { grid-template-columns: 1fr; gap: 16px; }
+    .info-card { padding: 26px 22px; }
+    /* Pillars */
+    .pillar { padding: 22px 18px; }
+    /* Specialty pills */
+    .specialty-pills { gap: 8px; margin-top: 28px; }
+    .specialty-pill { padding: 7px 14px; font-size: 12px; }
+    /* Service modal */
+    .service-modal-card { padding: 28px 22px 22px; }
+    .service-modal-title { font-size: 22px; }
+    /* Hpanel ajustes finos para mobile */
+    .hpanel { padding: 56px 5vw !important; }
+    .hpanel h2.section-title { font-size: clamp(28px, 8vw, 38px) !important; }
+    .hpanel .services-mosaic { grid-template-columns: repeat(2, 1fr) !important; gap: 10px !important; }
+    .hpanel .doctors-grid { grid-template-columns: 1fr 1fr !important; gap: 12px !important; }
+    .hpanel .doctor-photo { height: 140px; }
+    .hpanel .doctor-specialty { font-size: 9.5px; letter-spacing: 0.8px; line-height: 1.3; }
+    .hpanel .tech-layout { grid-template-columns: 1fr !important; gap: 28px !important; }
+    .hpanel .tech-visual { grid-template-columns: 1fr 1fr; gap: 10px; }
+    .hpanel .process-flow { grid-template-columns: repeat(2, 1fr) !important; gap: 28px 14px !important; }
+    .hpanel .process-flow::before { display: none; }
+    .hpanel .flow-step-icon { width: 60px; height: 60px; }
+    .hpanel .doctors-header { margin-bottom: 28px; }
+    .hpanel .services-header { gap: 14px; flex-direction: column; }
+  }
 </style>
 </head>
 <body>
@@ -1159,14 +1382,17 @@
   <a href="#inicio" class="nav-logo" aria-label="CICAR Barrio Norte — Inicio">
     <img src="assets/logos/CICAR-12.png" alt="CICAR Barrio Norte">
   </a>
-  <div class="nav-links">
-    <a href="#servicios">Servicios</a>
-    <a href="#especialistas">Especialistas</a>
-    <a href="#tecnologia">Tecnología</a>
+  <div class="nav-links" id="navLinks">
+    <a href="#recorrido">Servicios</a>
+    <a href="#recorrido">Especialistas</a>
+    <a href="#recorrido">Tecnología</a>
     <a href="#nosotros">Nosotros</a>
     <a href="#contacto">Contacto</a>
     <a href="portal.html" class="nav-cta">Pedir Turno</a>
   </div>
+  <button class="nav-burger" id="navBurger" aria-label="Abrir menú" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
 
 <!-- HERO -->
@@ -1785,7 +2011,9 @@
     }
   });
 
-  // Reveal on scroll
+  // Reveal on scroll. Marcamos <html> con .js-reveal recien ahora — si JS
+  // falla o tarda, el contenido queda visible por defecto (CSS default).
+  document.documentElement.classList.add('js-reveal');
   const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
@@ -1794,7 +2022,32 @@
       }
     });
   }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
-  document.querySelectorAll('.reveal').forEach((el) => revealObserver.observe(el));
+  document.querySelectorAll('.reveal').forEach((el) => {
+    // Si ya esta en viewport en el load, marcar inmediatamente sin esperar.
+    const r = el.getBoundingClientRect();
+    if (r.top < window.innerHeight && r.bottom > 0) el.classList.add('in');
+    revealObserver.observe(el);
+  });
+  // Safety net: si por alguna razon el observer no dispara para algun
+  // elemento (pre-render, headless, etc.), mostrar todo despues de 4s.
+  setTimeout(() => {
+    document.querySelectorAll('.reveal:not(.in)').forEach((el) => el.classList.add('in'));
+  }, 4000);
+
+  // ── MOBILE NAV (burger) ────────────────────────────────────────────────
+  (function () {
+    var burger = document.getElementById('navBurger');
+    var links = document.getElementById('navLinks');
+    if (!burger || !links) return;
+    var close = function () { burger.classList.remove('open'); links.classList.remove('open'); burger.setAttribute('aria-expanded', 'false'); };
+    burger.addEventListener('click', function () {
+      var isOpen = burger.classList.toggle('open');
+      links.classList.toggle('open', isOpen);
+      burger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+    // Cerrar al tocar un link
+    links.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', close); });
+  })();
 
   // ── HORIZONTAL SCROLL JOURNEY ─────────────────────────────────────────
   // Pinned section: vertical scroll = horizontal travel through 4 panels.
