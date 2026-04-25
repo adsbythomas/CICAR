@@ -1,0 +1,11 @@
+# Marcar archivos de diseño como binarios y vendored
+# para que no cuenten en estadísticas de lenguaje ni se muestren
+# expandidos en diffs de GitHub.
+design-source/** binary linguist-vendored
+design-source/** -diff
+*.pdf binary
+*.zip binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.woff2 binary

@@ -4,42 +4,43 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CICAR — Panel Medico</title>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="assets/logos/CICAR-08.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--navy:#172E44;--blue:#1D84C7;--light:#A6DAF1;--pale:#E8F4FB;--text:#172E44;--muted:#4a6275;--r:12px;--rl:20px}
+:root{--navy:#172E44;--blue:#1D84C7;--mid:#53A1C6;--light:#A6DAF1;--gray:#D9D9D9;--pale:rgba(166,218,241,0.18);--text:#172E44;--muted:#4a6275;--r:12px;--rl:20px;--font-display:'Hero','Poppins',system-ui,sans-serif;--font-body:'Montserrat',system-ui,sans-serif}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Montserrat',sans-serif;background:#f0f6fb;color:var(--text);min-height:100vh}
+body{font-family:var(--font-body);background:rgba(166,218,241,0.08);color:var(--text);min-height:100vh}
 .topbar{background:var(--navy);padding:0 5%;height:64px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
-.tlogo{display:flex;align-items:center;gap:10px;text-decoration:none}
-.tlogo-i{width:36px;height:36px;background:linear-gradient(135deg,var(--light),var(--blue));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px}
-.tlogo-t{font-size:16px;font-weight:800;letter-spacing:2px;color:var(--light)}
+.tlogo{display:flex;align-items:center;text-decoration:none}
+.tlogo img{height:34px;width:auto;display:block}
 .tbadge{background:rgba(29,132,199,0.3);color:var(--light);font-size:11px;font-weight:700;padding:4px 10px;border-radius:100px;letter-spacing:1px}
 .tright{display:flex;align-items:center;gap:12px}
 .tuser{font-size:13px;color:rgba(255,255,255,0.6)}
 .tuser strong{color:white}
-.btn-out{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.7);font-size:12px;font-weight:600;padding:7px 16px;border-radius:8px;cursor:pointer;font-family:'Montserrat',sans-serif}
-.auth-screen{min-height:100vh;background:linear-gradient(160deg,var(--navy) 0%,#1a3a54 50%,#1D84C7 100%);display:flex;align-items:center;justify-content:center;padding:20px}
+.btn-out{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.7);font-size:12px;font-weight:600;padding:7px 16px;border-radius:8px;cursor:pointer;font-family:var(--font-body)}
+.auth-screen{min-height:100vh;background:linear-gradient(160deg,var(--navy) 0%,var(--blue) 100%);display:flex;align-items:center;justify-content:center;padding:20px}
 .auth-card{background:white;border-radius:var(--rl);padding:48px 40px;width:100%;max-width:420px;box-shadow:0 32px 80px rgba(0,0,0,0.2)}
-.auth-logo{text-align:center;margin-bottom:32px}
-.auth-logo-i{width:64px;height:64px;background:linear-gradient(135deg,var(--light),var(--blue));border-radius:16px;display:inline-flex;align-items:center;justify-content:center;font-size:32px;margin-bottom:12px}
-.auth-logo h1{font-size:22px;font-weight:800;letter-spacing:2px;color:var(--navy)}
-.auth-logo p{font-size:12px;color:var(--muted);margin-top:4px}
+.auth-logo{text-align:center;margin-bottom:28px}
+.auth-logo img{height:110px;width:auto;display:inline-block;margin-bottom:14px}
+.auth-logo p{font-family:var(--font-display);font-size:13px;font-weight:600;letter-spacing:2px;color:var(--blue);text-transform:uppercase}
 .med-selector{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
-.med-btn{border:2px solid #e8f0f5;border-radius:var(--r);padding:16px;cursor:pointer;text-align:center;background:white;font-family:'Montserrat',sans-serif;transition:all 0.2s}
+.med-btn{border:2px solid rgba(166,218,241,0.35);border-radius:var(--r);padding:16px;cursor:pointer;text-align:center;background:white;font-family:var(--font-body);transition:all 0.2s}
 .med-btn:hover,.med-btn.selected{border-color:var(--blue);background:var(--pale)}
 .med-btn-name{font-size:13px;font-weight:700;color:var(--navy)}
 .med-btn-esp{font-size:11px;color:var(--muted);margin-top:2px}
 .fg{margin-bottom:16px}
 .fl{font-size:12px;font-weight:600;color:var(--muted);display:block;margin-bottom:6px}
-.fi{width:100%;padding:12px 16px;border:1.5px solid #e2eaf0;border-radius:10px;font-size:14px;font-family:'Montserrat',sans-serif;color:var(--text);outline:none;background:white}
+.fi{width:100%;padding:12px 16px;border:1.5px solid rgba(166,218,241,0.4);border-radius:10px;font-size:14px;font-family:var(--font-body);color:var(--text);outline:none;background:white}
 .fi:focus{border-color:var(--blue)}
-.btn-p{width:100%;padding:14px;background:var(--blue);color:white;border:none;border-radius:10px;font-size:15px;font-weight:700;font-family:'Montserrat',sans-serif;cursor:pointer;margin-top:8px}
+.btn-p{width:100%;padding:14px;background:var(--blue);color:white;border:none;border-radius:10px;font-size:15px;font-weight:700;font-family:var(--font-body);cursor:pointer;margin-top:8px}
 .aerr{background:#fef2f2;border:1px solid #fecaca;color:#dc2626;font-size:13px;padding:10px 14px;border-radius:8px;margin-bottom:16px;display:none}
 .portal{display:none}
 .portal.active{display:block}
 .playout{display:grid;grid-template-columns:260px 1fr;min-height:calc(100vh - 64px)}
-.sidebar{background:white;border-right:1px solid #e8f0f5;padding:32px 0}
-.sp{padding:0 24px 28px;border-bottom:1px solid #e8f0f5;margin-bottom:20px}
+.sidebar{background:white;border-right:1px solid rgba(166,218,241,0.35);padding:32px 0}
+.sp{padding:0 24px 28px;border-bottom:1px solid rgba(166,218,241,0.35);margin-bottom:20px}
 .savatar{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#A6DAF1,#1D84C7);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;color:white;margin-bottom:12px}
 .sname{font-size:15px;font-weight:700;color:var(--navy)}
 .srole{font-size:11px;color:var(--blue);margin-top:2px;font-weight:600;text-transform:uppercase}
@@ -49,23 +50,23 @@ body{font-family:'Montserrat',sans-serif;background:#f0f6fb;color:var(--text);mi
 .snav li a:hover{background:var(--pale);color:var(--navy)}
 .snav li a.active{background:var(--pale);color:var(--blue);font-weight:700;border-left-color:var(--blue)}
 .ni{font-size:18px;width:24px;text-align:center}
-.main{padding:36px 40px;background:#f0f6fb}
+.main{padding:36px 40px;background:rgba(166,218,241,0.08)}
 .page{display:none}
 .page.active{display:block}
-.ptitle{font-size:22px;font-weight:800;color:var(--navy);margin-bottom:6px}
+.ptitle{font-family:var(--font-display);font-size:26px;font-weight:700;color:var(--navy);margin-bottom:6px;letter-spacing:-0.5px}
 .psub{font-size:14px;color:var(--muted);margin-bottom:32px}
 .sgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;margin-bottom:32px}
-.sc{background:white;border-radius:var(--r);padding:24px;border:1px solid #e8f0f5}
+.sc{background:white;border-radius:var(--r);padding:24px;border:1px solid rgba(166,218,241,0.35)}
 .si{font-size:28px;margin-bottom:10px}
 .sv{font-size:26px;font-weight:800;color:var(--navy)}
 .sl{font-size:12px;color:var(--muted);margin-top:2px}
-.card{background:white;border-radius:var(--rl);padding:28px;border:1px solid #e8f0f5;margin-bottom:20px}
+.card{background:white;border-radius:var(--rl);padding:28px;border:1px solid rgba(166,218,241,0.35);margin-bottom:20px}
 .ctitle{font-size:16px;font-weight:700;color:var(--navy);margin-bottom:20px}
 .ftabs{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap}
-.ftab{padding:8px 18px;border-radius:100px;font-size:13px;font-weight:600;cursor:pointer;border:1.5px solid #e8f0f5;background:white;color:var(--muted);font-family:'Montserrat',sans-serif}
+.ftab{padding:8px 18px;border-radius:100px;font-size:13px;font-weight:600;cursor:pointer;border:1.5px solid rgba(166,218,241,0.35);background:white;color:var(--muted);font-family:var(--font-body)}
 .ftab.active{background:var(--blue);color:white;border-color:var(--blue)}
-.turno-row{display:grid;grid-template-columns:60px 1fr 120px 80px 80px;gap:16px;align-items:center;padding:16px;border-radius:var(--r);border:1px solid #e8f0f5;margin-bottom:10px;background:white}
-.turno-row.today{border-color:var(--blue);background:#f0f9ff}
+.turno-row{display:grid;grid-template-columns:60px 1fr 120px 80px 80px;gap:16px;align-items:center;padding:16px;border-radius:var(--r);border:1px solid rgba(166,218,241,0.35);margin-bottom:10px;background:white}
+.turno-row.today{border-color:var(--blue);background:rgba(166,218,241,0.22)}
 .tr-dia{font-size:20px;font-weight:800;color:var(--blue);line-height:1;text-align:center}
 .tr-mes{font-size:10px;font-weight:600;color:var(--muted);text-transform:uppercase;text-align:center}
 .tr-pac{font-size:14px;font-weight:700;color:var(--navy)}
@@ -74,9 +75,9 @@ body{font-family:'Montserrat',sans-serif;background:#f0f6fb;color:var(--text);mi
 .badge{display:inline-flex;align-items:center;padding:5px 12px;border-radius:100px;font-size:11px;font-weight:700}
 .bg{background:#dcfce7;color:#16a34a}
 .bb{background:var(--pale);color:var(--blue)}
-.btn-sm{padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;border:none;font-family:'Montserrat',sans-serif;background:var(--pale);color:var(--blue)}
+.btn-sm{padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;border:none;font-family:var(--font-body);background:var(--pale);color:var(--blue)}
 .search-bar{margin-bottom:20px}
-.search-input{width:100%;padding:10px 16px;border:1.5px solid #e2eaf0;border-radius:10px;font-size:14px;font-family:'Montserrat',sans-serif;outline:none}
+.search-input{width:100%;padding:10px 16px;border:1.5px solid rgba(166,218,241,0.4);border-radius:10px;font-size:14px;font-family:var(--font-body);outline:none}
 .search-input:focus{border-color:var(--blue)}
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:1000;display:none;align-items:center;justify-content:center;padding:20px}
 .modal-overlay.active{display:flex}
@@ -87,7 +88,7 @@ body{font-family:'Montserrat',sans-serif;background:#f0f6fb;color:var(--text);mi
 .info-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 .info-label{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
 .info-val{font-size:14px;font-weight:600;color:var(--navy)}
-.divider{border:none;border-top:1px solid #e8f0f5;margin:20px 0}
+.divider{border:none;border-top:1px solid rgba(166,218,241,0.35);margin:20px 0}
 .th{padding:12px;border-radius:var(--r);background:var(--pale);margin-bottom:8px}
 .th-fecha{font-size:13px;font-weight:700;color:var(--navy)}
 .th-esp{font-size:12px;color:var(--muted)}
@@ -103,9 +104,8 @@ body{font-family:'Montserrat',sans-serif;background:#f0f6fb;color:var(--text);mi
 <div id="authScreen" class="auth-screen">
   <div class="auth-card">
     <div class="auth-logo">
-      <div class="auth-logo-i">🩺</div>
-      <h1>CICAR</h1>
-      <p>Panel Medico — Barrio Norte</p>
+      <img src="assets/logos/CICAR-05.png" alt="CICAR Barrio Norte">
+      <p>Panel Médico</p>
     </div>
     <div id="aerr" class="aerr"></div>
     <p style="font-size:13px;font-weight:600;color:var(--muted);margin-bottom:12px">Selecciona tu perfil:</p>
@@ -124,7 +124,7 @@ body{font-family:'Montserrat',sans-serif;background:#f0f6fb;color:var(--text);mi
 <div id="portal" class="portal">
   <div class="topbar">
     <div style="display:flex;align-items:center;gap:12px">
-      <a href="index.html" class="tlogo"><div class="tlogo-i">🫀</div><span class="tlogo-t">CICAR</span></a>
+      <a href="index.html" class="tlogo" aria-label="CICAR Barrio Norte — Inicio"><img src="assets/logos/CICAR-12.png" alt="CICAR Barrio Norte"></a>
       <span class="tbadge">PANEL MEDICO</span>
     </div>
     <div class="tright">
