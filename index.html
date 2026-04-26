@@ -1094,16 +1094,20 @@
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border-bottom: 1px solid rgba(166,218,241,0.15);
-    display: none;
+    display: none !important;
     opacity: 0;
     transform: translateY(-12px);
-    transition: opacity 0.35s ease, transform 0.35s ease;
   }
   .hscroll-progress.visible {
-    display: flex;
+    display: flex !important;
     opacity: 1;
     transform: translateY(0);
     pointer-events: auto;
+    animation: progressBarSlideIn 0.35s ease both;
+  }
+  @keyframes progressBarSlideIn {
+    from { opacity: 0; transform: translateY(-12px); }
+    to { opacity: 1; transform: translateY(0); }
   }
   .hscroll-progress-meta { flex: 0 0 auto; pointer-events: auto; }
   .hscroll-step-label {
@@ -2676,14 +2680,21 @@
   (function () {
     var progressBar = document.getElementById('pageProgress');
     var heroSection = document.getElementById('inicio');
-    if (!progressBar || !heroSection) return;
-    var navHeight = 72;
+    if (!progressBar) return;
+    progressBar.classList.remove('visible');
     function updateBarVisibility() {
-      var heroBottom = heroSection.getBoundingClientRect().bottom;
-      progressBar.classList.toggle('visible', heroBottom <= navHeight);
+      var threshold;
+      if (heroSection) {
+        threshold = heroSection.offsetTop + heroSection.offsetHeight - 72;
+      } else {
+        threshold = window.innerHeight * 0.85;
+      }
+      var shouldShow = window.scrollY >= Math.max(40, threshold);
+      progressBar.classList.toggle('visible', shouldShow);
     }
     window.addEventListener('scroll', updateBarVisibility, { passive: true });
     window.addEventListener('resize', updateBarVisibility);
+    window.addEventListener('load', updateBarVisibility);
     updateBarVisibility();
   })();
 </script>
