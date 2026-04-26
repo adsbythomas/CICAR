@@ -896,6 +896,12 @@
   /* Stats band oculto (numeros chicos pueden confundir) */
   .simple-mode .stats-band { display: none !important; }
 
+  /* En modo simple ocultamos secciones que no aportan a un usuario que solo
+     necesita sacar turno: bloque "Nosotros" y panel de "Tecnologia" */
+  .simple-mode .about-section,
+  .simple-mode #nosotros { display: none !important; }
+  .simple-mode .hpanel[data-panel="1"] { display: none !important; }
+
   /* Banner de telefono / whatsapp persistente arriba de todo
      (solo visible en .simple-mode) */
   .simple-mode-banner { display: none; }
