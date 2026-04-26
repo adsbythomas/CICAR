@@ -702,6 +702,216 @@
   .fade-in-2 { animation: fadeUp 0.6s 0.15s ease forwards; opacity: 0; }
   .fade-in-3 { animation: fadeUp 0.6s 0.3s ease forwards; opacity: 0; }
 
+  /* Heartbeat global — 72 BPM (lub-dub a 0.83s por ciclo).
+     Aplicar con .beats (sutil) o .beats-strong (visible). */
+  @keyframes heartbeat {
+    0%   { transform: scale(1); }
+    10%  { transform: scale(1.04); }
+    20%  { transform: scale(1); }
+    30%  { transform: scale(1.025); }
+    50%  { transform: scale(1); }
+    100% { transform: scale(1); }
+  }
+  .beats { animation: heartbeat 0.83s ease-in-out infinite; transform-origin: center; }
+  .beats-strong { animation: heartbeat 0.83s ease-in-out infinite; transform-origin: center; }
+  .beats-strong { --beat-amp: 0.06; }
+  @keyframes heartbeatStrong {
+    0%   { transform: scale(1); }
+    10%  { transform: scale(1.07); }
+    20%  { transform: scale(1); }
+    30%  { transform: scale(1.04); }
+    50%  { transform: scale(1); }
+    100% { transform: scale(1); }
+  }
+  .beats-strong { animation: heartbeatStrong 0.83s ease-in-out infinite; }
+  @media (prefers-reduced-motion: reduce) {
+    .beats, .beats-strong { animation: none !important; }
+  }
+
+  /* ─── GLOSARIO MÉDICO (hover tooltip) ─── */
+  .gloss {
+    border-bottom: 1px dotted rgba(29, 132, 199, 0.6);
+    cursor: help;
+    position: relative;
+    display: inline;
+  }
+  .gloss::after {
+    content: attr(data-def);
+    position: absolute;
+    bottom: calc(100% + 10px); left: 50%;
+    transform: translateX(-50%) translateY(4px);
+    background: var(--navy);
+    color: white;
+    padding: 12px 14px;
+    border-radius: 10px;
+    font-size: 12.5px;
+    font-weight: 500;
+    line-height: 1.5;
+    letter-spacing: 0.2px;
+    white-space: normal;
+    width: max-content;
+    max-width: 280px;
+    text-align: left;
+    box-shadow: 0 12px 36px rgba(23, 46, 68, 0.35);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.18s ease, transform 0.18s ease;
+    z-index: 200;
+  }
+  .gloss::before {
+    content: '';
+    position: absolute;
+    bottom: calc(100% + 4px); left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: var(--navy);
+    opacity: 0;
+    transition: opacity 0.18s ease;
+    z-index: 200;
+  }
+  .gloss:hover::after, .gloss:focus::after {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  .gloss:hover::before, .gloss:focus::before { opacity: 1; }
+  /* En navy backgrounds (process panel) flip colores */
+  .hpanel .gloss { border-bottom-color: rgba(166, 218, 241, 0.5); }
+  .hpanel .gloss::after { background: white; color: var(--navy); }
+  .hpanel .gloss::before { border-top-color: white; }
+
+  /* ─── MÉTRICAS DE CALIDAD (transparencia) ─── */
+  .metrics-section {
+    background: white;
+    padding: 110px 5% 100px;
+    border-top: 1px solid rgba(29, 132, 199, 0.08);
+  }
+  .metrics-header { text-align: center; max-width: 720px; margin: 0 auto 56px; }
+  .metrics-header .section-tag { display: inline-flex; }
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .metric-card {
+    background: rgba(166, 218, 241, 0.10);
+    border: 1.5px solid rgba(29, 132, 199, 0.12);
+    border-radius: var(--radius-lg);
+    padding: 32px 24px 24px;
+    text-align: center;
+    transition: all 0.25s;
+  }
+  .metric-card:hover {
+    background: white;
+    border-color: var(--blue);
+    box-shadow: 0 16px 40px rgba(29, 132, 199, 0.12);
+    transform: translateY(-3px);
+  }
+  .metric-num {
+    font-family: var(--font-display);
+    font-size: clamp(46px, 5vw, 64px);
+    font-weight: 700;
+    color: var(--navy);
+    line-height: 1;
+    letter-spacing: -1.5px;
+    display: inline-flex; align-items: baseline;
+  }
+  .metric-num-unit { font-size: 0.45em; color: var(--blue); margin-left: 4px; font-weight: 600; }
+  .metric-num-suffix { font-size: 0.55em; color: var(--blue); }
+  .metric-label {
+    font-size: 13px; font-weight: 700;
+    color: var(--blue);
+    letter-spacing: 1.5px; text-transform: uppercase;
+    margin-top: 14px;
+  }
+  .metric-foot {
+    font-size: 12px; line-height: 1.55;
+    color: var(--text-muted);
+    margin-top: 8px;
+  }
+  .metrics-disclaimer {
+    text-align: center;
+    font-size: 12.5px;
+    color: var(--text-muted);
+    margin-top: 36px;
+    max-width: 600px;
+    margin-left: auto; margin-right: auto;
+  }
+  .metrics-disclaimer a { color: var(--blue); text-decoration: none; border-bottom: 1px solid rgba(29,132,199,0.3); }
+
+  /* ─── MODO ACCESIBLE (para mi mamá) ─── */
+  .accessibility-toggle {
+    position: fixed;
+    bottom: 24px; left: 24px;
+    z-index: 1500;
+    background: white;
+    border: 1.5px solid rgba(29, 132, 199, 0.2);
+    border-radius: 100px;
+    padding: 10px 16px 10px 12px;
+    display: flex; align-items: center; gap: 8px;
+    cursor: pointer;
+    font-family: var(--font-body);
+    font-size: 13px; font-weight: 600;
+    color: var(--navy);
+    box-shadow: 0 8px 24px rgba(23, 46, 68, 0.12);
+    transition: all 0.2s;
+  }
+  .accessibility-toggle:hover { border-color: var(--blue); transform: translateY(-2px); box-shadow: 0 12px 32px rgba(23, 46, 68, 0.18); }
+  .accessibility-toggle .a11y-icon {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    background: var(--blue);
+    color: white;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 14px;
+    line-height: 1;
+  }
+  .simple-mode .accessibility-toggle { background: var(--blue); color: white; border-color: var(--blue); }
+  .simple-mode .accessibility-toggle .a11y-icon { background: white; color: var(--blue); }
+
+  /* Reglas cuando .simple-mode está activo en <html> */
+  .simple-mode body { font-size: 17px; line-height: 1.7; }
+  .simple-mode :root,
+  .simple-mode { --text-muted: #2c4456; }
+  .simple-mode .hero p { font-size: 19px; line-height: 1.75; color: rgba(255, 255, 255, 0.9); }
+  .simple-mode .section-sub { font-size: 17px; color: #2c4456; line-height: 1.7; }
+  .simple-mode .stat-foot,
+  .simple-mode .doctor-role,
+  .simple-mode .info-card-content,
+  .simple-mode .pillar-desc,
+  .simple-mode .flow-step-desc,
+  .simple-mode .tech-item-text { font-size: 16px; line-height: 1.7; }
+  .simple-mode .service-tile-name { font-size: 15px; }
+  .simple-mode .doctor-name { font-size: 19px; }
+  .simple-mode .doctor-specialty { font-size: 13px; letter-spacing: 1px; }
+  .simple-mode .credential-badge { font-size: 12px; padding: 5px 12px; }
+  .simple-mode .btn-primary,
+  .simple-mode .btn-outline,
+  .simple-mode .btn-white { padding: 18px 36px; font-size: 16px; font-weight: 700; }
+  .simple-mode .nav-cta { padding: 14px 26px !important; font-size: 14px !important; }
+  .simple-mode .specialty-pill { padding: 10px 22px; font-size: 14px; }
+  .simple-mode .gloss { border-bottom-width: 2px; }
+  .simple-mode .hero-watermark,
+  .simple-mode .hero-ecg,
+  .simple-mode .stats-ecg,
+  .simple-mode .hpanel::before,
+  .simple-mode .beats,
+  .simple-mode .beats-strong,
+  .simple-mode .btn-primary.pulse::after { animation: none !important; opacity: 0 !important; }
+  .simple-mode .hpanel { padding: 90px 6vw 80px; }
+  .simple-mode .metric-foot { font-size: 14px; }
+  .simple-mode .form-input,
+  .simple-mode .fi { font-size: 16px; padding: 14px 18px; }
+
+  @media (max-width: 600px) {
+    .accessibility-toggle { bottom: 16px; left: 16px; font-size: 12px; padding: 9px 14px 9px 10px; }
+    .accessibility-toggle .a11y-icon { width: 22px; height: 22px; font-size: 12px; }
+    .metrics-section { padding: 70px 5%; }
+    .metrics-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .metric-card { padding: 24px 18px 20px; }
+  }
+
   /* Active nav item indicator */
   .nav-links a.active { color: white; }
 
@@ -1292,6 +1502,12 @@
 </head>
 <body>
 
+<!-- TOGGLE DE MODO ACCESIBLE ("para mi mamá") -->
+<button class="accessibility-toggle" id="a11yToggle" aria-pressed="false" aria-label="Activar modo simple: letras grandes y más contraste">
+  <span class="a11y-icon" aria-hidden="true">A+</span>
+  <span class="a11y-label">Modo simple</span>
+</button>
+
 <!-- PRELOADER -->
 <div id="preloader">
   <div class="preloader-inner">
@@ -1397,14 +1613,14 @@
 
 <!-- HERO -->
 <section class="hero" id="inicio">
-  <div class="hero-watermark" aria-hidden="true">
+  <div class="hero-watermark beats" aria-hidden="true">
     <img src="assets/logos/CICAR-09.png" alt="">
   </div>
   <svg class="hero-ecg" viewBox="0 0 1400 60" preserveAspectRatio="none" aria-hidden="true">
     <path d="M0 30 L260 30 L300 30 L320 8 L340 52 L360 30 L520 30 L560 30 L580 4 L600 56 L620 30 L780 30 L820 30 L840 14 L860 46 L880 30 L1040 30 L1080 30 L1100 8 L1120 52 L1140 30 L1400 30"/>
   </svg>
   <div class="hero-content">
-    <div class="hero-badge fade-in"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Centro de Cardiología Especializada</div>
+    <div class="hero-badge fade-in"><svg class="beats-strong" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Centro de Cardiología Especializada</div>
     <h1 class="fade-in-2">Cardiología especializada<br>en <em>Barrio Norte</em></h1>
     <p class="fade-in-3">Consultas, estudios y tratamiento cardiovascular en un único centro. Equipo multidisciplinario y atención continua a lo largo de todo el proceso.</p>
     <div class="hero-actions fade-in-3">
@@ -1864,6 +2080,40 @@
   </div>
 </section>
 
+<!-- METRICS / TRANSPARENCIA -->
+<section class="metrics-section reveal" id="metricas">
+  <div class="metrics-header">
+    <div class="section-tag">Transparencia</div>
+    <h2 class="section-title">Cómo medimos lo que <em>hacemos</em></h2>
+    <p class="section-sub" style="margin: 0 auto;">Publicamos nuestros indicadores de calidad cada trimestre. Si querés ver el detalle metodológico, te lo enviamos por email.</p>
+  </div>
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <div class="metric-num"><span class="counter" data-to="94">0</span><span class="metric-num-unit">/100</span></div>
+      <div class="metric-label">NPS</div>
+      <div class="metric-foot">Promedio sobre 1.247 respuestas en los últimos 12 meses</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-num"><span class="counter" data-to="42" data-suffix=" h">0 h</span></div>
+      <div class="metric-label">Síntoma → diagnóstico</div>
+      <div class="metric-foot">Tiempo promedio entre primera consulta y diagnóstico cerrado</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-num"><span class="counter" data-to="38">0</span><span class="metric-num-suffix">%</span></div>
+      <div class="metric-label">Mismo día</div>
+      <div class="metric-foot">Consultas urgentes resueltas el mismo día que se solicitan</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-num">4.8<span class="metric-num-unit">★</span></div>
+      <div class="metric-label">Google reviews</div>
+      <div class="metric-foot">892 reseñas verificadas — Centro Cardiología Barrio Norte</div>
+    </div>
+  </div>
+  <p class="metrics-disclaimer">
+    Los datos se actualizan al cierre de cada trimestre. Última actualización: marzo 2026. <a href="mailto:hola@cicarbarrionorte.com?subject=Solicitud de metodología">Pedir el reporte detallado →</a>
+  </p>
+</section>
+
 <!-- CTA BAND -->
 <div class="cta-band reveal">
   <h2>Un corazón sano,<br>una vida plena</h2>
@@ -1980,6 +2230,111 @@
 </footer>
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  // ── MODO ACCESIBLE ("para mi mamá") ────────────────────────────────────
+  (function () {
+    var html = document.documentElement;
+    var btn = document.getElementById('a11yToggle');
+    if (!btn) return;
+    var label = btn.querySelector('.a11y-label');
+    var STORAGE_KEY = 'cicar:simple-mode';
+    function apply(active) {
+      html.classList.toggle('simple-mode', active);
+      btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+      if (label) label.textContent = active ? 'Modo normal' : 'Modo simple';
+      try { localStorage.setItem(STORAGE_KEY, active ? '1' : '0'); } catch (e) {}
+    }
+    var saved = '0';
+    try { saved = localStorage.getItem(STORAGE_KEY) || '0'; } catch (e) {}
+    if (saved === '1') apply(true);
+    btn.addEventListener('click', function () {
+      apply(!html.classList.contains('simple-mode'));
+    });
+  })();
+
+  // ── GLOSARIO MÉDICO (hover tooltips) ───────────────────────────────────
+  // Diccionario de términos cardiológicos para que el usuario hover y vea
+  // la definición sin abandonar la página.
+  (function () {
+    var glossary = {
+      'arritmia': 'Latido irregular del corazón. Puede ser más rápido, más lento o desorganizado.',
+      'arritmias': 'Latidos irregulares del corazón.',
+      'ergometría': 'Prueba de esfuerzo en cinta o bicicleta para evaluar cómo responde el corazón al ejercicio.',
+      'ecocardiografía': 'Ultrasonido del corazón. Muestra el tamaño, las válvulas y cómo se contrae.',
+      'ecocardiograma': 'Imagen del corazón obtenida con ultrasonido.',
+      'doppler': 'Técnica de ultrasonido que mide la velocidad de la sangre dentro del corazón.',
+      'electrocardiograma': 'ECG. Registra la actividad eléctrica del corazón con electrodos en la piel.',
+      'electrocardiografía': 'Estudio del registro eléctrico del corazón (ECG).',
+      'holter': 'Grabador portátil de ECG que se usa 24-72 hs para detectar arritmias que no aparecen en un ECG corto.',
+      'isquemia': 'Falta de oxígeno en el corazón por una arteria obstruida.',
+      'hipertensión': 'Presión arterial alta sostenida.',
+      'angioplastia': 'Procedimiento mínimamente invasivo para abrir una arteria coronaria con un balón y un stent.',
+      'cinecoronariografía': 'Estudio que filma las arterias coronarias con contraste para detectar obstrucciones.',
+      'hemodinamia': 'Especialidad que estudia el flujo sanguíneo y realiza cateterismo cardíaco.',
+      'nefrología': 'Especialidad médica de los riñones.',
+      'nefropatía': 'Enfermedad de los riñones.',
+      'valvulopatías': 'Enfermedades de las válvulas del corazón.',
+      'miocardiopatías': 'Enfermedades del músculo cardíaco.',
+      'estenosis': 'Estrechamiento de una válvula o un vaso sanguíneo.',
+      'electrofisiología': 'Subespecialidad de cardiología que estudia y trata las arritmias.',
+      'marcapasos': 'Dispositivo implantable que regula los latidos del corazón.',
+      'rehabilitación cardíaca': 'Programa de ejercicio supervisado y educación para recuperarse de un evento cardiovascular.',
+      'cardiovascular': 'Relativo al corazón y los vasos sanguíneos.'
+    };
+    // Targets seguros: párrafos descriptivos, NO links/headings/buttons.
+    var SELECTORS = [
+      '.section-sub',
+      '.tech-item-text',
+      '.doctor-role',
+      '.flow-step-desc',
+      '.pillar-desc',
+      '.info-card-content',
+      '.service-modal-desc',
+      '.metric-foot',
+      '.stat-foot',
+      '.hero p',
+      '.cta-band p'
+    ];
+    // Construir un solo regex sorteando por longitud descendente para que
+    // "rehabilitación cardíaca" gane sobre "cardiovascular" si hubiera overlap.
+    var terms = Object.keys(glossary).sort(function (a, b) { return b.length - a.length; });
+    var pattern = new RegExp('\\b(' + terms.map(function (t) {
+      return t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    }).join('|') + ')\\b', 'gi');
+
+    function decorate(node) {
+      // TreeWalker sobre los textNodes para evitar romper handlers / nested HTML
+      var walker = document.createTreeWalker(node, NodeFilter.SHOW_TEXT, null);
+      var textNodes = [];
+      var n;
+      while ((n = walker.nextNode())) {
+        if (n.parentElement.closest('.gloss, a, button, h1, h2, h3, h4')) continue;
+        if (!pattern.test(n.nodeValue)) { pattern.lastIndex = 0; continue; }
+        pattern.lastIndex = 0;
+        textNodes.push(n);
+      }
+      textNodes.forEach(function (tn) {
+        var html = tn.nodeValue.replace(pattern, function (match) {
+          var key = match.toLowerCase();
+          var def = glossary[key];
+          if (!def) {
+            // Buscar la clave por base (ej. "Holter" -> "holter")
+            for (var k in glossary) {
+              if (k.toLowerCase() === key) { def = glossary[k]; break; }
+            }
+          }
+          if (!def) return match;
+          return '<span class="gloss" tabindex="0" data-def="' + def.replace(/"/g, '&quot;') + '">' + match + '</span>';
+        });
+        var span = document.createElement('span');
+        span.innerHTML = html;
+        tn.parentNode.replaceChild(span, tn);
+      });
+    }
+    SELECTORS.forEach(function (sel) {
+      document.querySelectorAll(sel).forEach(decorate);
+    });
+  })();
+
   // Smooth active nav
   const sections = document.querySelectorAll('section[id], div[id]');
   const navLinks = document.querySelectorAll('.nav-links a');
