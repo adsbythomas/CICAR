@@ -728,117 +728,53 @@
     .beats, .beats-strong { animation: none !important; }
   }
 
-  /* ─── GLOSARIO MÉDICO (hover tooltip) ─── */
+  /* ─── GLOSARIO MÉDICO (tooltip flotante posicionado por JS) ─── */
   .gloss {
     border-bottom: 1px dotted rgba(29, 132, 199, 0.6);
     cursor: help;
-    position: relative;
     display: inline;
+    transition: color 0.15s, border-color 0.15s;
   }
-  .gloss::after {
-    content: attr(data-def);
-    position: absolute;
-    bottom: calc(100% + 10px); left: 50%;
-    transform: translateX(-50%) translateY(4px);
+  .gloss:hover, .gloss:focus { color: var(--blue); border-bottom-color: var(--blue); outline: none; }
+  /* Sobre fondos navy (paneles) flip de color del subrayado */
+  .hpanel .gloss { border-bottom-color: rgba(166, 218, 241, 0.55); color: inherit; }
+  .hpanel .gloss:hover, .hpanel .gloss:focus { color: var(--light); border-bottom-color: var(--light); }
+
+  /* Tooltip flotante: vive directo en <body> y lo posiciona el JS.
+     Asi nunca queda clipeado por overflow:hidden de un card. */
+  #gloss-tip {
+    position: fixed;
+    top: 0; left: 0;
     background: var(--navy);
     color: white;
-    padding: 12px 14px;
+    padding: 12px 16px;
     border-radius: 10px;
-    font-size: 12.5px;
-    font-weight: 500;
-    line-height: 1.5;
-    letter-spacing: 0.2px;
-    white-space: normal;
-    width: max-content;
-    max-width: 280px;
-    text-align: left;
-    box-shadow: 0 12px 36px rgba(23, 46, 68, 0.35);
+    font-family: var(--font-body);
+    font-size: 13.5px; font-weight: 500;
+    line-height: 1.55; letter-spacing: 0.1px;
+    max-width: 300px; width: max-content;
+    box-shadow: 0 14px 40px rgba(23, 46, 68, 0.38);
     opacity: 0;
+    transform: translate(-9999px, 0);
     pointer-events: none;
-    transition: opacity 0.18s ease, transform 0.18s ease;
-    z-index: 200;
+    transition: opacity 0.18s ease;
+    z-index: 9000;
   }
-  .gloss::before {
+  #gloss-tip.open { opacity: 1; }
+  #gloss-tip::before {
     content: '';
     position: absolute;
-    bottom: calc(100% + 4px); left: 50%;
-    transform: translateX(-50%);
+    width: 0; height: 0;
     border: 6px solid transparent;
+  }
+  #gloss-tip[data-pos="above"]::before {
+    bottom: -12px; left: 50%; margin-left: -6px;
     border-top-color: var(--navy);
-    opacity: 0;
-    transition: opacity 0.18s ease;
-    z-index: 200;
   }
-  .gloss:hover::after, .gloss:focus::after {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
+  #gloss-tip[data-pos="below"]::before {
+    top: -12px; left: 50%; margin-left: -6px;
+    border-bottom-color: var(--navy);
   }
-  .gloss:hover::before, .gloss:focus::before { opacity: 1; }
-  /* En navy backgrounds (process panel) flip colores */
-  .hpanel .gloss { border-bottom-color: rgba(166, 218, 241, 0.5); }
-  .hpanel .gloss::after { background: white; color: var(--navy); }
-  .hpanel .gloss::before { border-top-color: white; }
-
-  /* ─── MÉTRICAS DE CALIDAD (transparencia) ─── */
-  .metrics-section {
-    background: white;
-    padding: 110px 5% 100px;
-    border-top: 1px solid rgba(29, 132, 199, 0.08);
-  }
-  .metrics-header { text-align: center; max-width: 720px; margin: 0 auto 56px; }
-  .metrics-header .section-tag { display: inline-flex; }
-  .metrics-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 24px;
-    max-width: 1100px;
-    margin: 0 auto;
-  }
-  .metric-card {
-    background: rgba(166, 218, 241, 0.10);
-    border: 1.5px solid rgba(29, 132, 199, 0.12);
-    border-radius: var(--radius-lg);
-    padding: 32px 24px 24px;
-    text-align: center;
-    transition: all 0.25s;
-  }
-  .metric-card:hover {
-    background: white;
-    border-color: var(--blue);
-    box-shadow: 0 16px 40px rgba(29, 132, 199, 0.12);
-    transform: translateY(-3px);
-  }
-  .metric-num {
-    font-family: var(--font-display);
-    font-size: clamp(46px, 5vw, 64px);
-    font-weight: 700;
-    color: var(--navy);
-    line-height: 1;
-    letter-spacing: -1.5px;
-    display: inline-flex; align-items: baseline;
-  }
-  .metric-num-unit { font-size: 0.45em; color: var(--blue); margin-left: 4px; font-weight: 600; }
-  .metric-num-suffix { font-size: 0.55em; color: var(--blue); }
-  .metric-label {
-    font-size: 13px; font-weight: 700;
-    color: var(--blue);
-    letter-spacing: 1.5px; text-transform: uppercase;
-    margin-top: 14px;
-  }
-  .metric-foot {
-    font-size: 12px; line-height: 1.55;
-    color: var(--text-muted);
-    margin-top: 8px;
-  }
-  .metrics-disclaimer {
-    text-align: center;
-    font-size: 12.5px;
-    color: var(--text-muted);
-    margin-top: 36px;
-    max-width: 600px;
-    margin-left: auto; margin-right: auto;
-  }
-  .metrics-disclaimer a { color: var(--blue); text-decoration: none; border-bottom: 1px solid rgba(29,132,199,0.3); }
 
   /* ─── MODO ACCESIBLE (para mi mamá) ─── */
   .accessibility-toggle {
@@ -870,46 +806,139 @@
   .simple-mode .accessibility-toggle { background: var(--blue); color: white; border-color: var(--blue); }
   .simple-mode .accessibility-toggle .a11y-icon { background: white; color: var(--blue); }
 
-  /* Reglas cuando .simple-mode está activo en <html> */
-  .simple-mode body { font-size: 17px; line-height: 1.7; }
+  /* ─── REGLAS DEL MODO SIMPLE (agresivas) ───
+     Cuando html tiene .simple-mode, la pagina se reescribe a una version
+     hiper directa para personas mayores o vista cansada:
+     - Tipografia grande
+     - Cero animaciones / decoraciones
+     - Recorrido horizontal -> stack vertical
+     - Modal de servicios directo a portal
+     - Banner persistente de telefono+WhatsApp arriba */
+
+  /* Tipografia y contraste */
+  .simple-mode body { font-size: 19px; line-height: 1.75; }
   .simple-mode :root,
-  .simple-mode { --text-muted: #2c4456; }
-  .simple-mode .hero p { font-size: 19px; line-height: 1.75; color: rgba(255, 255, 255, 0.9); }
-  .simple-mode .section-sub { font-size: 17px; color: #2c4456; line-height: 1.7; }
+  .simple-mode { --text-muted: #1f3a52; }
+  .simple-mode .hero p { font-size: 22px; line-height: 1.7; color: rgba(255, 255, 255, 0.95); }
+  .simple-mode .section-sub { font-size: 19px; color: #1f3a52; line-height: 1.7; }
   .simple-mode .stat-foot,
   .simple-mode .doctor-role,
   .simple-mode .info-card-content,
   .simple-mode .pillar-desc,
   .simple-mode .flow-step-desc,
-  .simple-mode .tech-item-text { font-size: 16px; line-height: 1.7; }
-  .simple-mode .service-tile-name { font-size: 15px; }
-  .simple-mode .doctor-name { font-size: 19px; }
-  .simple-mode .doctor-specialty { font-size: 13px; letter-spacing: 1px; }
-  .simple-mode .credential-badge { font-size: 12px; padding: 5px 12px; }
+  .simple-mode .tech-item-text,
+  .simple-mode .tech-card-desc,
+  .simple-mode .service-desc { font-size: 17px; line-height: 1.7; }
+  .simple-mode .service-tile-name { font-size: 17px; }
+  .simple-mode .doctor-name { font-size: 22px; }
+  .simple-mode .doctor-specialty { font-size: 14px; letter-spacing: 1px; }
+  .simple-mode .credential-badge { font-size: 13px; padding: 6px 14px; }
+  .simple-mode h2.section-title { font-size: clamp(34px, 5vw, 52px) !important; }
+  .simple-mode .hero h1 { font-size: clamp(38px, 6vw, 58px); }
+
+  /* Botones gigantes */
   .simple-mode .btn-primary,
   .simple-mode .btn-outline,
-  .simple-mode .btn-white { padding: 18px 36px; font-size: 16px; font-weight: 700; }
-  .simple-mode .nav-cta { padding: 14px 26px !important; font-size: 14px !important; }
-  .simple-mode .specialty-pill { padding: 10px 22px; font-size: 14px; }
-  .simple-mode .gloss { border-bottom-width: 2px; }
+  .simple-mode .btn-white { padding: 22px 40px; font-size: 18px; font-weight: 700; border-radius: 12px; }
+  .simple-mode .btn-primary { box-shadow: 0 6px 18px rgba(29,132,199,0.25); }
+  .simple-mode .nav-cta { padding: 16px 30px !important; font-size: 16px !important; }
+  .simple-mode .specialty-pill { padding: 12px 24px; font-size: 16px; font-weight: 600; }
+  .simple-mode .form-input,
+  .simple-mode .fi { font-size: 17px; padding: 16px 20px; }
+
+  /* Cero animaciones / decoraciones */
   .simple-mode .hero-watermark,
   .simple-mode .hero-ecg,
   .simple-mode .stats-ecg,
   .simple-mode .hpanel::before,
+  .simple-mode .preloader-ecg,
+  .simple-mode .stats-band::before,
+  .simple-mode .hero::before,
+  .simple-mode .hero::after,
+  .simple-mode .hscroll-stick::before { display: none !important; }
   .simple-mode .beats,
   .simple-mode .beats-strong,
-  .simple-mode .btn-primary.pulse::after { animation: none !important; opacity: 0 !important; }
-  .simple-mode .hpanel { padding: 90px 6vw 80px; }
-  .simple-mode .metric-foot { font-size: 14px; }
-  .simple-mode .form-input,
-  .simple-mode .fi { font-size: 16px; padding: 14px 18px; }
+  .simple-mode .btn-primary.pulse::after,
+  .simple-mode .preloader-logo-img,
+  .simple-mode .reveal { animation: none !important; transition: none !important; }
+  .simple-mode .reveal { opacity: 1 !important; transform: none !important; }
+
+  /* Glosario: subrayado mas grueso para que se note */
+  .simple-mode .gloss { border-bottom: 2px solid var(--blue); }
+
+  /* Forzar el recorrido horizontal a stack vertical (siempre) */
+  .simple-mode .hscroll { height: auto !important; background: transparent !important; }
+  .simple-mode .hscroll-stick {
+    position: static !important; height: auto !important;
+    background: var(--navy); overflow: visible;
+  }
+  .simple-mode .hscroll-track {
+    display: flex !important; flex-direction: column !important;
+    width: 100% !important; height: auto !important;
+    transform: none !important;
+  }
+  .simple-mode .hpanel {
+    flex: 0 0 auto !important;
+    width: 100% !important; height: auto !important;
+    min-height: 0 !important;
+    padding: 70px 6vw !important;
+    border-bottom: 1px solid rgba(166, 218, 241, 0.12);
+  }
+  .simple-mode .hpanel:last-child { border-bottom: none; }
+  .simple-mode .hscroll-progress,
+  .simple-mode .hscroll-hint { display: none !important; }
+  .simple-mode .hpanel .services-mosaic { grid-template-columns: repeat(3, 1fr) !important; gap: 16px !important; }
+  .simple-mode .hpanel .doctors-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 20px !important; }
+  .simple-mode .hpanel .tech-layout { grid-template-columns: 1fr !important; gap: 32px !important; }
+  .simple-mode .hpanel .process-flow { grid-template-columns: repeat(2, 1fr) !important; gap: 36px 16px !important; }
+  .simple-mode .hpanel .process-flow::before { display: none; }
+
+  /* Stats band oculto (numeros chicos pueden confundir) */
+  .simple-mode .stats-band { display: none !important; }
+
+  /* Banner de telefono / whatsapp persistente arriba de todo
+     (solo visible en .simple-mode) */
+  .simple-mode-banner { display: none; }
+  .simple-mode .simple-mode-banner {
+    display: flex;
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 1100;
+    background: var(--blue);
+    color: white;
+    padding: 14px 5%;
+    align-items: center; justify-content: center; gap: 16px;
+    flex-wrap: wrap;
+    font-size: 17px; font-weight: 600;
+    box-shadow: 0 4px 16px rgba(29,132,199,0.25);
+  }
+  .simple-mode-banner-text { font-weight: 700; letter-spacing: 0.3px; }
+  .simple-mode-banner a {
+    color: white; text-decoration: none;
+    background: rgba(255,255,255,0.18);
+    border: 2px solid white;
+    padding: 10px 22px; border-radius: 100px;
+    font-weight: 700;
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 17px;
+    white-space: nowrap;
+  }
+  .simple-mode-banner a:hover { background: white; color: var(--blue); }
+  /* Empujar nav y todo el body hacia abajo el alto del banner */
+  .simple-mode body { padding-top: var(--banner-h, 0px); }
+  .simple-mode nav { top: var(--banner-h, 0px) !important; }
+
+  /* Modal de servicios: en modo simple, click en una tile va directo al portal */
+  .simple-mode .service-tile { cursor: pointer; }
+  /* (el JS detecta simple-mode y manda a portal sin modal) */
+
+  /* Footer mas legible */
+  .simple-mode footer { padding: 60px 5% 40px; }
+  .simple-mode .footer-col ul li a { font-size: 16px; }
+  .simple-mode .footer-desc { font-size: 16px; line-height: 1.75; color: rgba(255,255,255,0.75); }
 
   @media (max-width: 600px) {
     .accessibility-toggle { bottom: 16px; left: 16px; font-size: 12px; padding: 9px 14px 9px 10px; }
     .accessibility-toggle .a11y-icon { width: 22px; height: 22px; font-size: 12px; }
-    .metrics-section { padding: 70px 5%; }
-    .metrics-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
-    .metric-card { padding: 24px 18px 20px; }
   }
 
   /* Active nav item indicator */
@@ -1502,6 +1531,19 @@
 </head>
 <body>
 
+<!-- BANNER DE TELEFONO/WHATSAPP (solo visible en modo simple) -->
+<div class="simple-mode-banner" id="simpleModeBanner" aria-live="polite">
+  <span class="simple-mode-banner-text">¿Necesitás ayuda? Llamanos:</span>
+  <a href="tel:+541140000000" aria-label="Llamar a CICAR Barrio Norte">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+    11 4000-0000
+  </a>
+  <a href="https://wa.me/541140000000" aria-label="WhatsApp de CICAR">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-6.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+    WhatsApp
+  </a>
+</div>
+
 <!-- TOGGLE DE MODO ACCESIBLE ("para mi mamá") -->
 <button class="accessibility-toggle" id="a11yToggle" aria-pressed="false" aria-label="Activar modo simple: letras grandes y más contraste">
   <span class="a11y-icon" aria-hidden="true">A+</span>
@@ -1888,6 +1930,11 @@
       var descEl = document.getElementById('serviceModalDesc');
       document.querySelectorAll('.service-tile').forEach(function (tile) {
         tile.addEventListener('click', function () {
+          // En modo simple, la tile va directo a sacar turno (sin modal)
+          if (document.documentElement.classList.contains('simple-mode')) {
+            window.location.href = 'portal.html';
+            return;
+          }
           titleEl.textContent = tile.dataset.title;
           descEl.textContent = tile.dataset.desc;
           modal.classList.add('open');
@@ -2080,40 +2127,6 @@
   </div>
 </section>
 
-<!-- METRICS / TRANSPARENCIA -->
-<section class="metrics-section reveal" id="metricas">
-  <div class="metrics-header">
-    <div class="section-tag">Transparencia</div>
-    <h2 class="section-title">Cómo medimos lo que <em>hacemos</em></h2>
-    <p class="section-sub" style="margin: 0 auto;">Publicamos nuestros indicadores de calidad cada trimestre. Si querés ver el detalle metodológico, te lo enviamos por email.</p>
-  </div>
-  <div class="metrics-grid">
-    <div class="metric-card">
-      <div class="metric-num"><span class="counter" data-to="94">0</span><span class="metric-num-unit">/100</span></div>
-      <div class="metric-label">NPS</div>
-      <div class="metric-foot">Promedio sobre 1.247 respuestas en los últimos 12 meses</div>
-    </div>
-    <div class="metric-card">
-      <div class="metric-num"><span class="counter" data-to="42" data-suffix=" h">0 h</span></div>
-      <div class="metric-label">Síntoma → diagnóstico</div>
-      <div class="metric-foot">Tiempo promedio entre primera consulta y diagnóstico cerrado</div>
-    </div>
-    <div class="metric-card">
-      <div class="metric-num"><span class="counter" data-to="38">0</span><span class="metric-num-suffix">%</span></div>
-      <div class="metric-label">Mismo día</div>
-      <div class="metric-foot">Consultas urgentes resueltas el mismo día que se solicitan</div>
-    </div>
-    <div class="metric-card">
-      <div class="metric-num">4.8<span class="metric-num-unit">★</span></div>
-      <div class="metric-label">Google reviews</div>
-      <div class="metric-foot">892 reseñas verificadas — Centro Cardiología Barrio Norte</div>
-    </div>
-  </div>
-  <p class="metrics-disclaimer">
-    Los datos se actualizan al cierre de cada trimestre. Última actualización: marzo 2026. <a href="mailto:hola@cicarbarrionorte.com?subject=Solicitud de metodología">Pedir el reporte detallado →</a>
-  </p>
-</section>
-
 <!-- CTA BAND -->
 <div class="cta-band reveal">
   <h2>Un corazón sano,<br>una vida plena</h2>
@@ -2231,54 +2244,127 @@
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   // ── MODO ACCESIBLE ("para mi mamá") ────────────────────────────────────
+  // Al togglear, recargamos para que el recorrido horizontal y el resto de
+  // los modulos se re-inicialicen limpios en el modo elegido.
   (function () {
     var html = document.documentElement;
     var btn = document.getElementById('a11yToggle');
     if (!btn) return;
     var label = btn.querySelector('.a11y-label');
     var STORAGE_KEY = 'cicar:simple-mode';
-    function apply(active) {
-      html.classList.toggle('simple-mode', active);
-      btn.setAttribute('aria-pressed', active ? 'true' : 'false');
-      if (label) label.textContent = active ? 'Modo normal' : 'Modo simple';
-      try { localStorage.setItem(STORAGE_KEY, active ? '1' : '0'); } catch (e) {}
-    }
     var saved = '0';
     try { saved = localStorage.getItem(STORAGE_KEY) || '0'; } catch (e) {}
-    if (saved === '1') apply(true);
+    if (saved === '1') {
+      html.classList.add('simple-mode');
+      btn.setAttribute('aria-pressed', 'true');
+      if (label) label.textContent = 'Modo normal';
+    }
     btn.addEventListener('click', function () {
-      apply(!html.classList.contains('simple-mode'));
+      var active = !html.classList.contains('simple-mode');
+      try { localStorage.setItem(STORAGE_KEY, active ? '1' : '0'); } catch (e) {}
+      // Reload limpio para re-init de todos los handlers (hscroll, modals, etc)
+      window.location.reload();
     });
+
+    // En simple-mode, medir el banner y exponer su altura como --banner-h
+    function setBannerVar() {
+      if (!html.classList.contains('simple-mode')) return;
+      var b = document.getElementById('simpleModeBanner');
+      if (!b) return;
+      html.style.setProperty('--banner-h', b.offsetHeight + 'px');
+    }
+    setBannerVar();
+    window.addEventListener('resize', setBannerVar);
+    window.addEventListener('load', setBannerVar);
   })();
 
-  // ── GLOSARIO MÉDICO (hover tooltips) ───────────────────────────────────
-  // Diccionario de términos cardiológicos para que el usuario hover y vea
-  // la definición sin abandonar la página.
+  // ── GLOSARIO MÉDICO (tooltip flotante) ─────────────────────────────────
+  // Diccionario de términos cardiológicos. El tooltip vive directo en
+  // <body> y se posiciona con JS para nunca quedar clipeado por
+  // overflow:hidden de un card padre.
   (function () {
     var glossary = {
+      // Estudios y procedimientos
       'arritmia': 'Latido irregular del corazón. Puede ser más rápido, más lento o desorganizado.',
       'arritmias': 'Latidos irregulares del corazón.',
-      'ergometría': 'Prueba de esfuerzo en cinta o bicicleta para evaluar cómo responde el corazón al ejercicio.',
+      'ergometría': 'Prueba de esfuerzo en cinta o bicicleta para ver cómo responde el corazón al ejercicio.',
       'ecocardiografía': 'Ultrasonido del corazón. Muestra el tamaño, las válvulas y cómo se contrae.',
       'ecocardiograma': 'Imagen del corazón obtenida con ultrasonido.',
       'doppler': 'Técnica de ultrasonido que mide la velocidad de la sangre dentro del corazón.',
       'electrocardiograma': 'ECG. Registra la actividad eléctrica del corazón con electrodos en la piel.',
       'electrocardiografía': 'Estudio del registro eléctrico del corazón (ECG).',
+      'ecg': 'Electrocardiograma. Registra la actividad eléctrica del corazón.',
       'holter': 'Grabador portátil de ECG que se usa 24-72 hs para detectar arritmias que no aparecen en un ECG corto.',
-      'isquemia': 'Falta de oxígeno en el corazón por una arteria obstruida.',
-      'hipertensión': 'Presión arterial alta sostenida.',
-      'angioplastia': 'Procedimiento mínimamente invasivo para abrir una arteria coronaria con un balón y un stent.',
+      'angioplastia': 'Procedimiento mínimamente invasivo para abrir una arteria con balón y stent.',
+      'stent': 'Pequeña malla metálica que se coloca dentro de una arteria para mantenerla abierta.',
+      'cateterismo': 'Procedimiento donde se introduce un catéter por una arteria para estudiar o tratar el corazón.',
       'cinecoronariografía': 'Estudio que filma las arterias coronarias con contraste para detectar obstrucciones.',
-      'hemodinamia': 'Especialidad que estudia el flujo sanguíneo y realiza cateterismo cardíaco.',
+      'cinecoronariografia': 'Estudio que filma las arterias coronarias con contraste para detectar obstrucciones.',
+      'monitoreo': 'Seguimiento continuo de una variable (ritmo, presión) durante horas o días.',
+      'monitoreo ambulatorio': 'Seguimiento de una señal (ritmo, presión) mientras el paciente hace su vida normal.',
+      'telemedicina': 'Consulta médica a distancia, por video o teléfono.',
+
+      // Especialidades
+      'cardiología': 'Especialidad médica que estudia y trata el corazón y los vasos sanguíneos.',
+      'cardiologia': 'Especialidad médica que estudia y trata el corazón y los vasos sanguíneos.',
+      'cardiología clínica': 'Diagnóstico y seguimiento de enfermedades del corazón sin cirugía.',
+      'hemodinamia': 'Especialidad que estudia el flujo sanguíneo y realiza cateterismos.',
+      'electrofisiología': 'Subespecialidad de cardiología que estudia y trata las arritmias.',
       'nefrología': 'Especialidad médica de los riñones.',
-      'nefropatía': 'Enfermedad de los riñones.',
+      'nefrologia': 'Especialidad médica de los riñones.',
+
+      // Diagnósticos / condiciones
+      'isquemia': 'Falta de oxígeno en el corazón por una arteria obstruida.',
+      'infarto': 'Muerte de una parte del músculo cardíaco por falta de oxígeno.',
+      'infarto de miocardio': 'Muerte de una parte del músculo cardíaco por falta de oxígeno.',
+      'insuficiencia cardíaca': 'El corazón pierde fuerza para bombear suficiente sangre al cuerpo.',
+      'hipertensión': 'Presión arterial alta sostenida.',
+      'hipertensión arterial': 'Presión arterial alta sostenida (≥140/90 mmHg).',
+      'hta': 'Hipertensión arterial: presión alta sostenida.',
+      'cardiopatía': 'Cualquier enfermedad del corazón.',
       'valvulopatías': 'Enfermedades de las válvulas del corazón.',
       'miocardiopatías': 'Enfermedades del músculo cardíaco.',
       'estenosis': 'Estrechamiento de una válvula o un vaso sanguíneo.',
-      'electrofisiología': 'Subespecialidad de cardiología que estudia y trata las arritmias.',
-      'marcapasos': 'Dispositivo implantable que regula los latidos del corazón.',
+      'nefropatía': 'Enfermedad de los riñones.',
+      'soplo': 'Ruido extra en la auscultación del corazón, generalmente por una válvula.',
+      'taquicardia': 'Latido cardíaco más rápido de lo normal (más de 100 por minuto).',
+      'bradicardia': 'Latido cardíaco más lento de lo normal (menos de 60 por minuto).',
+      'fibrilación auricular': 'Arritmia frecuente: las aurículas laten desordenadas y rápido.',
+
+      // Anatomía / fisiología
+      'cardiovascular': 'Relativo al corazón y los vasos sanguíneos.',
+      'coronaria': 'Arteria que lleva sangre al músculo del corazón.',
+      'coronarias': 'Arterias que llevan sangre al músculo del corazón.',
+      'arteria': 'Vaso sanguíneo que lleva sangre desde el corazón al resto del cuerpo.',
+      'ventricular': 'Relativo a los ventrículos, las cámaras inferiores del corazón.',
+      'función ventricular': 'Capacidad de los ventrículos del corazón para bombear sangre.',
+      'auricular': 'Relativo a las aurículas, las cámaras superiores del corazón.',
+      'ritmo cardíaco': 'Regularidad y velocidad de los latidos del corazón.',
+      'frecuencia cardíaca': 'Cantidad de latidos por minuto. Lo normal en reposo es 60-100.',
+      'presión arterial': 'Fuerza con la que la sangre empuja las paredes de las arterias.',
+
+      // Factores y prevención
+      'colesterol': 'Sustancia grasa en la sangre. En exceso forma placas en las arterias.',
+      'triglicéridos': 'Tipo de grasa en la sangre. Altos aumentan el riesgo cardiovascular.',
+      'tabaquismo': 'Consumo de tabaco. Es uno de los principales factores de riesgo cardiovascular.',
+      'factores de riesgo': 'Condiciones que aumentan la probabilidad de tener una enfermedad (presión, colesterol, tabaco, diabetes, sedentarismo).',
+      'comorbilidades': 'Otras enfermedades presentes además de la principal.',
+      'comorbilidad': 'Otra enfermedad presente además de la principal.',
+      'preventiva': 'Que busca evitar la enfermedad antes de que aparezca.',
+      'prevención': 'Acciones para evitar que aparezca una enfermedad.',
       'rehabilitación cardíaca': 'Programa de ejercicio supervisado y educación para recuperarse de un evento cardiovascular.',
-      'cardiovascular': 'Relativo al corazón y los vasos sanguíneos.'
+      'rehabilitación': 'Programa de ejercicio y educación para recuperar funciones después de una enfermedad.',
+      'marcapasos': 'Dispositivo implantable que regula los latidos del corazón.',
+      'estatinas': 'Medicamentos que bajan el colesterol en sangre.',
+      'anticoagulantes': 'Medicamentos que evitan que la sangre forme coágulos.',
+      'vo₂ máximo': 'Capacidad máxima del cuerpo para usar oxígeno durante el ejercicio. Indicador clave de aptitud cardiovascular.',
+      'vo2 máximo': 'Capacidad máxima del cuerpo para usar oxígeno durante el ejercicio.',
+
+      // Términos generales
+      'auscultación': 'Escuchar los sonidos del corazón con un estetoscopio.',
+      'consulta': 'Encuentro con un médico para evaluar síntomas o controles.',
+      'consulta preventiva': 'Visita médica de rutina para detectar problemas antes de que den síntomas.',
+      'diagnóstico': 'Identificación del problema o enfermedad que tiene el paciente.'
     };
     // Targets seguros: párrafos descriptivos, NO links/headings/buttons.
     var SELECTORS = [
@@ -2289,10 +2375,12 @@
       '.pillar-desc',
       '.info-card-content',
       '.service-modal-desc',
-      '.metric-foot',
+      '.service-desc',
       '.stat-foot',
       '.hero p',
-      '.cta-band p'
+      '.cta-band p',
+      '.tech-card-desc',
+      '.process-cta-note'
     ];
     // Construir un solo regex sorteando por longitud descendente para que
     // "rehabilitación cardíaca" gane sobre "cardiovascular" si hubiera overlap.
@@ -2333,6 +2421,76 @@
     SELECTORS.forEach(function (sel) {
       document.querySelectorAll(sel).forEach(decorate);
     });
+
+    // ── Tooltip flotante: vive en <body>, posicionado por JS ────────────
+    var tip = document.createElement('div');
+    tip.id = 'gloss-tip';
+    tip.setAttribute('role', 'tooltip');
+    document.body.appendChild(tip);
+    var hideTimer = null;
+    function positionTip(target) {
+      var r = target.getBoundingClientRect();
+      var margin = 12;
+      // Forzar layout para medir el tooltip
+      tip.style.transform = 'none';
+      var tipR = tip.getBoundingClientRect();
+      // Default: arriba del término, centrado horizontalmente
+      var top = r.top - tipR.height - 12;
+      var pos = 'above';
+      if (top < margin) {
+        // No entra arriba, mostrar abajo
+        top = r.bottom + 12;
+        pos = 'below';
+      }
+      var left = r.left + r.width / 2 - tipR.width / 2;
+      // Constrain horizontal dentro del viewport
+      if (left < margin) left = margin;
+      if (left + tipR.width > window.innerWidth - margin) {
+        left = window.innerWidth - tipR.width - margin;
+      }
+      tip.style.transform = 'translate(' + Math.round(left) + 'px, ' + Math.round(top) + 'px)';
+      tip.setAttribute('data-pos', pos);
+    }
+    function showTip(target) {
+      clearTimeout(hideTimer);
+      tip.textContent = target.dataset.def || '';
+      tip.classList.add('open');
+      // Reposicionar despues de medir
+      requestAnimationFrame(function () { positionTip(target); });
+    }
+    function hideTip() {
+      hideTimer = setTimeout(function () { tip.classList.remove('open'); }, 80);
+    }
+    document.addEventListener('mouseover', function (e) {
+      var g = e.target.closest && e.target.closest('.gloss');
+      if (g) showTip(g);
+    });
+    document.addEventListener('mouseout', function (e) {
+      var g = e.target.closest && e.target.closest('.gloss');
+      if (g) hideTip();
+    });
+    document.addEventListener('focusin', function (e) {
+      if (e.target.classList && e.target.classList.contains('gloss')) showTip(e.target);
+    });
+    document.addEventListener('focusout', function (e) {
+      if (e.target.classList && e.target.classList.contains('gloss')) hideTip();
+    });
+    // En mobile, tap = toggle (no hover)
+    document.addEventListener('click', function (e) {
+      var g = e.target.closest && e.target.closest('.gloss');
+      if (!g) {
+        if (tip.classList.contains('open')) tip.classList.remove('open');
+        return;
+      }
+      if (tip.classList.contains('open') && tip.textContent === g.dataset.def) {
+        tip.classList.remove('open');
+      } else {
+        showTip(g);
+      }
+      e.stopPropagation();
+    });
+    window.addEventListener('scroll', function () { if (tip.classList.contains('open')) tip.classList.remove('open'); }, { passive: true });
+    window.addEventListener('resize', function () { tip.classList.remove('open'); });
   })();
 
   // Smooth active nav
@@ -2410,6 +2568,7 @@
     var hscroll = document.querySelector('.hscroll');
     if (!hscroll) return;
     if (window.matchMedia('(max-width: 900px)').matches) return;
+    if (document.documentElement.classList.contains('simple-mode')) return;
 
     var track = document.getElementById('hscrollTrack');
     var dots = document.querySelectorAll('.hscroll-dot');
