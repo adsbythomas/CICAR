@@ -1026,7 +1026,7 @@
     height: 100vh;
     position: relative;
     display: flex; align-items: center; justify-content: center;
-    padding: 140px 6vw 120px;
+    padding: 180px 6vw 120px;
     overflow: hidden;
   }
   .hpanel-inner {
@@ -1088,12 +1088,26 @@
     position: fixed; top: 72px; left: 0; right: 0;
     z-index: 999;
     padding: 12px 6vw;
-    display: flex; align-items: center; gap: 24px;
+    align-items: center; gap: 24px;
     pointer-events: none;
     background: rgba(23, 46, 68, 0.78);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border-bottom: 1px solid rgba(166,218,241,0.15);
+    display: none !important;
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+  .hscroll-progress.visible {
+    display: flex !important;
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+    animation: progressBarSlideIn 0.35s ease both;
+  }
+  @keyframes progressBarSlideIn {
+    from { opacity: 0; transform: translateY(-12px); }
+    to { opacity: 1; transform: translateY(0); }
   }
   .hscroll-progress-meta { flex: 0 0 auto; pointer-events: auto; }
   .hscroll-step-label {
@@ -2660,6 +2674,29 @@
     });
   }, { threshold: 0.4 });
   document.querySelectorAll('.counter').forEach((el) => counterObserver.observe(el));
+
+  // ── PROGRESS BAR VISIBILITY ─────────────────────────────────────────
+  // Show .hscroll-progress only after the hero has scrolled out of view.
+  (function () {
+    var progressBar = document.getElementById('pageProgress');
+    var heroSection = document.getElementById('inicio');
+    if (!progressBar) return;
+    progressBar.classList.remove('visible');
+    function updateBarVisibility() {
+      var threshold;
+      if (heroSection) {
+        threshold = heroSection.offsetTop + heroSection.offsetHeight - 72;
+      } else {
+        threshold = window.innerHeight * 0.85;
+      }
+      var shouldShow = window.scrollY >= Math.max(40, threshold);
+      progressBar.classList.toggle('visible', shouldShow);
+    }
+    window.addEventListener('scroll', updateBarVisibility, { passive: true });
+    window.addEventListener('resize', updateBarVisibility);
+    window.addEventListener('load', updateBarVisibility);
+    updateBarVisibility();
+  })();
 </script>
 
 </body>
