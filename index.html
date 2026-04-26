@@ -1085,11 +1085,15 @@
 
   /* Header de progreso del recorrido */
   .hscroll-progress {
-    position: absolute; top: 72px; left: 0; right: 0;
-    z-index: 10;
-    padding: 0 6vw;
+    position: fixed; top: 72px; left: 0; right: 0;
+    z-index: 999;
+    padding: 12px 6vw;
     display: flex; align-items: center; gap: 24px;
     pointer-events: none;
+    background: rgba(23, 46, 68, 0.78);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(166,218,241,0.15);
   }
   .hscroll-progress-meta { flex: 0 0 auto; pointer-events: auto; }
   .hscroll-step-label {
@@ -1651,6 +1655,24 @@
   </button>
 </nav>
 
+<!-- BARRA DE PROGRESO GLOBAL: ECG que se completa con todo el scroll de la pagina -->
+<div class="hscroll-progress" id="pageProgress" aria-hidden="true">
+  <div class="hscroll-progress-meta">
+    <span class="hscroll-step-label">Recorrido</span>
+    <span class="hscroll-step-count"><span id="hscrollCurr">01</span><span class="hscroll-step-sep">/</span><span class="hscroll-step-total">04</span></span>
+  </div>
+  <svg class="hscroll-ecg" viewBox="0 0 800 40" preserveAspectRatio="none">
+    <path class="hscroll-ecg-bg" d="M0 20 L160 20 L180 6 L200 34 L220 20 L380 20 L400 6 L420 34 L440 20 L600 20 L620 6 L640 34 L660 20 L800 20"/>
+    <path class="hscroll-ecg-fill" d="M0 20 L160 20 L180 6 L200 34 L220 20 L380 20 L400 6 L420 34 L440 20 L600 20 L620 6 L640 34 L660 20 L800 20"/>
+  </svg>
+  <div class="hscroll-dots">
+    <button class="hscroll-dot active" data-go="0">Tecnología</button>
+    <button class="hscroll-dot" data-go="1">Áreas</button>
+    <button class="hscroll-dot" data-go="2">Especialistas</button>
+    <button class="hscroll-dot" data-go="3">Sacar turno</button>
+  </div>
+</div>
+
 <!-- HERO -->
 <section class="hero" id="inicio">
   <div class="hero-watermark beats" aria-hidden="true">
@@ -1751,22 +1773,6 @@
 <!-- HORIZONTAL SCROLL JOURNEY -->
 <section class="hscroll" id="recorrido">
   <div class="hscroll-stick">
-    <div class="hscroll-progress" aria-hidden="true">
-      <div class="hscroll-progress-meta">
-        <span class="hscroll-step-label">Recorrido</span>
-        <span class="hscroll-step-count"><span id="hscrollCurr">01</span><span class="hscroll-step-sep">/</span><span class="hscroll-step-total">04</span></span>
-      </div>
-      <svg class="hscroll-ecg" viewBox="0 0 800 40" preserveAspectRatio="none">
-        <path class="hscroll-ecg-bg" d="M0 20 L160 20 L180 6 L200 34 L220 20 L380 20 L400 6 L420 34 L440 20 L600 20 L620 6 L640 34 L660 20 L800 20"/>
-        <path class="hscroll-ecg-fill" d="M0 20 L160 20 L180 6 L200 34 L220 20 L380 20 L400 6 L420 34 L440 20 L600 20 L620 6 L640 34 L660 20 L800 20"/>
-      </svg>
-      <div class="hscroll-dots">
-        <button class="hscroll-dot active" data-go="0">Tecnología</button>
-        <button class="hscroll-dot" data-go="1">Áreas</button>
-        <button class="hscroll-dot" data-go="2">Especialistas</button>
-        <button class="hscroll-dot" data-go="3">Sacar turno</button>
-      </div>
-    </div>
     <div class="hscroll-track" id="hscrollTrack">
     <article class="hpanel" data-panel="1" data-title="Tecnología">
       <div class="hpanel-inner">
@@ -2584,10 +2590,12 @@
       var translate = progress * maxOffset;
       track.style.transform = 'translate3d(-' + translate + 'vw, 0, 0)';
 
-      // ECG fill
-      if (ecgLen) ecgFill.style.strokeDashoffset = String(ecgLen * (1 - progress));
+      // ECG fill: refleja el scroll total de la pagina, no solo del hscroll
+      var pageMax = document.documentElement.scrollHeight - window.innerHeight;
+      var pageProgress = pageMax > 0 ? Math.max(0, Math.min(1, window.scrollY / pageMax)) : 0;
+      if (ecgLen) ecgFill.style.strokeDashoffset = String(ecgLen * (1 - pageProgress));
 
-      // Active dot + counter
+      // Active dot + counter (sigue ligado al hscroll: indica panel actual)
       var idx = Math.min(panels - 1, Math.floor(progress * panels - 0.0001));
       if (idx < 0) idx = 0;
       dots.forEach(function (d, i) { d.classList.toggle('active', i === idx); });
