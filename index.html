@@ -2581,7 +2581,13 @@
     var panels = 4;
     var maxOffset = (panels - 1) * 100; // 300vw of horizontal travel
     var ecgLen = 0;
-    if (ecgFill && ecgFill.getTotalLength) ecgLen = ecgFill.getTotalLength();
+    if (ecgFill && ecgFill.getTotalLength) {
+      ecgLen = ecgFill.getTotalLength();
+      // Sincronizar dasharray con el largo real del path para que el fill
+      // arranque en 0% y llegue a 100% sin desfase.
+      ecgFill.style.strokeDasharray = String(ecgLen);
+      ecgFill.style.strokeDashoffset = String(ecgLen);
+    }
 
     function update() {
       var rect = hscroll.getBoundingClientRect();
