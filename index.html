@@ -1094,6 +1094,14 @@
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border-bottom: 1px solid rgba(166,218,241,0.15);
+    opacity: 0;
+    transform: translateY(-8px);
+    transition: opacity 0.35s ease, transform 0.35s ease;
+  }
+  .hscroll-progress.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
   }
   .hscroll-progress-meta { flex: 0 0 auto; pointer-events: auto; }
   .hscroll-step-label {
@@ -2620,6 +2628,18 @@
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onScroll);
     update();
+
+    // Show progress bar only after scrolling past the hero section
+    var progressBar = document.getElementById('pageProgress');
+    var heroSection = document.getElementById('inicio');
+    function updateBarVisibility() {
+      if (!progressBar || !heroSection) return;
+      var heroBottom = heroSection.getBoundingClientRect().bottom;
+      progressBar.classList.toggle('visible', heroBottom <= 72);
+    }
+    window.addEventListener('scroll', updateBarVisibility, { passive: true });
+    window.addEventListener('resize', updateBarVisibility);
+    updateBarVisibility();
 
     // Click en los dots para saltar al panel
     dots.forEach(function (dot) {
