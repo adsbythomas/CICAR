@@ -854,27 +854,8 @@
   /* Glosario: subrayado mas grueso para que se note */
   .simple-mode .gloss { border-bottom: 2px solid var(--blue); }
 
-  /* Forzar el recorrido horizontal a stack vertical (siempre) */
-  .simple-mode .hscroll { height: auto !important; background: transparent !important; }
-  .simple-mode .hscroll-stick {
-    position: static !important; height: auto !important;
-    background: var(--navy); overflow: visible;
-  }
-  .simple-mode .hscroll-track {
-    display: flex !important; flex-direction: column !important;
-    width: 100% !important; height: auto !important;
-    transform: none !important;
-  }
-  .simple-mode .hpanel {
-    flex: 0 0 auto !important;
-    width: 100% !important; height: auto !important;
-    min-height: 0 !important;
-    padding: 70px 6vw !important;
-    border-bottom: 1px solid rgba(166, 218, 241, 0.12);
-  }
-  .simple-mode .hpanel:last-child { border-bottom: none; }
-  .simple-mode .hscroll-progress,
-  .simple-mode .hscroll-hint { display: none !important; }
+  /* Modo simple: tipografía/grids más cómodos dentro de los paneles verticales */
+  .simple-mode .hpanel { padding: 70px 6vw !important; }
   .simple-mode .hpanel .services-mosaic { grid-template-columns: repeat(3, 1fr) !important; gap: 16px !important; }
   .simple-mode .hpanel .doctors-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 20px !important; }
   .simple-mode .hpanel .tech-layout { grid-template-columns: 1fr !important; gap: 32px !important; }
@@ -992,43 +973,37 @@
   }
   .pillar-desc { font-size: 13px; line-height: 1.6; color: var(--text-muted); }
 
-  /* ─── HORIZONTAL SCROLL JOURNEY ─── */
+  /* ─── VERTICAL JOURNEY (antes era scroll horizontal) ─── */
   .hscroll {
     position: relative;
-    /* 5x viewport: panel 0 is the entry, panels 1-3 are the horizontal travel = 3 * 100vh */
-    height: 500vh;
     background: var(--navy);
     color: white;
   }
   .hscroll-stick {
-    position: sticky; top: 0;
-    width: 100%; height: 100vh;
-    overflow: hidden;
-    background: linear-gradient(160deg, var(--navy) 0%, #0f2238 70%, var(--blue) 130%);
+    position: relative;
+    width: 100%;
+    background: linear-gradient(180deg, var(--navy) 0%, #0f2238 60%, var(--blue) 130%);
+    overflow: visible;
   }
-  .hscroll-stick::before {
-    content: '';
-    position: absolute; top: -10%; right: -10%;
-    width: 70vw; height: 70vw; max-width: 900px; max-height: 900px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(29,132,199,0.18) 0%, transparent 70%);
-    pointer-events: none;
-  }
+  .hscroll-stick::before { display: none; }
   .hscroll-track {
     display: flex;
-    height: 100%;
-    width: 400vw;
-    will-change: transform;
-    transition: transform 0s;
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+    transform: none !important;
   }
   .hpanel {
-    flex: 0 0 100vw;
-    height: 100vh;
+    flex: 0 0 auto;
+    width: 100%;
+    min-height: 0;
     position: relative;
     display: flex; align-items: flex-start; justify-content: center;
-    padding: 180px 6vw 80px;
+    padding: 96px 6vw;
     overflow: hidden;
+    border-bottom: 1px solid rgba(166, 218, 241, 0.08);
   }
+  .hpanel:last-child { border-bottom: none; }
   .hpanel-inner {
     width: 100%; max-width: 1200px;
     position: relative; z-index: 2;
@@ -1083,120 +1058,11 @@
   .hpanel .process-flow::before { background: rgba(166,218,241,0.18); }
   .hpanel .process-header { margin: 0 auto 36px; }
 
-  /* Header de progreso del recorrido */
-  .hscroll-progress {
-    position: fixed; top: 72px; left: 0; right: 0;
-    z-index: 999;
-    padding: 12px 6vw;
-    align-items: center; gap: 24px;
-    pointer-events: none;
-    background: rgba(23, 46, 68, 0.78);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(166,218,241,0.15);
-    display: none !important;
-    opacity: 0;
-    transform: translateY(-12px);
-  }
-  .hscroll-progress.visible {
-    display: flex !important;
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto;
-    animation: progressBarSlideIn 0.35s ease both;
-  }
-  @keyframes progressBarSlideIn {
-    from { opacity: 0; transform: translateY(-12px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  .hscroll-progress-meta { flex: 0 0 auto; pointer-events: auto; }
-  .hscroll-step-label {
-    display: block;
-    font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase;
-    color: var(--light); margin-bottom: 4px;
-  }
-  .hscroll-step-count {
-    font-family: var(--font-display);
-    font-size: 24px; font-weight: 700; color: white;
-    letter-spacing: 0.5px;
-    display: inline-flex; align-items: baseline; gap: 4px;
-  }
-  .hscroll-step-sep { color: var(--light); opacity: 0.5; margin: 0 2px; }
-  .hscroll-step-total { color: rgba(255,255,255,0.45); font-size: 0.7em; }
-  .hscroll-ecg {
-    flex: 1 1 auto; height: 36px;
-  }
-  .hscroll-ecg-bg, .hscroll-ecg-fill {
-    fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.5;
-  }
-  .hscroll-ecg-bg { stroke: rgba(166,218,241,0.18); }
-  .hscroll-ecg-fill {
-    stroke: var(--light);
-    stroke-dasharray: 1500;
-    stroke-dashoffset: 1500;
-    transition: stroke-dashoffset 0.25s ease;
-    filter: drop-shadow(0 0 4px rgba(166,218,241,0.5));
-  }
-  .hscroll-dots { display: flex; gap: 6px; pointer-events: auto; flex: 0 0 auto; }
-  .hscroll-dot {
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(166,218,241,0.18);
-    color: rgba(255,255,255,0.55);
-    font-family: var(--font-body);
-    font-size: 11px; font-weight: 600; letter-spacing: 0.5px;
-    padding: 6px 12px; border-radius: 100px;
-    cursor: pointer; transition: all 0.2s;
-  }
-  .hscroll-dot:hover { color: white; border-color: var(--light); }
-  .hscroll-dot.active {
-    background: var(--blue);
-    border-color: var(--blue);
-    color: white;
-  }
-
-  /* Hint flotante "seguí scrolleando" */
-  .hscroll-hint {
-    position: absolute; bottom: 28px; left: 50%;
-    transform: translateX(-50%);
-    display: inline-flex; align-items: center; gap: 8px;
-    color: rgba(255,255,255,0.55);
-    font-size: 11px; letter-spacing: 2px; text-transform: uppercase; font-weight: 600;
-    pointer-events: none;
-    animation: hscrollHintBounce 2.4s ease-in-out infinite;
-  }
-  @keyframes hscrollHintBounce {
-    0%, 100% { transform: translate(-50%, 0); opacity: 0.55; }
-    50%      { transform: translate(-50%, 4px); opacity: 1; }
-  }
-
-  /* Mobile fallback: deshabilitar el viaje horizontal y stackear vertical */
+  /* Mobile: ajustes de grid y tipografía dentro de los paneles verticales */
   @media (max-width: 900px) {
-    .hscroll { height: auto !important; background: transparent !important; }
-    .hscroll-stick {
-      position: static !important; height: auto !important;
-      background: var(--navy);
-      overflow: visible;
-    }
-    .hscroll-stick::before { display: none; }
-    .hscroll-track {
-      display: flex !important;
-      flex-direction: column !important;
-      width: 100% !important;
-      height: auto !important;
-      transform: none !important;
-    }
-    .hpanel {
-      flex: 0 0 auto !important;
-      width: 100% !important;
-      height: auto !important;
-      min-height: 0 !important;
-      padding: 64px 6vw !important;
-      border-bottom: 1px solid rgba(166, 218, 241, 0.08);
-    }
-    .hpanel:last-child { border-bottom: none; }
+    .hpanel { padding: 64px 6vw !important; }
     .hpanel::before { display: none !important; }
     .hpanel-inner { max-width: 100%; }
-    .hscroll-progress, .hscroll-hint { display: none !important; }
 
     .hpanel h2.section-title { font-size: clamp(28px, 8vw, 40px) !important; line-height: 1.15; }
     .hpanel .section-sub { font-size: 14px; }
@@ -1671,24 +1537,6 @@
   </button>
 </nav>
 
-<!-- BARRA DE PROGRESO GLOBAL: ECG que se completa con todo el scroll de la pagina -->
-<div class="hscroll-progress" id="pageProgress" aria-hidden="true">
-  <div class="hscroll-progress-meta">
-    <span class="hscroll-step-label">Recorrido</span>
-    <span class="hscroll-step-count"><span id="hscrollCurr">01</span><span class="hscroll-step-sep">/</span><span class="hscroll-step-total">04</span></span>
-  </div>
-  <svg class="hscroll-ecg" viewBox="0 0 800 40" preserveAspectRatio="none">
-    <path class="hscroll-ecg-bg" d="M0 20 L160 20 L180 6 L200 34 L220 20 L380 20 L400 6 L420 34 L440 20 L600 20 L620 6 L640 34 L660 20 L800 20"/>
-    <path class="hscroll-ecg-fill" d="M0 20 L160 20 L180 6 L200 34 L220 20 L380 20 L400 6 L420 34 L440 20 L600 20 L620 6 L640 34 L660 20 L800 20"/>
-  </svg>
-  <div class="hscroll-dots">
-    <button class="hscroll-dot active" data-go="0">Tecnología</button>
-    <button class="hscroll-dot" data-go="1">Áreas</button>
-    <button class="hscroll-dot" data-go="2">Especialistas</button>
-    <button class="hscroll-dot" data-go="3">Sacar turno</button>
-  </div>
-</div>
-
 <!-- HERO -->
 <section class="hero" id="inicio">
   <div class="hero-watermark beats" aria-hidden="true">
@@ -2102,10 +1950,6 @@
 
       </div>
     </article>
-    </div>
-    <div class="hscroll-hint" aria-hidden="true">
-      <span>Seguí scrolleando</span>
-      <svg width="20" height="14" viewBox="0 0 20 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 7 18 7"/><polyline points="13 2 18 7 13 12"/></svg>
     </div>
   </div>
 </section>
@@ -2582,72 +2426,6 @@
     links.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', close); });
   })();
 
-  // ── HORIZONTAL SCROLL JOURNEY ─────────────────────────────────────────
-  // Pinned section: vertical scroll = horizontal travel through 4 panels.
-  (function () {
-    var hscroll = document.querySelector('.hscroll');
-    if (!hscroll) return;
-    if (window.matchMedia('(max-width: 900px)').matches) return;
-    if (document.documentElement.classList.contains('simple-mode')) return;
-
-    var track = document.getElementById('hscrollTrack');
-    var dots = document.querySelectorAll('.hscroll-dot');
-    var currEl = document.getElementById('hscrollCurr');
-    var ecgFill = document.querySelector('.hscroll-ecg-fill');
-    var panels = 4;
-    var maxOffset = (panels - 1) * 100; // 300vw of horizontal travel
-    var ecgLen = 0;
-    if (ecgFill && ecgFill.getTotalLength) {
-      ecgLen = ecgFill.getTotalLength();
-      // Sincronizar dasharray con el largo real del path para que el fill
-      // arranque en 0% y llegue a 100% sin desfase.
-      ecgFill.style.strokeDasharray = String(ecgLen);
-      ecgFill.style.strokeDashoffset = String(ecgLen);
-    }
-
-    function update() {
-      var rect = hscroll.getBoundingClientRect();
-      var scrollable = rect.height - window.innerHeight;
-      var progress = Math.max(0, Math.min(1, -rect.top / scrollable));
-      var translate = progress * maxOffset;
-      track.style.transform = 'translate3d(-' + translate + 'vw, 0, 0)';
-
-      // ECG fill: refleja el scroll total de la pagina, no solo del hscroll
-      var pageMax = document.documentElement.scrollHeight - window.innerHeight;
-      var pageProgress = pageMax > 0 ? Math.max(0, Math.min(1, window.scrollY / pageMax)) : 0;
-      if (ecgLen) ecgFill.style.strokeDashoffset = String(ecgLen * (1 - pageProgress));
-
-      // Active dot + counter (sigue ligado al hscroll: indica panel actual)
-      var idx = Math.min(panels - 1, Math.floor(progress * panels - 0.0001));
-      if (idx < 0) idx = 0;
-      dots.forEach(function (d, i) { d.classList.toggle('active', i === idx); });
-      if (currEl) currEl.textContent = String(idx + 1).padStart(2, '0');
-    }
-
-    var ticking = false;
-    function onScroll() {
-      if (!ticking) {
-        requestAnimationFrame(function () { update(); ticking = false; });
-        ticking = true;
-      }
-    }
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll);
-    update();
-
-    // Click en los dots para saltar al panel
-    dots.forEach(function (dot) {
-      dot.addEventListener('click', function () {
-        var target = parseInt(dot.dataset.go, 10);
-        var rect = hscroll.getBoundingClientRect();
-        var sectionTop = window.scrollY + rect.top;
-        var scrollable = rect.height - window.innerHeight;
-        var targetScroll = sectionTop + (target / (panels - 1)) * scrollable;
-        window.scrollTo({ top: targetScroll, behavior: 'smooth' });
-      });
-    });
-  })();
-
   // Animated counters en el stats band
   const animateCounter = (el) => {
     const target = parseInt(el.dataset.to, 10);
@@ -2674,29 +2452,6 @@
     });
   }, { threshold: 0.4 });
   document.querySelectorAll('.counter').forEach((el) => counterObserver.observe(el));
-
-  // ── PROGRESS BAR VISIBILITY ─────────────────────────────────────────
-  // Show .hscroll-progress only after the hero has scrolled out of view.
-  (function () {
-    var progressBar = document.getElementById('pageProgress');
-    var heroSection = document.getElementById('inicio');
-    if (!progressBar) return;
-    progressBar.classList.remove('visible');
-    function updateBarVisibility() {
-      var threshold;
-      if (heroSection) {
-        threshold = heroSection.offsetTop + heroSection.offsetHeight - 72;
-      } else {
-        threshold = window.innerHeight * 0.85;
-      }
-      var shouldShow = window.scrollY >= Math.max(40, threshold);
-      progressBar.classList.toggle('visible', shouldShow);
-    }
-    window.addEventListener('scroll', updateBarVisibility, { passive: true });
-    window.addEventListener('resize', updateBarVisibility);
-    window.addEventListener('load', updateBarVisibility);
-    updateBarVisibility();
-  })();
 </script>
 
 </body>
