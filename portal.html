@@ -124,6 +124,15 @@ body{font-family:var(--font-body);background:rgba(166,218,241,0.08);color:var(--
 .empty{text-align:center;padding:48px 20px;color:var(--muted)}
 .empty-i{font-size:48px;margin-bottom:12px}
 @media(max-width:768px){.playout{grid-template-columns:1fr}.sidebar{display:none}.main{padding:20px}.fg2{grid-template-columns:1fr}.pgrid{grid-template-columns:1fr}.auth-card{padding:32px 24px}}
+.estudio-banner{background:linear-gradient(135deg,var(--blue),var(--mid));color:white;border-radius:var(--r);padding:14px 18px;margin-bottom:20px;display:flex;align-items:center;gap:14px;box-shadow:0 8px 24px rgba(29,132,199,0.18)}
+.estudio-banner-emoji{font-size:30px;flex-shrink:0}
+.estudio-banner-text{flex:1;min-width:0}
+.estudio-banner-text strong{display:block;font-size:10.5px;letter-spacing:1.6px;opacity:0.85;text-transform:uppercase;margin-bottom:2px;font-weight:600}
+.estudio-banner-text span{display:block;font-size:15.5px;font-weight:700;line-height:1.3}
+.estudio-banner-close{background:rgba(255,255,255,0.18);border:none;color:white;width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:14px;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;transition:background 0.2s}
+.estudio-banner-close:hover{background:rgba(255,255,255,0.32)}
+.auth-estudio-note{background:var(--pale);border-left:3px solid var(--blue);border-radius:6px;padding:10px 14px;margin-bottom:20px;font-size:13px;color:var(--navy)}
+.auth-estudio-note strong{color:var(--blue)}
 </style>
 </head>
 <body>
@@ -133,6 +142,9 @@ body{font-family:var(--font-body);background:rgba(166,218,241,0.08);color:var(--
     <div class="auth-logo">
       <img src="assets/logos/CICAR-05.png" alt="CICAR Barrio Norte">
       <p>Portal del Paciente</p>
+    </div>
+    <div id="authEstudioNote" class="auth-estudio-note" style="display:none">
+      Para sacar turno de <strong id="authEstudioName">—</strong> ingresá o creá tu cuenta.
     </div>
     <div class="auth-tabs">
       <button class="auth-tab active" id="tabLogin">Ingresar</button>
@@ -216,6 +228,14 @@ body{font-family:var(--font-body);background:rgba(166,218,241,0.08);color:var(--
       <div id="page-nuevo" class="page">
         <div class="ptitle">Sacar Turno</div>
         <div class="psub">Elegí tu médico, día y horario.</div>
+        <div id="estudioBanner" class="estudio-banner" style="display:none">
+          <div class="estudio-banner-emoji" id="estudioBannerEmoji"></div>
+          <div class="estudio-banner-text">
+            <strong>Estudio solicitado</strong>
+            <span id="estudioBannerName"></span>
+          </div>
+          <button class="estudio-banner-close" id="estudioBannerClose" aria-label="Quitar estudio" title="Quitar estudio">✕</button>
+        </div>
         <div class="card">
           <div class="wsteps">
             <div class="wstep active" id="ws1"><div class="sc2">1</div><div class="slbl">Médico</div></div>
@@ -299,12 +319,60 @@ var MEDICOS = [
   {id:'m4',nombre:'Dr. Martín Pereyra',esp:'Nefrología',emoji:'👨‍⚕️',dias:[3,5],diasTxt:'Mié y Vie',hi:10,hf:16}
 ];
 
+var ESTUDIOS = {
+  // ── Estudios ──
+  'ergometria':                    {name:'Ergometría', emoji:'🏃'},
+  'ecoestres':                     {name:'Ecoestrés con ejercicio', emoji:'🫀'},
+  'apto-fisico':                   {name:'Apto físico', emoji:'✅'},
+  'ecodoppler-cardiaco':           {name:'Ecodoppler cardíaco color', emoji:'🫀'},
+  'ecodoppler-vascular':           {name:'Ecodoppler de vasos de cuello y vascular periférico', emoji:'🩸'},
+  'ecografia-general':             {name:'Ecografía general', emoji:'📡'},
+  'ecografia-musculoesqueletica':  {name:'Ecografía musculoesquelética', emoji:'🦵'},
+  // ── Complementarios ──
+  'laboratorio':                   {name:'Análisis de laboratorio', emoji:'🧪'},
+  'prequirurgicos':                {name:'Estudios prequirúrgicos', emoji:'📋'},
+  // ── Consultas / Especialidades ──
+  'consulta-cardiologia':          {name:'Consulta de Cardiología Clínica', emoji:'🩺'},
+  'consulta-ecocardiografia':      {name:'Ecocardiografía', emoji:'🫀'},
+  'consulta-electrocardiografia':  {name:'Electrocardiografía', emoji:'📈'},
+  'consulta-ergometria':           {name:'Ergometría', emoji:'🏃'},
+  'consulta-tabaquismo':           {name:'Cese Tabáquico', emoji:'🚭'},
+  'consulta-nefrologia':           {name:'Consulta de Nefrología', emoji:'🫘'},
+  'consulta-nutricion':            {name:'Consulta de Nutrición', emoji:'🍎'},
+  'consulta-saludmental':          {name:'Consulta de Salud Mental', emoji:'🧠'},
+  'consulta-rehabilitacion':       {name:'Rehabilitación Cardíaca', emoji:'💚'},
+  // alias por compatibilidad con links viejos
+  'ecografia':                     {name:'Ecografía general y musculoesquelética', emoji:'📡'}
+};
+
 var sb, user, profile;
 var booking = {medico:null,fecha:null,hora:null};
+var requestedEstudio = null;  // {name, emoji} cuando se entra con ?estudio=...
 var calY, calM;
+
+function readEstudioParam() {
+  var p = new URLSearchParams(window.location.search).get('estudio');
+  if (p && ESTUDIOS[p]) return ESTUDIOS[p];
+  // Fallback a sessionStorage por si el usuario tuvo que crear cuenta
+  var stored = sessionStorage.getItem('cicar_estudio');
+  if (stored && ESTUDIOS[stored]) return ESTUDIOS[stored];
+  return null;
+}
 
 function init() {
   sb = window.supabase.createClient(SURL, SKEY);
+
+  // Detectar estudio solicitado por query string y guardarlo por si requiere login/registro
+  requestedEstudio = readEstudioParam();
+  if (requestedEstudio) {
+    var slug = new URLSearchParams(window.location.search).get('estudio');
+    if (slug) sessionStorage.setItem('cicar_estudio', slug);
+    var note = document.getElementById('authEstudioNote');
+    if (note) {
+      document.getElementById('authEstudioName').textContent = requestedEstudio.name;
+      note.style.display = 'block';
+    }
+  }
 
   // Auth tabs
   document.getElementById('tabLogin').addEventListener('click', function(){ switchTab('login'); });
@@ -312,6 +380,14 @@ function init() {
   document.getElementById('btnLogin').addEventListener('click', doLogin);
   document.getElementById('btnReg').addEventListener('click', doRegister);
   document.getElementById('btnOut').addEventListener('click', doLogout);
+
+  // Quitar estudio del banner si el usuario lo descarta
+  var bClose = document.getElementById('estudioBannerClose');
+  if (bClose) bClose.addEventListener('click', function(){
+    requestedEstudio = null;
+    sessionStorage.removeItem('cicar_estudio');
+    document.getElementById('estudioBanner').style.display = 'none';
+  });
 
   // Nav
   document.getElementById('nav-inicio').addEventListener('click', function(e){ e.preventDefault(); showPage('inicio', this); });
@@ -395,7 +471,15 @@ async function loadPortal(u) {
   document.getElementById('savatar').textContent = nom.charAt(0).toUpperCase();
   document.getElementById('authScreen').style.display='none';
   document.getElementById('portal').classList.add('active');
-  loadDashboard();
+
+  // Si vino con ?estudio=..., saltar directo a "Sacar Turno"
+  if (requestedEstudio) {
+    showPage('nuevo', document.getElementById('nav-nuevo'));
+    initBooking();
+    loadDashboard();  // refresca stats en background
+  } else {
+    loadDashboard();
+  }
 }
 
 async function loadDashboard() {
@@ -440,6 +524,17 @@ function initBooking() {
   goStep(1);
   document.getElementById('sucContent').style.display='none';
   document.getElementById('confContent').style.display='block';
+
+  // Mostrar / ocultar banner del estudio solicitado
+  var banner = document.getElementById('estudioBanner');
+  if (requestedEstudio) {
+    document.getElementById('estudioBannerEmoji').textContent = requestedEstudio.emoji;
+    document.getElementById('estudioBannerName').textContent = requestedEstudio.name;
+    banner.style.display = 'flex';
+  } else {
+    banner.style.display = 'none';
+  }
+
   document.getElementById('mGrid').innerHTML = MEDICOS.map(function(m){
     return '<div class="mopt" data-id="'+m.id+'"><div class="mavatar">'+m.emoji+'</div><div class="mname">'+m.nombre+'</div><div class="mesp">'+m.esp+'</div><div class="mdias">📅 '+m.diasTxt+'</div></div>';
   }).join('');
@@ -522,26 +617,42 @@ function renderResumen() {
   if (!booking.medico||!booking.fecha||!booking.hora) return;
   var f=new Date(booking.fecha+'T12:00:00');
   var fs=f.toLocaleDateString('es-AR',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
-  document.getElementById('resumen').innerHTML=
+  var html = '';
+  if (requestedEstudio) {
+    html += '<div class="rrow"><span class="rk">Estudio</span><span class="rv">'+requestedEstudio.name+'</span></div>';
+  }
+  html +=
     '<div class="rrow"><span class="rk">Médico</span><span class="rv">'+booking.medico.nombre+'</span></div>'+
     '<div class="rrow"><span class="rk">Especialidad</span><span class="rv">'+booking.medico.esp+'</span></div>'+
     '<div class="rrow"><span class="rk">Fecha</span><span class="rv">'+fs+'</span></div>'+
     '<div class="rrow"><span class="rk">Horario</span><span class="rv">'+booking.hora+'h</span></div>'+
     '<div class="rrow"><span class="rk">Obra Social</span><span class="rv">'+(profile?.obra_social||'—')+'</span></div>';
+  document.getElementById('resumen').innerHTML = html;
 }
 
 async function confirmarTurno() {
   if (!user||!booking.medico||!booking.fecha||!booking.hora) return;
+  // Si el paciente pidió un estudio puntual, lo prefijamos en la especialidad
+  // para que el médico lo vea junto al turno (sin alterar el schema de la tabla).
+  var espTexto = booking.medico.esp;
+  if (requestedEstudio) espTexto = requestedEstudio.name + ' — ' + espTexto;
+
   var r=await sb.from('turnos').insert({
     paciente_id:user.id, medico_nombre:booking.medico.nombre,
     fecha:booking.fecha, hora:booking.hora+':00',
-    especialidad:booking.medico.esp, obra_social:profile?.obra_social||'', estado:'confirmado'
+    especialidad:espTexto, obra_social:profile?.obra_social||'', estado:'confirmado'
   });
   if (r.error){ alert('Error: '+r.error.message); return; }
   var f=new Date(booking.fecha+'T12:00:00');
-  document.getElementById('sucMsg').textContent='Tu turno con '+booking.medico.nombre+' está confirmado para el '+f.toLocaleDateString('es-AR',{weekday:'long',day:'numeric',month:'long'})+' a las '+booking.hora+'h.';
+  var prefijoExito = requestedEstudio ? ('Tu turno para '+requestedEstudio.name+' con ') : 'Tu turno con ';
+  document.getElementById('sucMsg').textContent = prefijoExito + booking.medico.nombre + ' está confirmado para el ' + f.toLocaleDateString('es-AR',{weekday:'long',day:'numeric',month:'long'}) + ' a las ' + booking.hora + 'h.';
   document.getElementById('confContent').style.display='none';
   document.getElementById('sucContent').style.display='block';
+
+  // Limpiar el estudio solicitado: si vuelve a "Sacar turno" desde el sidebar, será un turno nuevo
+  requestedEstudio = null;
+  sessionStorage.removeItem('cicar_estudio');
+
   loadDashboard();
 }
 
