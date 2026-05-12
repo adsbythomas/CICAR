@@ -112,12 +112,10 @@
   }
   .hero::after { display: none; }
 
-  /* Watermark del isotipo (manos + corazon) detras del texto del hero.
-     El nav fijo (92px) tapa la parte de arriba del hero, asi que
-     compensamos +46px (mitad del nav) para que el centro visual coincida
-     con el medio del viewport en el primer scroll. */
+  /* Watermark del isotipo (manos + corazon) en el centro exacto del hero,
+     alineado con el halo radial y las pildoras flotantes (todos a top: 50%). */
   .hero-watermark {
-    position: absolute; top: calc(50% + 46px); left: 50%;
+    position: absolute; top: 50%; left: 50%;
     transform: translate(-50%, -50%);
     width: 720px; max-width: 90vw;
     opacity: 0.06;
