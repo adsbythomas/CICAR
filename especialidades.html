@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Especialidades — CICAR Barrio Norte</title>
+<link rel="icon" type="image/png" href="assets/logos/CICAR-08.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+  /* Subpagina: padding-top para liberar el nav fijo, sin hero detras */
+  body { padding-top: 92px; min-height: 100vh; }
+  .subpage-hero {
+    padding: 64px 5% 32px;
+    background: white;
+  }
+  .subpage-hero .section-tag { color: var(--blue); }
+  .subpage-hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(28px, 3.4vw, 44px);
+    color: var(--navy); line-height: 1.15;
+    margin-bottom: 14px; max-width: 760px;
+  }
+  .subpage-hero h1 em { font-style: italic; color: var(--blue); }
+  .subpage-hero p { font-size: 15px; line-height: 1.6; color: var(--text-muted); max-width: 580px; }
+  .services { background: white; padding-top: 24px; }
+</style>
+</head>
+<body>
+
+<!-- BANNER DE TELEFONO/WHATSAPP (solo visible en modo simple) -->
+<div class="simple-mode-banner" id="simpleModeBanner" aria-live="polite">
+  <span class="simple-mode-banner-text">¿Necesitás ayuda? Llamanos:</span>
+  <a href="tel:+541146315583" aria-label="Llamar a CICAR Barrio Norte">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+    11 4631-5583
+  </a>
+  <a href="https://wa.me/5491122853697" aria-label="WhatsApp de CICAR">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-6.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+    WhatsApp
+  </a>
+</div>
+
+<button class="accessibility-toggle" id="a11yToggle" aria-pressed="false" aria-label="Activar modo simple: letras grandes y más contraste">
+  <span class="a11y-icon" aria-hidden="true">A+</span>
+  <span class="a11y-label">Modo simple</span>
+</button>
+
+<!-- NAVIGATION -->
+<nav>
+  <a href="index.html#inicio" class="nav-logo" aria-label="CICAR Barrio Norte — Inicio">
+    <img src="assets/logos/CICAR-12.png" alt="CICAR Barrio Norte">
+  </a>
+  <div class="nav-links" id="navLinks">
+    <a href="index.html#inicio">Inicio</a>
+    <a href="index.html#estudios">Estudios</a>
+    <a href="index.html#nosotros">Nosotros</a>
+    <a href="index.html#tecnologia">Tecnología</a>
+    <a href="especialidades.html" class="active">Especialidades</a>
+    <a href="consultorios.html">Consultorios</a>
+    <a href="index.html#contacto">Coberturas</a>
+    <a href="https://centrocicar.medicloud.com.ar/" class="nav-cta">Pedir Turno</a>
+  </div>
+  <button class="nav-burger" id="navBurger" aria-label="Abrir menú" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- Encabezado de la subpagina -->
+<div class="subpage-hero">
+  <div class="section-tag">Especialidades</div>
+  <h1>9 áreas, un solo <em>centro</em></h1>
+  <p>Cubrimos integralmente la salud cardiovascular y todas sus comorbilidades en un mismo lugar.</p>
+</div>
+
+<!-- SERVICES -->
+<section class="services" id="servicios">
+  <div class="specialty-pills">
+    <span class="specialty-pill active" onclick="filterServices('todas', this)">Todas</span>
+    <span class="specialty-pill" onclick="filterServices('diagnostico', this)">Diagnóstico</span>
+    <span class="specialty-pill" onclick="filterServices('tratamiento', this)">Tratamiento</span>
+    <span class="specialty-pill" onclick="filterServices('prevencion', this)">Prevención</span>
+    <span class="specialty-pill" onclick="filterServices('rehabilitacion', this)">Rehabilitación</span>
+  </div>
+
+  <script>
+    function filterServices(filter, clickedPill) {
+      document.querySelectorAll('.specialty-pill').forEach(p => p.classList.remove('active'));
+      clickedPill.classList.add('active');
+      document.querySelectorAll('#services-mosaic .service-tile').forEach(function(tile) {
+        if (filter === 'todas') {
+          tile.style.display = '';
+        } else {
+          var cats = tile.getAttribute('data-category') || '';
+          tile.style.display = cats.indexOf(filter) !== -1 ? '' : 'none';
+        }
+      });
+    }
+  </script>
+
+  <div class="services-mosaic" id="services-mosaic">
+    <button type="button" class="service-tile" data-category="diagnostico tratamiento" data-title="Cardiología Clínica" data-desc="Diagnóstico y tratamiento integral de enfermedades cardiovasculares. Consultas con especialistas certificados y seguimiento personalizado.">
+      <div class="service-tile-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/><polyline points="3.5 12 7.5 12 9 9 11 15 13 11 15 13 17 13"/></svg></div>
+      <div class="service-tile-name">Cardiología Clínica</div>
+    </button>
+    <button type="button" class="service-tile" data-category="diagnostico" data-title="Ecocardiografía" data-desc="Evaluación por ultrasonido de la estructura y función cardíaca. Ecocardiogramas 2D, 3D, Doppler y de estrés.">
+      <div class="service-tile-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12a10 10 0 0 1 20 0"/><path d="M5.5 12a6.5 6.5 0 0 1 13 0"/><circle cx="12" cy="12" r="2"/><line x1="12" y1="14" x2="12" y2="22"/></svg></div>
+      <div class="service-tile-name">Ecocardiografía</div>
+    </button>
+    <button type="button" class="service-tile" data-category="diagnostico" data-title="Electrocardiografía" data-desc="ECG de reposo y Holter 24/48h. Monitoreo continuo del ritmo cardíaco para detectar arritmias y alteraciones.">
+      <div class="service-tile-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+      <div class="service-tile-name">Electrocardiografía</div>
+    </button>
+    <button type="button" class="service-tile" data-category="diagnostico" data-title="Ergometría" data-desc="Prueba de esfuerzo controlada para evaluar la respuesta cardiovascular al ejercicio y detectar isquemia.">
+      <div class="service-tile-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="13" cy="4" r="2"/><path d="M4 22l5-7-2-5 4-3 3 4 4 1"/><path d="M15 22l-2-7 2-3"/></svg></div>
+      <div class="service-tile-name">Ergometría</div>
+    </button>
+    <button type="button" class="service-tile" data-category="prevencion tratamiento" data-title="Cese Tabáquico" data-desc="Programa integral de abandono del tabaco con soporte médico y seguimiento para reducir el riesgo cardiovascular.">
+      <div class="service-tile-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10.5 20.5a6 6 0 0 1-8.5-8.5l9.5-9.5a6 6 0 0 1 8.5 8.5z"/><line x1="8.5" y1="8.5" x2="15.5" y2="15.5"/></svg></div>
+      <div class="service-tile-name">Cese Tabáquico</div>
+    </button>
+    <button type="button" class="service-tile" data-category="tratamiento" data-title="Nefrología" data-desc="Atención de enfermedades renales con enfoque en su impacto cardiovascular. Manejo de hipertensión y enfermedad renal crónica.">
+      <div class="service-tile-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2s7 7.5 7 13a7 7 0 0 1-14 0c0-5.5 7-13 7-13z"/></svg></div>
+      <div class="service-tile-name">Nefrología</div>
+    </button>
+    <button type="button" class="service-tile" data-category="prevencion" data-title="Nutrición Cardiovascular" data-desc="Plan nutricional personalizado para reducir factores de riesgo cardiovascular: colesterol, triglicéridos y presión arterial.">
+      <div class="service-tile-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v4"/><path d="M10 3h4"/><path d="M18 13a6 6 0 0 1-12 0c0-3 2-6 6-6s6 3 6 6z"/><path d="M12 13v8"/></svg></div>
+      <div class="service-tile-name">Nutrición</div>
+    </button>
+    <button type="button" class="service-tile" data-category="prevencion tratamiento" data-title="Salud Mental" data-desc="Abordaje del estrés, ansiedad y depresión como factores de riesgo cardiovascular. Atención psicológica integrada.">
+      <div class="service-tile-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3a3 3 0 0 0-3 3c0 1-1 2-1 3 0 1 1 2 1 3 0 1-1 2-1 3a3 3 0 0 0 3 3"/><path d="M15 3a3 3 0 0 1 3 3c0 1 1 2 1 3 0 1-1 2-1 3 0 1 1 2 1 3a3 3 0 0 1-3 3"/><line x1="9" y1="3" x2="15" y2="3"/><line x1="9" y1="21" x2="15" y2="21"/><line x1="12" y1="8" x2="12" y2="16"/></svg></div>
+      <div class="service-tile-name">Salud Mental</div>
+    </button>
+    <button type="button" class="service-tile" data-category="rehabilitacion" data-title="Rehabilitación Cardíaca" data-desc="Programa de recuperación post-evento cardiovascular con ejercicio supervisado, educación y apoyo psicológico.">
+      <div class="service-tile-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.5 9a9 9 0 0 1 15-3.5L23 10"/><path d="M20.5 15a9 9 0 0 1-15 3.5L1 14"/></svg></div>
+      <div class="service-tile-name">Rehabilitación</div>
+    </button>
+  </div>
+
+  <!-- Modal popup para el detalle de cada area -->
+  <div class="service-modal" id="serviceModal" role="dialog" aria-modal="true" aria-labelledby="serviceModalTitle">
+    <div class="service-modal-card">
+      <button class="service-modal-close" aria-label="Cerrar" onclick="closeServiceModal()">&times;</button>
+      <h3 id="serviceModalTitle" class="service-modal-title"></h3>
+      <p id="serviceModalDesc" class="service-modal-desc"></p>
+      <a href="https://centrocicar.medicloud.com.ar/" id="serviceModalCta" class="btn-primary">Sacar turno en esta área <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></a>
+    </div>
+  </div>
+  <script>
+    (function () {
+      var modal = document.getElementById('serviceModal');
+      var titleEl = document.getElementById('serviceModalTitle');
+      var descEl = document.getElementById('serviceModalDesc');
+      var ctaEl = document.getElementById('serviceModalCta');
+      var TITLE_TO_SLUG = {
+        'Cardiología Clínica': 'consulta-cardiologia',
+        'Ecocardiografía': 'consulta-ecocardiografia',
+        'Electrocardiografía': 'consulta-electrocardiografia',
+        'Ergometría': 'consulta-ergometria',
+        'Cese Tabáquico': 'consulta-tabaquismo',
+        'Nefrología': 'consulta-nefrologia',
+        'Nutrición Cardiovascular': 'consulta-nutricion',
+        'Salud Mental': 'consulta-saludmental',
+        'Rehabilitación Cardíaca': 'consulta-rehabilitacion'
+      };
+      document.querySelectorAll('.service-tile').forEach(function (tile) {
+        var slug = TITLE_TO_SLUG[tile.dataset.title] || '';
+        var url = slug ? ('https://centrocicar.medicloud.com.ar/?estudio=' + slug) : 'https://centrocicar.medicloud.com.ar/';
+        tile.addEventListener('click', function () {
+          if (document.documentElement.classList.contains('simple-mode')) {
+            window.location.href = url;
+            return;
+          }
+          titleEl.textContent = tile.dataset.title;
+          descEl.textContent = tile.dataset.desc;
+          if (ctaEl) ctaEl.href = url;
+          modal.classList.add('open');
+        });
+      });
+      modal.addEventListener('click', function (e) {
+        if (e.target === modal) modal.classList.remove('open');
+      });
+      window.closeServiceModal = function () { modal.classList.remove('open'); };
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') modal.classList.remove('open');
+      });
+    })();
+  </script>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="footer-logo">
+        <img src="assets/logos/CICAR-12.png" alt="CICAR Barrio Norte">
+      </div>
+      <p class="footer-desc">Centro de Cardiología y Atención Especializada en Barrio Norte. Prevención, diagnóstico y tratamiento interdisciplinario de patologías cardiovasculares y comorbilidades.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Centro</h4>
+      <ul>
+        <li><a href="index.html#nosotros">Nosotros</a></li>
+        <li><a href="index.html#tecnologia">Tecnología</a></li>
+        <li><a href="especialidades.html">Especialidades</a></li>
+        <li><a href="consultorios.html">Consultorios</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Pacientes</h4>
+      <ul>
+        <li><a href="https://centrocicar.medicloud.com.ar/">Sacar turno</a></li>
+        <li><a href="https://centrocicar.medicloud.com.ar/">Resultados</a></li>
+        <li><a href="index.html#contacto">Coberturas</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contacto</h4>
+      <ul>
+        <li><a href="https://maps.google.com/?q=Uruguay+783,+CABA" target="_blank" rel="noopener">Uruguay 783, Of. 301</a></li>
+        <li><a href="tel:+541146315583">11 4631-5583</a></li>
+        <li><a href="https://wa.me/5491122853697">WhatsApp</a></li>
+        <li><a href="mailto:administracion@centrocicar.com">Correo</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 CICAR Barrio Norte. Todos los derechos reservados.</p>
+    <div class="footer-certifications">
+      <span class="cert-badge">FAC Certificado</span>
+      <span class="cert-badge">CACI</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ── MODO ACCESIBLE ──
+  (function () {
+    var html = document.documentElement;
+    var btn = document.getElementById('a11yToggle');
+    if (!btn) return;
+    var label = btn.querySelector('.a11y-label');
+    var STORAGE_KEY = 'cicar:simple-mode';
+    var saved = '0';
+    try { saved = localStorage.getItem(STORAGE_KEY) || '0'; } catch (e) {}
+    if (saved === '1') {
+      html.classList.add('simple-mode');
+      btn.setAttribute('aria-pressed', 'true');
+      if (label) label.textContent = 'Modo normal';
+    }
+    btn.addEventListener('click', function () {
+      var active = !html.classList.contains('simple-mode');
+      try { localStorage.setItem(STORAGE_KEY, active ? '1' : '0'); } catch (e) {}
+      window.location.reload();
+    });
+    function setBannerVar() {
+      if (!html.classList.contains('simple-mode')) return;
+      var b = document.getElementById('simpleModeBanner');
+      if (!b) return;
+      html.style.setProperty('--banner-h', b.offsetHeight + 'px');
+    }
+    setBannerVar();
+    window.addEventListener('resize', setBannerVar);
+    window.addEventListener('load', setBannerVar);
+  })();
+
+  // ── MOBILE NAV (burger) ──
+  (function () {
+    var burger = document.getElementById('navBurger');
+    var links = document.getElementById('navLinks');
+    if (!burger || !links) return;
+    var close = function () { burger.classList.remove('open'); links.classList.remove('open'); burger.setAttribute('aria-expanded', 'false'); };
+    burger.addEventListener('click', function () {
+      var isOpen = burger.classList.toggle('open');
+      links.classList.toggle('open', isOpen);
+      burger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+    links.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', close); });
+  })();
+</script>
+
+</body>
+</html>
