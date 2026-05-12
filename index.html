@@ -275,7 +275,7 @@
 
   /* ─── TRUST BAR ─── */
   .trust-bar {
-    background: var(--pale);
+    background: white;
     padding: 20px 5%;
     display: flex; align-items: center; justify-content: center;
     gap: 48px; flex-wrap: wrap;
@@ -296,21 +296,21 @@
   .trust-text span { color: var(--text-muted); }
 
   /* ─── SECTIONS GENERAL ─── */
-  section { padding: 100px 5%; }
+  section { padding: 72px 5%; }
   .section-tag {
     display: inline-flex; align-items: center; gap: 8px;
-    font-size: 12px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase;
-    color: var(--blue); margin-bottom: 16px;
+    font-size: 11px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase;
+    color: var(--blue); margin-bottom: 12px;
   }
-  .section-tag::before { content: ''; display: block; width: 24px; height: 2px; background: var(--blue); }
+  .section-tag::before { content: ''; display: block; width: 22px; height: 2px; background: var(--blue); }
   h2.section-title {
     font-family: var(--font-display);
-    font-size: clamp(32px, 4vw, 52px);
+    font-size: clamp(26px, 3vw, 40px);
     line-height: 1.15; color: var(--navy);
-    margin-bottom: 20px;
+    margin-bottom: 14px;
   }
   h2.section-title em { font-style: italic; color: var(--blue); }
-  .section-sub { font-size: 16px; line-height: 1.7; color: var(--text-muted); max-width: 560px; }
+  .section-sub { font-size: 15px; line-height: 1.6; color: var(--text-muted); max-width: 560px; }
 
   /* ─── SERVICES ─── */
   .services { background: white; }
@@ -372,7 +372,7 @@
 
   /* ─── DOCTORS ─── */
   .doctors { background: linear-gradient(180deg, rgba(166,218,241,0.10) 0%, white 100%); }
-  .doctors-header { text-align: left; margin-bottom: 64px; }
+  .doctors-header { text-align: left; margin-bottom: 32px; }
 
   .doctors-grid {
     display: grid;
@@ -393,7 +393,7 @@
   }
 
   .doctor-photo {
-    height: 220px;
+    height: 150px;
     background: linear-gradient(135deg, var(--pale), var(--light));
     display: flex; align-items: center; justify-content: center;
     font-size: 72px;
@@ -403,24 +403,24 @@
     background: linear-gradient(135deg, rgba(166,218,241,0.35), var(--gray));
     color: rgba(23,46,68,0.32);
   }
-  .doctor-photo-silhouette svg { width: 110px; height: 110px; }
+  .doctor-photo-silhouette svg { width: 80px; height: 80px; }
   .doctor-photo-overlay {
     position: absolute; bottom: 0; left: 0; right: 0;
     height: 50px;
     background: linear-gradient(transparent, rgba(23,46,68,0.08));
   }
 
-  .doctor-info { padding: 24px; }
+  .doctor-info { padding: 18px 18px 20px; }
   .doctor-specialty {
-    font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
-    color: var(--blue); margin-bottom: 6px;
+    font-size: 10.5px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase;
+    color: var(--blue); margin-bottom: 4px;
   }
   .doctor-name {
-    font-size: 17px; font-weight: 700; color: var(--navy);
-    margin-bottom: 8px; line-height: 1.25;
+    font-size: 16px; font-weight: 700; color: var(--navy);
+    margin-bottom: 6px; line-height: 1.25;
     word-break: normal; overflow-wrap: break-word; hyphens: none;
   }
-  .doctor-role { font-size: 13px; color: var(--text-muted); margin-bottom: 16px; line-height: 1.5; }
+  .doctor-role { font-size: 12.5px; color: var(--text-muted); margin-bottom: 12px; line-height: 1.5; }
   .doctor-credentials {
     display: flex; gap: 6px; flex-wrap: wrap;
   }
@@ -553,6 +553,13 @@
     padding: 80px 5%;
     text-align: center;
     position: relative; overflow: hidden;
+  }
+  /* Cuando va dentro de Contacto: bloque contenido como apertura emocional */
+  .info-section .cta-band {
+    border-radius: 24px;
+    padding: 64px 40px;
+    margin-bottom: 72px;
+    box-shadow: 0 24px 60px rgba(23,46,68,0.18);
   }
   .cta-band::before {
     content: '';
@@ -991,7 +998,7 @@
   .counter { display: inline-block; }
 
   /* ─── NOSOTROS ─── */
-  .about-section { background: var(--pale); }
+  .about-section { background: white; }
   .about-layout {
     display: grid; grid-template-columns: 1fr 1.1fr; gap: 80px;
     align-items: start;
@@ -1033,7 +1040,7 @@
   .hscroll-stick {
     position: relative;
     width: 100%;
-    background: linear-gradient(180deg, var(--navy) 0%, #0f2238 60%, var(--blue) 130%);
+    background: var(--navy);
     overflow: visible;
   }
   .hscroll-stick::before { display: none; }
@@ -1050,7 +1057,7 @@
     min-height: 0;
     position: relative;
     display: flex; align-items: flex-start; justify-content: center;
-    padding: 96px 6vw;
+    padding: 72px 6vw;
     overflow: hidden;
     border-bottom: 1px solid rgba(166, 218, 241, 0.08);
   }
@@ -1059,19 +1066,9 @@
     width: 100%; max-width: 1200px;
     position: relative; z-index: 2;
   }
-  /* Numero gigante de panel — typography statement */
-  .hpanel::before {
-    content: attr(data-panel);
-    position: absolute; right: -2vw; bottom: -8vh;
-    font-family: var(--font-display);
-    font-size: clamp(280px, 36vw, 540px);
-    font-weight: 700;
-    color: rgba(166, 218, 241, 0.05);
-    line-height: 0.85;
-    letter-spacing: -0.05em;
-    pointer-events: none;
-    z-index: 1;
-  }
+  /* Watermark del numero de panel: ocultado tras el cambio a stack vertical
+     (era una estetica del scroll horizontal original). */
+  .hpanel::before { display: none; }
 
   /* Override de estilos heredados dentro de los paneles */
   .hpanel section.technology,
@@ -1080,7 +1077,7 @@
   .hpanel section.process { padding: 0; background: transparent; color: white; min-height: auto; }
   .hpanel .section-tag { color: var(--light); }
   .hpanel .section-tag::before { background: var(--light); }
-  .hpanel h2.section-title { color: white; font-size: clamp(36px, 5.5vw, 78px); margin-bottom: 18px; }
+  .hpanel h2.section-title { color: white; font-size: clamp(28px, 3.6vw, 48px); margin-bottom: 14px; }
   .hpanel h2.section-title em { color: var(--light); }
   .hpanel .section-sub { color: rgba(255,255,255,0.65); font-size: 16px; max-width: 520px; }
   .hpanel .services-mosaic { grid-template-columns: repeat(5, 1fr); gap: 12px; margin-top: 28px; }
@@ -1151,6 +1148,13 @@
     color: white;
     padding: 80px 5% 88px;
     overflow: hidden;
+  }
+  /* Cuando va dentro de Nosotros: bloque contenido con borde redondeado */
+  .about-section .stats-band {
+    border-radius: 24px;
+    margin-top: 72px;
+    padding: 64px 40px;
+    box-shadow: 0 24px 60px rgba(23,46,68,0.18);
   }
   .stats-band::before {
     content: '';
@@ -1290,16 +1294,16 @@
   }
 
   /* ─── PROCESS (flujo de 4 pasos + CTA al portal) ─── */
-  .process { padding-top: 100px; padding-bottom: 100px; }
   .process-header {
-    text-align: left; max-width: 720px; margin: 0 auto 64px;
+    text-align: left; max-width: 760px; margin: 0 0 36px;
   }
+  .process-header .section-sub { max-width: 580px; }
 
   .process-flow {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 0;
-    max-width: 1100px; margin: 0 auto 56px;
+    max-width: 1100px; margin: 0 auto 36px;
     position: relative;
   }
   .process-flow::before {
@@ -1321,16 +1325,16 @@
     color: var(--light); margin-bottom: 12px;
   }
   .flow-step-icon {
-    width: 76px; height: 76px;
+    width: 60px; height: 60px;
     border-radius: 50%;
     background: var(--navy);
     border: 2px solid var(--blue);
     color: var(--light);
     display: inline-flex; align-items: center; justify-content: center;
-    margin-bottom: 18px;
+    margin-bottom: 14px;
     transition: all 0.25s;
   }
-  .flow-step-icon svg { width: 32px; height: 32px; }
+  .flow-step-icon svg { width: 26px; height: 26px; }
   .flow-step:hover .flow-step-icon {
     background: var(--blue); color: white; transform: translateY(-3px);
   }
@@ -1555,8 +1559,8 @@
 
   /* ─── ESTUDIOS — TABS + GRID ─── */
   .estudios {
-    padding: 96px 5% 110px;
-    background: linear-gradient(180deg, #f6fbff 0%, #eaf3fb 100%);
+    padding: 100px 5%;
+    background: white;
     position: relative;
     overflow: hidden;
   }
@@ -1579,10 +1583,11 @@
   .estudios-header {
     text-align: left;
     max-width: 760px;
-    margin: 0 auto 44px;
+    margin: 0 0 28px;
     position: relative; z-index: 2;
   }
-  .estudios-header h2 { margin-bottom: 16px; }
+  .estudios-header h2 { margin-bottom: 12px; }
+  .estudios-header .section-sub { max-width: 580px; }
 
   /* Tabs */
   .estudios-tabs {
@@ -1590,7 +1595,7 @@
     justify-content: center;
     flex-wrap: wrap;
     max-width: 980px;
-    margin: 0 auto 40px;
+    margin: 0 auto 24px;
     position: relative; z-index: 2;
   }
   .estudios-tab {
@@ -1660,7 +1665,7 @@
   }
   .estudio-card-anim {
     background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 100%);
-    height: 200px;
+    height: 140px;
     display: flex; align-items: center; justify-content: center;
     position: relative; overflow: hidden;
     color: var(--light);
@@ -1678,7 +1683,7 @@
     position: relative; z-index: 1;
   }
   .estudio-card-body {
-    padding: 26px 26px 28px;
+    padding: 20px 22px 22px;
     display: flex; flex-direction: column;
     flex: 1;
   }
@@ -1686,20 +1691,20 @@
     align-self: flex-start;
     font-size: 10.5px; font-weight: 700; letter-spacing: 1.6px;
     color: var(--blue); text-transform: uppercase;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
   }
   .estudio-card-body h3 {
     font-family: var(--font-display);
-    font-size: 22px;
+    font-size: 19px;
     line-height: 1.2;
     color: var(--text);
-    margin-bottom: 12px;
+    margin-bottom: 8px;
     letter-spacing: -0.3px;
   }
   .estudio-card-body p {
-    font-size: 14px; line-height: 1.6;
+    font-size: 13.5px; line-height: 1.55;
     color: var(--text-muted);
-    margin-bottom: 22px;
+    margin-bottom: 16px;
     flex: 1;
   }
   .estudio-card-cta {
@@ -1746,9 +1751,9 @@
 
   /* ─── ALQUILER DE CONSULTORIOS ─── */
   .alquiler {
-    background: linear-gradient(180deg, var(--navy) 0%, #0b1a28 100%);
+    background: var(--navy);
     color: white;
-    padding: 110px 5%;
+    padding: 72px 5%;
     position: relative;
     overflow: hidden;
   }
@@ -1771,8 +1776,8 @@
 
   .alquiler-hero {
     text-align: left;
-    max-width: 1180px;
-    margin: 0 auto 60px;
+    max-width: 760px;
+    margin: 0 0 32px;
     position: relative; z-index: 2;
   }
   .alquiler-hero .section-tag {
@@ -1782,10 +1787,9 @@
   }
   .alquiler-hero h2 { color: white; margin-bottom: 18px; }
   .alquiler-hero h2 em { color: var(--light); }
-  .alquiler-hero p { color: rgba(255,255,255,0.72); font-size: 17px; max-width: 680px; margin: 0 auto; }
+  .alquiler-hero p { color: rgba(255,255,255,0.72); font-size: 17px; max-width: 680px; }
   .alquiler-cta-top {
     display: flex; gap: 14px;
-    justify-content: center;
     flex-wrap: wrap;
     margin-top: 36px;
   }
@@ -2031,7 +2035,7 @@
     box-shadow: 0 22px 50px rgba(0,0,0,0.35);
   }
   .alquiler-c-photo {
-    height: 150px;
+    height: 100px;
     background: linear-gradient(135deg, var(--blue) 0%, var(--mid) 100%);
     position: relative;
     display: flex; flex-direction: column;
@@ -2062,7 +2066,7 @@
     z-index: 2;
   }
   .alquiler-c-body {
-    padding: 18px 20px 22px;
+    padding: 14px 16px 16px;
     flex: 1;
     display: flex; flex-direction: column;
   }
@@ -2070,13 +2074,13 @@
     font-size: 9.5px; font-weight: 700;
     color: var(--blue); text-transform: uppercase;
     letter-spacing: 1.5px;
-    margin-bottom: 6px;
+    margin-bottom: 4px;
   }
   .alquiler-c-body h4 {
     font-family: var(--font-display);
-    font-size: 16.5px;
+    font-size: 15px;
     color: var(--navy);
-    margin-bottom: 12px;
+    margin-bottom: 8px;
     line-height: 1.2;
     letter-spacing: -0.3px;
   }
@@ -2086,12 +2090,12 @@
     margin: 0;
   }
   .alquiler-c-body li {
-    font-size: 12.5px;
+    font-size: 12px;
     color: var(--text-muted);
-    padding: 5px 0;
+    padding: 3px 0;
     display: flex;
     gap: 8px;
-    line-height: 1.5;
+    line-height: 1.45;
   }
   .alquiler-c-body li::before {
     content: '•';
@@ -2246,9 +2250,9 @@
     <a href="#alquiler">Consultorios</a>
     <a href="#servicios">Laboratorio</a>
     <a href="#contacto">Coberturas</a>
-    <a href="#turno">Turnos</a>
-    <a href="portal.html#resultados">Resultados</a>
-    <a href="portal.html" class="nav-cta">Pedir Turno</a>
+    <a href="https://centrocicar.medicloud.com.ar/">Turnos</a>
+    <a href="https://centrocicar.medicloud.com.ar/#resultados">Resultados</a>
+    <a href="https://centrocicar.medicloud.com.ar/" class="nav-cta">Pedir Turno</a>
   </div>
   <button class="nav-burger" id="navBurger" aria-label="Abrir menú" aria-expanded="false">
     <span></span><span></span><span></span>
@@ -2266,7 +2270,7 @@
     <p>Consultas, estudios y tratamiento cardiovascular en un único centro. Estudios complementarios y atención continua a lo largo de todo el proceso.</p>
     <div class="hero-actions">
       <a href="https://wa.me/5491122853697?text=Hola%2C%20quisiera%20sacar%20un%20turno%20en%20CICAR" class="btn-primary btn-whatsapp"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-6.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>Turno por WhatsApp</a>
-      <a href="portal.html" class="btn-primary"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Turno por Web</a>
+      <a href="https://centrocicar.medicloud.com.ar/" class="btn-primary"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Turno por Web</a>
       <a href="#servicios" class="btn-outline">Ver Servicios →</a>
     </div>
     <div class="hero-social" aria-label="Redes sociales">
@@ -2400,7 +2404,7 @@
         <span class="estudio-card-tag">Esfuerzo físico</span>
         <h3>Ergometría</h3>
         <p>Evaluación cardiológica con esfuerzo controlado en cinta o bicicleta, supervisada por un especialista.</p>
-        <a href="portal.html?estudio=ergometria" class="estudio-card-cta">
+        <a href="https://centrocicar.medicloud.com.ar/?estudio=ergometria" class="estudio-card-cta">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
           Sacar turno
         </a>
@@ -2435,7 +2439,7 @@
         <span class="estudio-card-tag">Esfuerzo físico</span>
         <h3>Ecoestrés con ejercicio</h3>
         <p>Combina eco con esfuerzo físico para detectar isquemia y problemas que sólo aparecen en actividad.</p>
-        <a href="portal.html?estudio=ecoestres" class="estudio-card-cta">
+        <a href="https://centrocicar.medicloud.com.ar/?estudio=ecoestres" class="estudio-card-cta">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
           Sacar turno
         </a>
@@ -2470,7 +2474,7 @@
         <span class="estudio-card-tag">Esfuerzo físico</span>
         <h3>Apto físico</h3>
         <p>Certificado médico para gimnasios, clubes, escuelas y empresas. Examen clínico y ECG incluidos.</p>
-        <a href="portal.html?estudio=apto-fisico" class="estudio-card-cta">
+        <a href="https://centrocicar.medicloud.com.ar/?estudio=apto-fisico" class="estudio-card-cta">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
           Sacar turno
         </a>
@@ -2507,7 +2511,7 @@
         <span class="estudio-card-tag">Cardio y vasos</span>
         <h3>Ecodoppler cardíaco color</h3>
         <p>Ultrasonido del corazón en tiempo real con flujo a color. Sin radiación ni medios de contraste.</p>
-        <a href="portal.html?estudio=ecodoppler-cardiaco" class="estudio-card-cta">
+        <a href="https://centrocicar.medicloud.com.ar/?estudio=ecodoppler-cardiaco" class="estudio-card-cta">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
           Sacar turno
         </a>
@@ -2546,7 +2550,7 @@
         <span class="estudio-card-tag">Cardio y vasos</span>
         <h3>Ecodoppler de vasos de cuello y vascular periférico</h3>
         <p>Estudio no invasivo del flujo en arterias y venas del cuello, brazos y piernas. Previene ACV.</p>
-        <a href="portal.html?estudio=ecodoppler-vascular" class="estudio-card-cta">
+        <a href="https://centrocicar.medicloud.com.ar/?estudio=ecodoppler-vascular" class="estudio-card-cta">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
           Sacar turno
         </a>
@@ -2584,7 +2588,7 @@
         <span class="estudio-card-tag">Imagen</span>
         <h3>Ecografía general</h3>
         <p>Abdominal, ginecológica, mamaria, tiroidea y de partes blandas. Diagnóstico rápido sin radiación.</p>
-        <a href="portal.html?estudio=ecografia-general" class="estudio-card-cta">
+        <a href="https://centrocicar.medicloud.com.ar/?estudio=ecografia-general" class="estudio-card-cta">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
           Sacar turno
         </a>
@@ -2622,7 +2626,7 @@
         <span class="estudio-card-tag">Musculoesquelético</span>
         <h3>Ecografía musculoesquelética</h3>
         <p>Tendones, ligamentos, articulaciones y músculos. Ideal para lesiones deportivas y dolor articular.</p>
-        <a href="portal.html?estudio=ecografia-musculoesqueletica" class="estudio-card-cta">
+        <a href="https://centrocicar.medicloud.com.ar/?estudio=ecografia-musculoesqueletica" class="estudio-card-cta">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
           Sacar turno
         </a>
@@ -2674,7 +2678,7 @@
         <span class="estudio-card-tag">Laboratorio</span>
         <h3>Análisis de laboratorio</h3>
         <p>Análisis clínicos completos: sangre, orina, perfil lipídico, glucemia y marcadores cardiovasculares.</p>
-        <a href="portal.html?estudio=laboratorio" class="estudio-card-cta">
+        <a href="https://centrocicar.medicloud.com.ar/?estudio=laboratorio" class="estudio-card-cta">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
           Sacar turno
         </a>
@@ -2718,7 +2722,7 @@
         <span class="estudio-card-tag">Prequirúrgico</span>
         <h3>Estudios prequirúrgicos</h3>
         <p>Evaluación cardiovascular completa previa a cirugía: ECG, riesgo, laboratorio y certificado.</p>
-        <a href="portal.html?estudio=prequirurgicos" class="estudio-card-cta">
+        <a href="https://centrocicar.medicloud.com.ar/?estudio=prequirurgicos" class="estudio-card-cta">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
           Sacar turno
         </a>
@@ -2750,7 +2754,7 @@
         <span class="estudio-card-tag">Especialidad</span>
         <h3>Cardiología Clínica</h3>
         <p>Diagnóstico y tratamiento integral de enfermedades cardiovasculares con seguimiento personalizado.</p>
-        <a href="portal.html?estudio=consulta-cardiologia" class="estudio-card-cta">
+        <a href="https://centrocicar.medicloud.com.ar/?estudio=consulta-cardiologia" class="estudio-card-cta">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
           Sacar turno
         </a>
@@ -2783,7 +2787,7 @@
         <span class="estudio-card-tag">Especialidad</span>
         <h3>Ecocardiografía</h3>
         <p>Evaluación por ultrasonido de la estructura y función cardíaca: 2D, 3D, Doppler y de estrés.</p>
-        <a href="portal.html?estudio=consulta-ecocardiografia" class="estudio-card-cta">
+        <a href="https://centrocicar.medicloud.com.ar/?estudio=consulta-ecocardiografia" class="estudio-card-cta">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
           Sacar turno
         </a>
@@ -2807,7 +2811,7 @@
         <span class="estudio-card-tag">Especialidad</span>
         <h3>Electrocardiografía</h3>
         <p>ECG de reposo y Holter 24/48h para monitoreo del ritmo cardíaco y detección de arritmias.</p>
-        <a href="portal.html?estudio=consulta-electrocardiografia" class="estudio-card-cta">
+        <a href="https://centrocicar.medicloud.com.ar/?estudio=consulta-electrocardiografia" class="estudio-card-cta">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
           Sacar turno
         </a>
@@ -2837,7 +2841,7 @@
         <span class="estudio-card-tag">Especialidad</span>
         <h3>Ergometría</h3>
         <p>Prueba de esfuerzo controlada para evaluar la respuesta cardiovascular y detectar isquemia.</p>
-        <a href="portal.html?estudio=consulta-ergometria" class="estudio-card-cta">
+        <a href="https://centrocicar.medicloud.com.ar/?estudio=consulta-ergometria" class="estudio-card-cta">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
           Sacar turno
         </a>
@@ -2870,7 +2874,7 @@
         <span class="estudio-card-tag">Especialidad</span>
         <h3>Cese Tabáquico</h3>
         <p>Programa integral de abandono del tabaco con soporte médico y seguimiento personalizado.</p>
-        <a href="portal.html?estudio=consulta-tabaquismo" class="estudio-card-cta">
+        <a href="https://centrocicar.medicloud.com.ar/?estudio=consulta-tabaquismo" class="estudio-card-cta">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
           Sacar turno
         </a>
@@ -2904,7 +2908,7 @@
         <span class="estudio-card-tag">Especialidad</span>
         <h3>Nefrología</h3>
         <p>Atención de enfermedades renales con enfoque cardiovascular. Manejo de hipertensión y ERC.</p>
-        <a href="portal.html?estudio=consulta-nefrologia" class="estudio-card-cta">
+        <a href="https://centrocicar.medicloud.com.ar/?estudio=consulta-nefrologia" class="estudio-card-cta">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
           Sacar turno
         </a>
@@ -2932,7 +2936,7 @@
         <span class="estudio-card-tag">Especialidad</span>
         <h3>Nutrición</h3>
         <p>Plan nutricional personalizado para reducir colesterol, triglicéridos y presión arterial.</p>
-        <a href="portal.html?estudio=consulta-nutricion" class="estudio-card-cta">
+        <a href="https://centrocicar.medicloud.com.ar/?estudio=consulta-nutricion" class="estudio-card-cta">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
           Sacar turno
         </a>
@@ -2965,7 +2969,7 @@
         <span class="estudio-card-tag">Especialidad</span>
         <h3>Salud Mental</h3>
         <p>Abordaje del estrés, ansiedad y depresión como factores de riesgo cardiovascular.</p>
-        <a href="portal.html?estudio=consulta-saludmental" class="estudio-card-cta">
+        <a href="https://centrocicar.medicloud.com.ar/?estudio=consulta-saludmental" class="estudio-card-cta">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
           Sacar turno
         </a>
@@ -2994,7 +2998,7 @@
         <span class="estudio-card-tag">Especialidad</span>
         <h3>Rehabilitación Cardíaca</h3>
         <p>Recuperación post-evento cardiovascular con ejercicio supervisado, educación y apoyo psicológico.</p>
-        <a href="portal.html?estudio=consulta-rehabilitacion" class="estudio-card-cta">
+        <a href="https://centrocicar.medicloud.com.ar/?estudio=consulta-rehabilitacion" class="estudio-card-cta">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
           Sacar turno
         </a>
@@ -3074,33 +3078,33 @@
       </div>
     </div>
   </div>
-</section>
 
-<!-- STATS BAND -->
-<section class="stats-band reveal">
-  <svg class="stats-ecg" viewBox="0 0 1400 80" preserveAspectRatio="none" aria-hidden="true">
-    <path d="M0 40 L300 40 L340 40 L360 14 L380 66 L400 40 L640 40 L680 40 L700 8 L720 72 L740 40 L980 40 L1020 40 L1040 18 L1060 62 L1080 40 L1400 40"/>
-  </svg>
-  <div class="stats-grid">
-    <div class="stat">
-      <div class="stat-num"><span class="counter" data-to="9">0</span></div>
-      <div class="stat-label">Áreas integradas</div>
-      <div class="stat-foot">Bajo un mismo techo</div>
-    </div>
-    <div class="stat">
-      <div class="stat-num"><span class="counter" data-to="50" data-prefix="+">0</span></div>
-      <div class="stat-label">Coberturas aceptadas</div>
-      <div class="stat-foot">Obras sociales y prepagas</div>
-    </div>
-    <div class="stat">
-      <div class="stat-num"><span class="counter" data-to="12">0</span><span class="stat-num-suffix">h</span></div>
-      <div class="stat-label">Atención diaria</div>
-      <div class="stat-foot">Lunes a Viernes 8 a 20 hs</div>
-    </div>
-    <div class="stat">
-      <div class="stat-num"><span class="counter" data-to="100" data-suffix="%">0%</span></div>
-      <div class="stat-label">Historia clínica digital</div>
-      <div class="stat-foot">Acceso seguro 24/7</div>
+  <!-- STATS BAND (integrada dentro de Nosotros como bloque contenido) -->
+  <div class="stats-band">
+    <svg class="stats-ecg" viewBox="0 0 1400 80" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0 40 L300 40 L340 40 L360 14 L380 66 L400 40 L640 40 L680 40 L700 8 L720 72 L740 40 L980 40 L1020 40 L1040 18 L1060 62 L1080 40 L1400 40"/>
+    </svg>
+    <div class="stats-grid">
+      <div class="stat">
+        <div class="stat-num"><span class="counter" data-to="9">0</span></div>
+        <div class="stat-label">Áreas integradas</div>
+        <div class="stat-foot">Bajo un mismo techo</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num"><span class="counter" data-to="50" data-prefix="+">0</span></div>
+        <div class="stat-label">Coberturas aceptadas</div>
+        <div class="stat-foot">Obras sociales y prepagas</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num"><span class="counter" data-to="12">0</span><span class="stat-num-suffix">h</span></div>
+        <div class="stat-label">Atención diaria</div>
+        <div class="stat-foot">Lunes a Viernes 8 a 20 hs</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num"><span class="counter" data-to="100" data-suffix="%">0%</span></div>
+        <div class="stat-label">Historia clínica digital</div>
+        <div class="stat-foot">Acceso seguro 24/7</div>
+      </div>
     </div>
   </div>
 </section>
@@ -3174,7 +3178,7 @@
         <div class="tech-card-desc">Estudios abdominales, ginecológicos, mamarios, tiroideos y musculoesqueléticos sin radiación, con diagnóstico rápido.</div>
         <div class="tech-card-link">Ver más sobre la práctica →</div>
       </a>
-      <a href="portal.html" class="tech-card">
+      <a href="https://centrocicar.medicloud.com.ar/" class="tech-card">
         <div class="tech-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="18" x2="12" y2="21"/></svg></div>
         <div class="tech-card-title">Telemedicina</div>
         <div class="tech-card-desc">Consultas y seguimiento remoto. Accedé a tu historial médico y resultados de forma segura desde la app.</div>
@@ -3273,7 +3277,7 @@
       <button class="service-modal-close" aria-label="Cerrar" onclick="closeServiceModal()">&times;</button>
       <h3 id="serviceModalTitle" class="service-modal-title"></h3>
       <p id="serviceModalDesc" class="service-modal-desc"></p>
-      <a href="portal.html" class="btn-primary">Sacar turno en esta área <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></a>
+      <a href="https://centrocicar.medicloud.com.ar/" id="serviceModalCta" class="btn-primary">Sacar turno en esta área <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></a>
     </div>
   </div>
   <script>
@@ -3281,15 +3285,33 @@
       var modal = document.getElementById('serviceModal');
       var titleEl = document.getElementById('serviceModalTitle');
       var descEl = document.getElementById('serviceModalDesc');
+      var ctaEl = document.getElementById('serviceModalCta');
+      // Mapeo data-title -> slug pasado como query string al portal de Medicloud,
+      // por si soportan deep-link tipo ?estudio=X. Si no, el slug se ignora y el
+      // paciente cae igual en la home del turnero.
+      var TITLE_TO_SLUG = {
+        'Cardiología Clínica': 'consulta-cardiologia',
+        'Ecocardiografía': 'consulta-ecocardiografia',
+        'Electrocardiografía': 'consulta-electrocardiografia',
+        'Ergometría': 'consulta-ergometria',
+        'Cese Tabáquico': 'consulta-tabaquismo',
+        'Nefrología': 'consulta-nefrologia',
+        'Nutrición Cardiovascular': 'consulta-nutricion',
+        'Salud Mental': 'consulta-saludmental',
+        'Rehabilitación Cardíaca': 'consulta-rehabilitacion'
+      };
       document.querySelectorAll('.service-tile').forEach(function (tile) {
+        var slug = TITLE_TO_SLUG[tile.dataset.title] || '';
+        var url = slug ? ('https://centrocicar.medicloud.com.ar/?estudio=' + slug) : 'https://centrocicar.medicloud.com.ar/';
         tile.addEventListener('click', function () {
           // En modo simple, la tile va directo a sacar turno (sin modal)
           if (document.documentElement.classList.contains('simple-mode')) {
-            window.location.href = 'portal.html';
+            window.location.href = url;
             return;
           }
           titleEl.textContent = tile.dataset.title;
           descEl.textContent = tile.dataset.desc;
+          if (ctaEl) ctaEl.href = url;
           modal.classList.add('open');
         });
       });
@@ -3313,7 +3335,7 @@
   <div class="doctors-header">
     <div class="section-tag">Nuestro Equipo</div>
     <h2 class="section-title">Especialistas que<br>cuidan tu <em>corazón</em></h2>
-    <p class="section-sub" style="margin: 0 auto;">Cardiólogos y especialistas certificados con formación de primer nivel y dedicación total al paciente.</p>
+    <p class="section-sub">Cardiólogos y especialistas certificados con formación de primer nivel y dedicación total al paciente.</p>
   </div>
 
   <div class="doctors-grid">
@@ -3390,71 +3412,10 @@
 
       </div>
     </article>
-    <article class="hpanel" data-panel="4" data-title="Sacar turno">
-      <div class="hpanel-inner">
-<!-- HOW IT WORKS / PROCESS -->
-<section class="process reveal" id="turno">
-  <div class="process-header">
-    <div class="section-tag">Sacar turno</div>
-    <h2 class="section-title">Reservá online en<br><em>menos de 2 minutos</em></h2>
-    <p class="section-sub">Cuatro pasos guiados desde el portal del paciente. Sin llamadas, sin papeles.</p>
-  </div>
-
-  <div class="process-flow">
-    <div class="flow-step">
-      <div class="flow-step-num">01</div>
-      <div class="flow-step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg></div>
-      <div class="flow-step-title">Crea tu cuenta</div>
-      <div class="flow-step-desc">Datos básicos y obra social. Una sola vez.</div>
-    </div>
-    <div class="flow-step">
-      <div class="flow-step-num">02</div>
-      <div class="flow-step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 22a8 8 0 0 1 16 0"/></svg></div>
-      <div class="flow-step-title">Elegí especialista</div>
-      <div class="flow-step-desc">Filtrá por área y mirá disponibilidad real.</div>
-    </div>
-    <div class="flow-step">
-      <div class="flow-step-num">03</div>
-      <div class="flow-step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
-      <div class="flow-step-title">Elegí día y hora</div>
-      <div class="flow-step-desc">Reservá al instante en la agenda en vivo.</div>
-    </div>
-    <div class="flow-step">
-      <div class="flow-step-num">04</div>
-      <div class="flow-step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-      <div class="flow-step-title">Listo</div>
-      <div class="flow-step-desc">Confirmación por email y WhatsApp.</div>
-    </div>
-  </div>
-
-  <div class="process-cta">
-    <a href="portal.html" class="btn-primary btn-large pulse">
-      Empezar ahora
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-    </a>
-    <p class="process-cta-note">Si preferís hablar con alguien, escribinos por <a href="https://wa.me/5491122853697">WhatsApp</a> o llamá al <strong>+54 11 4631-5583</strong>.</p>
-  </div>
-</section>
-
-      </div>
-    </article>
     </div>
   </div>
 </section>
 
-
-<!-- CTA BAND -->
-<div class="cta-band reveal">
-  <svg class="cta-ecg" viewBox="0 0 1400 60" preserveAspectRatio="none" aria-hidden="true">
-    <path d="M0 30 L260 30 L300 30 L320 8 L340 52 L360 30 L520 30 L560 30 L580 4 L600 56 L620 30 L780 30 L820 30 L840 14 L860 46 L880 30 L1040 30 L1080 30 L1100 8 L1120 52 L1140 30 L1400 30"/>
-  </svg>
-  <h2>Un corazón sano,<br>una vida plena</h2>
-  <p>No esperes síntomas para cuidar tu corazón. Agendá tu consulta preventiva hoy y tomá el control de tu salud cardiovascular.</p>
-  <div class="cta-band-actions">
-    <a href="portal.html" class="btn-white"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Pedir turno ahora</a>
-    <a href="https://wa.me/5491122853697" class="btn-outline" style="color:white; border-color:rgba(255,255,255,0.3);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-6.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>WhatsApp</a>
-  </div>
-</div>
 
 <!-- NUESTROS CONSULTORIOS (info + alquiler) -->
 <section class="alquiler reveal" id="alquiler">
@@ -3643,7 +3604,7 @@
 </section>
 
 <section class="info-section reveal" id="contacto">
-  <div style="max-width: 1180px; margin: 0 auto 64px;">
+  <div style="margin: 0 0 64px;">
     <div class="section-tag">Información</div>
     <h2 class="section-title">Visitanos en<br><em>Barrio Norte</em></h2>
   </div>
@@ -3730,7 +3691,7 @@
         <li><a href="tel:+541146315583">11 4631-5583</a></li>
         <li><a href="https://wa.me/5491122853697">WhatsApp</a></li>
         <li><a href="mailto:administracion@centrocicar.com">Correo</a></li>
-        <li><a href="portal.html">Turnos online</a></li>
+        <li><a href="https://centrocicar.medicloud.com.ar/">Turnos online</a></li>
       </ul>
     </div>
   </div>
