@@ -88,9 +88,10 @@
 
   /* ─── HERO ─── */
   .hero {
-    /* 100vh - 92px nav - ~95px trust bar = la trust bar entra en la primera pantalla */
     min-height: calc(100vh - 95px);
-    background: linear-gradient(160deg, var(--navy) 0%, var(--blue) 100%);
+    /* Gradiente vertical (no diagonal) para que el fondo sea simetrico
+       izq/der y el watermark del corazon se vea centrado de verdad. */
+    background: linear-gradient(180deg, var(--navy) 0%, var(--blue) 100%);
     display: flex; flex-direction: column;
     align-items: center; justify-content: center;
     padding: 130px 5% 80px;
@@ -98,22 +99,18 @@
     text-align: center;
   }
 
+  /* Halo radial simetrico, centrado donde esta el watermark del corazon
+     para que el "brillo" coincida visualmente con el centro. */
   .hero::before {
     content: '';
-    position: absolute; top: -20%; right: -10%;
-    width: 70vw; height: 70vw; max-width: 800px; max-height: 800px;
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 900px; height: 900px; max-width: 95vw; max-height: 95vw;
     border-radius: 50%;
     background: radial-gradient(circle, rgba(29,132,199,0.22) 0%, transparent 70%);
     pointer-events: none;
   }
-
-  .hero::after {
-    content: '';
-    position: absolute; bottom: -15%; left: -5%;
-    width: 40vw; height: 40vw;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(166,218,241,0.08) 0%, transparent 70%);
-  }
+  .hero::after { display: none; }
 
   /* Watermark del isotipo (manos + corazon) detras del texto del hero.
      El nav fijo (92px) tapa la parte de arriba del hero, asi que
@@ -296,18 +293,21 @@
   .hero-hours-emergency .hero-hours-day { color: var(--light); }
   .hero-hours-emergency .hero-hours-time { color: var(--light); }
 
-  /* ─── TRUST BAR (versión compacta debajo del hero) ─── */
+  /* ─── TRUST BAR (versión compacta debajo del hero, 4 columnas fijas) ─── */
   .trust-bar {
     background: white;
     padding: 14px 5%;
-    display: flex; align-items: center; justify-content: center;
-    gap: 36px; flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    align-items: center;
+    gap: 24px;
     border-bottom: 1px solid rgba(29,132,199,0.10);
   }
   .trust-item {
-    display: inline-flex; align-items: center; gap: 8px;
-    font-size: 12.5px; line-height: 1.4;
+    display: flex; align-items: center; gap: 8px;
+    font-size: 12px; line-height: 1.35;
     color: var(--text-muted);
+    min-width: 0;
   }
   .trust-icon {
     width: 22px; height: 22px;
@@ -316,14 +316,20 @@
     flex-shrink: 0;
   }
   .trust-icon svg { width: 18px; height: 18px; }
+  .trust-text {
+    min-width: 0;
+  }
   .trust-text strong {
     color: var(--navy); font-weight: 700;
-    margin-right: 6px;
+    margin-right: 5px;
   }
   .trust-text span { color: var(--text-muted); }
   @media (max-width: 900px) {
-    .trust-bar { gap: 18px; padding: 14px 5%; }
-    .trust-item { font-size: 12px; }
+    .trust-bar { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .trust-item { font-size: 11.5px; }
+  }
+  @media (max-width: 540px) {
+    .trust-bar { grid-template-columns: 1fr; gap: 10px; }
   }
 
   /* ─── SECTIONS GENERAL ─── */
