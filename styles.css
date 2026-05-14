@@ -83,7 +83,7 @@
     background: linear-gradient(180deg, var(--navy) 0%, var(--blue) 100%);
     display: flex; flex-direction: column;
     align-items: center; justify-content: center;
-    padding: 130px 5% 80px;
+    padding: 120px 5% 64px;
     position: relative; overflow: hidden;
     text-align: center;
   }
@@ -428,12 +428,25 @@
 
   /* ─── DOCTORS ─── */
   .doctors { background: linear-gradient(180deg, rgba(166,218,241,0.10) 0%, white 100%); }
-  .doctors-header { text-align: left; margin-bottom: 32px; }
+  .doctors-header { text-align: left; margin-bottom: 24px; }
 
   .doctors-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 28px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  /* Bloque de equipo dentro de Nosotros: contenedor con max-width y
+     margen superior moderado para no quedar pegado al stats-band */
+  .equipo-block {
+    max-width: 1240px;
+    margin: 48px auto 0;
+  }
+  @media (max-width: 900px) {
+    .doctors-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
+  }
+  @media (max-width: 540px) {
+    .doctors-grid { grid-template-columns: 1fr; gap: 12px; }
   }
 
   .doctor-card {
@@ -552,7 +565,7 @@
 
   /* ─── TECHNOLOGY ─── */
   .technology { background: white; }
-  .tech-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+  .tech-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; max-width: 1240px; margin: 0 auto; align-items: center; }
   .tech-visual {
     display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
   }
@@ -680,7 +693,17 @@
 
   /* ─── INFO CARDS ─── */
   .info-section { background: white; }
-  .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 28px; }
+  .info-header {
+    text-align: left;
+    max-width: 1240px;
+    margin: 0 auto 32px;
+  }
+  .info-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 24px;
+    max-width: 1240px;
+    margin: 0 auto;
+  }
   .info-card {
     padding: 36px 28px;
     border-radius: var(--radius-lg);
@@ -1080,19 +1103,20 @@
   /* ─── NOSOTROS ─── */
   .about-section { background: white; }
   .about-layout {
-    display: grid; grid-template-columns: 1fr 1.1fr; gap: 80px;
+    display: grid; grid-template-columns: 1fr 1.1fr; gap: 56px;
+    max-width: 1240px; margin: 0 auto;
     align-items: start;
   }
   .about-intro .section-sub { margin-bottom: 0; }
 
   .about-pillars {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
   }
   .pillar {
     background: white;
     border: 1px solid rgba(29,132,199,0.12);
     border-radius: var(--radius-lg);
-    padding: 28px 26px;
+    padding: 22px 20px;
     transition: all 0.25s;
   }
   .pillar:hover {
@@ -1231,10 +1255,13 @@
   }
   /* Cuando va dentro de Nosotros: bloque contenido con borde redondeado */
   .about-section .stats-band {
-    border-radius: 24px;
-    margin-top: 72px;
-    padding: 64px 40px;
-    box-shadow: 0 24px 60px rgba(23,46,68,0.18);
+    border-radius: 20px;
+    margin-top: 48px;
+    max-width: 1240px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 44px 36px;
+    box-shadow: 0 18px 44px rgba(23,46,68,0.16);
   }
   .stats-band::before {
     content: '';
@@ -1599,7 +1626,7 @@
 
   /* ─── ESTUDIOS — TABS + GRID ─── */
   .estudios {
-    padding: 100px 5%;
+    padding: 72px 5%;
     background: white;
     position: relative;
     overflow: hidden;
@@ -1622,8 +1649,8 @@
   }
   .estudios-header {
     text-align: left;
-    max-width: 760px;
-    margin: 0 0 28px;
+    max-width: 1240px;
+    margin: 0 auto 28px;
     position: relative; z-index: 2;
   }
   .estudios-header h2 { margin-bottom: 12px; }
@@ -1680,7 +1707,7 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 22px;
-    max-width: 1180px;
+    max-width: 1240px;
     margin: 0 auto;
     position: relative; z-index: 2;
   }
