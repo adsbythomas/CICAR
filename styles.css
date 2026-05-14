@@ -600,8 +600,36 @@
   .tech-item-text { font-size: 15px; line-height: 1.6; color: var(--text-muted); }
   .tech-item-text strong { color: var(--navy); font-weight: 700; }
 
-
-
+  /* ─── TECNOLOGÍA como "dark island" en la home (override del white default).
+     Antes vivia dentro del .hpanel oscuro; al sacarla a top-level reusamos
+     el mismo lenguaje visual: navy + texto blanco + cards translucidas. ─── */
+  .technology {
+    background: var(--navy);
+    color: white;
+  }
+  .technology .section-tag { color: var(--light); }
+  .technology .section-tag::before { background: var(--light); }
+  .technology h2.section-title { color: white; }
+  .technology h2.section-title em { color: var(--light); }
+  .technology .section-sub { color: rgba(255,255,255,0.65); }
+  .technology .tech-card {
+    background: rgba(255,255,255,0.05);
+    border-color: rgba(166,218,241,0.15);
+  }
+  .technology .tech-card:hover {
+    background: rgba(255,255,255,0.08);
+    border-color: var(--light);
+  }
+  .technology .tech-card-title { color: white; }
+  .technology .tech-card-desc { color: rgba(255,255,255,0.55); }
+  .technology .tech-card-icon { color: var(--light); }
+  .technology .tech-card-link { color: var(--light); }
+  .technology .tech-item-text { color: rgba(255,255,255,0.7); }
+  .technology .tech-item-text strong { color: white; }
+  .technology .tech-item-dot {
+    background: var(--light);
+    box-shadow: 0 0 12px rgba(166,218,241,0.5);
+  }
 
   /* ─── CTA BAND ─── */
   .cta-band {
