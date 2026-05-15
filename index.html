@@ -164,41 +164,79 @@
     <!-- 1. Ergometría — cinta + persona corriendo -->
     <article class="estudio-card" data-cat="cardiologia">
       <div class="estudio-card-anim">
-        <svg viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
-          <!-- Consola -->
-          <rect x="158" y="58" width="26" height="36" rx="4" stroke-width="2.5"/>
-          <line x1="158" y1="68" x2="184" y2="68" stroke-width="1.5" opacity="0.6"/>
-          <line x1="158" y1="76" x2="180" y2="76" stroke-width="1.5" opacity="0.5"/>
-          <line x1="158" y1="84" x2="184" y2="84" stroke-width="1.5" opacity="0.6"/>
-          <line x1="171" y1="94" x2="171" y2="135"/>
-          <!-- Soportes laterales / agarres -->
-          <line x1="36" y1="135" x2="36" y2="100" stroke-width="2.5"/>
-          <line x1="36" y1="100" x2="50" y2="100" stroke-width="2.5"/>
-          <!-- Base de la cinta -->
-          <rect x="30" y="135" width="150" height="22" rx="4" stroke-width="2.5"/>
+        <svg viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+          <!-- Consola con pantalla y botonera -->
+          <rect x="156" y="54" width="30" height="42" rx="4" stroke-width="2.2"/>
+          <rect x="160" y="60" width="22" height="20" rx="2" stroke-width="1.4" opacity="0.55" fill="currentColor" fill-opacity="0.05"/>
+          <polyline points="161,72 165,72 167,67 169,77 171,72 175,72 177,69 179,72 181,72" stroke-width="1.3" opacity="0.7"/>
+          <circle cx="164" cy="88" r="1.6" stroke-width="1.2" opacity="0.6"/>
+          <circle cx="171" cy="88" r="1.6" stroke-width="1.2" opacity="0.6"/>
+          <circle cx="178" cy="88" r="1.6" stroke-width="1.2" opacity="0.6"/>
+          <line x1="171" y1="96" x2="171" y2="135" stroke-width="2.4"/>
+
+          <!-- Agarres laterales en forma de "U" invertida -->
+          <path d="M28 135 L28 102 Q28 98 32 98 L52 98" stroke-width="2.4"/>
+          <path d="M22 135 L22 110 Q22 106 26 106 L28 106" stroke-width="2.2" opacity="0.55"/>
+
+          <!-- Base de la cinta + rodillos -->
+          <rect x="18" y="135" width="164" height="24" rx="5" stroke-width="2.4"/>
+          <circle cx="26" cy="147" r="3.6" stroke-width="1.8"/>
+          <circle cx="174" cy="147" r="3.6" stroke-width="1.8"/>
           <!-- Banda animada -->
-          <line x1="36" y1="146" x2="174" y2="146" stroke-width="3" stroke-dasharray="10 8" style="animation: belt 0.6s linear infinite;"/>
-          <!-- Persona corriendo -->
-          <g style="animation: bob 0.4s ease-in-out infinite; transform-origin: 100px 100px;">
-            <!-- Cabeza -->
-            <circle cx="100" cy="42" r="11"/>
-            <!-- Torso -->
-            <line x1="100" y1="53" x2="98" y2="105"/>
-            <!-- Brazos -->
-            <g style="transform-origin: 100px 75px; animation: runArm1 0.4s ease-in-out infinite;">
-              <line x1="100" y1="75" x2="86" y2="92"/>
+          <line x1="32" y1="147" x2="168" y2="147" stroke-width="2.8" stroke-dasharray="9 7" style="animation: belt 0.5s linear infinite;"/>
+          <line x1="22" y1="156" x2="178" y2="156" stroke-width="1.4" opacity="0.4"/>
+
+          <!-- Líneas de movimiento detrás del corredor -->
+          <line x1="56" y1="74" x2="68" y2="74" stroke-width="2" opacity="0" style="animation: motionLine 0.5s ease-out infinite;"/>
+          <line x1="50" y1="86" x2="66" y2="86" stroke-width="2" opacity="0" style="animation: motionLine 0.5s ease-out infinite 0.16s;"/>
+          <line x1="58" y1="98" x2="70" y2="98" stroke-width="2" opacity="0" style="animation: motionLine 0.5s ease-out infinite 0.32s;"/>
+
+          <!-- PERSONA corriendo -->
+          <g style="animation: bob 0.5s ease-in-out infinite;">
+            <!-- Cabeza con detalle de pelo -->
+            <circle cx="100" cy="40" r="9.5" fill="currentColor" fill-opacity="0.08" stroke-width="2.2"/>
+            <path d="M92 36 Q98 28 109 32 Q108 39 102 36 Q97 33 92 36 Z" fill="currentColor" fill-opacity="0.22" stroke-width="1.4"/>
+            <!-- Cuello -->
+            <line x1="100" y1="49.5" x2="100" y2="55" stroke-width="2.4"/>
+            <!-- Torso (camiseta) — ligeramente inclinado hacia adelante -->
+            <path d="M88 58 Q86 56 90 55 L110 55 Q114 56 112 58 L114 92 Q114 96 110 96 L90 96 Q86 96 86 92 Z" fill="currentColor" fill-opacity="0.10" stroke-width="2.2"/>
+            <!-- Cuello camiseta -->
+            <path d="M95 56 Q100 60 105 56" stroke-width="1.5" opacity="0.7" fill="none"/>
+            <!-- Cadera/shorts -->
+            <path d="M87 95 L113 95 L113 106 Q108 110 100 110 Q92 110 87 106 Z" fill="currentColor" fill-opacity="0.16" stroke-width="2.2"/>
+
+            <!-- BRAZO IZQUIERDO (delante, doblado) -->
+            <g style="transform-origin: 91px 64px; animation: runArm1 0.5s ease-in-out infinite;">
+              <path d="M91 64 L82 80 L77 92" stroke-width="3.6" fill="none"/>
+              <circle cx="82" cy="80" r="1.8" fill="currentColor" stroke="none"/>
+              <circle cx="76" cy="94" r="2.4" fill="currentColor" fill-opacity="0.3" stroke-width="1.6"/>
             </g>
-            <g style="transform-origin: 100px 75px; animation: runArm2 0.4s ease-in-out infinite;">
-              <line x1="100" y1="75" x2="118" y2="86"/>
+
+            <!-- BRAZO DERECHO (atrás, doblado) -->
+            <g style="transform-origin: 109px 64px; animation: runArm2 0.5s ease-in-out infinite;">
+              <path d="M109 64 L118 80 L123 92" stroke-width="3.6" fill="none"/>
+              <circle cx="118" cy="80" r="1.8" fill="currentColor" stroke="none"/>
+              <circle cx="124" cy="94" r="2.4" fill="currentColor" fill-opacity="0.3" stroke-width="1.6"/>
             </g>
-            <!-- Caderas + piernas -->
-            <g style="transform-origin: 98px 105px; animation: runLeg1 0.4s ease-in-out infinite;">
-              <line x1="98" y1="105" x2="86" y2="135"/>
+
+            <!-- PIERNA IZQUIERDA (apoyada, doblada) -->
+            <g style="transform-origin: 94px 107px; animation: runLeg1 0.5s ease-in-out infinite;">
+              <path d="M94 107 L86 122 L82 138" stroke-width="4.2" fill="none"/>
+              <circle cx="86" cy="122" r="2.2" fill="currentColor" stroke="none"/>
+              <!-- Zapatilla -->
+              <path d="M82 138 Q73 139 71 142 Q70 144 73 144 L84 144 Q86 142 86 140 Z" fill="currentColor" fill-opacity="0.35" stroke-width="1.8"/>
             </g>
-            <g style="transform-origin: 98px 105px; animation: runLeg2 0.4s ease-in-out infinite;">
-              <line x1="98" y1="105" x2="112" y2="135"/>
+
+            <!-- PIERNA DERECHA (en el aire, doblada al máximo) -->
+            <g style="transform-origin: 106px 107px; animation: runLeg2 0.5s ease-in-out infinite;">
+              <path d="M106 107 L116 120 L113 134" stroke-width="4.2" fill="none"/>
+              <circle cx="116" cy="120" r="2.2" fill="currentColor" stroke="none"/>
+              <path d="M113 134 Q121 135 124 138 Q125 140 122 140 L113 140 Q111 138 111 136 Z" fill="currentColor" fill-opacity="0.35" stroke-width="1.8"/>
             </g>
           </g>
+
+          <!-- Gotita de sudor -->
+          <circle cx="84" cy="34" r="1.8" fill="currentColor" fill-opacity="0.4" stroke="none" style="animation: sweatDrop 1.6s ease-in infinite;"/>
         </svg>
       </div>
       <div class="estudio-card-body">
@@ -1013,13 +1051,13 @@
   </div>
 </section>
 
-<!-- CONSULTORIOS — teaser/carrusel hacia consultorios.html -->
+<!-- CONSULTORIOS — showcase interactivo (lista + spotlight) -->
 <section class="consultorios-home reveal" id="consultorios">
   <div class="consultorios-home-header">
     <div class="consultorios-home-intro">
       <div class="section-tag">Nuestras instalaciones</div>
       <h2 class="section-title">Conocé los <em>8 consultorios</em></h2>
-      <p class="section-sub">Cada espacio está pensado para una práctica específica. Mirá dónde te vamos a atender.</p>
+      <p class="section-sub">Cada espacio está pensado para una práctica específica. Pasá el cursor o tocá para descubrir cada uno.</p>
     </div>
     <a href="consultorios.html" class="consultorios-home-link">
       Ver los 8 consultorios
@@ -1027,98 +1065,234 @@
     </a>
   </div>
 
-  <div class="consultorios-carousel">
-    <button class="consultorios-arrow consultorios-arrow-prev" type="button" aria-label="Anterior">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
-    </button>
-    <div class="consultorios-track" id="consultoriosTrack">
-      <a href="consultorios.html" class="consultorio-mini-card">
-        <div class="consultorio-mini-photo">
-          <div class="consultorio-mini-number">01</div>
+  <div class="consultorios-showcase" id="consultoriosShowcase">
+    <!-- LISTA NUMERADA (desktop) -->
+    <div class="consultorios-list" role="tablist">
+      <button type="button" class="consultorios-list-item active" data-idx="0" role="tab" aria-selected="true">
+        <span class="consultorios-list-num">01</span>
+        <span class="consultorios-list-name">Cardiología Clínica</span>
+        <span class="consultorios-list-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></span>
+        <span class="consultorios-list-progress"></span>
+      </button>
+      <button type="button" class="consultorios-list-item" data-idx="1" role="tab" aria-selected="false">
+        <span class="consultorios-list-num">02</span>
+        <span class="consultorios-list-name">Ecocardiografía</span>
+        <span class="consultorios-list-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></span>
+        <span class="consultorios-list-progress"></span>
+      </button>
+      <button type="button" class="consultorios-list-item" data-idx="2" role="tab" aria-selected="false">
+        <span class="consultorios-list-num">03</span>
+        <span class="consultorios-list-name">Electrocardiografía y Holter</span>
+        <span class="consultorios-list-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></span>
+        <span class="consultorios-list-progress"></span>
+      </button>
+      <button type="button" class="consultorios-list-item" data-idx="3" role="tab" aria-selected="false">
+        <span class="consultorios-list-num">04</span>
+        <span class="consultorios-list-name">Ergometría</span>
+        <span class="consultorios-list-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></span>
+        <span class="consultorios-list-progress"></span>
+      </button>
+      <button type="button" class="consultorios-list-item" data-idx="4" role="tab" aria-selected="false">
+        <span class="consultorios-list-num">05</span>
+        <span class="consultorios-list-name">Ecoestrés con ejercicio</span>
+        <span class="consultorios-list-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></span>
+        <span class="consultorios-list-progress"></span>
+      </button>
+      <button type="button" class="consultorios-list-item" data-idx="5" role="tab" aria-selected="false">
+        <span class="consultorios-list-num">06</span>
+        <span class="consultorios-list-name">Ecodoppler Vascular</span>
+        <span class="consultorios-list-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></span>
+        <span class="consultorios-list-progress"></span>
+      </button>
+      <button type="button" class="consultorios-list-item" data-idx="6" role="tab" aria-selected="false">
+        <span class="consultorios-list-num">07</span>
+        <span class="consultorios-list-name">Ecografía General</span>
+        <span class="consultorios-list-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></span>
+        <span class="consultorios-list-progress"></span>
+      </button>
+      <button type="button" class="consultorios-list-item" data-idx="7" role="tab" aria-selected="false">
+        <span class="consultorios-list-num">08</span>
+        <span class="consultorios-list-name">Análisis Clínicos</span>
+        <span class="consultorios-list-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></span>
+        <span class="consultorios-list-progress"></span>
+      </button>
+    </div>
+
+    <!-- SPOTLIGHT (panel grande) -->
+    <div class="consultorios-spotlight">
+      <article class="consultorios-slide active" data-idx="0" role="tabpanel">
+        <div class="consultorios-slide-watermark">01</div>
+        <div class="consultorios-slide-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
         </div>
-        <div class="consultorio-mini-body">
-          <div class="consultorio-mini-tag">Especialidades médicas</div>
-          <div class="consultorio-mini-name">Cardiología Clínica</div>
+        <div class="consultorios-slide-body">
+          <div class="consultorios-slide-tag">Especialidades médicas</div>
+          <h3 class="consultorios-slide-name">Cardiología Clínica</h3>
+          <p class="consultorios-slide-desc">Consultorio para la evaluación cardiológica integral: anamnesis, examen físico, control de presión y oximetría.</p>
+          <a href="consultorios.html" class="consultorios-slide-cta">
+            Conocer este consultorio
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
         </div>
-      </a>
-      <a href="consultorios.html" class="consultorio-mini-card">
-        <div class="consultorio-mini-photo">
-          <div class="consultorio-mini-number">02</div>
+      </article>
+
+      <article class="consultorios-slide" data-idx="1" role="tabpanel">
+        <div class="consultorios-slide-watermark">02</div>
+        <div class="consultorios-slide-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12a10 10 0 0 1 20 0"/><path d="M5.5 12a6.5 6.5 0 0 1 13 0"/><circle cx="12" cy="12" r="2"/><line x1="12" y1="14" x2="12" y2="22"/></svg>
         </div>
-        <div class="consultorio-mini-body">
-          <div class="consultorio-mini-tag">Pruebas cardiológicas</div>
-          <div class="consultorio-mini-name">Ecocardiografía</div>
+        <div class="consultorios-slide-body">
+          <div class="consultorios-slide-tag">Pruebas cardiológicas</div>
+          <h3 class="consultorios-slide-name">Ecocardiografía</h3>
+          <p class="consultorios-slide-desc">Ultrasonido del corazón en tiempo real para evaluar estructura, válvulas y función cardíaca.</p>
+          <a href="consultorios.html" class="consultorios-slide-cta">
+            Conocer este consultorio
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
         </div>
-      </a>
-      <a href="consultorios.html" class="consultorio-mini-card">
-        <div class="consultorio-mini-photo">
-          <div class="consultorio-mini-number">03</div>
+      </article>
+
+      <article class="consultorios-slide" data-idx="2" role="tabpanel">
+        <div class="consultorios-slide-watermark">03</div>
+        <div class="consultorios-slide-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
         </div>
-        <div class="consultorio-mini-body">
-          <div class="consultorio-mini-tag">Pruebas cardiológicas</div>
-          <div class="consultorio-mini-name">Electrocardiografía y Holter</div>
+        <div class="consultorios-slide-body">
+          <div class="consultorios-slide-tag">Pruebas cardiológicas</div>
+          <h3 class="consultorios-slide-name">Electrocardiografía y Holter</h3>
+          <p class="consultorios-slide-desc">ECG en reposo y monitoreo continuo de 24 a 72 horas para detectar arritmias y trastornos del ritmo.</p>
+          <a href="consultorios.html" class="consultorios-slide-cta">
+            Conocer este consultorio
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
         </div>
-      </a>
-      <a href="consultorios.html" class="consultorio-mini-card">
-        <div class="consultorio-mini-photo">
-          <div class="consultorio-mini-number">04</div>
+      </article>
+
+      <article class="consultorios-slide" data-idx="3" role="tabpanel">
+        <div class="consultorios-slide-watermark">04</div>
+        <div class="consultorios-slide-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="13" cy="4" r="2"/><path d="M4 22l5-7-2-5 4-3 3 4 4 1"/><path d="M15 22l-2-7 2-3"/></svg>
         </div>
-        <div class="consultorio-mini-body">
-          <div class="consultorio-mini-tag">Pruebas cardiológicas</div>
-          <div class="consultorio-mini-name">Ergometría</div>
+        <div class="consultorios-slide-body">
+          <div class="consultorios-slide-tag">Pruebas cardiológicas</div>
+          <h3 class="consultorios-slide-name">Ergometría</h3>
+          <p class="consultorios-slide-desc">Prueba de esfuerzo graduada en cinta, supervisada por especialista. Evalúa la respuesta del corazón al ejercicio.</p>
+          <a href="consultorios.html" class="consultorios-slide-cta">
+            Conocer este consultorio
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
         </div>
-      </a>
-      <a href="consultorios.html" class="consultorio-mini-card">
-        <div class="consultorio-mini-photo">
-          <div class="consultorio-mini-number">05</div>
+      </article>
+
+      <article class="consultorios-slide" data-idx="4" role="tabpanel">
+        <div class="consultorios-slide-watermark">05</div>
+        <div class="consultorios-slide-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 20a9 9 0 0 1 18 0"/><circle cx="12" cy="9" r="2"/><path d="M5 13a8 8 0 0 1 14 0"/></svg>
         </div>
-        <div class="consultorio-mini-body">
-          <div class="consultorio-mini-tag">Pruebas cardiológicas</div>
-          <div class="consultorio-mini-name">Ecoestrés con ejercicio</div>
+        <div class="consultorios-slide-body">
+          <div class="consultorios-slide-tag">Pruebas cardiológicas</div>
+          <h3 class="consultorios-slide-name">Ecoestrés con ejercicio</h3>
+          <p class="consultorios-slide-desc">Ecocardiograma durante y después del esfuerzo físico para evaluar la respuesta cardíaca al ejercicio.</p>
+          <a href="consultorios.html" class="consultorios-slide-cta">
+            Conocer este consultorio
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
         </div>
-      </a>
-      <a href="consultorios.html" class="consultorio-mini-card">
-        <div class="consultorio-mini-photo">
-          <div class="consultorio-mini-number">06</div>
+      </article>
+
+      <article class="consultorios-slide" data-idx="5" role="tabpanel">
+        <div class="consultorios-slide-watermark">06</div>
+        <div class="consultorios-slide-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3v3M6 9v3M6 15v3M6 21h0"/><path d="M2 6h8M2 12h8M2 18h8"/><path d="M14 4l8 4-8 4"/><path d="M14 12l8 4-8 4"/></svg>
         </div>
-        <div class="consultorio-mini-body">
-          <div class="consultorio-mini-tag">Imágenes vasculares</div>
-          <div class="consultorio-mini-name">Ecodoppler Vascular</div>
+        <div class="consultorios-slide-body">
+          <div class="consultorios-slide-tag">Imágenes vasculares</div>
+          <h3 class="consultorios-slide-name">Ecodoppler Vascular</h3>
+          <p class="consultorios-slide-desc">Estudio de arterias y venas con tecnología doppler color de alta resolución. Diagnóstico vascular no invasivo.</p>
+          <a href="consultorios.html" class="consultorios-slide-cta">
+            Conocer este consultorio
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
         </div>
-      </a>
-      <a href="consultorios.html" class="consultorio-mini-card">
-        <div class="consultorio-mini-photo">
-          <div class="consultorio-mini-number">07</div>
+      </article>
+
+      <article class="consultorios-slide" data-idx="6" role="tabpanel">
+        <div class="consultorios-slide-watermark">07</div>
+        <div class="consultorios-slide-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 20a9 9 0 0 1 18 0"/><circle cx="12" cy="9" r="2"/><path d="M5 13a8 8 0 0 1 14 0"/></svg>
         </div>
-        <div class="consultorio-mini-body">
-          <div class="consultorio-mini-tag">Diagnóstico por imágenes</div>
-          <div class="consultorio-mini-name">Ecografía General</div>
+        <div class="consultorios-slide-body">
+          <div class="consultorios-slide-tag">Diagnóstico por imágenes</div>
+          <h3 class="consultorios-slide-name">Ecografía General</h3>
+          <p class="consultorios-slide-desc">Estudios abdominales, ginecológicos, mamarios, tiroideos y musculoesqueléticos en alta definición.</p>
+          <a href="consultorios.html" class="consultorios-slide-cta">
+            Conocer este consultorio
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
         </div>
-      </a>
-      <a href="consultorios.html" class="consultorio-mini-card">
-        <div class="consultorio-mini-photo">
-          <div class="consultorio-mini-number">08</div>
+      </article>
+
+      <article class="consultorios-slide" data-idx="7" role="tabpanel">
+        <div class="consultorios-slide-watermark">08</div>
+        <div class="consultorios-slide-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3v3a2 2 0 0 1-2 2H5"/><path d="M14 3v3a2 2 0 0 0 2 2h3"/><rect x="5" y="3" width="14" height="18" rx="2"/></svg>
         </div>
-        <div class="consultorio-mini-body">
-          <div class="consultorio-mini-tag">Laboratorio</div>
-          <div class="consultorio-mini-name">Análisis Clínicos</div>
+        <div class="consultorios-slide-body">
+          <div class="consultorios-slide-tag">Laboratorio</div>
+          <h3 class="consultorios-slide-name">Análisis Clínicos</h3>
+          <p class="consultorios-slide-desc">Toma de muestras en consultorio con derivación a laboratorio asociado de primera línea.</p>
+          <a href="consultorios.html" class="consultorios-slide-cta">
+            Conocer este consultorio
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
         </div>
+      </article>
+    </div>
+
+    <!-- GRID MOBILE — todas las cards visibles en pantallas chicas -->
+    <div class="consultorios-mobile-grid">
+      <a href="consultorios.html" class="consultorios-mini">
+        <span class="consultorios-mini-num">01</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        <span class="consultorios-mini-name">Cardiología Clínica</span>
+      </a>
+      <a href="consultorios.html" class="consultorios-mini">
+        <span class="consultorios-mini-num">02</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12a10 10 0 0 1 20 0"/><path d="M5.5 12a6.5 6.5 0 0 1 13 0"/><circle cx="12" cy="12" r="2"/><line x1="12" y1="14" x2="12" y2="22"/></svg>
+        <span class="consultorios-mini-name">Ecocardiografía</span>
+      </a>
+      <a href="consultorios.html" class="consultorios-mini">
+        <span class="consultorios-mini-num">03</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        <span class="consultorios-mini-name">Electro y Holter</span>
+      </a>
+      <a href="consultorios.html" class="consultorios-mini">
+        <span class="consultorios-mini-num">04</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="13" cy="4" r="2"/><path d="M4 22l5-7-2-5 4-3 3 4 4 1"/><path d="M15 22l-2-7 2-3"/></svg>
+        <span class="consultorios-mini-name">Ergometría</span>
+      </a>
+      <a href="consultorios.html" class="consultorios-mini">
+        <span class="consultorios-mini-num">05</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 20a9 9 0 0 1 18 0"/><circle cx="12" cy="9" r="2"/><path d="M5 13a8 8 0 0 1 14 0"/></svg>
+        <span class="consultorios-mini-name">Ecoestrés</span>
+      </a>
+      <a href="consultorios.html" class="consultorios-mini">
+        <span class="consultorios-mini-num">06</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3v3M6 9v3M6 15v3M6 21h0"/><path d="M2 6h8M2 12h8M2 18h8"/><path d="M14 4l8 4-8 4"/><path d="M14 12l8 4-8 4"/></svg>
+        <span class="consultorios-mini-name">Ecodoppler Vascular</span>
+      </a>
+      <a href="consultorios.html" class="consultorios-mini">
+        <span class="consultorios-mini-num">07</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 20a9 9 0 0 1 18 0"/><circle cx="12" cy="9" r="2"/><path d="M5 13a8 8 0 0 1 14 0"/></svg>
+        <span class="consultorios-mini-name">Ecografía General</span>
+      </a>
+      <a href="consultorios.html" class="consultorios-mini">
+        <span class="consultorios-mini-num">08</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3v3a2 2 0 0 1-2 2H5"/><path d="M14 3v3a2 2 0 0 0 2 2h3"/><rect x="5" y="3" width="14" height="18" rx="2"/></svg>
+        <span class="consultorios-mini-name">Análisis Clínicos</span>
       </a>
     </div>
-    <button class="consultorios-arrow consultorios-arrow-next" type="button" aria-label="Siguiente">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
-    </button>
   </div>
-
-  <div class="consultorios-dots" id="consultoriosDots" aria-hidden="true"></div>
 </section>
 
 
@@ -1567,77 +1741,100 @@
   }, { threshold: 0.4 });
   document.querySelectorAll('.counter').forEach((el) => counterObserver.observe(el));
 
-  // ── CARRUSEL DE CONSULTORIOS ───────────────────────────────────────────
-  // Scroll-snap horizontal con flechas de navegacion + dots indicadores.
-  // Cada flecha avanza/retrocede un "viewport" del track (~3 cards de
-  // golpe en desktop, ~1.5 en mobile).
+  // ── SHOWCASE INTERACTIVO DE CONSULTORIOS ───────────────────────────────
+  // Lista numerada + panel spotlight con cross-fade.
+  // Auto-avanza cada 5s, hover en cualquier item lo activa y pausa el ciclo,
+  // y se pausa cuando la seccion no esta visible.
   (function () {
-    var track = document.getElementById('consultoriosTrack');
-    var prev  = document.querySelector('.consultorios-arrow-prev');
-    var next  = document.querySelector('.consultorios-arrow-next');
-    var dotsBox = document.getElementById('consultoriosDots');
-    if (!track || !prev || !next) return;
+    var showcase = document.getElementById('consultoriosShowcase');
+    if (!showcase) return;
+    var items  = showcase.querySelectorAll('.consultorios-list-item');
+    var slides = showcase.querySelectorAll('.consultorios-slide');
+    if (!items.length || !slides.length) return;
 
-    var cards = track.querySelectorAll('.consultorio-mini-card');
-    var n = cards.length;
+    var current = 0;
+    var timer = null;
+    var paused = false;
+    var visible = true;
+    var INTERVAL = 5200;
 
-    // Crear dots: 1 por card
-    if (dotsBox) {
-      for (var i = 0; i < n; i++) {
-        var d = document.createElement('button');
-        d.type = 'button';
-        d.className = 'consultorios-dot' + (i === 0 ? ' active' : '');
-        d.setAttribute('aria-label', 'Ir al consultorio ' + (i + 1));
-        d.dataset.idx = String(i);
-        dotsBox.appendChild(d);
-      }
-      dotsBox.addEventListener('click', function (e) {
-        var btn = e.target.closest('.consultorios-dot');
-        if (!btn) return;
-        var idx = parseInt(btn.dataset.idx, 10);
-        if (cards[idx]) cards[idx].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+    function setActive(idx) {
+      if (idx === current) return;
+      current = idx;
+      items.forEach(function (it, i) {
+        var on = (i === idx);
+        it.classList.toggle('active', on);
+        it.setAttribute('aria-selected', on ? 'true' : 'false');
       });
-    }
-
-    // Calcular cuanto scrollear con cada flecha (1 ancho visible del track)
-    function step() {
-      var cardWidth = cards[0] ? cards[0].getBoundingClientRect().width : 280;
-      var gap = 16;
-      // Avanzar 1 card a la vez para que el snap se sienta natural
-      return cardWidth + gap;
-    }
-
-    prev.addEventListener('click', function () {
-      track.scrollBy({ left: -step(), behavior: 'smooth' });
-    });
-    next.addEventListener('click', function () {
-      track.scrollBy({ left: step(), behavior: 'smooth' });
-    });
-
-    // Actualizar dots + estado disabled segun scroll
-    function update() {
-      var max = track.scrollWidth - track.clientWidth;
-      var atStart = track.scrollLeft <= 4;
-      var atEnd = track.scrollLeft >= max - 4;
-      prev.disabled = atStart;
-      next.disabled = atEnd;
-
-      // Dot activo: card mas cercana al scroll actual
-      if (dotsBox) {
-        var s = step();
-        var idx = Math.round(track.scrollLeft / s);
-        if (idx < 0) idx = 0;
-        if (idx > n - 1) idx = n - 1;
-        dotsBox.querySelectorAll('.consultorios-dot').forEach(function (dot, i) {
-          dot.classList.toggle('active', i === idx);
-        });
+      slides.forEach(function (sl, i) {
+        sl.classList.toggle('active', i === idx);
+      });
+      // Reinicia animacion de la barra de progreso del item activo
+      var prog = items[idx].querySelector('.consultorios-list-progress');
+      if (prog) {
+        prog.style.animation = 'none';
+        // forzar reflow para reiniciar la animacion
+        void prog.offsetHeight;
+        prog.style.animation = '';
       }
     }
-    track.addEventListener('scroll', function () {
-      requestAnimationFrame(update);
-    }, { passive: true });
-    window.addEventListener('resize', update);
-    update();
+
+    function tick() {
+      if (paused || !visible) return;
+      var next = (current + 1) % items.length;
+      // forzar el cambio aunque sea consecutivo
+      items[current].classList.remove('active');
+      slides[current].classList.remove('active');
+      current = -1;
+      setActive(next);
+    }
+
+    function start() {
+      stop();
+      if (paused || !visible) return;
+      timer = setInterval(tick, INTERVAL);
+    }
+    function stop() {
+      if (timer) { clearInterval(timer); timer = null; }
+    }
+
+    items.forEach(function (it, i) {
+      it.addEventListener('click', function () {
+        setActive(i);
+        start();
+      });
+      it.addEventListener('mouseenter', function () {
+        paused = true;
+        showcase.classList.add('is-paused');
+        stop();
+        setActive(i);
+      });
+    });
+
+    showcase.addEventListener('mouseleave', function () {
+      paused = false;
+      showcase.classList.remove('is-paused');
+      // reinicia progreso desde cero al volver al modo auto
+      var prog = items[current].querySelector('.consultorios-list-progress');
+      if (prog) {
+        prog.style.animation = 'none';
+        void prog.offsetHeight;
+        prog.style.animation = '';
+      }
+      start();
+    });
+
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          visible = e.isIntersecting;
+          if (visible) start(); else stop();
+        });
+      }, { threshold: 0.25 });
+      io.observe(showcase);
+    } else {
+      start();
+    }
   })();
 </script>
 
