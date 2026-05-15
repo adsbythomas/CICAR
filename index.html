@@ -833,7 +833,126 @@
       </div>
     </article>
 
-    <!-- 18. Rehabilitación Cardíaca — flechas circulares + corazón -->
+    <!-- 18. Hematología — gota de sangre + células rojas flotando -->
+    <article class="estudio-card" data-cat="otras" style="display:none">
+      <div class="estudio-card-anim">
+        <svg viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+          <!-- Gota de sangre principal -->
+          <g style="transform-origin: 100px 105px; animation: pulseScale 1.6s ease-in-out infinite;">
+            <path d="M100 38 C 78 72 68 96 68 122 C 68 150 84 168 100 168 C 116 168 132 150 132 122 C 132 96 122 72 100 38 Z"
+                  fill="#ff5577" stroke="white" stroke-width="3"/>
+            <!-- Brillo -->
+            <ellipse cx="86" cy="108" rx="7" ry="18" fill="white" opacity="0.45" stroke="none"/>
+          </g>
+          <!-- Glóbulos rojos flotantes -->
+          <circle cx="42" cy="62" r="7" fill="#ff5577" stroke="white" stroke-width="2" opacity="0.7">
+            <animate attributeName="cy" values="62;58;62" dur="2.2s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="160" cy="78" r="6" fill="#ff5577" stroke="white" stroke-width="2" opacity="0.65">
+            <animate attributeName="cy" values="78;74;78" dur="2.6s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="36" cy="142" r="5.5" fill="#ff5577" stroke="white" stroke-width="2" opacity="0.55">
+            <animate attributeName="cy" values="142;145;142" dur="2.4s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="168" cy="148" r="6.5" fill="#ff5577" stroke="white" stroke-width="2" opacity="0.6">
+            <animate attributeName="cy" values="148;145;148" dur="2.8s" repeatCount="indefinite"/>
+          </circle>
+        </svg>
+      </div>
+      <div class="estudio-card-body">
+        <span class="estudio-card-tag">Especialidad</span>
+        <h3>Hematología</h3>
+        <p>Diagnóstico y tratamiento de anemias, trastornos de la coagulación y enfermedades de la sangre.</p>
+        <a href="https://centrocicar.medicloud.com.ar/?estudio=consulta-hematologia" class="estudio-card-cta">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Sacar turno
+        </a>
+      </div>
+    </article>
+
+    <!-- 19. Clínica Médica — estetoscopio con pulsación -->
+    <article class="estudio-card" data-cat="otras" style="display:none">
+      <div class="estudio-card-anim">
+        <svg viewBox="0 0 200 200" fill="none" stroke="white" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+          <!-- Olivas -->
+          <circle cx="58" cy="34" r="6" fill="white" stroke="none"/>
+          <circle cx="142" cy="34" r="6" fill="white" stroke="none"/>
+          <!-- Tubos en U -->
+          <path d="M58 38 L58 92 Q 58 116 80 122" fill="none" stroke-width="4"/>
+          <path d="M142 38 L142 92 Q 142 116 120 122" fill="none" stroke-width="4"/>
+          <!-- Conector central -->
+          <circle cx="100" cy="125" r="5.5" fill="white" stroke="none"/>
+          <!-- Cable hacia el diafragma -->
+          <path d="M100 130 Q 100 152 132 160 Q 158 164 158 144" fill="none" stroke-width="4">
+            <animate attributeName="d"
+                     values="M100 130 Q 100 152 132 160 Q 158 164 158 144;
+                             M100 130 Q 100 154 134 162 Q 160 166 161 142;
+                             M100 130 Q 100 152 132 160 Q 158 164 158 144"
+                     dur="2.2s" repeatCount="indefinite"/>
+          </path>
+          <!-- Diafragma (la "campana") pulsando -->
+          <g style="transform-origin: 158px 138px; animation: pulseScale 1.4s ease-in-out infinite;">
+            <circle cx="158" cy="138" r="16" fill="white" fill-opacity="0.22" stroke-width="3.5"/>
+            <circle cx="158" cy="138" r="7" fill="white" stroke="none" opacity="0.65"/>
+          </g>
+        </svg>
+      </div>
+      <div class="estudio-card-body">
+        <span class="estudio-card-tag">Especialidad</span>
+        <h3>Clínica Médica</h3>
+        <p>Consulta médica integral del adulto. Diagnóstico, seguimiento y prevención de patologías crónicas.</p>
+        <a href="https://centrocicar.medicloud.com.ar/?estudio=consulta-clinica-medica" class="estudio-card-cta">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Sacar turno
+        </a>
+      </div>
+    </article>
+
+    <!-- 20. Neumonología — pulmones respirando -->
+    <article class="estudio-card" data-cat="otras" style="display:none">
+      <div class="estudio-card-anim">
+        <svg viewBox="0 0 200 200" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+          <!-- Tráquea -->
+          <line x1="100" y1="38" x2="100" y2="80" stroke-width="4"/>
+          <!-- Bifurcación bronquial -->
+          <line x1="100" y1="80" x2="78" y2="94" stroke-width="3"/>
+          <line x1="100" y1="80" x2="122" y2="94" stroke-width="3"/>
+          <!-- Pulmón izquierdo (respira) -->
+          <g style="transform-origin: 74px 124px; animation: pulseScale 2.8s ease-in-out infinite;">
+            <path d="M82 88 C 70 88 54 102 52 128 C 50 154 60 174 76 174 C 88 174 92 166 92 152 L 92 92 Z"
+                  fill="white" fill-opacity="0.22" stroke-width="3"/>
+            <!-- Bronquios internos -->
+            <path d="M76 100 L72 130" stroke-width="2" opacity="0.55"/>
+            <path d="M78 112 L68 128" stroke-width="2" opacity="0.45"/>
+          </g>
+          <!-- Pulmón derecho (respira) -->
+          <g style="transform-origin: 126px 124px; animation: pulseScale 2.8s ease-in-out infinite;">
+            <path d="M118 88 C 130 88 146 102 148 128 C 150 154 140 174 124 174 C 112 174 108 166 108 152 L 108 92 Z"
+                  fill="white" fill-opacity="0.22" stroke-width="3"/>
+            <!-- Bronquios internos -->
+            <path d="M124 100 L128 130" stroke-width="2" opacity="0.55"/>
+            <path d="M122 112 L132 128" stroke-width="2" opacity="0.45"/>
+          </g>
+          <!-- Mini "puff" de aire saliendo -->
+          <circle cx="100" cy="32" r="3" fill="white" opacity="0">
+            <animate attributeName="cy" values="34;22" dur="2.8s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="0;0.6;0" dur="2.8s" repeatCount="indefinite"/>
+            <animate attributeName="r" values="2;5" dur="2.8s" repeatCount="indefinite"/>
+          </circle>
+        </svg>
+      </div>
+      <div class="estudio-card-body">
+        <span class="estudio-card-tag">Especialidad</span>
+        <h3>Neumonología</h3>
+        <p>Diagnóstico de enfermedades respiratorias: asma, EPOC, apnea del sueño. Espirometría y oximetría.</p>
+        <a href="https://centrocicar.medicloud.com.ar/?estudio=consulta-neumonologia" class="estudio-card-cta">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Sacar turno
+        </a>
+      </div>
+    </article>
+
+    <!-- 21. Rehabilitación Cardíaca — flechas circulares + corazón -->
     <article class="estudio-card" data-cat="cardiologia">
       <div class="estudio-card-anim">
         <svg viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
