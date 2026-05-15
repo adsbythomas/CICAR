@@ -613,6 +613,64 @@
   .tech-item-text { font-size: 15px; line-height: 1.6; color: var(--text-muted); }
   .tech-item-text strong { color: var(--navy); font-weight: 700; }
 
+  /* ─── TECNOLOGÍA — teaser de practicas con solo iconos + titulos ─── */
+  .tech-header {
+    text-align: left;
+    max-width: 1240px;
+    margin: 0 auto 36px;
+  }
+  .tech-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    max-width: 1240px;
+    margin: 0 auto;
+  }
+  .tech-tile {
+    display: flex; flex-direction: column;
+    align-items: flex-start; gap: 14px;
+    padding: 22px 18px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(166,218,241,0.18);
+    border-radius: 16px;
+    text-decoration: none;
+    transition: all 0.22s ease;
+    color: inherit;
+  }
+  .tech-tile:hover {
+    background: rgba(255,255,255,0.10);
+    border-color: var(--light);
+    transform: translateY(-3px);
+    box-shadow: 0 18px 40px rgba(0,0,0,0.20);
+  }
+  .tech-tile-icon {
+    width: 38px; height: 38px;
+    display: inline-flex; align-items: center; justify-content: center;
+    background: rgba(29,132,199,0.18);
+    color: var(--light);
+    border-radius: 10px;
+  }
+  .tech-tile-icon svg { width: 22px; height: 22px; }
+  .tech-tile-title {
+    font-family: var(--font-display);
+    font-size: 15px; font-weight: 700;
+    color: white;
+    line-height: 1.25;
+  }
+  .tech-tile-more {
+    background: rgba(29,132,199,0.18);
+    border-color: rgba(29,132,199,0.35);
+  }
+  .tech-tile-more .tech-tile-icon {
+    background: var(--blue); color: white;
+  }
+  @media (max-width: 900px) {
+    .tech-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 480px) {
+    .tech-grid { grid-template-columns: 1fr; }
+  }
+
   /* ─── TECNOLOGÍA como "dark island" en la home (override del white default).
      Antes vivia dentro del .hpanel oscuro; al sacarla a top-level reusamos
      el mismo lenguaje visual: navy + texto blanco + cards translucidas. ─── */
