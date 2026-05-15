@@ -352,25 +352,26 @@
   }
 
   /* ─── SECTIONS GENERAL ─── */
-  section { padding: 72px 5%; }
+  section { padding: 56px 5%; }
   .section-tag {
-    display: inline-flex; align-items: center; gap: 8px;
-    font-size: 11px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase;
-    color: var(--blue); margin-bottom: 12px;
+    display: inline-flex; align-items: center; gap: 12px;
+    font-size: 14.5px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--blue); margin-bottom: 14px;
+    line-height: 1;
   }
-  .section-tag::before { content: ''; display: block; width: 22px; height: 2px; background: var(--blue); }
+  .section-tag::before { content: ''; display: block; width: 36px; height: 2.5px; background: var(--blue); border-radius: 2px; }
   h2.section-title {
     font-family: var(--font-display);
     font-size: clamp(26px, 3vw, 40px);
     line-height: 1.15; color: var(--navy);
-    margin-bottom: 14px;
+    margin-bottom: 12px;
   }
   h2.section-title em { font-style: italic; color: var(--blue); }
-  .section-sub { font-size: 15px; line-height: 1.6; color: var(--text-muted); max-width: 560px; }
+  .section-sub { font-size: 15px; line-height: 1.55; color: var(--text-muted); max-width: 560px; }
 
   /* ─── SERVICES ─── */
   .services { background: white; }
-  .services-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 60px; flex-wrap: wrap; gap: 24px; }
+  .services-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 32px; flex-wrap: wrap; gap: 20px; }
 
   .services-grid {
     display: grid;
@@ -440,7 +441,7 @@
      margen superior moderado para no quedar pegado al stats-band */
   .equipo-block {
     max-width: 1240px;
-    margin: 48px auto 0;
+    margin: 28px auto 0;
   }
   @media (max-width: 900px) {
     .doctors-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
@@ -758,9 +759,9 @@
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
-    gap: 32px;
+    gap: 28px;
     max-width: 1240px;
-    margin: 0 auto 36px;
+    margin: 0 auto 24px;
     flex-wrap: wrap;
   }
   .consultorios-home-intro { max-width: 720px; }
@@ -1042,7 +1043,7 @@
   .info-header {
     text-align: left;
     max-width: 1240px;
-    margin: 0 auto 32px;
+    margin: 0 auto 24px;
   }
   .info-grid {
     display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -1166,6 +1167,8 @@
     /* Section titles */
     h2.section-title { font-size: clamp(28px, 8vw, 38px); line-height: 1.15; }
     .section-sub { font-size: 14px; }
+    .section-tag { font-size: 13px; letter-spacing: 1.6px; gap: 10px; }
+    .section-tag::before { width: 28px; }
     /* Info cards: stack */
     .info-grid { grid-template-columns: 1fr; gap: 16px; }
     .info-card { padding: 26px 22px; }
@@ -1877,6 +1880,8 @@
     /* Section titles */
     h2.section-title { font-size: clamp(28px, 8vw, 38px); line-height: 1.15; }
     .section-sub { font-size: 14px; }
+    .section-tag { font-size: 13px; letter-spacing: 1.6px; gap: 10px; }
+    .section-tag::before { width: 28px; }
     /* CTA band */
     .cta-band { padding: 56px 5%; }
     .cta-band h2 { font-size: clamp(28px, 8vw, 36px); }
@@ -1996,10 +2001,10 @@
   .estudios-header {
     text-align: left;
     max-width: 1240px;
-    margin: 0 auto 28px;
+    margin: 0 auto 22px;
     position: relative; z-index: 2;
   }
-  .estudios-header h2 { margin-bottom: 12px; }
+  .estudios-header h2 { margin-bottom: 10px; }
   .estudios-header .section-sub { max-width: 580px; }
 
   /* Tabs */
@@ -2634,7 +2639,7 @@
     .estudios-grid { grid-template-columns: repeat(2, 1fr); }
   }
   @media (max-width: 640px) {
-    .estudios { padding: 72px 5% 88px; }
+    .estudios { padding: 56px 5% 72px; }
     .estudios-grid { grid-template-columns: 1fr; gap: 18px; }
     .estudios-tab { padding: 12px 16px; font-size: 13px; }
     .estudios-tab .tab-label { display: none; }
