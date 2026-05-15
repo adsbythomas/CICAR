@@ -2137,10 +2137,10 @@
   @keyframes spin360 { to { transform: rotate(360deg); } }
   @keyframes pulseScale { 0%,100% { transform: scale(1); } 50% { transform: scale(1.10); } }
   @keyframes pulseFast  { 0%,100% { transform: scale(1); } 50% { transform: scale(1.16); } }
-  @keyframes runLeg1 { 0%,100% { transform: rotate(-32deg); } 50% { transform: rotate(24deg); } }
-  @keyframes runLeg2 { 0%,100% { transform: rotate(28deg); } 50% { transform: rotate(-30deg); } }
-  @keyframes runArm1 { 0%,100% { transform: rotate(28deg); } 50% { transform: rotate(-38deg); } }
-  @keyframes runArm2 { 0%,100% { transform: rotate(-38deg); } 50% { transform: rotate(28deg); } }
+  @keyframes runLeg1 { 0%,100% { transform: rotate(-22deg); } 50% { transform: rotate(20deg); } }
+  @keyframes runLeg2 { 0%,100% { transform: rotate(22deg); } 50% { transform: rotate(-20deg); } }
+  @keyframes runArm1 { 0%,100% { transform: rotate(22deg); } 50% { transform: rotate(-26deg); } }
+  @keyframes runArm2 { 0%,100% { transform: rotate(-26deg); } 50% { transform: rotate(22deg); } }
   @keyframes belt { to { stroke-dashoffset: -32; } }
   @keyframes motionLine {
     0%   { opacity: 0; transform: translateX(4px); }

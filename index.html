@@ -186,72 +186,67 @@
           <line x1="22" y1="156" x2="178" y2="156" stroke-width="1.4" opacity="0.4"/>
 
           <!-- Líneas de aire detrás del corredor (mira a la derecha) -->
-          <line x1="50" y1="70" x2="64" y2="70" stroke-width="2" opacity="0" style="animation: motionLine 0.5s ease-out infinite;"/>
-          <line x1="44" y1="84" x2="60" y2="84" stroke-width="2" opacity="0" style="animation: motionLine 0.5s ease-out infinite 0.16s;"/>
-          <line x1="52" y1="98" x2="66" y2="98" stroke-width="2" opacity="0" style="animation: motionLine 0.5s ease-out infinite 0.32s;"/>
+          <line x1="50" y1="78" x2="64" y2="78" stroke-width="2" opacity="0" style="animation: motionLine 0.55s ease-out infinite;"/>
+          <line x1="44" y1="92" x2="60" y2="92" stroke-width="2" opacity="0" style="animation: motionLine 0.55s ease-out infinite 0.18s;"/>
+          <line x1="52" y1="106" x2="66" y2="106" stroke-width="2" opacity="0" style="animation: motionLine 0.55s ease-out infinite 0.36s;"/>
 
-          <!-- PERSONA DE PERFIL (mira hacia la derecha) -->
-          <g style="animation: bob 0.5s ease-in-out infinite;">
+          <!-- PERSONA DE PERFIL (corrida 8px abajo para no cortar la cabeza) -->
+          <g style="animation: bob 0.55s ease-in-out infinite;">
 
-            <!-- PIERNA DE FONDO (lado lejano, extendida hacia atrás) -->
-            <g style="transform-origin: 101px 107px; animation: runLeg2 0.5s ease-in-out infinite;" opacity="0.55">
-              <path d="M101 107 L95 124 L86 134" stroke-width="3.8" fill="none"/>
-              <circle cx="95" cy="124" r="1.8" fill="currentColor" stroke="none"/>
-              <path d="M86 134 Q77 136 75 139 Q74 141 77 141 L88 140 Q90 138 89 136 Z" fill="currentColor" fill-opacity="0.22" stroke-width="1.6"/>
+            <!-- PIERNA DE FONDO (extendida hacia atrás, toe a la derecha) -->
+            <g style="transform-origin: 101px 115px; animation: runLeg2 0.62s cubic-bezier(.45,0,.55,1) infinite;" opacity="0.5">
+              <path d="M101 115 L94 130 L86 142" stroke-width="3.8" fill="none"/>
+              <circle cx="94" cy="130" r="1.8" fill="currentColor" stroke="none"/>
+              <!-- Zapatilla con la punta apuntando hacia adelante (derecha) -->
+              <path d="M84 142 Q82 145 84 147 L96 146 Q98 144 96 142 Z" fill="currentColor" fill-opacity="0.22" stroke-width="1.6"/>
             </g>
 
-            <!-- BRAZO DE FONDO (lado lejano) -->
-            <g style="transform-origin: 101px 62px; animation: runArm2 0.5s ease-in-out infinite;" opacity="0.45">
-              <path d="M101 62 L94 78 L99 90" stroke-width="3.2" fill="none"/>
-            </g>
+            <!-- (BRAZO DE FONDO ELIMINADO — en perfil queda oculto detrás del torso) -->
 
-            <!-- CABEZA DE PERFIL mirando a la derecha -->
+            <!-- CABEZA DE PERFIL (sin nariz) -->
             <g>
-              <!-- Cráneo (silueta de perfil) -->
-              <path d="M93 41 Q92 31 101 28 Q109 28 112 33 Q114 38 112 43 Q111 47 107 49 L100 49 Q94 48 93 45 Z"
+              <!-- Cráneo (silueta de perfil mirando a la derecha) -->
+              <path d="M93 49 Q92 39 101 36 Q109 36 112 41 Q114 46 112 51 Q111 55 107 57 L100 57 Q94 56 93 53 Z"
                     fill="currentColor" fill-opacity="0.10" stroke-width="2.2"/>
-              <!-- Pelo (parte superior y nuca) -->
-              <path d="M92 38 Q93 28 101 27 Q109 27 113 33 Q106 30 100 31 Q95 33 92 38 Z"
+              <!-- Pelo -->
+              <path d="M92 46 Q93 36 101 35 Q109 35 113 41 Q106 38 100 39 Q95 41 92 46 Z"
                     fill="currentColor" fill-opacity="0.30" stroke="none"/>
-              <!-- Nariz protuberante hacia la derecha -->
-              <path d="M112 41 L116 43 L112 46" stroke-width="1.8" fill="none" stroke-linejoin="round"/>
               <!-- Oreja -->
-              <ellipse cx="99" cy="42" rx="1.5" ry="2.2" stroke-width="1.4" opacity="0.55"/>
-              <!-- Mandíbula -->
-              <path d="M103 47 Q107 49 109 46" stroke-width="1.3" opacity="0.45" fill="none"/>
+              <ellipse cx="99" cy="50" rx="1.5" ry="2.2" stroke-width="1.4" opacity="0.55"/>
+              <!-- Mandíbula sutil -->
+              <path d="M103 55 Q107 57 109 54" stroke-width="1.3" opacity="0.45" fill="none"/>
             </g>
 
             <!-- Cuello -->
-            <line x1="102" y1="49" x2="102" y2="55" stroke-width="2.4"/>
+            <line x1="102" y1="57" x2="102" y2="63" stroke-width="2.4"/>
 
-            <!-- Torso de perfil — angosto, ligeramente inclinado adelante -->
-            <path d="M97 56 Q95 57 96 60 L96 94 Q96 97 99 97 L107 97 Q110 97 110 94 L108 60 Q108 57 106 56 Z"
+            <!-- Torso de perfil (angosto, levemente inclinado adelante) -->
+            <path d="M97 64 Q95 65 96 68 L96 102 Q96 105 99 105 L107 105 Q110 105 110 102 L108 68 Q108 65 106 64 Z"
                   fill="currentColor" fill-opacity="0.13" stroke-width="2.2"/>
-            <!-- Línea sutil del pecho/abdomen -->
-            <path d="M108 60 Q110 72 109 90" stroke-width="1.2" opacity="0.35" fill="none"/>
+            <path d="M108 68 Q110 80 109 98" stroke-width="1.2" opacity="0.35" fill="none"/>
 
             <!-- Cadera / shorts -->
-            <path d="M95 96 L110 96 L110 108 Q107 111 102 111 Q97 111 95 108 Z"
+            <path d="M95 104 L110 104 L110 116 Q107 119 102 119 Q97 119 95 116 Z"
                   fill="currentColor" fill-opacity="0.18" stroke-width="2.2"/>
 
-            <!-- BRAZO DELANTERO (visible, doblado, swinging) -->
-            <g style="transform-origin: 102px 62px; animation: runArm1 0.5s ease-in-out infinite;">
-              <path d="M102 62 L110 78 L104 92" stroke-width="3.6" fill="none"/>
-              <circle cx="110" cy="78" r="1.8" fill="currentColor" stroke="none"/>
-              <circle cx="104" cy="93" r="2.4" fill="currentColor" fill-opacity="0.35" stroke-width="1.6"/>
+            <!-- BRAZO ÚNICO (lado cercano al espectador) -->
+            <g style="transform-origin: 102px 70px; animation: runArm1 0.62s cubic-bezier(.45,0,.55,1) infinite;">
+              <path d="M102 70 L110 86 L104 100" stroke-width="3.6" fill="none"/>
+              <circle cx="110" cy="86" r="1.8" fill="currentColor" stroke="none"/>
+              <circle cx="104" cy="101" r="2.4" fill="currentColor" fill-opacity="0.35" stroke-width="1.6"/>
             </g>
 
-            <!-- PIERNA DELANTERA (visible, levantada con rodilla alta) -->
-            <g style="transform-origin: 102px 107px; animation: runLeg1 0.5s ease-in-out infinite;">
-              <path d="M102 107 L114 120 L108 134" stroke-width="4.2" fill="none"/>
-              <circle cx="114" cy="120" r="2.2" fill="currentColor" stroke="none"/>
-              <!-- Zapatilla de perfil -->
-              <path d="M108 134 Q117 136 119 139 Q120 141 117 141 L107 140 Q105 138 106 136 Z" fill="currentColor" fill-opacity="0.35" stroke-width="1.8"/>
+            <!-- PIERNA DELANTERA (levantada, rodilla alta, toe a la derecha) -->
+            <g style="transform-origin: 102px 115px; animation: runLeg1 0.62s cubic-bezier(.45,0,.55,1) infinite;">
+              <path d="M102 115 L114 126 L108 140" stroke-width="4.2" fill="none"/>
+              <circle cx="114" cy="126" r="2.2" fill="currentColor" stroke="none"/>
+              <!-- Zapatilla con la punta apuntando hacia adelante -->
+              <path d="M106 140 Q104 143 107 145 L119 144 Q121 142 119 140 Z" fill="currentColor" fill-opacity="0.35" stroke-width="1.8"/>
             </g>
           </g>
 
-          <!-- Gotita de sudor que cae de la frente -->
-          <circle cx="105" cy="30" r="1.8" fill="currentColor" fill-opacity="0.4" stroke="none" style="animation: sweatDrop 1.6s ease-in infinite;"/>
+          <!-- Gotita de sudor que cae de la sien -->
+          <circle cx="109" cy="42" r="1.8" fill="currentColor" fill-opacity="0.4" stroke="none" style="animation: sweatDrop 1.8s ease-in infinite;"/>
         </svg>
       </div>
       <div class="estudio-card-body">
