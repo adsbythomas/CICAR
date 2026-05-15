@@ -202,10 +202,11 @@
             </g>
 
             <!-- BRAZO DE FONDO (lado lejano, leve desincronización con el delantero) -->
+            <!-- Codo apunta a la izquierda (atrás), pliegue mira a la derecha (adelante). -->
             <g style="transform-origin: 102px 70px; animation: runArm2 0.66s cubic-bezier(.45,0,.55,1) -0.08s infinite;" opacity="0.5">
-              <path d="M102 70 L94 84 L100 98" stroke-width="3.2" fill="none"/>
-              <circle cx="94" cy="84" r="1.6" fill="currentColor" stroke="none"/>
-              <circle cx="100" cy="99" r="2" fill="currentColor" fill-opacity="0.25" stroke-width="1.4"/>
+              <path d="M102 70 L96 86 L104 98" stroke-width="3.2" fill="none"/>
+              <circle cx="96" cy="86" r="1.6" fill="currentColor" stroke="none"/>
+              <circle cx="104" cy="99" r="2" fill="currentColor" fill-opacity="0.25" stroke-width="1.4"/>
             </g>
 
             <!-- CABEZA DE PERFIL (sin nariz) -->
@@ -234,11 +235,13 @@
             <path d="M95 104 L110 104 L110 116 Q107 119 102 119 Q97 119 95 116 Z"
                   fill="currentColor" fill-opacity="0.18" stroke-width="2.2"/>
 
-            <!-- BRAZO ÚNICO (lado cercano al espectador) -->
+            <!-- BRAZO DELANTERO (lado cercano al espectador) -->
+            <!-- Codo (parte osea) apunta a la izquierda = atras del corredor.
+                 Pliegue interno mira a la derecha = direccion de marcha. -->
             <g style="transform-origin: 102px 70px; animation: runArm1 0.62s cubic-bezier(.45,0,.55,1) infinite;">
-              <path d="M102 70 L110 86 L104 100" stroke-width="3.6" fill="none"/>
-              <circle cx="110" cy="86" r="1.8" fill="currentColor" stroke="none"/>
-              <circle cx="104" cy="101" r="2.4" fill="currentColor" fill-opacity="0.35" stroke-width="1.6"/>
+              <path d="M102 70 L94 86 L107 100" stroke-width="3.6" fill="none"/>
+              <circle cx="94" cy="86" r="1.8" fill="currentColor" stroke="none"/>
+              <circle cx="107" cy="101" r="2.4" fill="currentColor" fill-opacity="0.35" stroke-width="1.6"/>
             </g>
 
             <!-- PIERNA DELANTERA (levantada, rodilla alta, toe a la derecha) -->
