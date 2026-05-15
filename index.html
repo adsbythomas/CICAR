@@ -153,8 +153,27 @@
     <button type="button" class="estudios-tab" data-cat="otras" role="tab" aria-selected="false">
       <span class="tab-icon">🩺</span>
       <span class="tab-label">Especialidades asociadas</span>
-      <span class="tab-count">4</span>
+      <span class="tab-count">7</span>
     </button>
+  </div>
+
+  <!-- Buscador -->
+  <div class="estudios-search">
+    <svg class="estudios-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/>
+    </svg>
+    <input type="text" class="estudios-search-input" id="estudiosSearch" placeholder="Buscar estudio o especialidad…" aria-label="Buscar estudio o especialidad">
+    <button type="button" class="estudios-search-clear" id="estudiosSearchClear" aria-label="Limpiar búsqueda" hidden>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
+    </button>
+  </div>
+
+  <!-- Mensaje cuando no hay resultados -->
+  <div class="estudios-empty" id="estudiosEmpty" hidden>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/>
+    </svg>
+    <p>No encontramos estudios que coincidan con tu búsqueda.</p>
   </div>
 
   <div class="estudios-grid" id="estudiosGrid">
@@ -983,41 +1002,150 @@
 
   </div>
 
+  <!-- Boton Ver mas/menos (solo aparece cuando hay >6 cards en el filtro activo) -->
+  <div class="estudios-show-more-wrap" id="estudiosShowMoreWrap" hidden>
+    <button type="button" class="estudios-show-more-btn" id="estudiosShowMore">
+      <span class="estudios-show-more-text">Ver todos los estudios</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <polyline points="6 9 12 15 18 9"/>
+      </svg>
+    </button>
+  </div>
+
   <script>
     (function () {
-      var tabs = document.querySelectorAll('#estudiosTabs .estudios-tab');
-      var cards = document.querySelectorAll('#estudiosGrid .estudio-card');
+      var tabsEl     = document.getElementById('estudiosTabs');
+      var tabs       = tabsEl ? tabsEl.querySelectorAll('.estudios-tab') : [];
+      var cards      = document.querySelectorAll('#estudiosGrid .estudio-card');
+      var searchInput= document.getElementById('estudiosSearch');
+      var searchClear= document.getElementById('estudiosSearchClear');
+      var emptyMsg   = document.getElementById('estudiosEmpty');
+      var moreWrap   = document.getElementById('estudiosShowMoreWrap');
+      var moreBtn    = document.getElementById('estudiosShowMore');
+      var moreText   = moreBtn ? moreBtn.querySelector('.estudios-show-more-text') : null;
       if (!tabs.length || !cards.length) return;
 
-      function filter(cat) {
+      var INITIAL = 6;
+      var currentCat = 'cardiologia';
+      var query = '';
+      var expanded = false;
+
+      // normaliza texto: quita acentos para que "Ergometria" y "Ergometría" matcheen
+      function norm(s) {
+        return (s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+      }
+
+      function apply() {
+        var q = norm(query.trim());
+        var matching = [];
+
         cards.forEach(function (c) {
-          var match = c.dataset.cat === cat;
-          if (match) {
-            c.style.display = '';
-            // pequeña animación de entrada
-            c.classList.add('is-fade');
-            requestAnimationFrame(function () {
-              requestAnimationFrame(function () { c.classList.remove('is-fade'); });
-            });
+          var title = (c.querySelector('h3') || {}).textContent || '';
+          var desc  = (c.querySelector('.estudio-card-body p') || {}).textContent || '';
+          var tag   = (c.querySelector('.estudio-card-tag') || {}).textContent || '';
+          var ok;
+          if (q) {
+            var hay = norm(title + ' ' + desc + ' ' + tag);
+            ok = hay.indexOf(q) !== -1;
+          } else {
+            ok = c.dataset.cat === currentCat;
+          }
+          if (ok) {
+            matching.push(c);
           } else {
             c.style.display = 'none';
           }
         });
+
+        // Mostrar primeros 6, ocultar resto (a menos que se haya expandido o haya busqueda)
+        matching.forEach(function (c, i) {
+          var show = q || expanded || i < INITIAL;
+          c.style.display = show ? '' : 'none';
+          if (show) {
+            c.classList.add('is-fade');
+            requestAnimationFrame(function () {
+              requestAnimationFrame(function () { c.classList.remove('is-fade'); });
+            });
+          }
+        });
+
+        // Mensaje vacio
+        if (emptyMsg) emptyMsg.hidden = matching.length !== 0;
+
+        // Boton Ver mas (solo si hay mas de 6 y no hay busqueda)
+        if (moreWrap && moreBtn && moreText) {
+          var hasMore = !q && matching.length > INITIAL;
+          moreWrap.hidden = !hasMore;
+          if (hasMore) {
+            moreText.textContent = expanded
+              ? 'Ver menos'
+              : ('Ver los ' + matching.length + ' estudios');
+            moreBtn.classList.toggle('is-expanded', expanded);
+          }
+        }
+
+        // Atenuar tabs cuando hay busqueda activa
+        if (tabsEl) {
+          tabsEl.classList.toggle('is-search-mode', !!q);
+        }
       }
+
+      // Tabs
       tabs.forEach(function (tab) {
         tab.addEventListener('click', function () {
+          // si hay busqueda activa la limpiamos al cambiar de tab
+          if (query) {
+            query = '';
+            if (searchInput) searchInput.value = '';
+            if (searchClear) searchClear.hidden = true;
+          }
           tabs.forEach(function (t) {
             t.classList.remove('active');
             t.setAttribute('aria-selected', 'false');
           });
           tab.classList.add('active');
           tab.setAttribute('aria-selected', 'true');
-          filter(tab.dataset.cat);
+          currentCat = tab.dataset.cat;
+          expanded = false;
+          apply();
         });
       });
-      // Estado inicial: aplicar filtro de la pestaña activa (esfuerzo por defecto)
-      var initial = document.querySelector('#estudiosTabs .estudios-tab.active');
-      if (initial) filter(initial.dataset.cat);
+
+      // Buscador
+      if (searchInput) {
+        searchInput.addEventListener('input', function (e) {
+          query = e.target.value;
+          if (searchClear) searchClear.hidden = !query;
+          expanded = false;
+          apply();
+        });
+      }
+      if (searchClear) {
+        searchClear.addEventListener('click', function () {
+          query = '';
+          if (searchInput) { searchInput.value = ''; searchInput.focus(); }
+          searchClear.hidden = true;
+          apply();
+        });
+      }
+
+      // Ver mas / Ver menos
+      if (moreBtn) {
+        moreBtn.addEventListener('click', function () {
+          expanded = !expanded;
+          apply();
+          // si recien colapsamos, hacer scroll suave al tope de la grilla
+          if (!expanded) {
+            var grid = document.getElementById('estudiosGrid');
+            if (grid) grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        });
+      }
+
+      // Estado inicial
+      var initial = tabsEl.querySelector('.estudios-tab.active');
+      if (initial) currentCat = initial.dataset.cat;
+      apply();
     })();
   </script>
 </section>
