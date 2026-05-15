@@ -140,30 +140,20 @@
   </div>
 
   <div class="estudios-tabs" id="estudiosTabs" role="tablist" aria-label="Categorías de estudios">
-    <button type="button" class="estudios-tab active" data-cat="esfuerzo" role="tab" aria-selected="true">
-      <span class="tab-icon">🏃</span>
-      <span class="tab-label">Esfuerzo físico</span>
-      <span class="tab-count">3</span>
-    </button>
-    <button type="button" class="estudios-tab" data-cat="cardiovascular" role="tab" aria-selected="false">
+    <button type="button" class="estudios-tab active" data-cat="cardiologia" role="tab" aria-selected="true">
       <span class="tab-icon">🫀</span>
-      <span class="tab-label">Cardio y vasos</span>
-      <span class="tab-count">2</span>
+      <span class="tab-label">Cardiología</span>
+      <span class="tab-count">10</span>
     </button>
     <button type="button" class="estudios-tab" data-cat="imagen" role="tab" aria-selected="false">
       <span class="tab-icon">📡</span>
-      <span class="tab-label">Imagen y musculoesquelético</span>
-      <span class="tab-count">2</span>
+      <span class="tab-label">Imagen y laboratorio</span>
+      <span class="tab-count">4</span>
     </button>
-    <button type="button" class="estudios-tab" data-cat="complementario" role="tab" aria-selected="false">
-      <span class="tab-icon">🧪</span>
-      <span class="tab-label">Laboratorio y prequirúrgico</span>
-      <span class="tab-count">2</span>
-    </button>
-    <button type="button" class="estudios-tab" data-cat="areas" role="tab" aria-selected="false">
+    <button type="button" class="estudios-tab" data-cat="otras" role="tab" aria-selected="false">
       <span class="tab-icon">🩺</span>
-      <span class="tab-label">Consultas y especialidades</span>
-      <span class="tab-count">9</span>
+      <span class="tab-label">Especialidades asociadas</span>
+      <span class="tab-count">4</span>
     </button>
   </div>
 
@@ -172,7 +162,7 @@
     <!-- ── ESFUERZO ── -->
 
     <!-- 1. Ergometría — cinta + persona corriendo -->
-    <article class="estudio-card" data-cat="esfuerzo">
+    <article class="estudio-card" data-cat="cardiologia">
       <div class="estudio-card-anim">
         <svg viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
           <!-- Consola -->
@@ -223,7 +213,7 @@
     </article>
 
     <!-- 2. Ecoestrés con ejercicio — ECG dibujándose + corazón rápido -->
-    <article class="estudio-card" data-cat="esfuerzo">
+    <article class="estudio-card" data-cat="cardiologia">
       <div class="estudio-card-anim">
         <svg viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
           <!-- Pantalla / monitor -->
@@ -258,7 +248,7 @@
     </article>
 
     <!-- 3. Apto físico — certificado + sello -->
-    <article class="estudio-card" data-cat="esfuerzo">
+    <article class="estudio-card" data-cat="cardiologia">
       <div class="estudio-card-anim">
         <svg viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
           <!-- Hoja del certificado -->
@@ -295,7 +285,7 @@
     <!-- ── CARDIOVASCULAR ── -->
 
     <!-- 4. Ecodoppler cardíaco color — corazón con ondas de color -->
-    <article class="estudio-card" data-cat="cardiovascular">
+    <article class="estudio-card" data-cat="cardiologia">
       <div class="estudio-card-anim">
         <svg viewBox="0 0 200 200" fill="none" stroke-linecap="round" stroke-linejoin="round">
           <!-- Ondas Doppler de color -->
@@ -330,7 +320,7 @@
     </article>
 
     <!-- 5. Ecodoppler de vasos de cuello y vascular periférico — vaso con partículas -->
-    <article class="estudio-card" data-cat="cardiovascular">
+    <article class="estudio-card" data-cat="cardiologia">
       <div class="estudio-card-anim">
         <svg viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
           <!-- Vaso/arteria principal — pared exterior -->
@@ -447,7 +437,7 @@
     <!-- ── COMPLEMENTARIO (Laboratorio + Prequirúrgico) ── -->
 
     <!-- 8. Laboratorio — tubos de ensayo con burbujas + gota -->
-    <article class="estudio-card" data-cat="complementario" style="display:none">
+    <article class="estudio-card" data-cat="imagen" style="display:none">
       <div class="estudio-card-anim">
         <svg viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
           <!-- Tubo 1 -->
@@ -497,7 +487,7 @@
     </article>
 
     <!-- 9. Estudios prequirúrgicos — clipboard con checks + corazón -->
-    <article class="estudio-card" data-cat="complementario" style="display:none">
+    <article class="estudio-card" data-cat="imagen" style="display:none">
       <div class="estudio-card-anim">
         <svg viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
           <!-- Clip arriba -->
@@ -543,7 +533,7 @@
     <!-- ── CONSULTAS Y ESPECIALIDADES (9 áreas) ── -->
 
     <!-- 10. Cardiología Clínica — estetoscopio con corazón -->
-    <article class="estudio-card" data-cat="areas" style="display:none">
+    <article class="estudio-card" data-cat="cardiologia">
       <div class="estudio-card-anim">
         <svg viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="60" cy="28" r="4" fill="currentColor"/>
@@ -573,7 +563,7 @@
     </article>
 
     <!-- 11. Ecocardiografía — pantalla con corazón y grilla -->
-    <article class="estudio-card" data-cat="areas" style="display:none">
+    <article class="estudio-card" data-cat="cardiologia">
       <div class="estudio-card-anim">
         <svg viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
           <rect x="20" y="40" width="160" height="110" rx="8" stroke-width="3"/>
@@ -606,7 +596,7 @@
     </article>
 
     <!-- 12. Electrocardiografía — línea ECG continua -->
-    <article class="estudio-card" data-cat="areas" style="display:none">
+    <article class="estudio-card" data-cat="cardiologia">
       <div class="estudio-card-anim">
         <svg viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
           <line x1="10" y1="100" x2="190" y2="100" stroke-width="1" opacity="0.25"/>
@@ -630,7 +620,7 @@
     </article>
 
     <!-- 13. Ergometría (área) — gráfico de tendencia ascendente + corazón -->
-    <article class="estudio-card" data-cat="areas" style="display:none">
+    <article class="estudio-card" data-cat="cardiologia">
       <div class="estudio-card-anim">
         <svg viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
           <line x1="30" y1="170" x2="180" y2="170" stroke-width="2"/>
@@ -660,7 +650,7 @@
     </article>
 
     <!-- 14. Cese Tabáquico — cigarrillo con prohibido -->
-    <article class="estudio-card" data-cat="areas" style="display:none">
+    <article class="estudio-card" data-cat="otras" style="display:none">
       <div class="estudio-card-anim">
         <svg viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
           <!-- Humo -->
@@ -693,7 +683,7 @@
     </article>
 
     <!-- 15. Nefrología — riñón con goteo -->
-    <article class="estudio-card" data-cat="areas" style="display:none">
+    <article class="estudio-card" data-cat="otras" style="display:none">
       <div class="estudio-card-anim">
         <svg viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
           <!-- Riñón silueta -->
@@ -727,7 +717,7 @@
     </article>
 
     <!-- 16. Nutrición — manzana con hoja meciéndose -->
-    <article class="estudio-card" data-cat="areas" style="display:none">
+    <article class="estudio-card" data-cat="otras" style="display:none">
       <div class="estudio-card-anim">
         <svg viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
           <!-- Cuerpo de manzana -->
@@ -755,7 +745,7 @@
     </article>
 
     <!-- 17. Salud Mental — cerebro con ondas calmantes -->
-    <article class="estudio-card" data-cat="areas" style="display:none">
+    <article class="estudio-card" data-cat="otras" style="display:none">
       <div class="estudio-card-anim">
         <svg viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
           <!-- Cerebro silueta -->
@@ -788,7 +778,7 @@
     </article>
 
     <!-- 18. Rehabilitación Cardíaca — flechas circulares + corazón -->
-    <article class="estudio-card" data-cat="areas" style="display:none">
+    <article class="estudio-card" data-cat="cardiologia">
       <div class="estudio-card-anim">
         <svg viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
           <!-- Flechas circulares animadas (rotan) -->
