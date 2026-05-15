@@ -316,7 +316,13 @@
     flex-shrink: 0;
   }
   .hero-pill-icon svg { width: 18px; height: 18px; }
-  .hero-pill-text { line-height: 1.25; }
+  .hero-pill-text {
+    line-height: 1.25;
+    flex: 1;
+    min-width: 0;
+    text-align: center;
+    padding-right: 22px; /* compensa el icono de la izquierda para centrar visualmente */
+  }
   .hero-pill-text strong {
     display: block;
     color: white; font-weight: 700;
