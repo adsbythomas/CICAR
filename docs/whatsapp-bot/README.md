@@ -9,6 +9,7 @@ para el Centro Médico CICAR, integrado con Omnia Salud.
 
 | # | Documento | Contenido |
 |---|---|---|
+| 0 | [00-presentacion-dueno.md](./00-presentacion-dueno.md) | **Briefing completo para la reunión con el dueño de CICAR** |
 | 1 | [01-arquitectura.md](./01-arquitectura.md) | Stack, diagrama general, costos, decisiones |
 | 2 | [02-flujos.md](./02-flujos.md) | Máquina de estados, casos de uso, mocks de conversación |
 | 3 | [03-schema-supabase.sql](./03-schema-supabase.sql) | Schema SQL completo, listo para correr en Supabase |
