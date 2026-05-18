@@ -1,0 +1,17 @@
+# Secrets · NUNCA commitear
+secrets.env
+*.env
+!*.env.example
+.env.local
+.env.production
+
+# IDE
+.vscode/
+.idea/
+.DS_Store
+
+# n8n exports temporales
+*.local-credentials.json
+
+# Logs
+*.log
