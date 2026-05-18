@@ -16,6 +16,10 @@ para el Centro Médico CICAR, integrado con Omnia Salud.
 | 4 | [04-preguntas-omnia.md](./04-preguntas-omnia.md) | Cuestionario técnico para el equipo de Omnia |
 | 5 | [05-consentimiento-legal.md](./05-consentimiento-legal.md) | Borrador Ley 25.326 + textos legales (pendiente validación de abogado) |
 | 6 | [06-plantillas-whatsapp.md](./06-plantillas-whatsapp.md) | Templates para aprobar en Meta Business |
+| 7 | [07-setup-cuentas.md](./07-setup-cuentas.md) | Guía paso a paso para crear cada cuenta (Meta, Supabase, n8n, Anthropic, Chatwoot, Sentry, Better Stack, AAIP) |
+| 8 | [08-checklist-arranque.md](./08-checklist-arranque.md) | Plan semanal de ejecución, día por día |
+| — | [secrets.env.example](./secrets.env.example) | Template de variables de entorno (copiar a `secrets.env`, NO commitear) |
+| — | [workflows/](./workflows/) | Workflows de n8n (se generan incrementalmente) |
 
 ## Decisiones tomadas
 
