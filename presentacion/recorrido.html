@@ -1,0 +1,1284 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1486565559631508');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1486565559631508&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0a1422">
+<title>CICAR Barrio Norte — Una experiencia médica diferente</title>
+<link rel="icon" type="image/png" href="imgs/favicon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fraunces:opsz,wght@9..144,200;9..144,300;9..144,400;9..144,500;9..144,600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --ink: #0a1422;
+  --ink-2: #142337;
+  --paper: #f6f3ee;
+  --bone: #e9e4dc;
+  --accent: #1D84C7;
+  --accent-2: #A6DAF1;
+  --navy: #172E44;
+  --muted: #7a8a9d;
+  --line: rgba(255,255,255,0.08);
+  --line-dark: rgba(10,20,34,0.1);
+  --serif: 'Fraunces', 'Times New Roman', serif;
+  --sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --mono: 'Space Mono', ui-monospace, monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--sans);
+  background: var(--ink);
+  color: var(--paper);
+  font-size: 16px;
+  line-height: 1.5;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+img { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+
+/* ============ LOADER ============ */
+.loader {
+  position: fixed; inset: 0; z-index: 9999;
+  background: var(--ink);
+  display: flex; align-items: center; justify-content: center; flex-direction: column;
+  transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+.loader.gone { opacity: 0; visibility: hidden; pointer-events: none; }
+.loader img { height: 50px; opacity: 0.95; margin-bottom: 2rem; animation: pulse 2s ease-in-out infinite; }
+.loader-bar { width: 120px; height: 1px; background: rgba(255,255,255,0.15); overflow: hidden; }
+.loader-bar span { display: block; height: 100%; background: var(--paper); width: 0; animation: load 1.4s ease-out forwards; }
+@keyframes pulse { 0%, 100% { opacity: 0.95 } 50% { opacity: 0.55 } }
+@keyframes load { to { width: 100% } }
+
+/* ============ CURSOR ============ */
+.cursor-dot, .cursor-ring {
+  position: fixed; top: 0; left: 0;
+  pointer-events: none; z-index: 9000;
+  mix-blend-mode: difference;
+  transition: opacity 0.3s;
+  display: none;
+}
+.cursor-dot { width: 6px; height: 6px; background: white; border-radius: 50%; transform: translate(-50%, -50%); }
+.cursor-ring { width: 32px; height: 32px; border: 1px solid white; border-radius: 50%; transform: translate(-50%, -50%); transition: width 0.25s, height 0.25s, transform 0.12s ease-out; }
+body.cursor-active .cursor-dot, body.cursor-active .cursor-ring { display: block; }
+body.cursor-hover .cursor-ring { width: 60px; height: 60px; }
+@media (max-width: 900px) {
+  body.cursor-active .cursor-dot, body.cursor-active .cursor-ring { display: none !important; }
+}
+
+/* ============ PROGRESS BAR ============ */
+.progress {
+  position: fixed; top: 0; left: 0; right: 0; height: 2px;
+  background: rgba(255,255,255,0.06);
+  z-index: 100;
+}
+.progress span {
+  display: block; height: 100%; width: 0%;
+  background: var(--accent-2);
+  transition: width 0.1s linear;
+}
+
+/* ============ NAV ============ */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 90;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.5rem 2.5rem;
+  mix-blend-mode: difference;
+}
+.nav img { height: 28px; filter: invert(1) brightness(2); }
+.nav-meta {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: white;
+  opacity: 0.8;
+}
+.nav-meta span { opacity: 0.5; margin: 0 0.5rem; }
+
+/* ============ CHAPTER MARKER ============ */
+.chapter {
+  position: fixed; left: 1.5rem; top: 50%;
+  transform: translateY(-50%) rotate(-90deg);
+  transform-origin: left center;
+  z-index: 80;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--paper);
+  mix-blend-mode: difference;
+  transition: opacity 0.4s;
+  white-space: nowrap;
+  pointer-events: none;
+}
+@media (max-width: 900px) { .chapter { display: none } }
+
+/* ============ TYPOGRAPHY ============ */
+.serif { font-family: var(--serif); }
+.mono { font-family: var(--mono); }
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  opacity: 0.65;
+  display: inline-flex; align-items: center; gap: 0.7rem;
+  margin-bottom: 1.5rem;
+}
+.eyebrow::before {
+  content: '';
+  width: 28px; height: 1px;
+  background: currentColor;
+  opacity: 0.5;
+}
+h1, h2, h3 { font-weight: 400; letter-spacing: -0.02em; line-height: 1; }
+.display {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-variation-settings: 'opsz' 144;
+  font-size: clamp(3.5rem, 12vw, 11rem);
+  line-height: 0.92;
+  letter-spacing: -0.04em;
+}
+.display em { font-style: italic; font-weight: 400; }
+.h-display {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(2.2rem, 6vw, 5.5rem);
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+}
+.h-display em { font-style: italic; font-weight: 400; }
+.section-num {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  opacity: 0.5;
+}
+
+/* ============ SECTIONS ============ */
+section { position: relative; padding: 8rem 2.5rem; }
+.section-light { background: var(--paper); color: var(--ink); }
+.section-light .eyebrow { color: var(--ink); }
+.container { max-width: 1380px; margin: 0 auto; }
+.container-text { max-width: 980px; margin: 0 auto; }
+
+/* ============ HERO ============ */
+.hero {
+  min-height: 100vh;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  align-items: stretch;
+  overflow: hidden;
+}
+.hero-left {
+  padding: 6rem 4rem 3rem;
+  display: flex; flex-direction: column; justify-content: space-between;
+  position: relative; z-index: 2;
+}
+.hero-right {
+  position: relative;
+  overflow: hidden;
+}
+.hero-right::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(90deg, rgba(10,20,34,0.6) 0%, rgba(10,20,34,0) 50%);
+}
+.hero-img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transform: scale(1.05);
+  animation: heroZoom 18s ease-out forwards;
+}
+@keyframes heroZoom { to { transform: scale(1) } }
+
+.hero-title {
+  font-family: var(--serif);
+  font-weight: 200;
+  font-variation-settings: 'opsz' 144;
+  font-size: clamp(4rem, 14vw, 14rem);
+  line-height: 0.85;
+  letter-spacing: -0.06em;
+  margin-top: auto;
+}
+.hero-title .char { display: inline-block; opacity: 0; transform: translateY(80px); transition: opacity 0.9s cubic-bezier(.2,.7,.2,1), transform 0.9s cubic-bezier(.2,.7,.2,1); }
+.hero-title .char.in { opacity: 1; transform: none; }
+.hero-title em { font-style: italic; font-weight: 300; color: var(--accent-2); }
+
+.hero-tagline {
+  font-family: var(--sans);
+  font-size: clamp(0.95rem, 1.1vw, 1.05rem);
+  line-height: 1.45;
+  max-width: 360px;
+  opacity: 0.7;
+  margin-top: 1.5rem;
+  letter-spacing: 0.01em;
+  font-weight: 300;
+}
+.hero-top {
+  display: flex; justify-content: space-between; align-items: center;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.55;
+}
+.scroll-cue {
+  position: absolute; bottom: 2rem; right: 2.5rem;
+  font-family: var(--mono);
+  font-size: 0.7rem; letter-spacing: 0.22em;
+  text-transform: uppercase;
+  display: flex; flex-direction: column; align-items: center; gap: 1rem;
+  opacity: 0.7; color: white; z-index: 3;
+}
+.scroll-cue-line {
+  width: 1px; height: 50px; background: white; position: relative; overflow: hidden;
+}
+.scroll-cue-line::before {
+  content: ''; position: absolute; inset: 0;
+  background: var(--accent-2);
+  transform: translateY(-100%);
+  animation: scrollLine 2s ease-in-out infinite;
+}
+@keyframes scrollLine { 0% { transform: translateY(-100%) } 50% { transform: translateY(0) } 100% { transform: translateY(100%) } }
+
+/* ============ STATEMENT ============ */
+.statement {
+  min-height: 100vh;
+  display: flex; align-items: center;
+  padding: 10rem 2.5rem;
+}
+.statement-text {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(2rem, 5vw, 4.5rem);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  max-width: 1100px;
+}
+.statement-text em { font-style: italic; color: var(--accent-2); }
+.statement .word { display: inline-block; opacity: 0.15; transition: opacity 0.6s ease; }
+.statement .word.in { opacity: 1; }
+
+/* ============ MARQUEE ============ */
+.marquee {
+  background: var(--ink-2);
+  padding: 2rem 0;
+  overflow: hidden;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.marquee-track {
+  display: flex;
+  white-space: nowrap;
+  animation: marquee 35s linear infinite;
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(2.2rem, 6vw, 5rem);
+  letter-spacing: -0.02em;
+}
+.marquee-track span { padding: 0 2rem; opacity: 0.9; }
+.marquee-track .dot { opacity: 0.3; font-style: italic; color: var(--accent-2); }
+@keyframes marquee { from { transform: translateX(0) } to { transform: translateX(-50%) } }
+
+/* ============ STATS / NUMBERS ============ */
+.stats {
+  padding: 10rem 2.5rem;
+}
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4rem;
+  margin-top: 5rem;
+  border-top: 1px solid var(--line);
+}
+.stat {
+  padding: 3rem 0 0;
+  border-right: 1px solid var(--line);
+  position: relative;
+}
+.stat:last-child { border-right: none; }
+.stat-num {
+  font-family: var(--serif);
+  font-weight: 200;
+  font-variation-settings: 'opsz' 144;
+  font-size: clamp(5rem, 14vw, 13rem);
+  line-height: 0.85;
+  letter-spacing: -0.05em;
+  margin-bottom: 1.5rem;
+}
+.stat-label {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+.stat-sub {
+  font-size: 0.92rem;
+  opacity: 0.55;
+  margin-top: 0.75rem;
+  max-width: 240px;
+  line-height: 1.5;
+}
+
+/* ============ FULLBLEED ============ */
+.fullbleed {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+  padding: 0;
+  display: flex; align-items: flex-end;
+}
+.fullbleed-img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+}
+.fullbleed::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(10,20,34,0.2) 0%, rgba(10,20,34,0.4) 50%, rgba(10,20,34,0.92) 100%);
+}
+.fullbleed-content {
+  position: relative; z-index: 2;
+  padding: 5rem 2.5rem;
+  max-width: 1380px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* ============ MAGAZINE LAYOUT ============ */
+.mag {
+  display: grid;
+  grid-template-columns: 5fr 7fr;
+  gap: 5rem;
+  align-items: center;
+}
+.mag.reverse { grid-template-columns: 7fr 5fr; }
+.mag.reverse > div:first-child { order: 2; }
+.mag.reverse > div:last-child { order: 1; }
+.mag-img-wrap {
+  position: relative;
+  overflow: hidden;
+}
+.mag-img-wrap img {
+  width: 100%;
+  aspect-ratio: 4/5;
+  object-fit: cover;
+  transition: transform 1.5s ease;
+}
+.mag-img-wrap.landscape img { aspect-ratio: 4/3; }
+.mag-img-wrap.square img { aspect-ratio: 1/1; }
+.mag-body p {
+  font-size: 1.05rem;
+  line-height: 1.65;
+  max-width: 540px;
+  margin-top: 2rem;
+  opacity: 0.78;
+}
+.mag-body p strong { font-weight: 500; opacity: 1; }
+.mag-meta {
+  display: flex;
+  gap: 3rem;
+  margin-top: 3rem;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+.mag-meta div span { display: block; opacity: 0.45; margin-bottom: 0.35rem; }
+
+/* ============ HORIZONTAL SCROLL ============ */
+.hscroll-wrap {
+  height: 400vh;
+  position: relative;
+}
+.hscroll-sticky {
+  position: sticky; top: 0;
+  height: 100vh;
+  display: flex; flex-direction: column;
+  overflow: hidden;
+}
+.hscroll-header {
+  padding: 6rem 2.5rem 2rem;
+  display: flex; justify-content: space-between; align-items: flex-end;
+  flex-wrap: wrap; gap: 2rem;
+}
+.hscroll-header .h-display { max-width: 700px; }
+.hscroll-tracker {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+.hscroll-track-container {
+  flex: 1;
+  overflow: hidden;
+  display: flex; align-items: center;
+  padding: 0 2.5rem 2rem;
+}
+.hscroll-track {
+  display: flex;
+  gap: 1.5rem;
+  will-change: transform;
+}
+.hscroll-card {
+  width: 60vh;
+  max-width: 480px;
+  min-width: 320px;
+  height: 70vh;
+  max-height: 600px;
+  background: var(--ink-2);
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+  flex-shrink: 0;
+}
+.hscroll-card img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s ease;
+}
+.hscroll-card:hover img { transform: scale(1.05); }
+.hscroll-card-label {
+  position: absolute; bottom: 1.25rem; left: 1.25rem; right: 1.25rem;
+  display: flex; justify-content: space-between; align-items: flex-end;
+  font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.15em;
+  text-transform: uppercase; color: white;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+}
+
+/* ============ EQUIPMENT LIST ============ */
+.equip-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0 4rem;
+  margin-top: 3rem;
+}
+.equip-item {
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1.5rem;
+  align-items: baseline;
+}
+.section-light .equip-item { border-color: var(--line-dark); }
+.equip-num {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  opacity: 0.45;
+}
+.equip-item h4 {
+  font-family: var(--sans);
+  font-size: 1.05rem;
+  font-weight: 500;
+  margin-bottom: 0.35rem;
+}
+.equip-item p {
+  font-size: 0.88rem;
+  opacity: 0.6;
+  line-height: 1.55;
+}
+
+/* ============ CARDS GRID ============ */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1px;
+  margin-top: 5rem;
+  background: var(--line);
+}
+.section-light .cards { background: var(--line-dark); }
+.card-item {
+  background: var(--ink);
+  padding: 2.25rem 1.75rem 2rem;
+  position: relative;
+  min-height: 200px;
+  display: flex; flex-direction: column; justify-content: space-between;
+  transition: background 0.4s ease;
+}
+.section-light .card-item { background: var(--paper); }
+.card-item:hover { background: var(--ink-2); }
+.section-light .card-item:hover { background: var(--bone); }
+.card-num {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  opacity: 0.4;
+}
+.card-item h3 {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: 1.6rem;
+  line-height: 1.05;
+  margin-top: 2rem;
+}
+.card-item h3 em { font-style: italic; }
+.card-item p {
+  font-size: 0.83rem;
+  opacity: 0.55;
+  margin-top: 0.85rem;
+  line-height: 1.55;
+}
+
+/* ============ DUO ============ */
+.duo {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 4rem;
+}
+.duo-card {
+  position: relative;
+  aspect-ratio: 4/5;
+  overflow: hidden;
+  background: var(--ink-2);
+}
+.duo-card img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 1.5s ease;
+}
+.duo-card:hover img { transform: scale(1.06); }
+.duo-card::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(10,20,34,0) 50%, rgba(10,20,34,0.95) 100%);
+}
+.duo-content {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 2.5rem;
+  z-index: 2;
+  color: white;
+}
+.duo-content h3 {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(1.6rem, 3vw, 2.6rem);
+  line-height: 1.05;
+  margin-bottom: 1rem;
+}
+.duo-content h3 em { font-style: italic; }
+.duo-content p {
+  font-size: 0.92rem;
+  opacity: 0.85;
+  line-height: 1.55;
+  max-width: 380px;
+}
+
+/* ============ PILARES ============ */
+.pilares {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  margin-top: 5rem;
+  background: var(--line);
+}
+.pilar {
+  background: var(--ink);
+  padding: 3rem 2.25rem 3rem;
+}
+.pilar-num {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  opacity: 0.4;
+  margin-bottom: 3rem;
+  display: block;
+}
+.pilar h3 {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(1.6rem, 2.5vw, 2rem);
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+}
+.pilar h3 em { font-style: italic; color: var(--accent-2); }
+.pilar p {
+  font-size: 0.95rem;
+  line-height: 1.65;
+  opacity: 0.7;
+}
+
+/* ============ CONTACT ============ */
+.cta-section {
+  min-height: 100vh;
+  display: flex; align-items: center;
+  padding: 8rem 2.5rem;
+}
+.cta-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 5rem;
+  align-items: center;
+}
+.cta-info {
+  display: grid;
+  gap: 1.25rem;
+}
+.cta-row {
+  padding: 1.5rem 0;
+  border-top: 1px solid var(--line-dark);
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  gap: 1.5rem;
+  align-items: baseline;
+}
+.cta-row:last-child { border-bottom: 1px solid var(--line-dark); }
+.cta-row .label {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.55;
+}
+.cta-row .value {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(1.1rem, 1.5vw, 1.35rem);
+  line-height: 1.3;
+}
+.cta-row .value a { border-bottom: 1px solid transparent; transition: border-color 0.2s; }
+.cta-row .value a:hover { border-bottom-color: currentColor; }
+
+/* ============ FOOTER ============ */
+footer {
+  padding: 4rem 2.5rem 3rem;
+  border-top: 1px solid var(--line);
+  text-align: center;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  opacity: 0.55;
+}
+footer img { height: 28px; margin: 0 auto 2rem; opacity: 0.8; }
+footer p { line-height: 1.8; }
+
+/* ============ REVEAL ============ */
+.reveal { opacity: 0; transform: translateY(40px); transition: opacity 1s cubic-bezier(.2,.7,.2,1), transform 1s cubic-bezier(.2,.7,.2,1); }
+.reveal.in { opacity: 1; transform: none; }
+.reveal-clip {
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path 1.4s cubic-bezier(.77,0,.18,1);
+}
+.reveal-clip.in { clip-path: inset(0 0 0 0); }
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 1024px) {
+  section { padding: 6rem 1.75rem; }
+  .hero { grid-template-columns: 1fr; min-height: 100vh; }
+  .hero-left { padding: 5rem 1.75rem 3rem; min-height: 100vh; }
+  .hero-right { display: none; }
+  .hero { background: var(--ink); position: relative; }
+  .hero::before {
+    content: ''; position: absolute; inset: 0;
+    background: url('imgs/01-ascensores.jpg') center/cover;
+    opacity: 0.25;
+  }
+  .stats-grid { grid-template-columns: 1fr; gap: 2rem; }
+  .stat { border-right: none; border-bottom: 1px solid var(--line); padding: 2rem 0; }
+  .stat:last-child { border-bottom: none; }
+  .mag { grid-template-columns: 1fr; gap: 3rem; }
+  .mag.reverse > div:first-child { order: 1; }
+  .mag.reverse > div:last-child { order: 2; }
+  .equip-grid { grid-template-columns: 1fr; gap: 0; }
+  .duo { grid-template-columns: 1fr; }
+  .pilares { grid-template-columns: 1fr; }
+  .cta-grid { grid-template-columns: 1fr; gap: 3rem; }
+  .hscroll-wrap { height: auto; }
+  .hscroll-sticky { position: relative; height: auto; }
+  .hscroll-track-container { overflow-x: auto; -webkit-overflow-scrolling: touch; padding: 0 1.75rem 2rem; scroll-snap-type: x mandatory; }
+  .hscroll-track { transform: none !important; }
+  .hscroll-card { width: 80vw; height: 70vh; scroll-snap-align: center; }
+  .nav { padding: 1rem 1.25rem; }
+  .nav-meta { display: none; }
+}
+@media (max-width: 640px) {
+  body { font-size: 15px; }
+  section { padding: 5rem 1.25rem; }
+  .hero-left { padding: 5rem 1.25rem 2.5rem; }
+  .hero-tagline { max-width: 100%; }
+  .statement-text { font-size: clamp(1.7rem, 7vw, 3rem); }
+  .stats-grid { margin-top: 3rem; }
+  .marquee { padding: 1.25rem 0; }
+  .cards { grid-template-columns: 1fr 1fr; }
+  .cta-row { grid-template-columns: 1fr; gap: 0.35rem; }
+}
+
+::selection { background: var(--accent-2); color: var(--ink); }
+</style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div class="loader" id="loader">
+  <img src="imgs/logo-blanco.png" alt="CICAR">
+  <div class="loader-bar"><span></span></div>
+</div>
+
+<!-- CURSOR -->
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- PROGRESS -->
+<div class="progress"><span id="progress"></span></div>
+
+<!-- NAV -->
+<header class="nav">
+  <a href="#"><img src="imgs/logo-blanco.png" alt="CICAR"></a>
+  <div class="nav-meta">Uruguay 783 <span>·</span> Barrio Norte <span>·</span> CABA</div>
+</header>
+
+<!-- CHAPTER MARKER -->
+<div class="chapter" id="chapter">01 — Inicio</div>
+
+<!-- ============ HERO ============ -->
+<section class="hero" data-chapter="01 — Inicio">
+  <div class="hero-left">
+    <div class="hero-top">
+      <span>MMXXVI</span>
+      <span>Una experiencia médica</span>
+    </div>
+    <div>
+      <h1 class="hero-title" id="heroTitle">CICAR<br><em>Barrio Norte</em></h1>
+      <p class="hero-tagline">Centro médico cardiológico integral. Diagnóstico, tratamiento y seguimiento en un mismo lugar. Tecnología de última generación, atención humana.</p>
+    </div>
+  </div>
+  <div class="hero-right">
+    <img src="imgs/01-ascensores.jpg" alt="Edificio CICAR" class="hero-img">
+  </div>
+  <div class="scroll-cue">
+    <span>Recorrer</span>
+    <div class="scroll-cue-line"></div>
+  </div>
+</section>
+
+<!-- ============ STATEMENT 1 ============ -->
+<section class="statement" data-chapter="02 — Propósito">
+  <div class="container">
+    <p class="section-num reveal">02 / Propósito</p>
+    <div class="statement-text" id="statement1" style="margin-top: 4rem">
+      <span>Cuando</span>
+      <span>la</span>
+      <span>cardiología</span>
+      <span>deja</span>
+      <span>de</span>
+      <span>ser</span>
+      <span>una</span>
+      <span>visita</span>
+      <span>y</span>
+      <span><em>se vuelve cuidado integral.</em></span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MARQUEE ============ -->
+<div class="marquee">
+  <div class="marquee-track">
+    <span>Uruguay 783</span><span class="dot">/</span>
+    <span>San Nicolás</span><span class="dot">/</span>
+    <span>CABA</span><span class="dot">/</span>
+    <span>Edificio a estrenar</span><span class="dot">/</span>
+    <span>Seguridad 24h</span><span class="dot">/</span>
+    <span>Uruguay 783</span><span class="dot">/</span>
+    <span>San Nicolás</span><span class="dot">/</span>
+    <span>CABA</span><span class="dot">/</span>
+    <span>Edificio a estrenar</span><span class="dot">/</span>
+    <span>Seguridad 24h</span><span class="dot">/</span>
+  </div>
+</div>
+
+<!-- ============ STATS ============ -->
+<section class="stats" data-chapter="03 — En números">
+  <div class="container">
+    <div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 2rem">
+      <div>
+        <p class="section-num reveal">03 / El centro en números</p>
+        <h2 class="h-display reveal" style="margin-top: 1.5rem; max-width: 800px">Una infraestructura <em>completa</em> bajo un mismo techo.</h2>
+      </div>
+      <p style="max-width: 320px; opacity: 0.6; font-size: 0.95rem" class="reveal">Diseñado para resolver el universo cardiovascular del paciente sin derivaciones externas.</p>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat">
+        <div class="stat-num" data-count="8">0</div>
+        <div class="stat-label">Consultorios</div>
+        <p class="stat-sub">Totalmente equipados con tecnología de última generación y luz natural.</p>
+      </div>
+      <div class="stat">
+        <div class="stat-num" data-count="10">0</div>
+        <div class="stat-label">Especialidades</div>
+        <p class="stat-sub">Atención cardiovascular complementada con clínica, nefrología, diabetología, salud mental y más.</p>
+      </div>
+      <div class="stat">
+        <div class="stat-num" data-count="8">0</div>
+        <div class="stat-label">Estudios</div>
+        <p class="stat-sub">Diagnóstico completo en el mismo centro: ECG, ergometría, ecoestrés, Doppler, Holter, MAPA.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BUILDING ============ -->
+<section class="fullbleed" data-chapter="04 — Ubicación">
+  <img src="imgs/01-ascensores.jpg" alt="Edificio" class="fullbleed-img">
+  <div class="fullbleed-content">
+    <p class="section-num reveal" style="color: white">04 / Ubicación</p>
+    <h2 class="display reveal" style="color: white; margin-top: 1.5rem; max-width: 1200px">Un edificio <em>a estrenar</em></h2>
+    <p style="color: white; opacity: 0.85; font-size: 1.1rem; max-width: 600px; margin-top: 2.5rem; line-height: 1.55" class="reveal">Uruguay 783, Piso 3, Oficina 301. San Nicolás, Buenos Aires. Hall corporativo, ascensores de alta velocidad, seguridad las 24 horas.</p>
+  </div>
+</section>
+
+<!-- ============ RECEPCIÓN — MAG ============ -->
+<section class="section-light" data-chapter="05 — Recepción">
+  <div class="container">
+    <p class="section-num">05 / Bienvenida</p>
+    <div class="mag" style="margin-top: 3rem">
+      <div class="mag-img-wrap reveal-clip">
+        <img src="imgs/03-recepcion-b.jpg" alt="Recepción CICAR" loading="lazy">
+      </div>
+      <div class="mag-body">
+        <h2 class="h-display reveal">La primera impresión, <em>cuenta</em>.</h2>
+        <p class="reveal">Recepción atendida por <strong>secretaría dedicada</strong> en horario de atención completo. Sistema de turnos digital integrado por web y WhatsApp, historia clínica y receta digital, videoconsultas. Gestión moderna sin perder el toque humano.</p>
+        <div class="mag-meta reveal">
+          <div><span>Sistema</span>Turnos digitales</div>
+          <div><span>HC</span>100% digital</div>
+          <div><span>Receta</span>Electrónica</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SALA DE ESPERA — MAG REVERSE ============ -->
+<section data-chapter="06 — Sala de espera">
+  <div class="container">
+    <p class="section-num reveal">06 / Espera</p>
+    <div class="mag reverse" style="margin-top: 3rem">
+      <div class="mag-body">
+        <h2 class="h-display reveal">Espacios <em>diseñados</em><br>para respirar.</h2>
+        <p class="reveal">Hormigón visto, iluminación natural, mobiliario contemporáneo. La sala de espera deja de ser un trámite y se transforma en parte de la experiencia. Tu paciente llega y siente que está en un lugar donde lo van a cuidar bien.</p>
+        <div class="mag-meta reveal">
+          <div><span>Diseño</span>Contemporáneo</div>
+          <div><span>Luz</span>Natural</div>
+          <div><span>Capacidad</span>Amplia</div>
+        </div>
+      </div>
+      <div class="mag-img-wrap reveal-clip">
+        <img src="imgs/06-sala-b.jpg" alt="Sala de espera" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HORIZONTAL SCROLL: CONSULTORIOS ============ -->
+<div class="hscroll-wrap" data-chapter="07 — Consultorios">
+  <div class="hscroll-sticky">
+    <div class="hscroll-header">
+      <div>
+        <p class="section-num reveal">07 / Infraestructura</p>
+        <h2 class="h-display reveal" style="margin-top: 1.5rem">Ocho <em>consultorios</em>.<br>Cada uno, una decisión.</h2>
+      </div>
+      <div class="hscroll-tracker"><span id="hscrollIdx">01</span> / 06</div>
+    </div>
+    <div class="hscroll-track-container">
+      <div class="hscroll-track" id="hscrollTrack">
+        <div class="hscroll-card"><img src="imgs/08-consultorio-1.jpg" alt="Consultorio" loading="lazy"><div class="hscroll-card-label"><span>Consultorio 01</span><span>Cardiología</span></div></div>
+        <div class="hscroll-card"><img src="imgs/09-consultorio-2.jpg" alt="Consultorio" loading="lazy"><div class="hscroll-card-label"><span>Consultorio 02</span><span>Clínica</span></div></div>
+        <div class="hscroll-card"><img src="imgs/10-cons-imagenes.jpg" alt="Consultorio" loading="lazy"><div class="hscroll-card-label"><span>Consultorio 03</span><span>Imágenes</span></div></div>
+        <div class="hscroll-card"><img src="imgs/14-consultorio-6.jpg" alt="Consultorio" loading="lazy"><div class="hscroll-card-label"><span>Consultorio 04</span><span>Ergometría</span></div></div>
+        <div class="hscroll-card"><img src="imgs/15-consultorio-7.jpg" alt="Consultorio" loading="lazy"><div class="hscroll-card-label"><span>Consultorio 05</span><span>Eco doppler</span></div></div>
+        <div class="hscroll-card"><img src="imgs/16-consultorio-8.jpg" alt="Consultorio" loading="lazy"><div class="hscroll-card-label"><span>Consultorio 06</span><span>Especialidades</span></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ MINDRAY CONSONA 8 — MAG ============ -->
+<section class="section-light" data-chapter="08 — Mindray">
+  <div class="container">
+    <p class="section-num">08 / Equipamiento</p>
+    <div class="mag" style="margin-top: 3rem">
+      <div class="mag-img-wrap square reveal-clip">
+        <img src="imgs/11-consultorio-3.jpg" alt="Ecógrafo Mindray Consona 8" loading="lazy">
+      </div>
+      <div class="mag-body">
+        <h2 class="h-display reveal">Mindray <em>Consona 8</em>.</h2>
+        <p class="reveal">El ecógrafo que estamos usando es lo más avanzado en su categoría. Tres transductores (cardiológico, lineal y convexo), software de ecoestrés-strain con módulo ECG integrado, electrocardiógrafo digital y desfibrilador externo manual para RCP avanzada en sitio.</p>
+        <div class="equip-grid reveal">
+          <div class="equip-item">
+            <div class="equip-num">01</div>
+            <div><h4>Consona 8</h4><p>Ecógrafo de última generación, motor ZST+</p></div>
+          </div>
+          <div class="equip-item">
+            <div class="equip-num">02</div>
+            <div><h4>Tres transductores</h4><p>Cardiológico, lineal, convexo</p></div>
+          </div>
+          <div class="equip-item">
+            <div class="equip-num">03</div>
+            <div><h4>Ecoestrés-strain</h4><p>Software con módulo ECG integrado</p></div>
+          </div>
+          <div class="equip-item">
+            <div class="equip-num">04</div>
+            <div><h4>Desfibrilador</h4><p>Manual para RCP avanzada</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECOND STATEMENT ============ -->
+<section class="statement" data-chapter="09 — Diferencial">
+  <div class="container">
+    <p class="section-num reveal">09 / Diferencial</p>
+    <div class="statement-text" id="statement2" style="margin-top: 4rem">
+      <span>Diez</span>
+      <span>especialidades.</span>
+      <span>Ocho</span>
+      <span>estudios.</span>
+      <span><em>Una sola dirección.</em></span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ESPECIALIDADES CARDS ============ -->
+<section data-chapter="10 — Especialidades">
+  <div class="container">
+    <div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 2rem">
+      <div>
+        <p class="section-num reveal">10 / Especialidades</p>
+        <h2 class="h-display reveal" style="margin-top: 1.5rem">Diez especialidades, <em>cero</em> derivaciones.</h2>
+      </div>
+      <p style="max-width: 360px; opacity: 0.6; font-size: 0.95rem" class="reveal">El paciente cardiovascular resuelve todo su entorno clínico en el mismo centro.</p>
+    </div>
+    <div class="cards">
+      <div class="card-item reveal"><span class="card-num">01</span><h3>Cardiología</h3><p>Eje del centro. Consultorio, estudios y seguimiento.</p></div>
+      <div class="card-item reveal"><span class="card-num">02</span><h3>Cirugía <em>cardiovascular</em></h3><p>Evaluación pre y post quirúrgica.</p></div>
+      <div class="card-item reveal"><span class="card-num">03</span><h3>Hemodinamia <em>ambulatoria</em></h3><p>Diagnóstico y procedimientos hemodinámicos.</p></div>
+      <div class="card-item reveal"><span class="card-num">04</span><h3>Clínica médica</h3><p>Atención general e integral del paciente.</p></div>
+      <div class="card-item reveal"><span class="card-num">05</span><h3>Hematología</h3><p>Estudios y seguimiento hematológico.</p></div>
+      <div class="card-item reveal"><span class="card-num">06</span><h3>Nefrología</h3><p>Paciente renal cardiovascular.</p></div>
+      <div class="card-item reveal"><span class="card-num">07</span><h3>Psiquiatría</h3><p>Salud mental con enfoque comórbido.</p></div>
+      <div class="card-item reveal"><span class="card-num">08</span><h3>Diabetología</h3><p>Diabetes y factores de riesgo.</p></div>
+      <div class="card-item reveal"><span class="card-num">09</span><h3>Nutrición</h3><p>Plan alimentario integrado al tratamiento.</p></div>
+      <div class="card-item reveal"><span class="card-num">10</span><h3>Proctología</h3><p>Especialidad complementaria.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ESTUDIOS CARDS ============ -->
+<section class="section-light" data-chapter="11 — Estudios">
+  <div class="container">
+    <div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 2rem">
+      <div>
+        <p class="section-num">11 / Estudios</p>
+        <h2 class="h-display reveal" style="margin-top: 1.5rem">Ocho estudios, <em>resueltos</em> en el día.</h2>
+      </div>
+      <p style="max-width: 360px; opacity: 0.6; font-size: 0.95rem" class="reveal">Diagnóstico y entrega del informe sin pasar por terceros.</p>
+    </div>
+    <div class="cards">
+      <div class="card-item reveal"><span class="card-num">ECG</span><h3>Electrocardiograma</h3><p>Trazado digital con interpretación inmediata.</p></div>
+      <div class="card-item reveal"><span class="card-num">ERG</span><h3>Ergometría</h3><p>Prueba de esfuerzo en cinta.</p></div>
+      <div class="card-item reveal"><span class="card-num">EE</span><h3>Eco<em>estrés</em></h3><p>Evaluación funcional con strain en tiempo real.</p></div>
+      <div class="card-item reveal"><span class="card-num">EDC</span><h3>Eco doppler <em>cardíaco</em></h3><p>Estructural y hemodinámico, color.</p></div>
+      <div class="card-item reveal"><span class="card-num">EDV</span><h3>Eco doppler <em>vascular</em></h3><p>Arterial y venoso, periférico.</p></div>
+      <div class="card-item reveal"><span class="card-num">ECO</span><h3>Ecografía general</h3><p>Abdominal, pelviana, MSK.</p></div>
+      <div class="card-item reveal"><span class="card-num">H</span><h3>Holter <em>24/48</em></h3><p>Monitoreo electrocardiográfico ambulatorio.</p></div>
+      <div class="card-item reveal"><span class="card-num">MAPA</span><h3>Presurometría</h3><p>Monitoreo de presión arterial 24 hs.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ACCESIBILIDAD + EMERGENCIAS — DUO ============ -->
+<section data-chapter="12 — Garantías">
+  <div class="container">
+    <p class="section-num reveal">12 / Garantías para la cobertura</p>
+    <h2 class="h-display reveal" style="margin-top: 1.5rem; max-width: 900px">Las cosas que <em>no se ven</em>, pero importan.</h2>
+
+    <div class="duo">
+      <div class="duo-card reveal-clip">
+        <img src="imgs/17-bano.jpg" alt="Accesibilidad" loading="lazy">
+        <div class="duo-content">
+          <h3>Accesibilidad <em>universal</em></h3>
+          <p>Sanitarios con barras de apoyo y espacio para silla de ruedas. Edificio sin barreras arquitectónicas. Circulación amplia en sala y consultorios.</p>
+        </div>
+      </div>
+      <div class="duo-card reveal-clip">
+        <img src="imgs/18-area-prot.jpg" alt="Cobertura de emergencias" loading="lazy">
+        <div class="duo-content">
+          <h3>Área protegida <em>24h</em></h3>
+          <p>Convenio activo con Ayuda Médica para protección médica ambulatoria. Desfibrilador en sitio y personal entrenado en RCP avanzada.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PILARES ============ -->
+<section data-chapter="13 — Por qué">
+  <div class="container">
+    <p class="section-num reveal">13 / La propuesta</p>
+    <h2 class="h-display reveal" style="margin-top: 1.5rem; max-width: 900px">Tres razones para <em>incorporar CICAR</em> a su cartilla.</h2>
+
+    <div class="pilares">
+      <div class="pilar reveal">
+        <span class="pilar-num">01 / Acceso</span>
+        <h3>Disponibilidad <em>real</em>.</h3>
+        <p>Horarios amplios (L–V 8 a 20, sábados 8 a 13), ubicación céntrica con acceso directo y turnos digitales. Menos fricción para el afiliado, mejor adherencia al tratamiento.</p>
+      </div>
+      <div class="pilar reveal">
+        <span class="pilar-num">02 / Calidad</span>
+        <h3>Diagnóstico <em>en un paso</em>.</h3>
+        <p>Equipamiento Mindray Consona 8, software de strain, monitoreo continuo y profesionales especializados. El paciente entra con una duda y sale con un informe.</p>
+      </div>
+      <div class="pilar reveal">
+        <span class="pilar-num">03 / Integralidad</span>
+        <h3>Diez <em>especialidades</em> conectadas.</h3>
+        <p>El paciente cardiovascular resuelve nefrología, diabetes, hematología, nutrición y salud mental sin moverse. Menos consultas perdidas, mejor seguimiento.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA / CONTACTO ============ -->
+<section class="cta-section section-light" id="contacto" data-chapter="14 — Contacto">
+  <div class="container">
+    <p class="section-num">14 / Próximo paso</p>
+    <div class="cta-grid" style="margin-top: 3rem">
+      <div>
+        <h2 class="display reveal">Hablemos.</h2>
+        <p class="reveal" style="font-size: 1.1rem; opacity: 0.7; margin-top: 2rem; max-width: 480px; line-height: 1.6">Estamos disponibles para visita guiada al centro, demostración del equipamiento y propuesta comercial personalizada para incorporación a cartilla.</p>
+      </div>
+      <div class="cta-info reveal">
+        <div class="cta-row">
+          <span class="label">Referente</span>
+          <span class="value">Dr. Nicolás Ciancaglini</span>
+        </div>
+        <div class="cta-row">
+          <span class="label">Email</span>
+          <span class="value"><a href="mailto:drciancaglini@centrocicar.com">drciancaglini@centrocicar.com</a></span>
+        </div>
+        <div class="cta-row">
+          <span class="label">Celular</span>
+          <span class="value"><a href="tel:+5491170848881">+54 9 11 7084-8881</a></span>
+        </div>
+        <div class="cta-row">
+          <span class="label">Turnos</span>
+          <span class="value">+54 11 4631-5583</span>
+        </div>
+        <div class="cta-row">
+          <span class="label">WhatsApp</span>
+          <span class="value"><a href="https://wa.me/5491122853697">+54 9 11 2285-3697</a></span>
+        </div>
+        <div class="cta-row">
+          <span class="label">Dirección</span>
+          <span class="value">Uruguay 783, Piso 3, Of. 301<br><span style="font-size: 0.85rem; opacity: 0.6">San Nicolás · CABA</span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <img src="imgs/logo-blanco.png" alt="CICAR">
+  <p>CICAR S.A. · Centro médico cardiológico integral</p>
+  <p style="margin-top: 0.5rem; opacity: 0.7">L–V 8 a 20 hs · Sábados 8 a 13 hs</p>
+</footer>
+
+<script>
+// ============ LOADER ============
+window.addEventListener('load', () => {
+  setTimeout(() => document.getElementById('loader').classList.add('gone'), 1400);
+});
+
+// ============ CURSOR ============
+const dot = document.getElementById('cursorDot');
+const ring = document.getElementById('cursorRing');
+let mx = 0, my = 0, rx = 0, ry = 0;
+window.addEventListener('mousemove', (e) => {
+  document.body.classList.add('cursor-active');
+  mx = e.clientX; my = e.clientY;
+  dot.style.transform = `translate(${mx}px, ${my}px) translate(-50%, -50%)`;
+});
+function tickCursor() {
+  rx += (mx - rx) * 0.15;
+  ry += (my - ry) * 0.15;
+  ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%, -50%)`;
+  requestAnimationFrame(tickCursor);
+}
+tickCursor();
+document.querySelectorAll('a, button, .card-item, .duo-card, .hscroll-card').forEach(el => {
+  el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+  el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+});
+
+// ============ PROGRESS ============
+const progressEl = document.getElementById('progress');
+window.addEventListener('scroll', () => {
+  const max = document.documentElement.scrollHeight - window.innerHeight;
+  const pct = Math.min(100, (window.scrollY / max) * 100);
+  progressEl.style.width = pct + '%';
+}, { passive: true });
+
+// ============ HERO LETTERS (DOM-safe: only wraps text, leaves <br>/<em> intact) ============
+function splitText(root) {
+  function walk(node) {
+    if (node.nodeType === Node.TEXT_NODE) {
+      const text = node.textContent;
+      if (!text.length) return;
+      const frag = document.createDocumentFragment();
+      for (const c of text) {
+        const span = document.createElement('span');
+        span.className = 'char';
+        span.textContent = c === ' ' ? ' ' : c;
+        frag.appendChild(span);
+      }
+      node.parentNode.replaceChild(frag, node);
+    } else if (node.nodeType === Node.ELEMENT_NODE) {
+      Array.from(node.childNodes).forEach(walk);
+    }
+  }
+  walk(root);
+  return root.querySelectorAll('.char');
+}
+const heroChars = splitText(document.getElementById('heroTitle'));
+setTimeout(() => {
+  heroChars.forEach((c, i) => {
+    setTimeout(() => c.classList.add('in'), 1600 + i * 35);
+  });
+}, 0);
+
+// ============ STATEMENT WORDS ============
+function wrapStatementWords(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const spans = el.querySelectorAll('span');
+  return spans;
+}
+['statement1', 'statement2'].forEach(id => {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const words = el.querySelectorAll('span');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        words.forEach((w, i) => setTimeout(() => w.classList.add('in'), i * 100));
+        obs.disconnect();
+      }
+    });
+  }, { threshold: 0.4 });
+  obs.observe(el);
+});
+
+// ============ COUNTERS ============
+function animateCount(el) {
+  const target = parseInt(el.dataset.count);
+  const dur = 1800;
+  const start = performance.now();
+  function tick(now) {
+    const t = Math.min((now - start) / dur, 1);
+    const eased = 1 - Math.pow(1 - t, 3);
+    el.textContent = Math.round(target * eased);
+    if (t < 1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+document.querySelectorAll('[data-count]').forEach(el => {
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        animateCount(el);
+        obs.disconnect();
+      }
+    });
+  }, { threshold: 0.5 });
+  obs.observe(el);
+});
+
+// ============ REVEAL ============
+const revealObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('in');
+      revealObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+document.querySelectorAll('.reveal, .reveal-clip').forEach(el => revealObs.observe(el));
+
+// ============ HORIZONTAL SCROLL ============
+const hscrollWrap = document.querySelector('.hscroll-wrap');
+const hscrollTrack = document.getElementById('hscrollTrack');
+const hscrollIdx = document.getElementById('hscrollIdx');
+function updateHScroll() {
+  if (!hscrollWrap || !hscrollTrack) return;
+  if (window.innerWidth <= 1024) return;
+  const rect = hscrollWrap.getBoundingClientRect();
+  const wrapH = hscrollWrap.offsetHeight - window.innerHeight;
+  let p = -rect.top / wrapH;
+  p = Math.max(0, Math.min(1, p));
+  const trackW = hscrollTrack.scrollWidth;
+  const visibleW = hscrollTrack.parentElement.clientWidth;
+  const max = trackW - visibleW;
+  hscrollTrack.style.transform = `translateX(${-p * max}px)`;
+  // Update idx
+  const cardWidth = trackW / 6;
+  const currentIdx = Math.min(6, Math.max(1, Math.round(p * 5) + 1));
+  hscrollIdx.textContent = String(currentIdx).padStart(2, '0');
+}
+window.addEventListener('scroll', updateHScroll, { passive: true });
+window.addEventListener('resize', updateHScroll);
+updateHScroll();
+
+// ============ CHAPTER MARKER ============
+const chapterEl = document.getElementById('chapter');
+const chapters = document.querySelectorAll('[data-chapter]');
+const chapterObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      chapterEl.textContent = e.target.dataset.chapter;
+    }
+  });
+}, { threshold: 0.2, rootMargin: '-30% 0px -50% 0px' });
+chapters.forEach(c => chapterObs.observe(c));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <!-- Meta Pixel Code -->
+  <script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '1486565559631508');
+  fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=1486565559631508&ev=PageView&noscript=1"
+  /></noscript>
+  <!-- End Meta Pixel Code -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0E1F2E">
+  <meta name="description" content="CICAR Barrio Norte — Centro médico cardiológico integral. Uruguay 783, San Nicolás CABA.">
+  <title>CICAR Barrio Norte · Recorrido por el centro</title>
+  <link rel="icon" type="image/png" href="imgs/favicon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --azul-medio: #53A1C6;
+      --azul-navy: #172E44;
+      --azul-deep: #0E1F2E;
+      --celeste-claro: #A6DAF1;
+      --celeste-bg: #EAF4FB;
+      --azul-vibrante: #1D84C7;
+      --gris-neutro: #D9D9D9;
+      --gris-divisor: #ECEFF2;
+      --gris-bg: #F5F8FB;
+      --gris-texto: #5A6E84;
+      --font-display: 'Poppins', system-ui, sans-serif;
+      --font-body: 'Montserrat', system-ui, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      color: var(--azul-navy);
+      background: white;
+      line-height: 1.6;
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 500; letter-spacing: -0.02em; line-height: 1.15; }
+
+    /* ============ TOPBAR ============ */
+    .topbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2.5rem;
+      background: rgba(14, 31, 46, 0);
+      backdrop-filter: blur(0);
+      transition: all 0.3s;
+    }
+    .topbar.scrolled {
+      background: rgba(14, 31, 46, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      padding: 0.75rem 2.5rem;
+      box-shadow: 0 1px 0 rgba(255,255,255,0.06);
+    }
+    .topbar .nav-logo { height: 38px; transition: height 0.3s; }
+    .topbar.scrolled .nav-logo { height: 32px; }
+    .topbar nav { display: flex; gap: 2rem; }
+    .topbar nav a {
+      color: white;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      opacity: 0.85;
+      transition: opacity 0.2s;
+    }
+    .topbar nav a:hover { opacity: 1; }
+
+    /* ============ HERO ============ */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      color: white;
+      isolation: isolate;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url('imgs/01-ascensores.jpg') center / cover no-repeat;
+      z-index: -2;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(14,31,46,0.55) 0%, rgba(14,31,46,0.4) 40%, rgba(14,31,46,0.9) 100%);
+      z-index: -1;
+    }
+    .hero-content {
+      text-align: center;
+      padding: 6rem 2rem 4rem;
+      max-width: 900px;
+    }
+    .hero-logo { height: 90px; margin-bottom: 2.5rem; filter: drop-shadow(0 2px 12px rgba(0,0,0,0.4)); }
+    .hero h1 {
+      font-size: clamp(2.2rem, 5vw, 4rem);
+      font-weight: 300;
+      margin-bottom: 1.25rem;
+      letter-spacing: -0.02em;
+    }
+    .hero h1 strong { font-weight: 600; }
+    .hero p {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      opacity: 0.9;
+      max-width: 600px;
+      margin: 0 auto;
+      font-weight: 300;
+    }
+    .scroll-cue {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      animation: bounce 2.5s ease-in-out infinite;
+    }
+    .scroll-cue span {
+      display: block;
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 0.6rem;
+    }
+    .scroll-cue svg { width: 22px; height: 22px; color: white; opacity: 0.8; }
+    @keyframes bounce {
+      0%, 100% { transform: translate(-50%, 0); }
+      50% { transform: translate(-50%, 10px); }
+    }
+
+    /* ============ SECTIONS ============ */
+    section { position: relative; }
+    .section-pad { padding: 7rem 2.5rem; }
+    .section-pad-tight { padding: 5rem 2.5rem; }
+    .section-dark { background: var(--azul-deep); color: white; }
+    .section-dark h2, .section-dark h3, .section-dark h4 { color: white; }
+    .section-navy { background: var(--azul-navy); color: white; }
+    .section-navy h2, .section-navy h3, .section-navy h4 { color: white; }
+    .section-light { background: var(--gris-bg); }
+    .section-celeste { background: var(--celeste-bg); }
+
+    .container { max-width: 1200px; margin: 0 auto; }
+    .container-wide { max-width: 1400px; margin: 0 auto; }
+
+    /* Eyebrow */
+    .eyebrow {
+      display: inline-block;
+      font-family: var(--font-body);
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--azul-vibrante);
+      font-weight: 600;
+      margin-bottom: 1.25rem;
+    }
+    .section-dark .eyebrow, .section-navy .eyebrow { color: var(--celeste-claro); }
+
+    h2.section-title {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 400;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.02em;
+    }
+    h2.section-title strong { font-weight: 600; }
+    .lead {
+      font-size: clamp(1rem, 1.5vw, 1.15rem);
+      line-height: 1.65;
+      color: var(--gris-texto);
+      max-width: 700px;
+    }
+    .section-dark .lead, .section-navy .lead { color: rgba(255,255,255,0.78); }
+
+    /* ============ SPLIT (text + image) ============ */
+    .split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    .split.reverse { direction: rtl; }
+    .split.reverse > * { direction: ltr; }
+    .split-img {
+      width: 100%;
+      aspect-ratio: 4/5;
+      object-fit: cover;
+      border-radius: 14px;
+      box-shadow: 0 25px 60px -25px rgba(0,0,0,0.35);
+    }
+    .split-img.landscape { aspect-ratio: 4/3; }
+
+    /* ============ FACT GRID ============ */
+    .facts {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+    .fact {
+      padding: 1.5rem 0;
+    }
+    .fact-number {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      font-weight: 600;
+      color: var(--azul-vibrante);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+    .section-dark .fact-number, .section-navy .fact-number { color: var(--celeste-claro); }
+    .fact-label {
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--gris-texto);
+      font-weight: 600;
+    }
+    .section-dark .fact-label, .section-navy .fact-label { color: rgba(255,255,255,0.7); }
+
+    /* ============ FULL BLEED IMAGE ============ */
+    .fullbleed {
+      position: relative;
+      min-height: 85vh;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+      color: white;
+      isolation: isolate;
+    }
+    .fullbleed .bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      z-index: -2;
+    }
+    .fullbleed::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(14,31,46,0.2) 0%, rgba(14,31,46,0.5) 60%, rgba(14,31,46,0.95) 100%);
+      z-index: -1;
+    }
+    .fullbleed-content {
+      padding: 5rem 2.5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .fullbleed h2 { color: white; }
+
+    /* ============ GALLERY GRID ============ */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.85rem;
+      margin-top: 3rem;
+    }
+    .gallery img {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      border-radius: 8px;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+    .gallery a { display: block; overflow: hidden; border-radius: 8px; }
+    .gallery a:hover img { transform: scale(1.04); }
+
+    /* ============ CARD GRID ============ */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin-top: 3rem;
+    }
+    .spec-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 1.5rem 1.25rem;
+      transition: all 0.3s ease;
+    }
+    .section-light .spec-card, .section-celeste .spec-card {
+      background: white;
+      border: 1px solid var(--gris-divisor);
+      box-shadow: 0 2px 10px rgba(23,46,68,0.04);
+    }
+    .spec-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--azul-vibrante);
+    }
+    .spec-card .num {
+      font-family: var(--font-display);
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      color: var(--azul-vibrante);
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    .section-dark .spec-card .num, .section-navy .spec-card .num { color: var(--celeste-claro); }
+    .spec-card h4 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: 0.35rem;
+      color: inherit;
+    }
+    .spec-card p {
+      font-size: 0.85rem;
+      color: var(--gris-texto);
+      line-height: 1.5;
+    }
+    .section-dark .spec-card p, .section-navy .spec-card p { color: rgba(255,255,255,0.65); }
+
+    /* ============ EQUIP LIST ============ */
+    .equip-list {
+      list-style: none;
+      display: grid;
+      gap: 0.65rem;
+      margin-top: 1.5rem;
+    }
+    .equip-list li {
+      display: flex;
+      gap: 0.85rem;
+      align-items: flex-start;
+      padding: 0.85rem 0;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      font-size: 0.95rem;
+    }
+    .equip-list li:last-child { border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .section-light .equip-list li, .section-celeste .equip-list li { border-top-color: var(--gris-divisor); }
+    .section-light .equip-list li:last-child, .section-celeste .equip-list li:last-child { border-bottom-color: var(--gris-divisor); }
+    .equip-list .dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--azul-vibrante);
+      flex-shrink: 0;
+      margin-top: 0.55rem;
+    }
+    .section-dark .equip-list .dot, .section-navy .equip-list .dot { background: var(--celeste-claro); }
+    .equip-list strong { font-weight: 600; }
+
+    /* ============ PILARES ============ */
+    .pilares {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2.5rem;
+      margin-top: 3.5rem;
+    }
+    .pilar { text-align: left; }
+    .pilar-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+      background: rgba(166,218,241,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.25rem;
+    }
+    .pilar-icon svg { width: 28px; height: 28px; color: var(--celeste-claro); }
+    .pilar h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.7rem;
+    }
+    .pilar p {
+      font-size: 0.95rem;
+      line-height: 1.65;
+      color: rgba(255,255,255,0.75);
+    }
+
+    /* ============ CONTACTO ============ */
+    .contacto-card {
+      background: white;
+      color: var(--azul-navy);
+      border-radius: 18px;
+      padding: 3rem;
+      margin-top: 3rem;
+      box-shadow: 0 25px 50px -20px rgba(14,31,46,0.4);
+    }
+    .contacto-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+    }
+    .contact-item {
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--gris-divisor);
+    }
+    .contact-item:last-child { border-bottom: none; }
+    .contact-label {
+      font-size: 0.74rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gris-texto);
+      font-weight: 600;
+      margin-bottom: 0.35rem;
+    }
+    .contact-value {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 500;
+    }
+    .contact-value a { color: inherit; text-decoration: none; }
+    .contact-value a:hover { color: var(--azul-vibrante); }
+
+    /* ============ FOOTER ============ */
+    footer {
+      background: var(--azul-deep);
+      color: rgba(255,255,255,0.6);
+      text-align: center;
+      padding: 3rem 2rem;
+      font-size: 0.85rem;
+    }
+    footer img { height: 36px; margin-bottom: 1rem; opacity: 0.95; }
+    footer p { line-height: 1.7; }
+
+    /* ============ REVEALS ============ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1), transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .reveal.in { opacity: 1; transform: none; }
+    .reveal.delay-1 { transition-delay: 0.1s; }
+    .reveal.delay-2 { transition-delay: 0.2s; }
+    .reveal.delay-3 { transition-delay: 0.3s; }
+
+    /* ============ RESPONSIVE ============ */
+    @media (max-width: 980px) {
+      .topbar { padding: 0.85rem 1.25rem; }
+      .topbar.scrolled { padding: 0.65rem 1.25rem; }
+      .topbar nav { gap: 1.25rem; }
+      .section-pad { padding: 5rem 1.5rem; }
+      .section-pad-tight { padding: 3.5rem 1.5rem; }
+      .split { grid-template-columns: 1fr; gap: 2.5rem; }
+      .split.reverse { direction: ltr; }
+      .facts { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+      .gallery { grid-template-columns: repeat(2, 1fr); gap: 0.6rem; }
+      .pilares { grid-template-columns: 1fr; gap: 2rem; }
+      .contacto-card { padding: 2rem 1.5rem; }
+      .contacto-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+    }
+    @media (max-width: 640px) {
+      body { font-size: 15px; }
+      .topbar nav { display: none; }
+      .topbar { padding: 0.7rem 1rem; }
+      .topbar.scrolled { padding: 0.6rem 1rem; }
+      .hero-content { padding: 5rem 1.25rem 5rem; }
+      .hero-logo { height: 64px; margin-bottom: 2rem; }
+      .section-pad { padding: 4rem 1.25rem; }
+      .section-pad-tight { padding: 3rem 1.25rem; }
+      .facts { grid-template-columns: 1fr; }
+      .fullbleed-content { padding: 3rem 1.25rem; }
+      .fullbleed { min-height: 75vh; }
+      .gallery { gap: 0.5rem; }
+      .contacto-card { padding: 1.75rem 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="topbar" id="topbar">
+  <a href="#inicio"><img src="imgs/logo-blanco.png" alt="CICAR" class="nav-logo"></a>
+  <nav>
+    <a href="#centro">Centro</a>
+    <a href="#consultorios">Consultorios</a>
+    <a href="#especialidades">Especialidades</a>
+    <a href="#estudios">Estudios</a>
+    <a href="#contacto">Contacto</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="inicio">
+  <div class="hero-content">
+    <img src="imgs/logo-blanco.png" alt="CICAR Barrio Norte" class="hero-logo">
+    <h1>Centro médico <strong>cardiológico integral</strong></h1>
+    <p>Diagnóstico, tratamiento y seguimiento en un mismo lugar. Tecnología de última generación, atención humana.</p>
+  </div>
+  <div class="scroll-cue">
+    <span>Recorré el centro</span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+  </div>
+</section>
+
+<!-- CENTRO -->
+<section class="section-pad section-light" id="centro">
+  <div class="container">
+    <div class="split">
+      <div>
+        <span class="eyebrow reveal">CICAR Barrio Norte</span>
+        <h2 class="section-title reveal delay-1">Un nuevo estándar de <strong>atención cardiológica</strong> en CABA.</h2>
+        <p class="lead reveal delay-2">CICAR S.A. es un centro médico cardiológico integral ubicado en pleno Barrio Norte. Combinamos un edificio corporativo a estrenar, equipamiento de última generación y un equipo profesional especializado para ofrecer un servicio que está a la altura de las prepagas y obras sociales más exigentes.</p>
+        <div class="facts reveal delay-3">
+          <div class="fact">
+            <div class="fact-number">8</div>
+            <div class="fact-label">Consultorios</div>
+          </div>
+          <div class="fact">
+            <div class="fact-number">10</div>
+            <div class="fact-label">Especialidades</div>
+          </div>
+          <div class="fact">
+            <div class="fact-number">8</div>
+            <div class="fact-label">Estudios</div>
+          </div>
+        </div>
+      </div>
+      <div class="reveal delay-2">
+        <img src="imgs/04-recepcion-c.jpg" alt="Recepción CICAR" class="split-img">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- UBICACIÓN / EDIFICIO -->
+<section class="fullbleed" id="ubicacion">
+  <div class="bg" style="background-image: url('imgs/01-ascensores.jpg')"></div>
+  <div class="fullbleed-content">
+    <span class="eyebrow reveal" style="color: var(--celeste-claro)">Ubicación</span>
+    <h2 class="section-title reveal delay-1" style="max-width: 800px">Edificio corporativo <strong>a estrenar</strong>, en el corazón de Barrio Norte.</h2>
+    <p class="lead reveal delay-2" style="color: rgba(255,255,255,0.85); max-width: 700px; margin-top: 1.25rem">Uruguay 783, Piso 3, Oficina 301 — San Nicolás, CABA. Acceso directo por avenidas, hall premium, seguridad las 24 horas.</p>
+    <div class="facts reveal delay-3" style="margin-top: 3rem; max-width: 800px">
+      <div class="fact">
+        <div class="fact-number">24h</div>
+        <div class="fact-label" style="color: rgba(255,255,255,0.7)">Seguridad</div>
+      </div>
+      <div class="fact">
+        <div class="fact-number">A estrenar</div>
+        <div class="fact-label" style="color: rgba(255,255,255,0.7)">Edificio corporativo</div>
+      </div>
+      <div class="fact">
+        <div class="fact-number">CABA</div>
+        <div class="fact-label" style="color: rgba(255,255,255,0.7)">Barrio Norte</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RECEPCIÓN -->
+<section class="section-pad section-celeste">
+  <div class="container">
+    <div class="split reverse">
+      <div>
+        <span class="eyebrow reveal">Recepción</span>
+        <h2 class="section-title reveal delay-1">La primera impresión, <strong>cuenta</strong>.</h2>
+        <p class="lead reveal delay-2">Atención personalizada con secretaría dedicada, sistema de turnos digital, WhatsApp y videoconsultas. Bienvenida cálida, gestión moderna.</p>
+        <ul class="equip-list reveal delay-3">
+          <li><span class="dot"></span><div><strong>Secretaría presencial</strong> en horario de atención completo</div></li>
+          <li><span class="dot"></span><div><strong>Sistema de turnos digital</strong> vía web y WhatsApp</div></li>
+          <li><span class="dot"></span><div><strong>Historia clínica y receta digital</strong></div></li>
+          <li><span class="dot"></span><div><strong>Videoconsultas</strong> integradas</div></li>
+        </ul>
+      </div>
+      <div class="reveal delay-2">
+        <img src="imgs/03-recepcion-b.jpg" alt="Recepción CICAR" class="split-img" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SALA DE ESPERA -->
+<section class="section-pad section-light">
+  <div class="container">
+    <div class="split">
+      <div>
+        <span class="eyebrow reveal">Sala de espera</span>
+        <h2 class="section-title reveal delay-1">Espacios <strong>amplios y luminosos</strong>.</h2>
+        <p class="lead reveal delay-2">Diseñados para que esperar sea cómodo. Mobiliario contemporáneo, iluminación natural y ambiente sereno. Una experiencia distinta para tus pacientes desde el primer minuto.</p>
+      </div>
+      <div class="reveal delay-2">
+        <img src="imgs/06-sala-b.jpg" alt="Sala de espera CICAR" class="split-img" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 8 CONSULTORIOS -->
+<section class="section-pad section-navy" id="consultorios">
+  <div class="container-wide">
+    <div style="max-width: 800px; padding: 0 0 0 0">
+      <span class="eyebrow reveal">Infraestructura</span>
+      <h2 class="section-title reveal delay-1">8 consultorios totalmente <strong>equipados</strong>.</h2>
+      <p class="lead reveal delay-2">Tecnología de última generación, luz natural en cada espacio, diseño limpio. Cada consultorio está pensado para que el profesional trabaje con todo lo que necesita al alcance, y el paciente se sienta tranquilo.</p>
+    </div>
+    <div class="gallery reveal delay-3">
+      <a href="imgs/08-consultorio-1.jpg" target="_blank"><img src="imgs/08-consultorio-1.jpg" alt="Consultorio CICAR" loading="lazy"></a>
+      <a href="imgs/09-consultorio-2.jpg" target="_blank"><img src="imgs/09-consultorio-2.jpg" alt="Consultorio CICAR" loading="lazy"></a>
+      <a href="imgs/10-cons-imagenes.jpg" target="_blank"><img src="imgs/10-cons-imagenes.jpg" alt="Consultorio de diagnóstico por imágenes" loading="lazy"></a>
+      <a href="imgs/14-consultorio-6.jpg" target="_blank"><img src="imgs/14-consultorio-6.jpg" alt="Consultorio CICAR" loading="lazy"></a>
+      <a href="imgs/15-consultorio-7.jpg" target="_blank"><img src="imgs/15-consultorio-7.jpg" alt="Consultorio CICAR" loading="lazy"></a>
+      <a href="imgs/16-consultorio-8.jpg" target="_blank"><img src="imgs/16-consultorio-8.jpg" alt="Consultorio CICAR" loading="lazy"></a>
+    </div>
+  </div>
+</section>
+
+<!-- DIAGNÓSTICO POR IMÁGENES -->
+<section class="section-pad section-light" id="diagnostico">
+  <div class="container">
+    <div class="split">
+      <div class="reveal delay-2">
+        <img src="imgs/11-consultorio-3.jpg" alt="Ecógrafo Mindray Consona 8" class="split-img" loading="lazy">
+      </div>
+      <div>
+        <span class="eyebrow reveal">Diagnóstico por imágenes</span>
+        <h2 class="section-title reveal delay-1">Mindray Consona 8 — <strong>tecnología de punta</strong>.</h2>
+        <p class="lead reveal delay-2">Ecógrafo de última generación con transductores cardiológico, lineal y convexo. Software de ecoestrés-strain con módulo ECG integrado. Todo lo necesario para diagnósticos precisos en un solo lugar.</p>
+        <ul class="equip-list reveal delay-3">
+          <li><span class="dot"></span><div><strong>Ecógrafo Mindray Consona 8</strong> — transductor cardiológico, lineal y convexo</div></li>
+          <li><span class="dot"></span><div><strong>Software ecoestrés-strain</strong> con módulo ECG</div></li>
+          <li><span class="dot"></span><div><strong>Electrocardiógrafo digital</strong></div></li>
+          <li><span class="dot"></span><div><strong>Desfibrilador externo manual</strong> para RCP avanzada y monitoreo de constantes vitales</div></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ERGOMETRÍA / ECOESTRÉS -->
+<section class="section-pad section-dark">
+  <div class="container">
+    <div class="split reverse">
+      <div>
+        <span class="eyebrow reveal">Estudios funcionales</span>
+        <h2 class="section-title reveal delay-1">Ergometría y <strong>ecoestrés</strong> con tecnología de punta.</h2>
+        <p class="lead reveal delay-2">Cinta ergométrica profesional, software de strain en tiempo real y monitoreo continuo. La combinación necesaria para detectar y cuantificar isquemia con la mejor evidencia disponible.</p>
+        <ul class="equip-list reveal delay-3">
+          <li><span class="dot"></span><div>Ergometría</div></li>
+          <li><span class="dot"></span><div>Ecoestrés con ejercicio en cinta</div></li>
+          <li><span class="dot"></span><div>Strain con módulo ECG integrado</div></li>
+        </ul>
+      </div>
+      <div class="reveal delay-2">
+        <img src="imgs/20-cinta-correr.jpg" alt="Cinta ergométrica" class="split-img" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TECNOLOGÍA DIGITAL -->
+<section class="section-pad section-celeste">
+  <div class="container">
+    <div class="split">
+      <div>
+        <span class="eyebrow reveal">Tecnología digital</span>
+        <h2 class="section-title reveal delay-1">Procesos <strong>100% digitales</strong>.</h2>
+        <p class="lead reveal delay-2">Historia clínica, recetas, turnos, comunicación: todo digital. Menos fricción para el paciente, mejor trazabilidad para la obra social, más tiempo del profesional dedicado a la atención.</p>
+        <ul class="equip-list reveal delay-3">
+          <li><span class="dot"></span><div><strong>Historia clínica digital</strong> con acceso multi-profesional</div></li>
+          <li><span class="dot"></span><div><strong>Receta digital</strong> en cumplimiento normativo</div></li>
+          <li><span class="dot"></span><div><strong>Turnos web y por WhatsApp</strong></div></li>
+          <li><span class="dot"></span><div><strong>Videoconsultas</strong> integradas</div></li>
+        </ul>
+      </div>
+      <div class="reveal delay-2">
+        <img src="imgs/21-lenovo.jpg" alt="Equipamiento informático" class="split-img landscape" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ESPECIALIDADES -->
+<section class="section-pad section-navy" id="especialidades">
+  <div class="container">
+    <div style="max-width: 800px">
+      <span class="eyebrow reveal">Especialidades</span>
+      <h2 class="section-title reveal delay-1">10 especialidades médicas <strong>bajo un mismo techo</strong>.</h2>
+      <p class="lead reveal delay-2">Cardiología en el centro, pero con un entorno de especialidades complementarias que permite resolver al paciente sin derivarlo. Atención integral real.</p>
+    </div>
+    <div class="card-grid">
+      <div class="spec-card reveal"><div class="num">01</div><h4>Cardiología</h4><p>Eje del centro. Consultorio, estudios y seguimiento.</p></div>
+      <div class="spec-card reveal delay-1"><div class="num">02</div><h4>Cirugía cardiovascular</h4><p>Evaluación pre y postquirúrgica especializada.</p></div>
+      <div class="spec-card reveal delay-2"><div class="num">03</div><h4>Hemodinamia ambulatoria</h4><p>Diagnóstico y procedimientos hemodinámicos.</p></div>
+      <div class="spec-card reveal delay-3"><div class="num">04</div><h4>Clínica médica</h4><p>Atención general y enfoque integral del paciente.</p></div>
+      <div class="spec-card reveal"><div class="num">05</div><h4>Hematología</h4><p>Estudios hematológicos y seguimiento.</p></div>
+      <div class="spec-card reveal delay-1"><div class="num">06</div><h4>Nefrología</h4><p>Atención del paciente renal cardiovascular.</p></div>
+      <div class="spec-card reveal delay-2"><div class="num">07</div><h4>Psiquiatría</h4><p>Salud mental con enfoque cardiocomórbido.</p></div>
+      <div class="spec-card reveal delay-3"><div class="num">08</div><h4>Diabetología</h4><p>Diabetes y factores de riesgo cardiovascular.</p></div>
+      <div class="spec-card reveal"><div class="num">09</div><h4>Nutrición</h4><p>Plan alimentario integrado al tratamiento.</p></div>
+      <div class="spec-card reveal delay-1"><div class="num">10</div><h4>Proctología</h4><p>Atención especializada complementaria.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICIOS Y ESTUDIOS -->
+<section class="section-pad section-light" id="estudios">
+  <div class="container">
+    <div style="max-width: 800px">
+      <span class="eyebrow reveal">Servicios y estudios</span>
+      <h2 class="section-title reveal delay-1">8 estudios <strong>disponibles en el centro</strong>.</h2>
+      <p class="lead reveal delay-2">El paciente entra y sale con su diagnóstico. Sin derivaciones, sin esperas, sin trasladar imágenes. Todos los estudios se realizan con el mismo equipamiento médico y profesional.</p>
+    </div>
+    <div class="card-grid">
+      <div class="spec-card reveal"><div class="num">ECG</div><h4>Electrocardiograma</h4><p>Trazado completo con interpretación inmediata.</p></div>
+      <div class="spec-card reveal delay-1"><div class="num">ERG</div><h4>Ergometría</h4><p>Prueba de esfuerzo en cinta ergométrica.</p></div>
+      <div class="spec-card reveal delay-2"><div class="num">EE</div><h4>Ecoestrés con ejercicio</h4><p>Evaluación funcional con strain en tiempo real.</p></div>
+      <div class="spec-card reveal delay-3"><div class="num">EDC</div><h4>Ecodoppler cardíaco color</h4><p>Estudio estructural y hemodinámico del corazón.</p></div>
+      <div class="spec-card reveal"><div class="num">EDV</div><h4>Ecodoppler vascular</h4><p>Arterial y venoso, periférico completo.</p></div>
+      <div class="spec-card reveal delay-1"><div class="num">ECO</div><h4>Ecografía general y musculoesquelética</h4><p>Abdominal, pelviana, MSK.</p></div>
+      <div class="spec-card reveal delay-2"><div class="num">H</div><h4>Holter 24/48 hs</h4><p>Monitoreo electrocardiográfico ambulatorio.</p></div>
+      <div class="spec-card reveal delay-3"><div class="num">MAPA</div><h4>Presurometría ambulatoria</h4><p>Monitoreo de presión arterial 24 hs.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ACCESIBILIDAD UNIVERSAL -->
+<section class="section-pad section-celeste">
+  <div class="container">
+    <div class="split reverse">
+      <div>
+        <span class="eyebrow reveal">Accesibilidad universal</span>
+        <h2 class="section-title reveal delay-1">Pensado para <strong>todos los pacientes</strong>.</h2>
+        <p class="lead reveal delay-2">Sanitarios accesibles con barras de apoyo, espacios amplios para sillas de ruedas, hall del edificio con ascensores y rampas. Cumplimos con los estándares de accesibilidad que las prepagas y obras sociales exigen para sus afiliados.</p>
+        <ul class="equip-list reveal delay-3">
+          <li><span class="dot"></span><div>Sanitarios con barras de apoyo y espacio para silla de ruedas</div></li>
+          <li><span class="dot"></span><div>Edificio con ascensores y accesos sin barreras arquitectónicas</div></li>
+          <li><span class="dot"></span><div>Circulación amplia en sala de espera y consultorios</div></li>
+        </ul>
+      </div>
+      <div class="reveal delay-2">
+        <img src="imgs/17-bano.jpg" alt="Sanitario accesible" class="split-img" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COBERTURA DE EMERGENCIAS -->
+<section class="section-pad section-light">
+  <div class="container">
+    <div class="split">
+      <div>
+        <span class="eyebrow reveal">Cobertura de emergencias</span>
+        <h2 class="section-title reveal delay-1">Área protegida <strong>las 24 horas</strong>.</h2>
+        <p class="lead reveal delay-2">CICAR cuenta con convenio activo de <strong>Ayuda Médica</strong> para protección médica ambulatoria. En caso de cualquier emergencia durante la atención, una unidad llega al centro de inmediato. Tranquilidad para el paciente, garantía para la obra social.</p>
+        <ul class="equip-list reveal delay-3">
+          <li><span class="dot"></span><div><strong>Convenio Ayuda Médica</strong> — protección médica ambulatoria 24 hs</div></li>
+          <li><span class="dot"></span><div><strong>Desfibrilador externo</strong> y kit de reanimación cardiopulmonar avanzada en sitio</div></li>
+          <li><span class="dot"></span><div><strong>Personal entrenado</strong> en RCP y manejo de constantes vitales</div></li>
+        </ul>
+      </div>
+      <div class="reveal delay-2">
+        <img src="imgs/18-area-prot.jpg" alt="Área Protegida — convenio Ayuda Médica" class="split-img" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- POR QUÉ CICAR -->
+<section class="section-pad section-dark">
+  <div class="container">
+    <div style="max-width: 800px">
+      <span class="eyebrow reveal">Por qué sumarnos a la cartilla</span>
+      <h2 class="section-title reveal delay-1">Un partner cardiológico <strong>completo</strong>, en una sola dirección.</h2>
+    </div>
+    <div class="pilares">
+      <div class="pilar reveal">
+        <div class="pilar-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        </div>
+        <h3>Acceso y eficiencia</h3>
+        <p>Horarios amplios (L–V 8 a 20, sábados 8 a 13), ubicación céntrica y turnos digitales. Menos tiempo de gestión para el afiliado, mayor adherencia al tratamiento.</p>
+      </div>
+      <div class="pilar reveal delay-1">
+        <div class="pilar-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12l3-9 4 18 4-12 3 9 4-6"/></svg>
+        </div>
+        <h3>Calidad asistencial</h3>
+        <p>Equipamiento Mindray Consona 8, strain, monitoreo continuo y profesionales especializados. Resolución diagnóstica en un solo paso, sin derivaciones externas.</p>
+      </div>
+      <div class="pilar reveal delay-2">
+        <div class="pilar-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8 2v4M16 2v4M3 10h18"/></svg>
+        </div>
+        <h3>Atención integral</h3>
+        <p>10 especialidades complementarias en el mismo centro: el paciente cardiovascular resuelve nefrología, diabetes, hematología, nutrición y salud mental sin moverse de Uruguay 783.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section class="section-pad section-navy" id="contacto">
+  <div class="container" style="max-width: 1000px; text-align: center">
+    <span class="eyebrow reveal" style="color: var(--celeste-claro)">Contacto</span>
+    <h2 class="section-title reveal delay-1">Hablemos sobre <strong>incorporar CICAR</strong> a su cartilla.</h2>
+    <p class="lead reveal delay-2" style="margin: 0 auto">Estamos disponibles para visitas, demostración del centro y propuesta comercial personalizada.</p>
+
+    <div class="contacto-card reveal delay-3">
+      <div class="contacto-grid">
+        <div>
+          <div class="contact-item">
+            <div class="contact-label">Referente</div>
+            <div class="contact-value">Dr. Nicolás Ciancaglini</div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-label">Email</div>
+            <div class="contact-value"><a href="mailto:drciancaglini@centrocicar.com">drciancaglini@centrocicar.com</a></div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-label">Celular</div>
+            <div class="contact-value"><a href="tel:+5491170848881">+54 9 11 7084-8881</a></div>
+          </div>
+        </div>
+        <div>
+          <div class="contact-item">
+            <div class="contact-label">Central de turnos</div>
+            <div class="contact-value">+54 11 4631-5583</div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-label">WhatsApp</div>
+            <div class="contact-value"><a href="https://wa.me/5491122853697">+54 9 11 2285-3697</a></div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-label">Dirección</div>
+            <div class="contact-value">Uruguay 783 · Piso 3 · Of. 301<br><span style="font-size: 0.9rem; color: var(--gris-texto)">San Nicolás, CABA</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <img src="imgs/logo-blanco.png" alt="CICAR Barrio Norte">
+  <p>CICAR S.A. · Centro médico cardiológico integral · Uruguay 783, San Nicolás, CABA</p>
+  <p style="margin-top: 0.3rem; font-size: 0.78rem; opacity: 0.7">Lunes a viernes 8 a 20 hs · Sábados 8 a 13 hs</p>
+</footer>
+
+<script>
+  // Topbar scroll behavior
+  const topbar = document.getElementById('topbar');
+  let lastY = 0;
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 30) topbar.classList.add('scrolled');
+    else topbar.classList.remove('scrolled');
+  });
+
+  // Intersection observer for reveals
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -50px 0px' });
+  reveals.forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
