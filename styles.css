@@ -3868,56 +3868,46 @@
   .footer-premium .footer-logo img { height: 56px; margin-bottom: 18px; }
 
   /* ─── BANDA MAPA HORIZONTAL ───
-     Full-width entre footer-top y footer-bottom. SVG horizontal a la
-     izquierda + bloque de texto a la derecha. Resalta como hero del footer. */
+     Full-width entre footer-top y footer-bottom. Google Maps real
+     embebido a la izquierda + bloque de texto a la derecha. */
   .footer-map-banner {
     display: flex;
-    align-items: center;
-    gap: 40px;
+    align-items: stretch;
+    gap: 32px;
     max-width: 1380px;
     margin: 0 auto 32px;
-    padding: 28px 36px;
-    background: linear-gradient(135deg, rgba(29,132,199,0.16) 0%, rgba(166,218,241,0.04) 100%);
-    border: 1.5px solid rgba(166,218,241,0.28);
+    padding: 18px;
+    background: linear-gradient(135deg, rgba(29,132,199,0.10) 0%, rgba(166,218,241,0.02) 100%);
+    border: 1px solid rgba(166,218,241,0.18);
     border-radius: 22px;
-    text-decoration: none;
     color: white;
-    transition: all 0.3s ease;
     position: relative;
-    box-shadow: 0 14px 40px rgba(0,0,0,0.22), 0 0 0 1px rgba(166,218,241,0.05) inset;
+    box-shadow: 0 14px 40px rgba(0,0,0,0.22);
+    overflow: hidden;
   }
-  .footer-map-banner:hover {
-    background: linear-gradient(135deg, rgba(29,132,199,0.24) 0%, rgba(166,218,241,0.08) 100%);
-    border-color: var(--gold);
-    transform: translateY(-3px);
-    box-shadow: 0 26px 60px rgba(0,0,0,0.36);
-  }
-  .footer-map-svg-wrap {
+  .footer-map-iframe-wrap {
     flex: 2;
     min-width: 0;
+    border-radius: 16px;
+    overflow: hidden;
+    background: #0a1422;
+    position: relative;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.22);
   }
-  .footer-map-banner svg {
-    width: 100%;
-    height: auto;
-    min-height: 200px;
-    max-height: 240px;
-    color: rgba(166,218,241,0.65);
+  .footer-map-iframe-wrap iframe {
     display: block;
-    filter: drop-shadow(0 4px 18px rgba(166,218,241,0.10));
-  }
-  .footer-map-banner .map-pin {
-    animation: mapPin 2.4s ease-out infinite;
-    transform-origin: 320px 64px;
-  }
-  @keyframes mapPin {
-    0%, 100% { transform: scale(1); }
-    50%      { transform: scale(1.20); }
+    width: 100%;
+    height: 260px;
+    border: 0;
+    filter: contrast(1.05);
   }
   .footer-map-text {
     flex: 1;
     min-width: 240px;
     display: flex; flex-direction: column;
     gap: 4px;
+    padding: 12px 14px 12px 0;
+    align-self: center;
   }
   .footer-map-eyebrow {
     font-size: 11px;
@@ -3928,7 +3918,7 @@
     margin-bottom: 6px;
   }
   .footer-map-text strong {
-    font-size: 22px;
+    font-size: 24px;
     font-weight: 700;
     color: white;
     letter-spacing: -0.01em;
@@ -3937,7 +3927,13 @@
   .footer-map-sub {
     font-size: 14px;
     color: rgba(255,255,255,0.65);
-    line-height: 1.4;
+    line-height: 1.45;
+  }
+  .footer-map-extra {
+    font-size: 12.5px !important;
+    margin-top: 8px !important;
+    color: rgba(255,255,255,0.50) !important;
+    line-height: 1.5 !important;
   }
   .footer-map-link {
     display: inline-flex; align-items: center; gap: 8px;
@@ -3949,24 +3945,39 @@
     font-size: 13px; font-weight: 600;
     color: var(--light);
     align-self: flex-start;
-    transition: all 0.2s ease;
+    text-decoration: none;
+    transition: all 0.25s ease;
   }
   .footer-map-link svg { width: 14px; height: 14px; }
-  .footer-map-banner:hover .footer-map-link {
-    background: var(--gold);
-    border-color: var(--gold);
-    color: white;
+  .footer-map-link:hover {
+    background: rgba(255,255,255,0.14);
+    border-color: var(--light);
     gap: 12px;
+    transform: translateX(2px);
+  }
+  .footer-map-link-primary {
+    background: var(--gold) !important;
+    border-color: var(--gold) !important;
+    color: white !important;
+    margin-top: 10px;
+  }
+  .footer-map-link-primary:hover {
+    background: #4a8a7d !important;
+    border-color: #4a8a7d !important;
+    box-shadow: 0 10px 26px rgba(91, 162, 147, 0.40);
   }
   @media (max-width: 900px) {
     .footer-map-banner {
       flex-direction: column;
       align-items: stretch;
-      padding: 22px 22px 26px;
-      gap: 20px;
+      padding: 14px;
+      gap: 18px;
     }
-    .footer-map-text { min-width: 0; }
-    .footer-map-banner svg { min-height: 160px; }
+    .footer-map-text {
+      min-width: 0;
+      padding: 4px 6px 14px;
+    }
+    .footer-map-iframe-wrap iframe { height: 220px; }
   }
 
   /* Redes en el footer */

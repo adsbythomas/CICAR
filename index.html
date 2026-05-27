@@ -2119,51 +2119,32 @@ src="https://www.facebook.com/tr?id=1486565559631508&ev=PageView&noscript=1"
     </div>
   </div>
 
-  <!-- BANDA MAPA HORIZONTAL — full width, ocupa el espacio entre columnas y footer-bottom -->
-  <a href="https://maps.google.com/?q=Uruguay+783,+CABA" target="_blank" rel="noopener" class="footer-map-banner" aria-label="Ver CICAR Barrio Norte en Google Maps">
-    <div class="footer-map-svg-wrap">
-      <svg viewBox="0 0 600 160" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" aria-hidden="true">
-        <!-- Avenidas principales (gruesas) -->
-        <line class="map-avenue" x1="0" y1="48" x2="600" y2="48" stroke-width="2.4" opacity="0.7"/>
-        <line class="map-avenue" x1="0" y1="112" x2="600" y2="112" stroke-width="2.4" opacity="0.7"/>
-        <line class="map-avenue" x1="180" y1="0" x2="180" y2="160" stroke-width="2.4" opacity="0.7"/>
-        <line class="map-avenue" x1="420" y1="0" x2="420" y2="160" stroke-width="2.4" opacity="0.7"/>
-        <!-- Calles secundarias (finas) -->
-        <line x1="0" y1="22" x2="600" y2="22" opacity="0.30"/>
-        <line x1="0" y1="80" x2="600" y2="80" opacity="0.30"/>
-        <line x1="0" y1="140" x2="600" y2="140" opacity="0.30"/>
-        <line x1="80" y1="0" x2="80" y2="160" opacity="0.30"/>
-        <line x1="280" y1="0" x2="280" y2="160" opacity="0.30"/>
-        <line x1="510" y1="0" x2="510" y2="160" opacity="0.30"/>
-        <!-- Manzanas suaves -->
-        <rect x="80" y="22" width="100" height="26" fill="currentColor" opacity="0.05" stroke="none"/>
-        <rect x="280" y="48" width="140" height="32" fill="currentColor" opacity="0.05" stroke="none"/>
-        <rect x="420" y="80" width="90" height="32" fill="currentColor" opacity="0.05" stroke="none"/>
-        <rect x="180" y="112" width="100" height="28" fill="currentColor" opacity="0.05" stroke="none"/>
-        <!-- Etiquetas de calles -->
-        <text x="8" y="45" font-size="9" fill="currentColor" opacity="0.55" stroke="none" font-family="Montserrat" font-weight="600">URUGUAY</text>
-        <text x="8" y="109" font-size="9" fill="currentColor" opacity="0.55" stroke="none" font-family="Montserrat" font-weight="600">PARANÁ</text>
-        <text x="184" y="12" font-size="9" fill="currentColor" opacity="0.55" stroke="none" font-family="Montserrat" font-weight="600">CÓRDOBA</text>
-        <text x="424" y="12" font-size="9" fill="currentColor" opacity="0.55" stroke="none" font-family="Montserrat" font-weight="600">SANTA FE</text>
-        <!-- Pin CICAR — entre Uruguay y Paraná, entre Córdoba y Santa Fe -->
-        <g class="map-pin">
-          <circle cx="320" cy="64" r="26" fill="var(--gold)" opacity="0.16" stroke="none"/>
-          <circle cx="320" cy="64" r="16" fill="var(--gold)" opacity="0.32" stroke="none"/>
-          <circle cx="320" cy="64" r="10" fill="var(--gold)" stroke="white" stroke-width="3"/>
-          <circle cx="320" cy="64" r="3.5" fill="white" stroke="none"/>
-        </g>
-      </svg>
+  <!-- BANDA MAPA — Google Maps real embebido (banda full-width entre columnas y bottom) -->
+  <div class="footer-map-banner">
+    <div class="footer-map-iframe-wrap">
+      <iframe
+        title="Ubicación CICAR — Uruguay 783, Barrio Norte, CABA"
+        src="https://www.google.com/maps?q=Uruguay+783,+San+Nicolas,+CABA,+Argentina&hl=es&z=16&output=embed"
+        width="100%" height="240" style="border:0;"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        allowfullscreen></iframe>
     </div>
     <div class="footer-map-text">
       <span class="footer-map-eyebrow">VISITANOS</span>
       <strong>Uruguay 783, Of. 301</strong>
       <span class="footer-map-sub">San Nicolás, CABA</span>
-      <span class="footer-map-link">
+      <span class="footer-map-sub footer-map-extra">A metros de Av. Santa Fe y Av. Córdoba. Líneas de subte B y D cerca.</span>
+      <a href="https://maps.google.com/?q=Uruguay+783,+San+Nicolas,+CABA" target="_blank" rel="noopener" class="footer-map-link">
         Ver en Google Maps
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-      </span>
+      </a>
+      <a href="https://www.google.com/maps/dir/?api=1&destination=Uruguay+783,+San+Nicolas,+CABA" target="_blank" rel="noopener" class="footer-map-link footer-map-link-primary">
+        Cómo llegar
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+      </a>
     </div>
-  </a>
+  </div>
 
   <div class="footer-bottom">
     <p>© 2026 CICAR Barrio Norte. Todos los derechos reservados.</p>
