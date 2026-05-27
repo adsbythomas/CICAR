@@ -27,7 +27,11 @@ src="https://www.facebook.com/tr?id=1486565559631508&ev=PageView&noscript=1"
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body class="home-nav">
+
+<!-- ───── PREMIUM CHROME ──────────────────────────────────────────
+     Scroll progress bar. Respeta prefers-reduced-motion. -->
+<div class="scroll-progress" aria-hidden="true"><span></span></div>
 
 <!-- BANNER DE TELEFONO/WHATSAPP (solo visible en modo simple) -->
 <div class="simple-mode-banner" id="simpleModeBanner" aria-live="polite">
@@ -80,7 +84,13 @@ src="https://www.facebook.com/tr?id=1486565559631508&ev=PageView&noscript=1"
   <a href="#inicio" class="nav-logo" aria-label="CICAR Barrio Norte — Inicio">
     <img src="assets/logos/CICAR-12.png" alt="CICAR Barrio Norte">
   </a>
+  <!-- Indicador en tiempo real: 'Atendiendo ahora' / 'Cerrado · Abrimos lunes 8' -->
+  <div class="nav-live" id="navLive" aria-live="polite">
+    <span class="nav-live-dot" aria-hidden="true"></span>
+    <span class="nav-live-text">Atendiendo ahora</span>
+  </div>
   <div class="nav-links" id="navLinks">
+    <span class="nav-slider" id="navSlider" aria-hidden="true"></span>
     <a href="#inicio">Inicio</a>
     <a href="#estudios">Estudios</a>
     <a href="#nosotros">Nosotros</a>
@@ -88,6 +98,10 @@ src="https://www.facebook.com/tr?id=1486565559631508&ev=PageView&noscript=1"
     <a href="especialidades.html">Especialidades</a>
     <a href="consultorios.html">Consultorios</a>
     <a href="profesionales.html">Para profesionales</a>
+    <button type="button" class="nav-theme-toggle" id="navThemeToggle" aria-label="Cambiar a modo oscuro" title="Modo noche">
+      <svg class="theme-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="4.22" y1="4.22" x2="6.34" y2="6.34"/><line x1="17.66" y1="17.66" x2="19.78" y2="19.78"/><line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/><line x1="4.22" y1="19.78" x2="6.34" y2="17.66"/><line x1="17.66" y1="6.34" x2="19.78" y2="4.22"/></svg>
+      <svg class="theme-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
     <a href="https://centrocicar.medicloud.com.ar/" class="nav-cta">Pedir Turno</a>
   </div>
   <button class="nav-burger" id="navBurger" aria-label="Abrir menú" aria-expanded="false">
@@ -95,11 +109,152 @@ src="https://www.facebook.com/tr?id=1486565559631508&ev=PageView&noscript=1"
   </button>
 </nav>
 
+<!-- ───── MODAL "¿QUE ESTUDIO NECESITO?" (Chatbot con arbol de decision) ───── -->
+<div class="study-helper-overlay" id="studyHelperOverlay" aria-hidden="true">
+  <div class="study-helper-modal" role="dialog" aria-modal="true" aria-labelledby="studyHelperTitle">
+    <button type="button" class="study-helper-close" id="closeStudyHelper" aria-label="Cerrar">✕</button>
+
+    <!-- Progress dots -->
+    <div class="study-helper-progress" id="studyHelperProgress" aria-hidden="true">
+      <span class="dot active"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+    </div>
+
+    <!-- STEP 1: ¿Te derivo un medico? -->
+    <div class="study-helper-step" data-step="1">
+      <h3 id="studyHelperTitle">¿Te derivó un médico?</h3>
+      <p>Empezamos con lo más fácil. Si ya tenés una indicación, podemos llevarte directo al turno.</p>
+      <div class="study-helper-options">
+        <button type="button" class="study-helper-option" data-go="2a">
+          <strong>Sí, tengo una indicación</strong>
+          <span>Sé qué estudio me pidieron</span>
+        </button>
+        <button type="button" class="study-helper-option" data-go="2b">
+          <strong>No, vengo por mi cuenta</strong>
+          <span>Quiero hacer un control o consultar</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- STEP 2A: Que estudio te pidieron -->
+    <div class="study-helper-step" data-step="2a" hidden>
+      <button type="button" class="study-helper-back" data-go="1">← Volver</button>
+      <h3>¿Qué estudio te pidieron?</h3>
+      <p>Elegí uno y te llevamos directo a sacar turno.</p>
+      <div class="study-helper-options study-helper-options-grid">
+        <button type="button" class="study-helper-option compact" data-recommend="cardiologia">
+          <strong>Cardiología clínica</strong>
+        </button>
+        <button type="button" class="study-helper-option compact" data-recommend="ecocardiografia">
+          <strong>Ecodoppler cardíaco</strong>
+        </button>
+        <button type="button" class="study-helper-option compact" data-recommend="electrocardiografia">
+          <strong>Electrocardiograma</strong>
+        </button>
+        <button type="button" class="study-helper-option compact" data-recommend="ergometria">
+          <strong>Ergometría</strong>
+        </button>
+        <button type="button" class="study-helper-option compact" data-recommend="holter">
+          <strong>Holter 24/48h</strong>
+        </button>
+        <button type="button" class="study-helper-option compact" data-recommend="ecodoppler-vascular">
+          <strong>Ecodoppler vascular</strong>
+        </button>
+        <button type="button" class="study-helper-option compact" data-recommend="ecografia-general">
+          <strong>Ecografía general</strong>
+        </button>
+        <button type="button" class="study-helper-option compact" data-recommend="apto-fisico">
+          <strong>Apto físico</strong>
+        </button>
+      </div>
+    </div>
+
+    <!-- STEP 2B: Por que venis -->
+    <div class="study-helper-step" data-step="2b" hidden>
+      <button type="button" class="study-helper-back" data-go="1">← Volver</button>
+      <h3>¿Por qué querés venir a CICAR?</h3>
+      <p>Contanos brevemente qué te trae, así te orientamos al estudio correcto.</p>
+      <div class="study-helper-options">
+        <button type="button" class="study-helper-option" data-recommend="chequeo-rutina">
+          <strong>Hacer un control de rutina</strong>
+          <span>Chequeo cardiológico anual sin síntomas particulares</span>
+        </button>
+        <button type="button" class="study-helper-option urgent" data-recommend="sintomas">
+          <strong>Tengo síntomas</strong>
+          <span>Dolor de pecho, palpitaciones, falta de aire, mareos</span>
+        </button>
+        <button type="button" class="study-helper-option" data-recommend="riesgo">
+          <strong>Tengo factores de riesgo</strong>
+          <span>Hipertensión, diabetes, colesterol, antecedentes familiares</span>
+        </button>
+        <button type="button" class="study-helper-option" data-recommend="apto-fisico">
+          <strong>Apto físico para deporte</strong>
+          <span>Necesito una autorización médica para entrenar</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- STEP 3: Recomendacion -->
+    <div class="study-helper-step study-helper-result" data-step="3" hidden>
+      <button type="button" class="study-helper-back" data-go="back">← Volver</button>
+      <div class="study-helper-result-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      </div>
+      <p class="study-helper-result-eyebrow">Te recomendamos</p>
+      <h3 id="studyHelperRecommendation">—</h3>
+      <p id="studyHelperReason">—</p>
+
+      <!-- Campo opcional: estudios previos. Se incluye en el mensaje
+           de WhatsApp para que el medico tenga contexto antes del turno. -->
+      <div class="study-helper-previous">
+        <label for="studyHelperPrevious" class="study-helper-previous-label">
+          <span>¿Ya te hiciste algún estudio?</span>
+          <small>Contanos cuál y cuándo. Le va a servir al médico para evaluar tu caso.</small>
+        </label>
+        <textarea id="studyHelperPrevious" class="study-helper-previous-input"
+          rows="3"
+          placeholder="Ej: ECG en marzo 2025, ecocardiograma hace 2 años, holter el mes pasado…"></textarea>
+      </div>
+
+      <div class="study-helper-actions">
+        <a href="#" class="btn-primary" id="studyHelperBookBtn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Sacar turno ahora
+        </a>
+        <a href="#" class="btn-outline-dark" id="studyHelperWhatsappBtn" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-6.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+          Enviar por WhatsApp
+        </a>
+      </div>
+      <button type="button" class="study-helper-restart" id="studyHelperRestart">Empezar de nuevo</button>
+    </div>
+  </div>
+</div>
+
+<!-- ───── BOTON WHATSAPP FLOTANTE ─────
+     Aparece cuando el usuario scrolea >30% de la pagina.
+     Sticky abajo a la derecha. Pulso suave para llamar atencion. -->
+<a href="https://wa.me/5491122853697?text=Hola%2C%20quisiera%20sacar%20un%20turno%20en%20CICAR"
+   class="fab-whatsapp"
+   id="fabWhatsapp"
+   target="_blank"
+   rel="noopener"
+   aria-label="Sacar turno por WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.2-.7.2-.2.3-.8.9-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.4-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.1-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.3 5.2 4.6 1.9.8 2.7.9 3.6.8.6-.1 1.7-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.3z"/>
+    <path d="M20.5 3.5C18.2 1.2 15.2 0 12 0 5.4 0 0 5.4 0 12c0 2.1.6 4.2 1.6 6L0 24l6.2-1.6c1.8 1 3.8 1.5 5.8 1.5 6.6 0 12-5.4 12-12 0-3.2-1.2-6.2-3.5-8.4zM12 21.7c-1.8 0-3.6-.5-5.1-1.4l-.4-.2-3.8 1 1-3.7-.2-.4c-1-1.6-1.5-3.4-1.5-5.2C2 6.5 6.5 2 12 2c2.7 0 5.2 1 7.1 2.9 1.9 1.9 2.9 4.4 2.9 7.1.1 5.5-4.5 9.7-10 9.7z"/>
+  </svg>
+  <span class="fab-whatsapp-label">Sacar turno</span>
+</a>
+
 <!-- HERO -->
 <section class="hero" id="inicio">
+  <!-- Watermark del corazon de fondo, pulsando -->
   <div class="hero-watermark" aria-hidden="true">
     <img src="assets/logos/CICAR-09.png" alt="" class="beats">
   </div>
+
   <div class="hero-content reveal">
     <h1>ATENCIÓN especializada<br>en <em>Barrio Norte</em></h1>
     <p class="hero-tagline">Prevención, diagnóstico y tratamiento interdisciplinario.</p>
@@ -185,6 +340,18 @@ src="https://www.facebook.com/tr?id=1486565559631508&ev=PageView&noscript=1"
     </button>
   </div>
 
+  <!-- Helper: chatbot interactivo "¿Que estudio necesito?" -->
+  <button type="button" class="estudios-helper-btn" id="openStudyHelper">
+    <span class="estudios-helper-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+    </span>
+    <span class="estudios-helper-text">
+      <strong>¿No sabés qué estudio necesitás?</strong>
+      <span>Te ayudamos a elegir en 30 segundos</span>
+    </span>
+    <span class="estudios-helper-arrow" aria-hidden="true">→</span>
+  </button>
+
   <!-- Mensaje cuando no hay resultados -->
   <div class="estudios-empty" id="estudiosEmpty" hidden>
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -192,6 +359,20 @@ src="https://www.facebook.com/tr?id=1486565559631508&ev=PageView&noscript=1"
     </svg>
     <p>No encontramos estudios que coincidan con tu búsqueda.</p>
   </div>
+
+  <!-- ───── SHELF HORIZONTAL ─────
+       En desktop, el grid de 3 columnas se convierte en un shelf horizontal
+       con scroll-snap. Las flechas a los lados permiten navegar.
+       En mobile sigue siendo grid vertical (mejor UX). -->
+  <div class="estudios-shelf-wrap">
+    <button type="button" class="estudios-shelf-arrow estudios-shelf-arrow-prev" id="estudiosShelfPrev" aria-label="Anterior">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <button type="button" class="estudios-shelf-arrow estudios-shelf-arrow-next" id="estudiosShelfNext" aria-label="Siguiente">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+    <div class="estudios-shelf-fade estudios-shelf-fade-left" aria-hidden="true"></div>
+    <div class="estudios-shelf-fade estudios-shelf-fade-right" aria-hidden="true"></div>
 
   <div class="estudios-grid" id="estudiosGrid">
 
@@ -221,76 +402,6 @@ src="https://www.facebook.com/tr?id=1486565559631508&ev=PageView&noscript=1"
           <line x1="32" y1="147" x2="168" y2="147" stroke-width="2.8" stroke-dasharray="9 7" style="animation: belt 0.5s linear infinite;"/>
           <line x1="22" y1="156" x2="178" y2="156" stroke-width="1.4" opacity="0.4"/>
 
-          <!-- Líneas de aire detrás del corredor (mira a la derecha) -->
-          <line x1="50" y1="78" x2="64" y2="78" stroke-width="2" opacity="0" style="animation: motionLine 0.55s ease-out infinite;"/>
-          <line x1="44" y1="92" x2="60" y2="92" stroke-width="2" opacity="0" style="animation: motionLine 0.55s ease-out infinite 0.18s;"/>
-          <line x1="52" y1="106" x2="66" y2="106" stroke-width="2" opacity="0" style="animation: motionLine 0.55s ease-out infinite 0.36s;"/>
-
-          <!-- PERSONA DE PERFIL (corrida 8px abajo para no cortar la cabeza) -->
-          <g style="animation: bob 0.55s ease-in-out infinite;">
-
-            <!-- PIERNA DE FONDO (extendida hacia atrás, toe a la derecha) -->
-            <g style="transform-origin: 101px 115px; animation: runLeg2 0.62s cubic-bezier(.45,0,.55,1) infinite;" opacity="0.5">
-              <path d="M101 115 L94 130 L86 142" stroke-width="3.8" fill="none"/>
-              <circle cx="94" cy="130" r="1.8" fill="currentColor" stroke="none"/>
-              <!-- Zapatilla con la punta apuntando hacia adelante (derecha) -->
-              <path d="M84 142 Q82 145 84 147 L96 146 Q98 144 96 142 Z" fill="currentColor" fill-opacity="0.22" stroke-width="1.6"/>
-            </g>
-
-            <!-- BRAZO DE FONDO (lado lejano, leve desincronización con el delantero) -->
-            <!-- Codo apunta a la izquierda (atrás), pliegue mira a la derecha (adelante). -->
-            <g style="transform-origin: 102px 70px; animation: runArm2 0.66s cubic-bezier(.45,0,.55,1) -0.08s infinite;" opacity="0.5">
-              <path d="M102 70 L96 86 L104 98" stroke-width="3.2" fill="none"/>
-              <circle cx="96" cy="86" r="1.6" fill="currentColor" stroke="none"/>
-              <circle cx="104" cy="99" r="2" fill="currentColor" fill-opacity="0.25" stroke-width="1.4"/>
-            </g>
-
-            <!-- CABEZA DE PERFIL (sin nariz) -->
-            <g>
-              <!-- Cráneo (silueta de perfil mirando a la derecha) -->
-              <path d="M93 49 Q92 39 101 36 Q109 36 112 41 Q114 46 112 51 Q111 55 107 57 L100 57 Q94 56 93 53 Z"
-                    fill="currentColor" fill-opacity="0.10" stroke-width="2.2"/>
-              <!-- Pelo -->
-              <path d="M92 46 Q93 36 101 35 Q109 35 113 41 Q106 38 100 39 Q95 41 92 46 Z"
-                    fill="currentColor" fill-opacity="0.30" stroke="none"/>
-              <!-- Oreja -->
-              <ellipse cx="99" cy="50" rx="1.5" ry="2.2" stroke-width="1.4" opacity="0.55"/>
-              <!-- Mandíbula sutil -->
-              <path d="M103 55 Q107 57 109 54" stroke-width="1.3" opacity="0.45" fill="none"/>
-            </g>
-
-            <!-- Cuello -->
-            <line x1="102" y1="57" x2="102" y2="63" stroke-width="2.4"/>
-
-            <!-- Torso de perfil (angosto, levemente inclinado adelante) -->
-            <path d="M97 64 Q95 65 96 68 L96 102 Q96 105 99 105 L107 105 Q110 105 110 102 L108 68 Q108 65 106 64 Z"
-                  fill="currentColor" fill-opacity="0.13" stroke-width="2.2"/>
-            <path d="M108 68 Q110 80 109 98" stroke-width="1.2" opacity="0.35" fill="none"/>
-
-            <!-- Cadera / shorts -->
-            <path d="M95 104 L110 104 L110 116 Q107 119 102 119 Q97 119 95 116 Z"
-                  fill="currentColor" fill-opacity="0.18" stroke-width="2.2"/>
-
-            <!-- BRAZO DELANTERO (lado cercano al espectador) -->
-            <!-- Codo (parte osea) apunta a la izquierda = atras del corredor.
-                 Pliegue interno mira a la derecha = direccion de marcha. -->
-            <g style="transform-origin: 102px 70px; animation: runArm1 0.62s cubic-bezier(.45,0,.55,1) infinite;">
-              <path d="M102 70 L94 86 L107 100" stroke-width="3.6" fill="none"/>
-              <circle cx="94" cy="86" r="1.8" fill="currentColor" stroke="none"/>
-              <circle cx="107" cy="101" r="2.4" fill="currentColor" fill-opacity="0.35" stroke-width="1.6"/>
-            </g>
-
-            <!-- PIERNA DELANTERA (levantada, rodilla alta, toe a la derecha) -->
-            <g style="transform-origin: 102px 115px; animation: runLeg1 0.62s cubic-bezier(.45,0,.55,1) infinite;">
-              <path d="M102 115 L114 126 L108 140" stroke-width="4.2" fill="none"/>
-              <circle cx="114" cy="126" r="2.2" fill="currentColor" stroke="none"/>
-              <!-- Zapatilla con la punta apuntando hacia adelante -->
-              <path d="M106 140 Q104 143 107 145 L119 144 Q121 142 119 140 Z" fill="currentColor" fill-opacity="0.35" stroke-width="1.8"/>
-            </g>
-          </g>
-
-          <!-- Gotita de sudor que cae de la sien -->
-          <circle cx="109" cy="42" r="1.8" fill="currentColor" fill-opacity="0.4" stroke="none" style="animation: sweatDrop 1.8s ease-in infinite;"/>
         </svg>
       </div>
       <div class="estudio-card-body">
@@ -331,7 +442,7 @@ src="https://www.facebook.com/tr?id=1486565559631508&ev=PageView&noscript=1"
       <div class="estudio-card-body">
         <span class="estudio-card-tag">Esfuerzo físico</span>
         <h3>Ecoestrés con ejercicio</h3>
-        <p>Combina eco con esfuerzo físico para detectar isquemia y problemas que sólo aparecen en actividad.</p>
+        <p>Prueba cardiológica que combina una ecocardiografía con esfuerzo físico para evaluar el funcionamiento del corazón bajo estrés y detectar problemas cardiovasculares no visibles en reposo.</p>
         <a href="https://centrocicar.medicloud.com.ar/?estudio=ecoestres" class="estudio-card-cta">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
           Sacar turno
@@ -366,7 +477,7 @@ src="https://www.facebook.com/tr?id=1486565559631508&ev=PageView&noscript=1"
       <div class="estudio-card-body">
         <span class="estudio-card-tag">Esfuerzo físico</span>
         <h3>Apto físico</h3>
-        <p>Certificado médico para gimnasios, clubes, escuelas y empresas. Examen clínico y ECG incluidos.</p>
+        <p>Certificado médico para gimnasios, clubes, escuelas, empresas, entre otros. Incluye examen clínico y ECG.</p>
         <a href="https://centrocicar.medicloud.com.ar/?estudio=apto-fisico" class="estudio-card-cta">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
           Sacar turno
@@ -403,7 +514,7 @@ src="https://www.facebook.com/tr?id=1486565559631508&ev=PageView&noscript=1"
       <div class="estudio-card-body">
         <span class="estudio-card-tag">Cardio y vasos</span>
         <h3>Ecodoppler cardíaco color</h3>
-        <p>Ultrasonido del corazón en tiempo real con flujo a color. Sin radiación ni medios de contraste.</p>
+        <p>Estudio no invasivo que utiliza ultrasonido para ver la estructura y función del corazón, con doppler color para evaluar la dirección del flujo sanguíneo y diagnosticar patologías valvulares cardíacas.</p>
         <a href="https://centrocicar.medicloud.com.ar/?estudio=ecodoppler-cardiaco" class="estudio-card-cta">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
           Sacar turno
@@ -442,7 +553,7 @@ src="https://www.facebook.com/tr?id=1486565559631508&ev=PageView&noscript=1"
       <div class="estudio-card-body">
         <span class="estudio-card-tag">Cardio y vasos</span>
         <h3>Ecodoppler de vasos de cuello y vascular periférico</h3>
-        <p>Estudio no invasivo del flujo en arterias y venas del cuello, brazos y piernas. Previene ACV.</p>
+        <p>Estudio no invasivo del flujo en arterias y venas del cuello, brazos, piernas y aorta en sus diferentes segmentos. Útil para valorar presencia de placas o enfermedad vascular.</p>
         <a href="https://centrocicar.medicloud.com.ar/?estudio=ecodoppler-vascular" class="estudio-card-cta">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
           Sacar turno
@@ -702,8 +813,8 @@ src="https://www.facebook.com/tr?id=1486565559631508&ev=PageView&noscript=1"
       </div>
       <div class="estudio-card-body">
         <span class="estudio-card-tag">Especialidad</span>
-        <h3>Electrocardiografía</h3>
-        <p>ECG de reposo y Holter 24/48h para monitoreo del ritmo cardíaco y detección de arritmias.</p>
+        <h3>Electrocardiograma</h3>
+        <p>Registra la actividad eléctrica del corazón en reposo.</p>
         <a href="https://centrocicar.medicloud.com.ar/?estudio=consulta-electrocardiografia" class="estudio-card-cta">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
           Sacar turno
@@ -711,35 +822,46 @@ src="https://www.facebook.com/tr?id=1486565559631508&ev=PageView&noscript=1"
       </div>
     </article>
 
-    <!-- 13. Ergometría (área) — gráfico de tendencia ascendente + corazón -->
+    <!-- Holter 24/48h — grabador portátil con líneas de ondas -->
     <article class="estudio-card" data-cat="cardiologia">
       <div class="estudio-card-anim">
         <svg viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="30" y1="170" x2="180" y2="170" stroke-width="2"/>
-          <line x1="30" y1="170" x2="30" y2="40" stroke-width="2"/>
-          <polyline points="30,160 60,140 90,118 120,90 150,68 175,48" stroke-width="3"
-            stroke-dasharray="220" stroke-dashoffset="220"
-            style="animation: ecgDraw 2.4s ease-in-out infinite;"/>
-          <circle cx="60" cy="140" r="4" fill="currentColor"/>
-          <circle cx="90" cy="118" r="4" fill="currentColor"/>
-          <circle cx="120" cy="90" r="4" fill="currentColor"/>
-          <circle cx="150" cy="68" r="4" fill="currentColor"/>
-          <g style="transform-origin: 165px 48px; animation: pulseFast 0.5s ease-in-out infinite;">
-            <path d="M165 62 C 154 55, 150 46, 156 42 C 160 40, 163 43, 165 47 C 167 43, 170 40, 174 42 C 180 46, 176 55, 165 62 Z"
-              fill="#ff5577" stroke="none"/>
-          </g>
+          <!-- Dispositivo Holter -->
+          <rect x="65" y="60" width="70" height="100" rx="8" stroke-width="3" fill="rgba(166,218,241,0.06)"/>
+          <!-- Pantalla -->
+          <rect x="75" y="72" width="50" height="32" rx="2" stroke-width="2" opacity="0.7"/>
+          <!-- Linea ECG dentro de la pantalla -->
+          <polyline points="78,88 84,88 86,82 88,94 90,88 96,88 98,84 100,88 122,88" stroke-width="1.5" opacity="0.8" stroke-dasharray="80" stroke-dashoffset="80" style="animation: ecgDraw 2.4s ease-in-out infinite;"/>
+          <!-- Botones -->
+          <circle cx="84" cy="118" r="3" stroke-width="1.5"/>
+          <circle cx="100" cy="118" r="3" stroke-width="1.5"/>
+          <circle cx="116" cy="118" r="3" stroke-width="1.5"/>
+          <!-- Display de horas -->
+          <rect x="78" y="130" width="44" height="18" rx="2" stroke-width="1.5" opacity="0.7"/>
+          <text x="100" y="143" font-size="10" font-weight="700" text-anchor="middle" fill="currentColor" stroke="none">24h</text>
+          <!-- Cables hacia electrodos -->
+          <path d="M65 90 Q 45 100 30 130" stroke-width="2" opacity="0.7"/>
+          <path d="M65 110 Q 40 120 25 150" stroke-width="2" opacity="0.7"/>
+          <path d="M135 90 Q 155 100 170 130" stroke-width="2" opacity="0.7"/>
+          <path d="M135 110 Q 160 120 175 150" stroke-width="2" opacity="0.7"/>
+          <!-- Electrodos -->
+          <circle cx="30" cy="130" r="6" stroke-width="2.5" fill="rgba(166,218,241,0.10)"/>
+          <circle cx="25" cy="150" r="6" stroke-width="2.5" fill="rgba(166,218,241,0.10)"/>
+          <circle cx="170" cy="130" r="6" stroke-width="2.5" fill="rgba(166,218,241,0.10)"/>
+          <circle cx="175" cy="150" r="6" stroke-width="2.5" fill="rgba(166,218,241,0.10)"/>
         </svg>
       </div>
       <div class="estudio-card-body">
         <span class="estudio-card-tag">Especialidad</span>
-        <h3>Ergometría</h3>
-        <p>Prueba de esfuerzo controlada para evaluar la respuesta cardiovascular y detectar isquemia.</p>
-        <a href="https://centrocicar.medicloud.com.ar/?estudio=consulta-ergometria" class="estudio-card-cta">
+        <h3>Holter 24/48h</h3>
+        <p>Indicado para el monitoreo del ritmo eléctrico cardíaco y detección de arritmias.</p>
+        <a href="https://centrocicar.medicloud.com.ar/?estudio=consulta-holter" class="estudio-card-cta">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
           Sacar turno
         </a>
       </div>
     </article>
+
 
     <!-- 14. Cese Tabáquico — cigarrillo con prohibido -->
     <article class="estudio-card" data-cat="otras" style="display:none">
@@ -1018,6 +1140,7 @@ src="https://www.facebook.com/tr?id=1486565559631508&ev=PageView&noscript=1"
     </article>
 
   </div>
+  </div><!-- /estudios-shelf-wrap -->
 
   <!-- Boton Ver mas/menos (solo aparece cuando hay >6 cards en el filtro activo) -->
   <div class="estudios-show-more-wrap" id="estudiosShowMoreWrap" hidden>
@@ -1164,6 +1287,251 @@ src="https://www.facebook.com/tr?id=1486565559631508&ev=PageView&noscript=1"
       if (initial) currentCat = initial.dataset.cat;
       apply();
     })();
+
+    // ── RECORDATORIO DE CHEQUEO ANUAL (Google Calendar) ──
+    (function () {
+      var btn = document.getElementById('reminderBtn');
+      var sel = document.getElementById('reminderMonth');
+      var note= document.getElementById('reminderNote');
+      if (!btn || !sel) return;
+
+      // Default: mes actual + 12 meses
+      var now = new Date();
+      sel.value = (now.getMonth() + 1).toString();
+
+      function pad(n) { return n < 10 ? '0' + n : '' + n; }
+      function firstMondayOf(year, month) {
+        // month es 1-12
+        var d = new Date(year, month - 1, 1);
+        var dayOfWeek = d.getDay();
+        var offset = (dayOfWeek === 0) ? 1 : (dayOfWeek === 1) ? 0 : (8 - dayOfWeek);
+        d.setDate(1 + offset);
+        return d;
+      }
+
+      btn.addEventListener('click', function () {
+        var month = parseInt(sel.value, 10);
+        if (!month) return;
+        // Calculamos el año correcto: si el mes elegido ya pasó este año, vamos al año siguiente
+        var year = now.getFullYear();
+        if (month <= now.getMonth() + 1) year += 1;
+        var date = firstMondayOf(year, month);
+        // Evento 10:00 - 11:00 hora local
+        var start = year + pad(date.getMonth() + 1) + pad(date.getDate()) + 'T100000';
+        var end   = year + pad(date.getMonth() + 1) + pad(date.getDate()) + 'T110000';
+        var params = new URLSearchParams({
+          action: 'TEMPLATE',
+          text: 'Chequeo cardiológico anual — CICAR',
+          details: 'Acordate de sacar turno para tu chequeo cardiológico anual en CICAR Barrio Norte.\nSacá tu turno: https://centrocicar.medicloud.com.ar/\nWhatsApp: +54 9 11 2285-3697',
+          location: 'Uruguay 783, Piso 3, Of. 301 — San Nicolás, CABA',
+          dates: start + '/' + end
+        });
+        var url = 'https://calendar.google.com/calendar/render?' + params.toString();
+        window.open(url, '_blank', 'noopener');
+        // Confirmacion visual
+        if (note) {
+          note.classList.add('success');
+          note.textContent = '✓ Listo. Se abrió Google Calendar con el evento del primer lunes de ' +
+                             sel.options[sel.selectedIndex].text.toLowerCase() + ' ' + year + '.';
+        }
+      });
+    })();
+
+    // ── STUDY HELPER CHATBOT ──
+    (function () {
+      var openBtn = document.getElementById('openStudyHelper');
+      var overlay = document.getElementById('studyHelperOverlay');
+      var closeBtn= document.getElementById('closeStudyHelper');
+      var progress= document.getElementById('studyHelperProgress');
+      var recH3   = document.getElementById('studyHelperRecommendation');
+      var recP    = document.getElementById('studyHelperReason');
+      var bookBtn = document.getElementById('studyHelperBookBtn');
+      var waBtn   = document.getElementById('studyHelperWhatsappBtn');
+      var prevInput = document.getElementById('studyHelperPrevious');
+      var lastRecommended = null; // guardamos para regenerar URLs si cambia el textarea
+      var restart = document.getElementById('studyHelperRestart');
+      if (!openBtn || !overlay) return;
+
+      var history = [1];
+
+      // Mapa de recomendaciones: que estudio le recomiendo + razon + slug medicloud
+      var RECOMMENDATIONS = {
+        'cardiologia':         { name: 'Consulta de Cardiología Clínica', reason: 'Evaluación completa con un cardiólogo para revisar tu historia y decidir qué estudios necesitás.', slug: 'consulta-cardiologia' },
+        'ecocardiografia':     { name: 'Ecodoppler cardíaco', reason: 'Estudio por ultrasonido que evalúa el funcionamiento del corazón y sus válvulas en tiempo real.', slug: 'consulta-ecocardiografia' },
+        'electrocardiografia': { name: 'Electrocardiograma', reason: 'Registro rápido de la actividad eléctrica del corazón. Resultado en el momento.', slug: 'consulta-electrocardiografia' },
+        'ergometria':          { name: 'Ergometría', reason: 'Prueba de esfuerzo en cinta para evaluar cómo responde tu corazón al ejercicio.', slug: 'consulta-ergometria' },
+        'holter':              { name: 'Holter 24/48h', reason: 'Monitoreo continuo del ritmo cardíaco durante un día o dos para detectar arritmias.', slug: 'consulta-holter' },
+        'ecodoppler-vascular': { name: 'Ecodoppler vascular periférico', reason: 'Estudio de las arterias y venas del cuello, brazos y piernas.', slug: 'ecodoppler-vascular' },
+        'ecografia-general':   { name: 'Ecografía general', reason: 'Estudios abdominales, ginecológicos, mamarios y tiroideos por ultrasonido.', slug: 'ecografia-general' },
+        'apto-fisico':         { name: 'Apto físico', reason: 'Evaluación médica completa para autorización deportiva (ECG + control clínico + ergometría según edad).', slug: 'consulta-apto-fisico' },
+        'chequeo-rutina':      { name: 'Cardiología Clínica + ECG', reason: 'Para un control de rutina recomendamos arrancar con una consulta cardiológica y un electrocardiograma de base. Si hace falta sumamos más estudios.', slug: 'consulta-cardiologia' },
+        'sintomas':            { name: 'Cardiología Clínica (con prioridad)', reason: 'Si tenés síntomas, lo primero es una consulta cardiológica para evaluarte. Según el caso te indicarán ECG, ecodoppler o ergometría el mismo día.', slug: 'consulta-cardiologia' },
+        'riesgo':              { name: 'Cardiología + Ecodoppler + Lab', reason: 'Con factores de riesgo conviene un chequeo completo: consulta cardiológica, ecodoppler cardíaco y análisis de laboratorio.', slug: 'consulta-cardiologia' }
+      };
+
+      function showStep(stepId) {
+        document.querySelectorAll('.study-helper-step').forEach(function (s) {
+          s.hidden = s.dataset.step !== stepId;
+        });
+        // Update progress dots
+        var dots = progress.querySelectorAll('.dot');
+        var dotIndex = (stepId === '1') ? 0 : (stepId === '3') ? 2 : 1;
+        dots.forEach(function (d, i) { d.classList.toggle('active', i <= dotIndex); });
+      }
+
+      function updateWhatsappUrl() {
+        if (!lastRecommended) return;
+        var msg = 'Hola, quiero sacar turno para ' + lastRecommended.name + '.';
+        if (prevInput && prevInput.value.trim()) {
+          msg += '\n\nEstudios previos:\n' + prevInput.value.trim();
+        }
+        waBtn.href = 'https://wa.me/5491122853697?text=' + encodeURIComponent(msg);
+      }
+      if (prevInput) {
+        prevInput.addEventListener('input', updateWhatsappUrl);
+      }
+
+      function open() {
+        overlay.classList.add('is-open');
+        overlay.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+        history = [1];
+        showStep('1');
+      }
+      function close() {
+        overlay.classList.remove('is-open');
+        overlay.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      }
+
+      openBtn.addEventListener('click', open);
+      closeBtn.addEventListener('click', close);
+      overlay.addEventListener('click', function (e) {
+        if (e.target === overlay) close();
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && overlay.classList.contains('is-open')) close();
+      });
+
+      // Click sobre cualquier opcion
+      overlay.addEventListener('click', function (e) {
+        var opt = e.target.closest('.study-helper-option');
+        if (opt && opt.dataset.go) {
+          history.push(opt.dataset.go);
+          showStep(opt.dataset.go);
+        } else if (opt && opt.dataset.recommend) {
+          var rec = RECOMMENDATIONS[opt.dataset.recommend];
+          if (rec) {
+            lastRecommended = rec;
+            recH3.textContent = rec.name;
+            recP.textContent = rec.reason;
+            bookBtn.href = 'https://centrocicar.medicloud.com.ar/' + (rec.slug ? '?estudio=' + rec.slug : '');
+            if (prevInput) prevInput.value = '';
+            updateWhatsappUrl();
+          }
+          history.push('3');
+          showStep('3');
+        }
+        // Back buttons
+        var back = e.target.closest('.study-helper-back');
+        if (back && back.dataset.go) {
+          if (back.dataset.go === 'back') {
+            history.pop(); // sacar el actual
+            var prev = history[history.length - 1] || '1';
+            showStep(prev);
+          } else {
+            history = [parseInt(back.dataset.go, 10) || 1];
+            showStep(back.dataset.go);
+          }
+        }
+      });
+
+      restart.addEventListener('click', function () {
+        history = [1];
+        showStep('1');
+      });
+    })();
+
+    // ── Doctors Carousel ──
+    (function () {
+      var track = document.getElementById('doctorsCarousel');
+      var prev  = document.getElementById('doctorsArrowPrev');
+      var next  = document.getElementById('doctorsArrowNext');
+      if (!track || !prev || !next) return;
+      function step() {
+        var first = track.querySelector('.doctor-card');
+        if (!first) return 380;
+        return first.getBoundingClientRect().width + 22;
+      }
+      function update() {
+        var max = track.scrollWidth - track.clientWidth;
+        prev.disabled = track.scrollLeft <= 4 || max <= 0;
+        next.disabled = track.scrollLeft >= max - 4 || max <= 0;
+      }
+      prev.addEventListener('click', function () {
+        track.scrollBy({ left: -step(), behavior: 'smooth' });
+      });
+      next.addEventListener('click', function () {
+        track.scrollBy({ left: step(), behavior: 'smooth' });
+      });
+      var t = false;
+      track.addEventListener('scroll', function () {
+        if (!t) { requestAnimationFrame(function () { update(); t = false; }); t = true; }
+      }, { passive: true });
+      window.addEventListener('resize', update);
+      update();
+    })();
+
+    // ── Studies Shelf horizontal: flechas + fades ──
+    (function () {
+      var wrap = document.querySelector('.estudios-shelf-wrap');
+      var grid = document.getElementById('estudiosGrid');
+      var prev = document.getElementById('estudiosShelfPrev');
+      var next = document.getElementById('estudiosShelfNext');
+      if (!wrap || !grid || !prev || !next) return;
+
+      function step() {
+        // Avanzar 2 cards a la vez en desktop
+        var first = grid.querySelector('.estudio-card:not([style*="display:none"]):not([style*="display: none"])');
+        if (!first) return 400;
+        var rect = first.getBoundingClientRect();
+        return (rect.width + 22) * 2;
+      }
+
+      function update() {
+        var max = grid.scrollWidth - grid.clientWidth;
+        var atStart = grid.scrollLeft <= 4;
+        var atEnd = grid.scrollLeft >= max - 4;
+        prev.disabled = atStart || max <= 0;
+        next.disabled = atEnd || max <= 0;
+        wrap.classList.toggle('at-start', atStart);
+        wrap.classList.toggle('at-end', atEnd || max <= 0);
+      }
+
+      prev.addEventListener('click', function () {
+        grid.scrollBy({ left: -step(), behavior: 'smooth' });
+      });
+      next.addEventListener('click', function () {
+        grid.scrollBy({ left: step(), behavior: 'smooth' });
+      });
+      var ticking = false;
+      grid.addEventListener('scroll', function () {
+        if (!ticking) { requestAnimationFrame(function () { update(); ticking = false; }); ticking = true; }
+      }, { passive: true });
+      window.addEventListener('resize', update);
+
+      // Reset al cambiar de tab / busqueda
+      var tabsEl = document.getElementById('estudiosTabs');
+      var searchInput = document.getElementById('estudiosSearch');
+      if (tabsEl) tabsEl.addEventListener('click', function () {
+        setTimeout(function () { grid.scrollLeft = 0; update(); }, 50);
+      });
+      if (searchInput) searchInput.addEventListener('input', function () {
+        setTimeout(function () { grid.scrollLeft = 0; update(); }, 50);
+      });
+
+      update();
+    })();
   </script>
 </section>
 
@@ -1173,7 +1541,7 @@ src="https://www.facebook.com/tr?id=1486565559631508&ev=PageView&noscript=1"
     <div class="about-intro">
       <div class="section-tag">Nosotros</div>
       <h2 class="section-title">Cardiología integral,<br>pensada para <em>vos</em></h2>
-      <p class="section-sub">CICAR Barrio Norte reúne cardiología, nefrología, nutrición, salud mental y rehabilitación en un único centro. Un modelo de atención continua, con comunicación directa entre el paciente y el equipo médico.</p>
+      <p class="section-sub">En Centro Médico CICAR reunimos diferentes especialidades médicas, entre ellas destacan cardiología, hematología, clínica médica, nefrología, nutrición y salud mental, que permiten una valoración integral del paciente en un mismo lugar.</p>
     </div>
 
     <div class="about-pillars">
@@ -1207,7 +1575,7 @@ src="https://www.facebook.com/tr?id=1486565559631508&ev=PageView&noscript=1"
     </svg>
     <div class="stats-grid">
       <div class="stat">
-        <div class="stat-num"><span class="counter" data-to="9">0</span></div>
+        <div class="stat-num"><span class="counter" data-to="9" data-prefix="+">0</span></div>
         <div class="stat-label">Áreas integradas</div>
         <div class="stat-foot">Bajo un mismo techo</div>
       </div>
@@ -1236,55 +1604,63 @@ src="https://www.facebook.com/tr?id=1486565559631508&ev=PageView&noscript=1"
       <h2 class="section-title">Especialistas que cuidan tu <em>corazón</em></h2>
       <p class="section-sub">Cardiólogos y especialistas certificados con formación de primer nivel y dedicación total al paciente.</p>
     </div>
-    <div class="doctors-grid">
-    <div class="doctor-card">
-      <div class="doctor-photo doctor-photo-silhouette">
-        <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="32" cy="24" r="10"/><path d="M12 56c0-11 9-18 20-18s20 7 20 18"/></svg>
-        <div class="doctor-photo-overlay"></div>
-      </div>
-      <div class="doctor-info">
-        <div class="doctor-specialty">Cardiología Clínica</div>
-        <div class="doctor-name">Dra. Yanina Croissant</div>
-        <div class="doctor-role">Cardióloga clínica · Especialista en prevención cardiovascular y ecodoppler cardíaco</div>
-        <div class="doctor-credentials">
-          <span class="credential-badge">MN 88421</span>
-          <span class="credential-badge">Certificada FAC</span>
-          <span class="credential-badge">Ecodoppler cardíaco</span>
+    <!-- CARRUSEL DE DOCTORES: todos al mismo tamaño, scroll horizontal.
+         Diseñado para escalar a N doctores agregando mas .doctor-card. -->
+    <div class="doctors-carousel-wrap">
+      <button type="button" class="doctors-arrow doctors-arrow-prev" id="doctorsArrowPrev" aria-label="Anterior médico">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <button type="button" class="doctors-arrow doctors-arrow-next" id="doctorsArrowNext" aria-label="Siguiente médico">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+      <div class="doctors-grid doctors-carousel" id="doctorsCarousel">
+        <div class="doctor-card">
+          <div class="doctor-photo doctor-photo-silhouette">
+            <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="32" cy="24" r="10"/><path d="M12 56c0-11 9-18 20-18s20 7 20 18"/></svg>
+            <div class="doctor-photo-overlay"></div>
+          </div>
+          <div class="doctor-info">
+            <div class="doctor-specialty">Cardiólogo universitario</div>
+            <div class="doctor-name">Dr. Nicolás Ciancaglini</div>
+            <div class="doctor-role">Sub-especialista en ecodoppler cardíaco y transesofágico.</div>
+            <div class="doctor-credentials">
+              <span class="credential-badge">MN 95340</span>
+              <span class="credential-badge">Ecodoppler cardíaco</span>
+              <span class="credential-badge">Transesofágico</span>
+            </div>
+          </div>
+        </div>
+        <div class="doctor-card">
+          <div class="doctor-photo doctor-photo-silhouette">
+            <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="32" cy="24" r="10"/><path d="M12 56c0-11 9-18 20-18s20 7 20 18"/></svg>
+            <div class="doctor-photo-overlay"></div>
+          </div>
+          <div class="doctor-info">
+            <div class="doctor-specialty">Cardióloga universitaria</div>
+            <div class="doctor-name">Dra. Yanina Croissant</div>
+            <div class="doctor-role">Sub-especialista en imágenes cardiovasculares.</div>
+            <div class="doctor-credentials">
+              <span class="credential-badge">MN 88421</span>
+              <span class="credential-badge">Imágenes cardiovasculares</span>
+            </div>
+          </div>
+        </div>
+        <div class="doctor-card">
+          <div class="doctor-photo doctor-photo-silhouette">
+            <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="32" cy="24" r="10"/><path d="M12 56c0-11 9-18 20-18s20 7 20 18"/></svg>
+            <div class="doctor-photo-overlay"></div>
+          </div>
+          <div class="doctor-info">
+            <div class="doctor-specialty">Cardióloga universitaria</div>
+            <div class="doctor-name">Dra. María Belén Barbosa</div>
+            <div class="doctor-role">Sub-especialista en ecodoppler cardiovascular.</div>
+            <div class="doctor-credentials">
+              <span class="credential-badge">MN 92107</span>
+              <span class="credential-badge">Ecodoppler cardiovascular</span>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="doctor-card">
-      <div class="doctor-photo doctor-photo-silhouette">
-        <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="32" cy="24" r="10"/><path d="M12 56c0-11 9-18 20-18s20 7 20 18"/></svg>
-        <div class="doctor-photo-overlay"></div>
-      </div>
-      <div class="doctor-info">
-        <div class="doctor-specialty">Cardiología Clínica</div>
-        <div class="doctor-name">Dra. Belén Barbosa</div>
-        <div class="doctor-role">Especialista en arritmias, electrofisiología y marcapasos · Experta en cardiología de la mujer</div>
-        <div class="doctor-credentials">
-          <span class="credential-badge">MN 92107</span>
-          <span class="credential-badge">Certificada FAC</span>
-          <span class="credential-badge">Arritmias</span>
-        </div>
-      </div>
-    </div>
-    <div class="doctor-card">
-      <div class="doctor-photo doctor-photo-silhouette">
-        <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="32" cy="24" r="10"/><path d="M12 56c0-11 9-18 20-18s20 7 20 18"/></svg>
-        <div class="doctor-photo-overlay"></div>
-      </div>
-      <div class="doctor-info">
-        <div class="doctor-specialty">Cardiología Intervencionista</div>
-        <div class="doctor-name">Dr. Nicolás Ciancaglini</div>
-        <div class="doctor-role">Hemodinamista · Especialista en cinecoronariografía y angioplastia coronaria percutánea</div>
-        <div class="doctor-credentials">
-          <span class="credential-badge">MN 95340</span>
-          <span class="credential-badge">CACI</span>
-          <span class="credential-badge">Hemodinamia</span>
-        </div>
-      </div>
-    </div>
     </div>
   </div>
 </section>
@@ -1297,6 +1673,7 @@ src="https://www.facebook.com/tr?id=1486565559631508&ev=PageView&noscript=1"
     <p class="section-sub">Hacé click en cada práctica para ver detalles, indicaciones y preparación.</p>
   </div>
 
+  <!-- Grid uniforme 4x2 — todos los tiles del mismo tamaño, solo titulo. -->
   <div class="tech-grid">
     <a href="practica.html?id=ecodoppler-cardiaco" class="tech-tile">
       <div class="tech-tile-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12a10 10 0 0 1 20 0"/><path d="M5.5 12a6.5 6.5 0 0 1 13 0"/><circle cx="12" cy="12" r="2"/><line x1="12" y1="14" x2="12" y2="22"/></svg></div>
@@ -1578,6 +1955,50 @@ src="https://www.facebook.com/tr?id=1486565559631508&ev=PageView&noscript=1"
 </section>
 
 
+<!-- ───── RECORDATORIO DE CHEQUEO ANUAL ─────
+     Genera un link a Google Calendar con un evento pre-cargado para
+     que el paciente no se olvide del control anual. -->
+<section class="reminder-section reveal" id="recordatorio">
+  <div class="reminder-wrap">
+    <div class="reminder-decor" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="4" width="18" height="18" rx="2"/>
+        <line x1="16" y1="2" x2="16" y2="6"/>
+        <line x1="8" y1="2" x2="8" y2="6"/>
+        <line x1="3" y1="10" x2="21" y2="10"/>
+        <circle cx="12" cy="16" r="2" fill="currentColor"/>
+      </svg>
+    </div>
+    <div class="reminder-text">
+      <div class="section-tag">Tu próximo control</div>
+      <h2 class="section-title">Tu chequeo anual,<br>en <em>piloto automático</em></h2>
+      <p class="section-sub">Elegí el mes que te conviene y te agendamos un recordatorio en tu Google Calendar. Sin compromisos, sin spam.</p>
+    </div>
+    <div class="reminder-form">
+      <label for="reminderMonth" class="reminder-label">Mes preferido</label>
+      <select id="reminderMonth" class="reminder-select">
+        <option value="1">Enero</option>
+        <option value="2">Febrero</option>
+        <option value="3">Marzo</option>
+        <option value="4">Abril</option>
+        <option value="5">Mayo</option>
+        <option value="6">Junio</option>
+        <option value="7">Julio</option>
+        <option value="8">Agosto</option>
+        <option value="9">Septiembre</option>
+        <option value="10">Octubre</option>
+        <option value="11">Noviembre</option>
+        <option value="12">Diciembre</option>
+      </select>
+      <button type="button" class="btn-primary reminder-btn" id="reminderBtn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        Agendar en Google Calendar
+      </button>
+      <p class="reminder-note" id="reminderNote">El recordatorio se carga en tu calendario para el primer lunes del mes elegido.</p>
+    </div>
+  </div>
+</section>
+
 <section class="info-section reveal" id="contacto">
   <div class="info-header">
     <div class="section-tag">Información</div>
@@ -1626,7 +2047,7 @@ src="https://www.facebook.com/tr?id=1486565559631508&ev=PageView&noscript=1"
 </section>
 
 <!-- FOOTER -->
-<footer>
+<footer class="footer-premium">
   <div class="footer-top">
     <div class="footer-brand">
       <div class="footer-logo">
@@ -1634,6 +2055,58 @@ src="https://www.facebook.com/tr?id=1486565559631508&ev=PageView&noscript=1"
       </div>
       <p class="footer-desc">Centro de Cardiología y Atención Especializada en Barrio Norte. Prevención, diagnóstico y tratamiento interdisciplinario de patologías cardiovasculares y comorbilidades.</p>
 
+      <!-- Mini-mapa de Barrio Norte (SVG minimalista, ilustracion abstracta) -->
+      <a href="https://maps.google.com/?q=Uruguay+783,+CABA" target="_blank" rel="noopener" class="footer-map" aria-label="Ver en Google Maps">
+        <svg viewBox="0 0 280 180" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" aria-hidden="true">
+          <!-- Avenidas principales (más gruesas) -->
+          <line class="map-avenue" x1="0" y1="58" x2="280" y2="58" stroke-width="2.4" opacity="0.7"/>
+          <line class="map-avenue" x1="0" y1="124" x2="280" y2="124" stroke-width="2.4" opacity="0.7"/>
+          <line class="map-avenue" x1="92" y1="0" x2="92" y2="180" stroke-width="2.4" opacity="0.7"/>
+          <line class="map-avenue" x1="200" y1="0" x2="200" y2="180" stroke-width="2.4" opacity="0.7"/>
+          <!-- Calles secundarias (finas) -->
+          <line x1="0" y1="26" x2="280" y2="26" opacity="0.35"/>
+          <line x1="0" y1="92" x2="280" y2="92" opacity="0.35"/>
+          <line x1="0" y1="158" x2="280" y2="158" opacity="0.35"/>
+          <line x1="48" y1="0" x2="48" y2="180" opacity="0.35"/>
+          <line x1="140" y1="0" x2="140" y2="180" opacity="0.35"/>
+          <line x1="244" y1="0" x2="244" y2="180" opacity="0.35"/>
+          <!-- Manzanas suaves (rellenos sutiles) -->
+          <rect x="48" y="26" width="44" height="32" fill="currentColor" opacity="0.05" stroke="none"/>
+          <rect x="140" y="58" width="60" height="34" fill="currentColor" opacity="0.05" stroke="none"/>
+          <rect x="200" y="92" width="44" height="32" fill="currentColor" opacity="0.05" stroke="none"/>
+          <!-- Etiqueta calle Uruguay -->
+          <text x="6" y="55" font-size="7" fill="currentColor" opacity="0.5" stroke="none" font-family="Montserrat">URUGUAY</text>
+          <text x="6" y="121" font-size="7" fill="currentColor" opacity="0.5" stroke="none" font-family="Montserrat">PARANÁ</text>
+          <text x="95" y="14" font-size="7" fill="currentColor" opacity="0.5" stroke="none" font-family="Montserrat">CÓRDOBA</text>
+          <text x="203" y="14" font-size="7" fill="currentColor" opacity="0.5" stroke="none" font-family="Montserrat">SANTA FE</text>
+          <!-- Pin CICAR -->
+          <g class="map-pin">
+            <circle cx="148" cy="74" r="12" fill="var(--gold)" opacity="0.18" stroke="none"/>
+            <circle cx="148" cy="74" r="6" fill="var(--gold)" stroke="white" stroke-width="2"/>
+            <circle cx="148" cy="74" r="2" fill="white" stroke="none"/>
+          </g>
+        </svg>
+        <span class="footer-map-label">
+          <strong>Uruguay 783, Of. 301</strong>
+          <span>San Nicolás, CABA · Ver mapa →</span>
+        </span>
+      </a>
+
+      <!-- Redes sociales -->
+      <div class="footer-social">
+        <a href="https://wa.me/5491122853697" aria-label="WhatsApp" class="footer-social-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.2-.7.2-.2.3-.8.9-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.4-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.1-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.3 5.2 4.6 1.9.8 2.7.9 3.6.8.6-.1 1.7-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.3zM20.5 3.5C18.2 1.2 15.2 0 12 0 5.4 0 0 5.4 0 12c0 2.1.6 4.2 1.6 6L0 24l6.2-1.6c1.8 1 3.8 1.5 5.8 1.5 6.6 0 12-5.4 12-12 0-3.2-1.2-6.2-3.5-8.4zM12 21.7c-1.8 0-3.6-.5-5.1-1.4l-.4-.2-3.8 1 1-3.7-.2-.4c-1-1.6-1.5-3.4-1.5-5.2C2 6.5 6.5 2 12 2c2.7 0 5.2 1 7.1 2.9 1.9 1.9 2.9 4.4 2.9 7.1.1 5.5-4.5 9.7-10 9.7z"/></svg>
+        </a>
+        <a href="https://www.instagram.com/centromedicocicar/" target="_blank" rel="noopener" aria-label="Instagram" class="footer-social-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </a>
+        <a href="https://www.linkedin.com/company/centromedicocicar/" target="_blank" rel="noopener" aria-label="LinkedIn" class="footer-social-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        </a>
+        <a href="mailto:administracion@centrocicar.com" aria-label="Email" class="footer-social-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </a>
+      </div>
     </div>
 
     <div class="footer-col">
@@ -1653,17 +2126,36 @@ src="https://www.facebook.com/tr?id=1486565559631508&ev=PageView&noscript=1"
         <li><a href="https://centrocicar.medicloud.com.ar/">Sacar turno</a></li>
         <li><a href="https://centrocicar.medicloud.com.ar/">Resultados</a></li>
         <li><a href="#contacto">Cartilla (próximamente)</a></li>
+        <li><a href="#recordatorio">Recordatorio anual</a></li>
       </ul>
     </div>
 
-    <div class="footer-col">
+    <div class="footer-col footer-col-contact">
       <h4>Contacto</h4>
-      <ul>
-        <li><a href="https://maps.google.com/?q=Uruguay+783,+CABA" target="_blank" rel="noopener">Uruguay 783, Of. 301</a></li>
-        <li><a href="tel:+5491122853697">11 2285-3697</a></li>
-        <li><a href="https://wa.me/5491122853697">WhatsApp</a></li>
-        <li><a href="mailto:administracion@centrocicar.com">Correo</a></li>
+      <!-- Telefono y WhatsApp destacados (lo importante) -->
+      <a href="tel:+5491122853697" class="footer-phone">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        <span>
+          <small>Llamanos</small>
+          <strong>11 2285-3697</strong>
+        </span>
+      </a>
+      <a href="https://wa.me/5491122853697" class="footer-whatsapp">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.2-.7.2-.2.3-.8.9-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.4-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.1-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.3 5.2 4.6 1.9.8 2.7.9 3.6.8.6-.1 1.7-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.3zM20.5 3.5C18.2 1.2 15.2 0 12 0 5.4 0 0 5.4 0 12c0 2.1.6 4.2 1.6 6L0 24l6.2-1.6c1.8 1 3.8 1.5 5.8 1.5 6.6 0 12-5.4 12-12 0-3.2-1.2-6.2-3.5-8.4z"/></svg>
+        <span>
+          <small>O escribinos</small>
+          <strong>WhatsApp</strong>
+        </span>
+      </a>
+      <!-- Secundarios -->
+      <ul class="footer-contact-secondary">
+        <li><a href="mailto:administracion@centrocicar.com">administracion@centrocicar.com</a></li>
       </ul>
+      <div class="footer-hours">
+        <strong>Lun a Vie</strong> 8 a 20 hs<br>
+        <strong>Sáb</strong> 8 a 13 hs<br>
+        Dom y feriados cerrado
+      </div>
     </div>
   </div>
 
@@ -1672,6 +2164,7 @@ src="https://www.facebook.com/tr?id=1486565559631508&ev=PageView&noscript=1"
     <div class="footer-certifications">
       <span class="cert-badge">FAC Certificado</span>
       <span class="cert-badge">CACI</span>
+      <span class="cert-badge">GCBA — Habilitado</span>
     </div>
   </div>
 </footer>
@@ -1947,15 +2440,8 @@ src="https://www.facebook.com/tr?id=1486565559631508&ev=PageView&noscript=1"
 
 
 
-  // Nav scroll effect
-  window.addEventListener('scroll', () => {
-    const nav = document.querySelector('nav');
-    if (window.scrollY > 50) {
-      nav.style.boxShadow = '0 4px 32px rgba(0,0,0,0.3)';
-    } else {
-      nav.style.boxShadow = 'none';
-    }
-  });
+  // Nav scroll effect: ahora se maneja en el bloque PREMIUM EFFECTS via
+  // .scrolled class. Este handler se quito para no pisar el efecto.
 
   // Reveal on scroll. Marcamos <html> con .js-reveal recien ahora — si JS
   // falla o tarda, el contenido queda visible por defecto (CSS default).
@@ -2117,6 +2603,187 @@ src="https://www.facebook.com/tr?id=1486565559631508&ev=PageView&noscript=1"
       start();
     }
   })();
+</script>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     PREMIUM EFFECTS — Scroll progress, magnetic CTAs, parallax
+     watermark. Todo respeta prefers-reduced-motion.
+     ═══════════════════════════════════════════════════════════════ -->
+<script>
+(function () {
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var coarsePointer = window.matchMedia('(hover: none), (pointer: coarse)').matches;
+
+  // ── Scroll progress bar + Nav scrolled + FAB whatsapp ──
+  var bar  = document.querySelector('.scroll-progress span');
+  var navEl = document.querySelector('nav');
+  var fab  = document.getElementById('fabWhatsapp');
+  var ticking = false;
+  function onScroll() {
+    var h = document.documentElement;
+    var max = h.scrollHeight - h.clientHeight;
+    var st = h.scrollTop || window.scrollY;
+    var pct = max > 0 ? (st / max) * 100 : 0;
+    if (bar) bar.style.width = pct.toFixed(2) + '%';
+    // Nav: solidificar cuando se pasaron 40px de scroll
+    if (navEl) {
+      if (st > 40) navEl.classList.add('scrolled');
+      else navEl.classList.remove('scrolled');
+    }
+    // FAB: aparece despues de 30% scrolleado
+    if (fab) {
+      if (pct > 30) fab.classList.add('is-visible');
+      else fab.classList.remove('is-visible');
+    }
+    ticking = false;
+  }
+  window.addEventListener('scroll', function () {
+    if (!ticking) { requestAnimationFrame(onScroll); ticking = true; }
+  }, { passive: true });
+  onScroll();
+
+  // ── Dark mode toggle ──
+  (function () {
+    var btn = document.getElementById('navThemeToggle');
+    if (!btn) return;
+    var KEY = 'cicar-theme';
+    // Cargar preferencia guardada o respetar sistema
+    var saved = (function () {
+      try { return localStorage.getItem(KEY); } catch (e) { return null; }
+    })();
+    var sysDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    var theme = saved || (sysDark ? 'dark' : 'light');
+    if (theme === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+
+    function update() {
+      var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      btn.setAttribute('aria-label', isDark ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro');
+      btn.setAttribute('title', isDark ? 'Modo día' : 'Modo noche');
+    }
+    update();
+
+    btn.addEventListener('click', function () {
+      var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      if (isDark) {
+        document.documentElement.removeAttribute('data-theme');
+        try { localStorage.setItem(KEY, 'light'); } catch (e) {}
+      } else {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        try { localStorage.setItem(KEY, 'dark'); } catch (e) {}
+      }
+      update();
+    });
+  })();
+
+  // ── Nav Sliding Indicator ──
+  (function () {
+    var nav = document.getElementById('navLinks');
+    var slider = document.getElementById('navSlider');
+    if (!nav || !slider) return;
+    var links = nav.querySelectorAll('a:not(.nav-cta)');
+
+    function moveTo(target) {
+      if (!target) {
+        slider.style.opacity = '0';
+        return;
+      }
+      var navRect = nav.getBoundingClientRect();
+      var tRect = target.getBoundingClientRect();
+      slider.style.width = tRect.width + 'px';
+      slider.style.transform = 'translate(' + (tRect.left - navRect.left) + 'px, -50%)';
+      slider.style.opacity = '1';
+      nav.classList.add('slider-ready');
+    }
+    function active() {
+      return nav.querySelector('a.active') || links[0];
+    }
+    // Inicial
+    setTimeout(function () { moveTo(active()); }, 100);
+    // Cuando cambia el active (lo maneja el observer existente)
+    var mo = new MutationObserver(function () { moveTo(active()); });
+    links.forEach(function (a) {
+      mo.observe(a, { attributes: true, attributeFilter: ['class'] });
+      a.addEventListener('mouseenter', function () { moveTo(a); });
+    });
+    nav.addEventListener('mouseleave', function () { moveTo(active()); });
+    window.addEventListener('resize', function () { moveTo(active()); });
+  })();
+
+  // ── Indicador "Atendiendo ahora" en la nav ──
+  (function () {
+    var live = document.getElementById('navLive');
+    if (!live) return;
+    var text = live.querySelector('.nav-live-text');
+
+    // Horarios: Lun-Vie 8:00-20:00, Sab 8:00-13:00, Dom cerrado
+    var SCHEDULE = {
+      // 0 = Domingo, 1 = Lunes, ... 6 = Sabado
+      0: null,
+      1: { open: 8, close: 20 },
+      2: { open: 8, close: 20 },
+      3: { open: 8, close: 20 },
+      4: { open: 8, close: 20 },
+      5: { open: 8, close: 20 },
+      6: { open: 8, close: 13 }
+    };
+    var DAY_NAMES = ['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
+
+    function update() {
+      var now = new Date();
+      var day = now.getDay();
+      var hour = now.getHours() + now.getMinutes() / 60;
+      var s = SCHEDULE[day];
+      if (s && hour >= s.open && hour < s.close) {
+        live.classList.remove('is-closed');
+        text.textContent = 'Atendiendo ahora';
+      } else {
+        live.classList.add('is-closed');
+        // Encontrar proximo dia abierto
+        for (var i = 0; i < 7; i++) {
+          var nextDay = (day + i) % 7;
+          var ns = SCHEDULE[nextDay];
+          if (!ns) continue;
+          if (i === 0 && hour < ns.open) {
+            // Hoy todavia no abrio
+            text.textContent = 'Abrimos hoy a las ' + ns.open + ':00';
+            return;
+          }
+          if (i > 0) {
+            text.textContent = 'Abrimos ' + DAY_NAMES[nextDay] + ' a las ' + ns.open + ':00';
+            return;
+          }
+        }
+      }
+    }
+    update();
+    // Actualizar cada minuto
+    setInterval(update, 60 * 1000);
+  })();
+
+  // ── Magnetic CTAs (solo desktop, no en reduced-motion) ──
+  if (!coarsePointer && !reduced) {
+    var magnetics = document.querySelectorAll('.hero-actions .btn-primary, .hero-actions .btn-outline');
+    magnetics.forEach(function (el) {
+      el.classList.add('magnetic');
+      var rect;
+      el.addEventListener('mouseenter', function () { rect = el.getBoundingClientRect(); });
+      el.addEventListener('mousemove', function (e) {
+        if (!rect) rect = el.getBoundingClientRect();
+        var dx = e.clientX - (rect.left + rect.width / 2);
+        var dy = e.clientY - (rect.top + rect.height / 2);
+        // Atracción suave, cap a 12px
+        var ax = Math.max(-12, Math.min(12, dx * 0.25));
+        var ay = Math.max(-8,  Math.min(8,  dy * 0.25));
+        el.style.transform = 'translate(' + ax + 'px,' + ay + 'px)';
+      });
+      el.addEventListener('mouseleave', function () {
+        el.style.transform = 'translate(0,0)';
+        rect = null;
+      });
+    });
+  }
+
+})();
 </script>
 
 </body>
