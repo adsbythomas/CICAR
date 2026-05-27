@@ -16,9 +16,9 @@
     --radius-lg: 20px;
     --font-display: 'Hero', 'Poppins', system-ui, sans-serif;
     --font-body: 'Montserrat', system-ui, sans-serif;
-    /* Acento secundario: usa --mid (azul intermedio CICAR) para detalles */
-    --gold: #53A1C6;
-    --gold-soft: rgba(83, 161, 198, 0.18);
+    /* Acento secundario: coral cálido para detalles puntuales */
+    --gold: #D88A6E;
+    --gold-soft: rgba(216, 138, 110, 0.18);
     /* Off-white papel para alternar con blanco puro */
     --cream: #F7F4ED;
   }
@@ -138,18 +138,33 @@
 
   .nav-links { display: flex; align-items: center; gap: 8px; }
   .nav-links a {
-    color: rgba(255,255,255,0.75); text-decoration: none;
-    font-size: 13px; font-weight: 500; letter-spacing: 0.5px;
-    padding: 8px 14px; border-radius: 8px;
-    transition: all 0.2s;
+    color: rgba(255,255,255,0.78);
+    text-decoration: none;
+    font-size: 13.5px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    padding: 9px 16px;
+    border-radius: 8px;
+    transition: color 0.25s ease, background 0.25s ease;
+    position: relative;
   }
-  .nav-links a:hover { color: white; background: rgba(255,255,255,0.08); }
+  .nav-links a:hover { color: white; }
+  .nav-links a.active { color: white; font-weight: 600; }
   .nav-cta {
-    background: var(--blue) !important; color: white !important;
-    padding: 10px 22px !important; border-radius: 8px !important;
+    background: var(--blue) !important;
+    color: white !important;
+    padding: 10px 22px !important;
+    border-radius: 8px !important;
     font-weight: 600 !important;
+    letter-spacing: 0.4px !important;
+    transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease !important;
+    box-shadow: 0 4px 14px rgba(29,132,199,0.35) !important;
   }
-  .nav-cta:hover { background: #13628f !important; }
+  .nav-cta:hover {
+    background: #13628f !important;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 22px rgba(29,132,199,0.50) !important;
+  }
 
   /* Burger button — visible solo en mobile */
   .nav-burger {
@@ -1169,12 +1184,12 @@
   }
   .footer-top {
     display: grid;
-    grid-template-columns: 1.4fr 1fr 1fr 1.3fr;
+    grid-template-columns: 1.9fr 1fr 1fr 1.3fr;
     gap: 48px;
     padding-bottom: 56px;
     border-bottom: 1px solid rgba(255,255,255,0.08);
     margin-bottom: 36px;
-    max-width: 1320px;
+    max-width: 1380px;
     margin-left: auto;
     margin-right: auto;
     align-items: start;
@@ -1549,8 +1564,8 @@
   /* Active nav item indicator */
   .nav-links a.active { color: white; }
 
-  /* Smooth scroll offset for fixed nav */
-  [id] { scroll-margin-top: 80px; }
+  /* Smooth scroll offset para que las anclas no queden tapadas por la nav fija (92-96px) */
+  [id] { scroll-margin-top: 110px; }
 
   /* Specialty pills */
   .specialty-pills { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 40px; }
@@ -1590,11 +1605,11 @@
 
   .about-section .pillar {
     background: white;
-    border-color: rgba(83, 161, 198, 0.16);
+    border-color: rgba(216, 138, 110, 0.16);
   }
   .about-section .pillar:hover {
     border-color: var(--gold);
-    box-shadow: 0 16px 48px rgba(83, 161, 198, 0.18);
+    box-shadow: 0 16px 48px rgba(216, 138, 110, 0.18);
   }
   .about-section .pillar-num {
     color: var(--gold);
@@ -3660,17 +3675,6 @@
   }
   .study-helper-previous-input:focus { border-color: var(--blue); }
   .study-helper-previous-input::placeholder { color: rgba(23,46,68,0.40); font-size: 12.5px; }
-  html[data-theme="dark"] .study-helper-previous {
-    background: rgba(29,132,199,0.10);
-    border-color: rgba(166,218,241,0.20);
-  }
-  html[data-theme="dark"] .study-helper-previous-label span { color: white; }
-  html[data-theme="dark"] .study-helper-previous-label small { color: #9eb3c8; }
-  html[data-theme="dark"] .study-helper-previous-input {
-    background: #0f1c2a;
-    color: #e5edf6;
-    border-color: rgba(166,218,241,0.20);
-  }
 
   .study-helper-actions {
     display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;
@@ -3742,16 +3746,16 @@
     position: absolute;
     top: -60%; right: -30%;
     width: 60%; aspect-ratio: 1;
-    background: radial-gradient(circle, rgba(83, 161, 198,0.16) 0%, transparent 60%);
+    background: radial-gradient(circle, rgba(216, 138, 110,0.16) 0%, transparent 60%);
     pointer-events: none;
   }
   .reminder-decor {
     width: 80px; height: 80px;
     border-radius: 18px;
-    background: linear-gradient(135deg, var(--gold) 0%, #7AB5D1 100%);
+    background: linear-gradient(135deg, var(--gold) 0%, #E5A493 100%);
     color: white;
     display: inline-flex; align-items: center; justify-content: center;
-    box-shadow: 0 14px 32px rgba(83, 161, 198,0.35);
+    box-shadow: 0 14px 32px rgba(216, 138, 110,0.35);
     position: relative; z-index: 1;
   }
   .reminder-decor svg { width: 44px; height: 44px; }
@@ -3796,11 +3800,11 @@
     cursor: pointer;
     font-weight: 700;
     transition: all 0.2s ease;
-    box-shadow: 0 10px 26px rgba(83, 161, 198,0.32) !important;
+    box-shadow: 0 10px 26px rgba(216, 138, 110,0.32) !important;
   }
   .reminder-btn:hover {
-    background: #3E83A6 !important;
-    box-shadow: 0 14px 36px rgba(83, 161, 198,0.5) !important;
+    background: #B66A50 !important;
+    box-shadow: 0 14px 36px rgba(216, 138, 110,0.5) !important;
     transform: translateY(-2px);
   }
   .reminder-note {
@@ -3860,37 +3864,38 @@
      FOOTER PREMIUM
      Logo + descripcion + MAPA Barrio Norte + redes + columnas
      ════════════════════════════════════════════════════════════════ */
-  .footer-premium .footer-brand { max-width: 400px; }
+  .footer-premium .footer-brand { max-width: 580px; }
   .footer-premium .footer-logo img { height: 56px; margin-bottom: 18px; }
 
-  /* Mapa minimalista de Barrio Norte — mas grande y prominente */
+  /* Mapa minimalista de Barrio Norte — GRANDE y prominente, resalta como hero */
   .footer-map {
     display: block;
-    margin: 22px 0 20px;
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(166,218,241,0.14);
-    border-radius: 16px;
-    padding: 18px 18px 16px;
+    margin: 24px 0 22px;
+    background: linear-gradient(135deg, rgba(29,132,199,0.14) 0%, rgba(166,218,241,0.04) 100%);
+    border: 1.5px solid rgba(166,218,241,0.28);
+    border-radius: 20px;
+    padding: 24px 26px 22px;
     text-decoration: none;
     color: rgba(255,255,255,0.85);
-    transition: all 0.25s ease;
+    transition: all 0.3s ease;
     position: relative;
+    box-shadow: 0 12px 36px rgba(0,0,0,0.22), 0 0 0 1px rgba(166,218,241,0.05) inset;
   }
   .footer-map:hover {
-    background: rgba(255,255,255,0.07);
-    border-color: rgba(83, 161, 198,0.55);
-    transform: translateY(-2px);
-    box-shadow: 0 14px 36px rgba(0,0,0,0.25);
+    background: linear-gradient(135deg, rgba(29,132,199,0.22) 0%, rgba(166,218,241,0.08) 100%);
+    border-color: var(--gold);
+    transform: translateY(-4px);
+    box-shadow: 0 24px 60px rgba(0,0,0,0.36);
   }
   .footer-map svg {
     width: 100%;
     height: auto;
-    min-height: 280px;
-    color: rgba(166,218,241,0.55);
+    min-height: 420px;
+    color: rgba(166,218,241,0.65);
     display: block;
-    margin-bottom: 16px;
+    margin-bottom: 20px;
+    filter: drop-shadow(0 4px 16px rgba(166,218,241,0.10));
   }
-  .footer-premium .footer-brand { max-width: 480px; }
   .footer-map .map-pin {
     animation: mapPin 2.4s ease-out infinite;
     transform-origin: 148px 74px;
@@ -4036,299 +4041,8 @@
 
   /* Certificaciones con acento dorado */
   .footer-premium .cert-badge {
-    background: rgba(83, 161, 198,0.12);
-    border-color: rgba(83, 161, 198,0.32);
+    background: rgba(216, 138, 110,0.12);
+    border-color: rgba(216, 138, 110,0.32);
     color: var(--gold);
   }
 
-  /* ════════════════════════════════════════════════════════════════
-     DARK MODE TOGGLE + OVERRIDES
-     ════════════════════════════════════════════════════════════════ */
-  .nav-theme-toggle {
-    width: 38px; height: 38px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(166,218,241,0.20);
-    color: var(--light);
-    cursor: pointer;
-    display: inline-flex; align-items: center; justify-content: center;
-    margin: 0 6px;
-    transition: all 0.25s ease;
-    position: relative;
-    overflow: hidden;
-  }
-  .nav-theme-toggle:hover {
-    background: rgba(255,255,255,0.12);
-    border-color: var(--gold);
-  }
-  .nav-theme-toggle svg {
-    width: 18px; height: 18px;
-    position: absolute;
-    transition: transform 0.45s cubic-bezier(.34,1.56,.64,1), opacity 0.3s ease;
-  }
-  .nav-theme-toggle .theme-icon-sun { transform: rotate(0deg) scale(1); opacity: 1; }
-  .nav-theme-toggle .theme-icon-moon { transform: rotate(-180deg) scale(0); opacity: 0; }
-  html[data-theme="dark"] .nav-theme-toggle .theme-icon-sun { transform: rotate(180deg) scale(0); opacity: 0; }
-  html[data-theme="dark"] .nav-theme-toggle .theme-icon-moon { transform: rotate(0deg) scale(1); opacity: 1; }
-  @media (max-width: 1100px) {
-    .nav-theme-toggle { display: none; }
-  }
-
-  /* === DARK MODE OVERRIDES ===
-     Solo aplica cuando html tiene data-theme="dark". */
-  html[data-theme="dark"] body { background: #0a1422; color: #e5edf6; }
-
-  /* Secciones blancas -> deep navy */
-  html[data-theme="dark"] .services,
-  html[data-theme="dark"] .info-section,
-  html[data-theme="dark"] .estudios,
-  html[data-theme="dark"] .consultorios-home {
-    background: #0a1422;
-    color: #e5edf6;
-  }
-  html[data-theme="dark"] .estudios::before,
-  html[data-theme="dark"] .estudios::after { opacity: 0.4; }
-
-  /* About section (cream) -> deep navy con tono ligeramente warm */
-  html[data-theme="dark"] .about-section {
-    background: #0f1c2a;
-  }
-  html[data-theme="dark"] .about-section .stats-band,
-  html[data-theme="dark"] .about-section .pillar {
-    background: #18283b;
-    border-color: rgba(83, 161, 198,0.18);
-    color: #e5edf6;
-  }
-  html[data-theme="dark"] .pillar-title { color: #e5edf6; }
-  html[data-theme="dark"] .pillar-desc { color: #9eb3c8; }
-
-  /* Reminder section */
-  html[data-theme="dark"] .reminder-section { background: #0a1422; }
-  html[data-theme="dark"] .reminder-wrap {
-    background: #18283b;
-    box-shadow: 0 24px 60px rgba(0,0,0,0.4);
-  }
-  html[data-theme="dark"] .reminder-text .section-title { color: #e5edf6; }
-  html[data-theme="dark"] .reminder-text .section-sub { color: #9eb3c8; }
-  html[data-theme="dark"] .reminder-select {
-    background: #0f1c2a;
-    color: #e5edf6;
-    border-color: rgba(166,218,241,0.20);
-  }
-
-  /* Titulos */
-  html[data-theme="dark"] h2.section-title { color: #e5edf6; }
-  html[data-theme="dark"] h2.section-title em { color: var(--light); }
-  html[data-theme="dark"] .section-sub { color: #9eb3c8; }
-  html[data-theme="dark"] .info-card-title,
-  html[data-theme="dark"] .info-card { color: #e5edf6; }
-  html[data-theme="dark"] .info-card { background: #18283b; border-color: rgba(166,218,241,0.10); }
-
-  /* Estudio cards */
-  html[data-theme="dark"] .estudio-card {
-    background: #18283b !important;
-    border-color: rgba(166,218,241,0.10) !important;
-    color: #e5edf6;
-  }
-  html[data-theme="dark"] .estudio-card h3 { color: #e5edf6; }
-  html[data-theme="dark"] .estudio-card p { color: #9eb3c8; }
-  html[data-theme="dark"] .estudio-card-anim {
-    background: linear-gradient(135deg, #0a1422 0%, #18283b 100%);
-  }
-  html[data-theme="dark"] .estudio-card::before { color: rgba(166,218,241,0.45) !important; }
-
-  /* Tabs */
-  html[data-theme="dark"] .estudios-tab {
-    background: #18283b;
-    color: #c2d2e0;
-    border-color: rgba(166,218,241,0.10);
-  }
-  html[data-theme="dark"] .estudios-tab.active {
-    background: var(--blue);
-    color: white;
-  }
-
-  /* Search input */
-  html[data-theme="dark"] .estudios-search-input {
-    background: #18283b;
-    color: #e5edf6;
-    border-color: rgba(166,218,241,0.15);
-  }
-  html[data-theme="dark"] .estudios-search-input::placeholder { color: rgba(166,218,241,0.50); }
-
-  /* Shelf arrows */
-  html[data-theme="dark"] .estudios-shelf-arrow {
-    background: #18283b;
-    color: var(--light);
-    border-color: rgba(166,218,241,0.18);
-  }
-  html[data-theme="dark"] .estudios-shelf-arrow:hover {
-    background: var(--blue);
-    color: white;
-  }
-  html[data-theme="dark"] .estudios-shelf-fade-left {
-    background: linear-gradient(90deg, #0a1422 0%, transparent 100%);
-  }
-  html[data-theme="dark"] .estudios-shelf-fade-right {
-    background: linear-gradient(270deg, #0a1422 0%, transparent 100%);
-  }
-
-  /* Doctor cards */
-  html[data-theme="dark"] .doctor-card {
-    background: #18283b;
-    border-color: rgba(166,218,241,0.10);
-  }
-  html[data-theme="dark"] .doctor-name { color: #e5edf6; }
-  html[data-theme="dark"] .doctor-role { color: #9eb3c8; }
-  html[data-theme="dark"] .credential-badge {
-    background: rgba(29,132,199,0.18);
-    color: var(--light);
-    border-color: rgba(166,218,241,0.15);
-  }
-
-  /* Consultorios showcase: la lista (left) en dark */
-  html[data-theme="dark"] .consultorios-list-item {
-    background: #18283b;
-    border-color: rgba(166,218,241,0.10);
-  }
-  html[data-theme="dark"] .consultorios-list-name { color: #e5edf6; }
-  html[data-theme="dark"] .consultorios-list-num { color: rgba(166,218,241,0.40); }
-  html[data-theme="dark"] .consultorios-list-item.active {
-    background: linear-gradient(90deg, rgba(29,132,199,0.18) 0%, #18283b 80%);
-    border-color: rgba(29,132,199,0.45);
-  }
-
-  /* Info section contacto */
-  html[data-theme="dark"] .info-card-icon { background: rgba(29,132,199,0.18); color: var(--light); }
-
-  /* Study helper modal */
-  html[data-theme="dark"] .study-helper-modal {
-    background: #18283b;
-    color: #e5edf6;
-  }
-  html[data-theme="dark"] .study-helper-step h3,
-  html[data-theme="dark"] .study-helper-result h3 { color: #e5edf6; }
-  html[data-theme="dark"] .study-helper-option {
-    background: #0f1c2a;
-    border-color: rgba(166,218,241,0.18);
-    color: #e5edf6;
-  }
-  html[data-theme="dark"] .study-helper-option strong { color: #e5edf6; }
-  html[data-theme="dark"] .study-helper-option span { color: #9eb3c8; }
-  html[data-theme="dark"] .study-helper-option:hover {
-    background: rgba(29,132,199,0.12);
-    border-color: var(--blue);
-  }
-
-  /* Achicar el efecto del cream + cobre en about */
-  html[data-theme="dark"] .about-section .pillar-num { color: var(--gold); }
-
-  /* ── Overrides EXTRA dark mode para textos que se pierden ── */
-
-  /* Stats band — en dark vuelve al fondo navy oscuro con texto claro */
-  html[data-theme="dark"] .about-section .stats-band {
-    background: #18283b !important;
-    color: white;
-  }
-  html[data-theme="dark"] .about-section .stats-band .stat-num { color: white; }
-  html[data-theme="dark"] .about-section .stats-band .stat-num-suffix { color: var(--light); }
-  html[data-theme="dark"] .about-section .stats-band .stat-label { color: var(--light); }
-  html[data-theme="dark"] .about-section .stats-band .stat-foot { color: rgba(255,255,255,0.6); }
-  html[data-theme="dark"] .stats-ecg path { stroke: var(--blue); opacity: 0.22; }
-
-  /* Estudios cards — tags y textos secundarios */
-  html[data-theme="dark"] .estudio-card-tag {
-    color: var(--light);
-    background: rgba(166,218,241,0.10);
-  }
-  html[data-theme="dark"] .estudio-card-cta { color: white; }
-  html[data-theme="dark"] .estudio-card-cta:hover { color: white; }
-
-  /* Estudios helper button */
-  html[data-theme="dark"] .estudios-helper-btn {
-    background: linear-gradient(135deg, rgba(29,132,199,0.18) 0%, rgba(166,218,241,0.08) 100%);
-    border-color: rgba(166,218,241,0.30);
-    color: #e5edf6;
-  }
-  html[data-theme="dark"] .estudios-helper-text strong { color: #e5edf6; }
-  html[data-theme="dark"] .estudios-helper-text span { color: #9eb3c8; }
-  html[data-theme="dark"] .estudios-helper-arrow { color: var(--light); }
-
-  /* Estudios tabs counter pills */
-  html[data-theme="dark"] .estudios-tab .tab-count {
-    background: rgba(166,218,241,0.10);
-    color: var(--light);
-  }
-  html[data-theme="dark"] .estudios-empty p { color: #9eb3c8; }
-
-  /* Doctors carousel cards en dark */
-  html[data-theme="dark"] .doctors-carousel .doctor-card {
-    background: #18283b !important;
-    border-color: rgba(166,218,241,0.12) !important;
-  }
-  html[data-theme="dark"] .doctors-carousel .doctor-info { background: transparent !important; }
-  html[data-theme="dark"] .doctors-carousel .doctor-name { color: white !important; }
-  html[data-theme="dark"] .doctors-carousel .doctor-role { color: #9eb3c8 !important; }
-  html[data-theme="dark"] .doctors-carousel .doctor-specialty { color: var(--light); }
-  html[data-theme="dark"] .doctors-arrow {
-    background: #18283b;
-    color: var(--light);
-    border-color: rgba(166,218,241,0.18);
-  }
-  html[data-theme="dark"] .doctors-arrow:hover { background: var(--blue); color: white; }
-
-  /* Consultorios showcase: spotlight + lista en dark */
-  html[data-theme="dark"] .consultorios-spotlight {
-    background: linear-gradient(135deg, #0a1422 0%, #18283b 100%);
-  }
-  html[data-theme="dark"] .consultorios-slide-name,
-  html[data-theme="dark"] .consultorios-slide-desc { color: rgba(255,255,255,0.9); }
-  html[data-theme="dark"] .consultorios-slide-cta {
-    background: white;
-    color: var(--navy);
-  }
-  html[data-theme="dark"] .consultorios-home-link { color: var(--light); }
-  html[data-theme="dark"] .consultorios-mini {
-    background: #18283b;
-    border-color: rgba(166,218,241,0.10);
-  }
-  html[data-theme="dark"] .consultorios-mini-name { color: white; }
-
-  /* Info section: cards de contacto en dark */
-  html[data-theme="dark"] .info-card-content,
-  html[data-theme="dark"] .info-card-content a {
-    color: #c5d4e3;
-  }
-  html[data-theme="dark"] .info-card-content strong { color: white; }
-  html[data-theme="dark"] .info-card-content a:hover { color: var(--light); }
-
-  /* Reminder form: select + note */
-  html[data-theme="dark"] .reminder-label { color: var(--light); }
-  html[data-theme="dark"] .reminder-note { color: #9eb3c8; }
-  html[data-theme="dark"] .reminder-note.success { color: #4ade80; }
-
-  /* Glossary tooltip mantiene fondo blanco con texto navy (esta sobre cualquier fondo) */
-  /* Section tags numerados */
-  html[data-theme="dark"] .section-tag::after { color: rgba(166,218,241,0.50); }
-  html[data-theme="dark"] .section-tag { color: var(--light); }
-  html[data-theme="dark"] .section-tag::before { background: var(--light); }
-
-  /* Hero pills text en dark mantiene blanco (estan sobre fondo navy) */
-  /* No hacen falta overrides — ya estan bien */
-
-  /* Hero hours: ya tiene rgba blanco, ok */
-
-  /* Footer ya es navy, OK por defecto. Pero las certs deben verse: */
-  html[data-theme="dark"] .footer-premium .cert-badge {
-    background: rgba(83, 161, 198,0.18);
-    color: var(--gold);
-    border-color: rgba(83, 161, 198,0.40);
-  }
-
-  /* Smooth transition al cambiar de modo */
-  html, body, section,
-  .info-card, .estudio-card, .estudios-tab, .doctor-card, .pillar,
-  .consultorios-list-item, .reminder-wrap, .study-helper-modal,
-  .estudios-search-input, .estudios-shelf-arrow {
-    transition: background-color 0.45s ease, color 0.3s ease, border-color 0.3s ease;
-  }

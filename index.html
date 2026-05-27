@@ -98,10 +98,6 @@ src="https://www.facebook.com/tr?id=1486565559631508&ev=PageView&noscript=1"
     <a href="especialidades.html">Especialidades</a>
     <a href="consultorios.html">Consultorios</a>
     <a href="profesionales.html">Para profesionales</a>
-    <button type="button" class="nav-theme-toggle" id="navThemeToggle" aria-label="Cambiar a modo oscuro" title="Modo noche">
-      <svg class="theme-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="4.22" y1="4.22" x2="6.34" y2="6.34"/><line x1="17.66" y1="17.66" x2="19.78" y2="19.78"/><line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/><line x1="4.22" y1="19.78" x2="6.34" y2="17.66"/><line x1="17.66" y1="6.34" x2="19.78" y2="4.22"/></svg>
-      <svg class="theme-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-    </button>
     <a href="https://centrocicar.medicloud.com.ar/" class="nav-cta">Pedir Turno</a>
   </div>
   <button class="nav-burger" id="navBurger" aria-label="Abrir menú" aria-expanded="false">
@@ -2081,9 +2077,10 @@ src="https://www.facebook.com/tr?id=1486565559631508&ev=PageView&noscript=1"
           <text x="203" y="14" font-size="7" fill="currentColor" opacity="0.5" stroke="none" font-family="Montserrat">SANTA FE</text>
           <!-- Pin CICAR -->
           <g class="map-pin">
-            <circle cx="148" cy="74" r="12" fill="var(--gold)" opacity="0.18" stroke="none"/>
-            <circle cx="148" cy="74" r="6" fill="var(--gold)" stroke="white" stroke-width="2"/>
-            <circle cx="148" cy="74" r="2" fill="white" stroke="none"/>
+            <circle cx="148" cy="74" r="18" fill="var(--gold)" opacity="0.18" stroke="none"/>
+            <circle cx="148" cy="74" r="11" fill="var(--gold)" opacity="0.35" stroke="none"/>
+            <circle cx="148" cy="74" r="7" fill="var(--gold)" stroke="white" stroke-width="2.5"/>
+            <circle cx="148" cy="74" r="2.5" fill="white" stroke="none"/>
           </g>
         </svg>
         <span class="footer-map-label">
@@ -2419,22 +2416,26 @@ src="https://www.facebook.com/tr?id=1486565559631508&ev=PageView&noscript=1"
     window.addEventListener('resize', function () { tip.classList.remove('open'); });
   })();
 
-  // Smooth active nav
-  const sections = document.querySelectorAll('section[id], div[id]');
+  // Active nav link: marca cual seccion esta en viewport.
+  // Solo observamos las <section> de la home, no cualquier div con id
+  // (que arrojaba falsos positivos con modales/banners).
   const navLinks = document.querySelectorAll('.nav-links a');
+  const validIds = Array.from(navLinks)
+    .map(a => (a.getAttribute('href') || '').replace('#', ''))
+    .filter(id => id && document.getElementById(id));
+  const sections = validIds.map(id => document.getElementById(id)).filter(Boolean);
 
+  // Usar rootMargin para que la "linea activa" sea ~30% desde arriba del viewport
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
+        const id = entry.target.id;
         navLinks.forEach(link => {
-          link.classList.remove('active');
-          if (link.getAttribute('href') === '#' + entry.target.id) {
-            link.classList.add('active');
-          }
+          link.classList.toggle('active', link.getAttribute('href') === '#' + id);
         });
       }
     });
-  }, { threshold: 0.3 });
+  }, { rootMargin: '-30% 0px -60% 0px', threshold: 0 });
 
   sections.forEach(s => observer.observe(s));
 
@@ -2641,39 +2642,6 @@ src="https://www.facebook.com/tr?id=1486565559631508&ev=PageView&noscript=1"
     if (!ticking) { requestAnimationFrame(onScroll); ticking = true; }
   }, { passive: true });
   onScroll();
-
-  // ── Dark mode toggle ──
-  (function () {
-    var btn = document.getElementById('navThemeToggle');
-    if (!btn) return;
-    var KEY = 'cicar-theme';
-    // Cargar preferencia guardada o respetar sistema
-    var saved = (function () {
-      try { return localStorage.getItem(KEY); } catch (e) { return null; }
-    })();
-    var sysDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    var theme = saved || (sysDark ? 'dark' : 'light');
-    if (theme === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
-
-    function update() {
-      var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-      btn.setAttribute('aria-label', isDark ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro');
-      btn.setAttribute('title', isDark ? 'Modo día' : 'Modo noche');
-    }
-    update();
-
-    btn.addEventListener('click', function () {
-      var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-      if (isDark) {
-        document.documentElement.removeAttribute('data-theme');
-        try { localStorage.setItem(KEY, 'light'); } catch (e) {}
-      } else {
-        document.documentElement.setAttribute('data-theme', 'dark');
-        try { localStorage.setItem(KEY, 'dark'); } catch (e) {}
-      }
-      update();
-    });
-  })();
 
   // ── Nav Sliding Indicator ──
   (function () {
