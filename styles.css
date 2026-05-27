@@ -16,9 +16,9 @@
     --radius-lg: 20px;
     --font-display: 'Hero', 'Poppins', system-ui, sans-serif;
     --font-body: 'Montserrat', system-ui, sans-serif;
-    /* Acento secundario: coral cálido para detalles puntuales */
-    --gold: #D88A6E;
-    --gold-soft: rgba(216, 138, 110, 0.18);
+    /* Acento secundario: verde jade sobrio - complementa el azul navy */
+    --gold: #5BA293;
+    --gold-soft: rgba(91, 162, 147, 0.18);
     /* Off-white papel para alternar con blanco puro */
     --cream: #F7F4ED;
   }
@@ -1184,11 +1184,11 @@
   }
   .footer-top {
     display: grid;
-    grid-template-columns: 1.9fr 1fr 1fr 1.3fr;
+    grid-template-columns: 1.3fr 1fr 1fr 1.2fr;
     gap: 48px;
-    padding-bottom: 56px;
+    padding-bottom: 40px;
     border-bottom: 1px solid rgba(255,255,255,0.08);
-    margin-bottom: 36px;
+    margin-bottom: 32px;
     max-width: 1380px;
     margin-left: auto;
     margin-right: auto;
@@ -1605,11 +1605,11 @@
 
   .about-section .pillar {
     background: white;
-    border-color: rgba(216, 138, 110, 0.16);
+    border-color: rgba(91, 162, 147, 0.16);
   }
   .about-section .pillar:hover {
     border-color: var(--gold);
-    box-shadow: 0 16px 48px rgba(216, 138, 110, 0.18);
+    box-shadow: 0 16px 48px rgba(91, 162, 147, 0.18);
   }
   .about-section .pillar-num {
     color: var(--gold);
@@ -3746,16 +3746,16 @@
     position: absolute;
     top: -60%; right: -30%;
     width: 60%; aspect-ratio: 1;
-    background: radial-gradient(circle, rgba(216, 138, 110,0.16) 0%, transparent 60%);
+    background: radial-gradient(circle, rgba(91, 162, 147,0.16) 0%, transparent 60%);
     pointer-events: none;
   }
   .reminder-decor {
     width: 80px; height: 80px;
     border-radius: 18px;
-    background: linear-gradient(135deg, var(--gold) 0%, #E5A493 100%);
+    background: linear-gradient(135deg, var(--gold) 0%, #7CB8AB 100%);
     color: white;
     display: inline-flex; align-items: center; justify-content: center;
-    box-shadow: 0 14px 32px rgba(216, 138, 110,0.35);
+    box-shadow: 0 14px 32px rgba(91, 162, 147,0.35);
     position: relative; z-index: 1;
   }
   .reminder-decor svg { width: 44px; height: 44px; }
@@ -3800,11 +3800,11 @@
     cursor: pointer;
     font-weight: 700;
     transition: all 0.2s ease;
-    box-shadow: 0 10px 26px rgba(216, 138, 110,0.32) !important;
+    box-shadow: 0 10px 26px rgba(91, 162, 147,0.32) !important;
   }
   .reminder-btn:hover {
-    background: #B66A50 !important;
-    box-shadow: 0 14px 36px rgba(216, 138, 110,0.5) !important;
+    background: #3F8275 !important;
+    box-shadow: 0 14px 36px rgba(91, 162, 147,0.5) !important;
     transform: translateY(-2px);
   }
   .reminder-note {
@@ -3864,63 +3864,109 @@
      FOOTER PREMIUM
      Logo + descripcion + MAPA Barrio Norte + redes + columnas
      ════════════════════════════════════════════════════════════════ */
-  .footer-premium .footer-brand { max-width: 580px; }
+  .footer-premium .footer-brand { max-width: 380px; }
   .footer-premium .footer-logo img { height: 56px; margin-bottom: 18px; }
 
-  /* Mapa minimalista de Barrio Norte — GRANDE y prominente, resalta como hero */
-  .footer-map {
-    display: block;
-    margin: 24px 0 22px;
-    background: linear-gradient(135deg, rgba(29,132,199,0.14) 0%, rgba(166,218,241,0.04) 100%);
+  /* ─── BANDA MAPA HORIZONTAL ───
+     Full-width entre footer-top y footer-bottom. SVG horizontal a la
+     izquierda + bloque de texto a la derecha. Resalta como hero del footer. */
+  .footer-map-banner {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    max-width: 1380px;
+    margin: 0 auto 32px;
+    padding: 28px 36px;
+    background: linear-gradient(135deg, rgba(29,132,199,0.16) 0%, rgba(166,218,241,0.04) 100%);
     border: 1.5px solid rgba(166,218,241,0.28);
-    border-radius: 20px;
-    padding: 24px 26px 22px;
+    border-radius: 22px;
     text-decoration: none;
-    color: rgba(255,255,255,0.85);
+    color: white;
     transition: all 0.3s ease;
     position: relative;
-    box-shadow: 0 12px 36px rgba(0,0,0,0.22), 0 0 0 1px rgba(166,218,241,0.05) inset;
+    box-shadow: 0 14px 40px rgba(0,0,0,0.22), 0 0 0 1px rgba(166,218,241,0.05) inset;
   }
-  .footer-map:hover {
-    background: linear-gradient(135deg, rgba(29,132,199,0.22) 0%, rgba(166,218,241,0.08) 100%);
+  .footer-map-banner:hover {
+    background: linear-gradient(135deg, rgba(29,132,199,0.24) 0%, rgba(166,218,241,0.08) 100%);
     border-color: var(--gold);
-    transform: translateY(-4px);
-    box-shadow: 0 24px 60px rgba(0,0,0,0.36);
+    transform: translateY(-3px);
+    box-shadow: 0 26px 60px rgba(0,0,0,0.36);
   }
-  .footer-map svg {
+  .footer-map-svg-wrap {
+    flex: 2;
+    min-width: 0;
+  }
+  .footer-map-banner svg {
     width: 100%;
     height: auto;
-    min-height: 420px;
+    min-height: 200px;
+    max-height: 240px;
     color: rgba(166,218,241,0.65);
     display: block;
-    margin-bottom: 20px;
-    filter: drop-shadow(0 4px 16px rgba(166,218,241,0.10));
+    filter: drop-shadow(0 4px 18px rgba(166,218,241,0.10));
   }
-  .footer-map .map-pin {
+  .footer-map-banner .map-pin {
     animation: mapPin 2.4s ease-out infinite;
-    transform-origin: 148px 74px;
+    transform-origin: 320px 64px;
   }
   @keyframes mapPin {
     0%, 100% { transform: scale(1); }
-    50%      { transform: scale(1.18); }
+    50%      { transform: scale(1.20); }
   }
-  .footer-map-label {
-    display: block;
+  .footer-map-text {
+    flex: 1;
+    min-width: 240px;
+    display: flex; flex-direction: column;
+    gap: 4px;
+  }
+  .footer-map-eyebrow {
+    font-size: 11px;
+    letter-spacing: 2.5px;
+    color: var(--gold);
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .footer-map-text strong {
+    font-size: 22px;
+    font-weight: 700;
+    color: white;
+    letter-spacing: -0.01em;
+    line-height: 1.15;
+  }
+  .footer-map-sub {
+    font-size: 14px;
+    color: rgba(255,255,255,0.65);
     line-height: 1.4;
   }
-  .footer-map-label strong {
-    display: block;
-    color: white;
-    font-size: 14.5px;
-    font-weight: 700;
-    letter-spacing: 0.1px;
+  .footer-map-link {
+    display: inline-flex; align-items: center; gap: 8px;
+    margin-top: 14px;
+    padding: 10px 18px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(166,218,241,0.25);
+    border-radius: 999px;
+    font-size: 13px; font-weight: 600;
+    color: var(--light);
+    align-self: flex-start;
+    transition: all 0.2s ease;
   }
-  .footer-map-label span {
-    display: block;
-    font-size: 12px;
-    color: var(--gold);
-    margin-top: 3px;
-    font-weight: 600;
+  .footer-map-link svg { width: 14px; height: 14px; }
+  .footer-map-banner:hover .footer-map-link {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: white;
+    gap: 12px;
+  }
+  @media (max-width: 900px) {
+    .footer-map-banner {
+      flex-direction: column;
+      align-items: stretch;
+      padding: 22px 22px 26px;
+      gap: 20px;
+    }
+    .footer-map-text { min-width: 0; }
+    .footer-map-banner svg { min-height: 160px; }
   }
 
   /* Redes en el footer */
@@ -4030,7 +4076,6 @@
       gap: 36px !important;
     }
     .footer-premium .footer-brand { grid-column: 1 / -1; max-width: none; }
-    .footer-premium .footer-map { max-width: 480px; }
   }
   @media (max-width: 600px) {
     .footer-top {
@@ -4041,8 +4086,8 @@
 
   /* Certificaciones con acento dorado */
   .footer-premium .cert-badge {
-    background: rgba(216, 138, 110,0.12);
-    border-color: rgba(216, 138, 110,0.32);
+    background: rgba(91, 162, 147,0.12);
+    border-color: rgba(91, 162, 147,0.32);
     color: var(--gold);
   }
 
