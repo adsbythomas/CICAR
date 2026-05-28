@@ -269,6 +269,27 @@
     cursor: pointer; display: inline-flex; align-items: center; gap: 7px; backdrop-filter: blur(4px); transition: background 0.2s; }
   .fs-btn:hover { background: var(--blue); border-color: var(--blue); }
   .fs-btn svg { width: 15px; height: 15px; }
+
+  /* Ocultar controles al exportar a PDF / imprimir */
+  @media print { .fs-btn, .lightbox { display: none !important; } }
+  .reveal.print-pdf .fs-btn { display: none !important; }
+
+  /* Mobile: ocultar botón de pantalla completa */
+  @media screen and (max-width: 600px) { .fs-btn { display: none !important; } }
+
+  /* Aviso para teléfono en vertical (se desvanece solo) */
+  .rotate-hint { display: none; }
+  @media screen and (max-width: 600px) and (orientation: portrait) {
+    .rotate-hint {
+      display: flex; align-items: center; gap: 9px;
+      position: fixed; left: 12px; right: 12px; bottom: 12px; z-index: 950;
+      background: rgba(23,46,68,0.94); color: #fff; border: 1px solid rgba(166,218,241,0.35);
+      border-radius: 12px; padding: 11px 14px; font-family: 'Poppins', sans-serif; font-size: 13px; line-height: 1.35;
+      box-shadow: 0 10px 28px rgba(0,0,0,0.45); animation: hintFade 7s ease forwards;
+    }
+    .rotate-hint svg { width: 22px; height: 22px; flex-shrink: 0; color: var(--light); }
+  }
+  @keyframes hintFade { 0%, 78% { opacity: 1; } 100% { opacity: 0; visibility: hidden; } }
 </style>
 </head>
 <body>
@@ -683,6 +704,12 @@
   <span id="fsLabel">Pantalla completa</span>
 </button>
 
+<!-- Aviso mobile (vertical) -->
+<div class="rotate-hint">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M12 18h.01"/><path d="M2 9l2-2 2 2"/></svg>
+  <span>Girá el teléfono para verla más grande, o deslizá hacia abajo para recorrerla.</span>
+</div>
+
 <!-- Lightbox para ampliar imágenes -->
 <div class="lightbox" id="lightbox">
   <span class="lb-close" id="lbClose">&times;</span>
@@ -710,6 +737,11 @@
     width: 1280,
     height: 720,
     margin: 0,
+    minScale: 0.2,
+    maxScale: 2.0,
+    scrollActivationWidth: 600,    // en pantallas chicas (teléfono) usa vista scroll
+    pdfMaxPagesPerSlide: 1,        // 1 página por slide al exportar a PDF
+    pdfSeparateFragments: false,
     plugins: [ RevealNotes ]
   });
 
