@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>CICAR Barrio Norte · Comunicación y Promoción</title>
+<link rel="icon" type="image/png" href="imgs/favicon.png">
+
+<!-- reveal.js core + tema base -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/white.css" id="theme">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --navy: #172E44;
+    --navy-deep: #0E1F2E;
+    --blue: #1D84C7;
+    --mid: #53A1C6;
+    --light: #A6DAF1;
+    --jade: #5BA293;
+    --cream: #F7F4ED;
+    --text-muted: #5A6E84;
+    --fd: 'Poppins', system-ui, sans-serif;
+    --fb: 'Montserrat', system-ui, sans-serif;
+  }
+
+  /* ── Reset del tema reveal para CICAR ── */
+  .reveal { font-family: var(--fb); font-size: 30px; color: var(--navy); }
+  .reveal .slides { text-align: left; }
+  .reveal .slides section { padding: 0; height: 100%; }
+  .reveal h1, .reveal h2, .reveal h3, .reveal h4 {
+    font-family: var(--fd); font-weight: 600; color: var(--navy);
+    text-transform: none; letter-spacing: -0.015em; line-height: 1.08; margin: 0 0 0.4em;
+  }
+  .reveal h1 { font-size: 2.6em; font-weight: 300; }
+  .reveal h1 strong { font-weight: 700; }
+  .reveal h2 { font-size: 1.7em; }
+  .reveal em { font-style: normal; color: var(--blue); }
+  .reveal p { line-height: 1.5; }
+  .reveal a { color: var(--blue); }
+  .reveal strong { color: var(--navy); }
+
+  /* Layout interno de cada slide */
+  .wrap { padding: 5% 7%; height: 100%; display: flex; flex-direction: column; justify-content: center; box-sizing: border-box; }
+
+  /* Eyebrow / tag */
+  .tag {
+    display: inline-flex; align-items: center; gap: 12px;
+    font-size: 0.5em; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--blue); margin-bottom: 0.6em;
+  }
+  .tag::before { content: ''; width: 48px; height: 3px; background: currentColor; border-radius: 2px; }
+
+  /* Fondos de slide */
+  .bg-navy { background: var(--navy) !important; }
+  .bg-deep { background: var(--navy-deep) !important; }
+  .bg-cream { background: var(--cream) !important; }
+  section.dark, section.dark h1, section.dark h2, section.dark h3 { color: white; }
+  section.dark em { color: var(--light); }
+  section.dark .tag { color: var(--light); }
+  section.dark strong { color: white; }
+  .lead { font-size: 0.72em; line-height: 1.55; color: var(--text-muted); max-width: 24em; }
+  section.dark .lead { color: rgba(255,255,255,0.78); }
+
+  /* Grids */
+  .g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1em; }
+  .g3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 0.7em; }
+  .g4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 0.6em; }
+
+  /* Cards */
+  .card {
+    background: white; border: 1px solid rgba(29,132,199,0.14);
+    border-radius: 16px; padding: 1em 1.1em;
+  }
+  section.dark .card { background: rgba(255,255,255,0.06); border-color: rgba(166,218,241,0.2); }
+  .card h3 { font-size: 0.72em; margin-bottom: 0.2em; }
+  section.dark .card h3 { color: white; }
+  .card p { font-size: 0.5em; line-height: 1.5; color: var(--text-muted); margin: 0; }
+  section.dark .card p { color: rgba(255,255,255,0.72); }
+  .card-icon {
+    width: 2em; height: 2em; border-radius: 0.5em; margin-bottom: 0.5em;
+    background: rgba(29,132,199,0.10); color: var(--blue);
+    display: inline-flex; align-items: center; justify-content: center;
+  }
+  section.dark .card-icon { background: rgba(166,218,241,0.14); color: var(--light); }
+  .card-icon svg { width: 60%; height: 60%; }
+
+  /* Chips */
+  .chips { display: flex; flex-wrap: wrap; gap: 0.4em; margin-top: 0.5em; }
+  .chip {
+    background: rgba(29,132,199,0.08); border: 1.5px solid rgba(29,132,199,0.2);
+    color: var(--navy); border-radius: 100px; padding: 0.4em 0.9em; font-size: 0.62em; font-weight: 600;
+  }
+  section.dark .chip { background: rgba(166,218,241,0.10); border-color: rgba(166,218,241,0.25); color: white; }
+
+  /* Checklist */
+  ul.check { list-style: none; margin: 0.6em 0 0; padding: 0; }
+  ul.check li { display: flex; align-items: flex-start; gap: 0.5em; font-size: 0.66em; line-height: 1.45; margin-bottom: 0.55em; }
+  ul.check li::before {
+    content: '✓'; flex-shrink: 0; width: 1.3em; height: 1.3em; border-radius: 50%;
+    background: var(--jade); color: white; display: inline-flex; align-items: center; justify-content: center;
+    font-size: 0.8em; font-weight: 700;
+  }
+
+  /* Portada */
+  .cover-slide .cover-scrim {
+    position: absolute; inset: 0; z-index: 0; pointer-events: none;
+    background: linear-gradient(105deg, rgba(14,31,46,0.92) 0%, rgba(14,31,46,0.78) 42%, rgba(14,31,46,0.45) 72%, rgba(14,31,46,0.2) 100%);
+  }
+  .cover-slide .wrap { position: relative; z-index: 1; justify-content: flex-start; padding-top: 7%; }
+  .cover-logo { height: 2.1em; margin-bottom: 0.9em; filter: drop-shadow(0 2px 14px rgba(0,0,0,0.55)); }
+  .cover-badge {
+    display: inline-block; margin-top: 0.8em;
+    background: rgba(166,218,241,0.14); border: 1px solid rgba(166,218,241,0.3);
+    color: var(--light); font-size: 0.46em; font-weight: 600; letter-spacing: 1px;
+    padding: 0.5em 1.1em; border-radius: 100px;
+  }
+  .cover-meta { font-size: 0.42em; color: rgba(255,255,255,0.6); margin-top: 1em; letter-spacing: 1px; }
+
+  /* Proceso (flujo de pasos) */
+  .flow { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.6em; margin-top: 1em; }
+  .step { text-align: center; position: relative; }
+  .step-num {
+    width: 2em; height: 2em; border-radius: 50%; margin: 0 auto 0.5em;
+    background: var(--blue); color: white; font-family: var(--fd); font-weight: 700;
+    display: flex; align-items: center; justify-content: center; font-size: 0.9em;
+  }
+  section.dark .step-num { background: var(--light); color: var(--navy); }
+  .step h4 { font-size: 0.5em; margin-bottom: 0.2em; }
+  section.dark .step h4 { color: white; }
+  .step p { font-size: 0.4em; color: var(--text-muted); line-height: 1.4; margin: 0; }
+  section.dark .step p { color: rgba(255,255,255,0.65); }
+
+  /* Canales */
+  .channel {
+    display: flex; align-items: center; gap: 0.7em;
+    background: rgba(255,255,255,0.06); border: 1px solid rgba(166,218,241,0.18);
+    border-radius: 14px; padding: 0.7em 0.9em;
+  }
+  .channel-logo {
+    width: 2.2em; height: 2.2em; border-radius: 0.5em; flex-shrink: 0; color: white;
+    display: inline-flex; align-items: center; justify-content: center;
+  }
+  .channel-logo svg { width: 55%; height: 55%; }
+  .ch-meta { background: linear-gradient(135deg,#0081FB,#7B2FF7); }
+  .ch-ig { background: linear-gradient(45deg,#F58529,#DD2A7B,#8134AF); }
+  .ch-web { background: linear-gradient(135deg, var(--blue), var(--mid)); }
+  .ch-fb { background: #1877F2; }
+  .channel h3 { font-size: 0.56em; margin-bottom: 0.1em; color: white; }
+  .channel p { font-size: 0.42em; color: rgba(255,255,255,0.7); margin: 0; line-height: 1.4; }
+
+  /* Stat grande */
+  .stats { display: flex; gap: 2em; margin-top: 0.8em; flex-wrap: wrap; }
+  .stat-num { font-family: var(--fd); font-size: 1.6em; font-weight: 700; color: var(--blue); line-height: 1; }
+  section.dark .stat-num { color: var(--light); }
+  .stat-label { font-size: 0.46em; color: var(--text-muted); margin-top: 0.4em; font-weight: 600; }
+  section.dark .stat-label { color: rgba(255,255,255,0.65); }
+
+  /* Cita / quote grande */
+  .bigquote { font-family: var(--fd); font-weight: 300; font-size: 1.5em; line-height: 1.2; color: var(--navy); }
+  .bigquote em { color: var(--blue); font-style: normal; font-weight: 600; }
+  section.dark .bigquote { color: #fff; }
+  section.dark .bigquote em { color: var(--light); }
+
+  /* Galería en slide */
+  .gal { display: grid; grid-template-columns: repeat(5,1fr); gap: 0.7em; margin-top: 0.9em; }
+  .gal img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 3/4; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+  .gal figure { margin: 0; display: flex; flex-direction: column; gap: 0.5em; }
+  .gal figcaption { font-size: 0.42em; letter-spacing: 1.5px; text-transform: uppercase; color: var(--blue); text-align: center; }
+  section.dark .gal figcaption { color: var(--light); }
+
+  /* Ficha técnica de equipo */
+  .spec { list-style: none; margin: 0.6em 0 0; padding: 0.6em 0 0; border-top: 1px solid rgba(29,132,199,0.18);
+    display: grid; grid-template-columns: 1fr 1fr; gap: 0.45em 1em; }
+  .spec li { font-size: 0.44em; color: var(--text-muted); line-height: 1.3; }
+  .spec li b { display: block; font-size: 0.92em; text-transform: uppercase; letter-spacing: 1px; color: var(--blue); font-weight: 700; }
+  section.dark .spec { border-top-color: rgba(166,218,241,0.25); }
+  section.dark .spec li { color: rgba(255,255,255,0.74); }
+  section.dark .spec li b { color: var(--light); }
+
+  /* Banner destacado (jade) */
+  .banner { display: flex; align-items: center; gap: 0.8em; margin-top: 0.7em; padding: 0.7em 1em; border-radius: 14px;
+    background: rgba(91,162,147,0.12); border: 1px solid rgba(91,162,147,0.4); }
+  .banner svg { width: 1.5em; height: 1.5em; color: var(--jade); flex-shrink: 0; }
+  .banner p { font-size: 0.46em; color: var(--navy); margin: 0; line-height: 1.45; }
+  .banner strong { color: var(--jade); }
+  section.dark .banner p { color: rgba(255,255,255,0.88); }
+
+  /* Contacto */
+  .contact { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8em; margin-top: 1em; max-width: 22em; }
+  .ci { display: flex; align-items: center; gap: 0.6em; }
+  .ci svg { width: 1.1em; height: 1.1em; color: var(--light); flex-shrink: 0; }
+  .ci strong { display: block; font-size: 0.66em; color: white; }
+  .ci span { display: block; font-size: 0.48em; color: var(--light); margin-bottom: 0.15em; font-weight: 600; }
+
+  /* Placeholder */
+  .ph {
+    display: inline-block; background: rgba(255,193,7,0.16); border: 1px dashed #d4a017;
+    color: #8a6d12; border-radius: 6px; padding: 0 0.4em; font-size: 0.92em; font-weight: 600;
+  }
+  section.dark .ph { color: #ffe08a; background: rgba(255,193,7,0.12); border-color: rgba(255,193,7,0.5); }
+
+  /* Barra de progreso y controles en color CICAR */
+  .reveal .progress { color: var(--blue); height: 5px; }
+  .reveal .controls { color: var(--blue); }
+  section.dark ~ .reveal .controls { color: var(--light); }
+  .reveal .slide-number { background: rgba(23,46,68,0.55); font-family: var(--fd); }
+
+  /* Lightbox (click para expandir imágenes) */
+  .gal img { cursor: zoom-in; transition: transform 0.25s ease, box-shadow 0.25s ease; }
+  .gal figure:hover img { transform: translateY(-4px) scale(1.02); box-shadow: 0 16px 40px rgba(0,0,0,0.45); }
+  .lightbox {
+    position: fixed; inset: 0; z-index: 1000; display: none;
+    align-items: center; justify-content: center; flex-direction: column; gap: 1.2rem;
+    background: rgba(8,16,24,0.93); padding: 4vh 4vw; cursor: zoom-out;
+  }
+  .lightbox.open { display: flex; }
+  .lightbox img { max-width: 92vw; max-height: 82vh; border-radius: 14px; object-fit: contain; box-shadow: 0 24px 70px rgba(0,0,0,0.6); }
+  .lightbox figcaption { color: #fff; font-family: 'Poppins', sans-serif; font-size: 1.4rem; letter-spacing: 1px; text-align: center; }
+  .lb-close { position: absolute; top: 22px; right: 34px; color: #fff; font-size: 2.6rem; line-height: 1; cursor: pointer; opacity: 0.85; }
+  .lb-close:hover { opacity: 1; }
+  .lb-hint { position: absolute; bottom: 22px; left: 0; right: 0; text-align: center; color: rgba(255,255,255,0.5); font-size: 0.9rem; letter-spacing: 0.5px; }
+
+  /* Galería por categorías (una miniatura por ambiente) */
+  .catgal { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.7em; margin-top: 0.8em; }
+  .cat { margin: 0; position: relative; cursor: zoom-in; border-radius: 14px; overflow: hidden; aspect-ratio: 3/2; box-shadow: 0 12px 32px rgba(0,0,0,0.35); }
+  .cat img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.35s ease; }
+  .cat:hover img { transform: scale(1.06); }
+  .cat figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 1.4em 0.75em 0.6em;
+    background: linear-gradient(transparent, rgba(8,16,24,0.9)); color: #fff;
+    font-family: var(--fd); font-size: 0.52em; font-weight: 600;
+    display: flex; justify-content: space-between; align-items: flex-end; gap: 0.4em; }
+  .cat figcaption span { font-size: 0.72em; font-weight: 500; background: rgba(255,255,255,0.22); padding: 0.2em 0.7em; border-radius: 100px; white-space: nowrap; }
+  .cat-video::after { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); z-index: 1;
+    width: 56px; height: 56px; border-radius: 50%; background: rgba(29,132,199,0.92); box-shadow: 0 6px 20px rgba(0,0,0,0.4); }
+  .cat-video::before { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-35%,-50%); z-index: 2;
+    border-left: 17px solid #fff; border-top: 11px solid transparent; border-bottom: 11px solid transparent; }
+  .lightbox video { max-width: 92vw; max-height: 82vh; border-radius: 14px; box-shadow: 0 24px 70px rgba(0,0,0,0.6); background: #000; }
+
+  /* Flechas de navegación del lightbox */
+  .lb-nav { position: absolute; top: 50%; transform: translateY(-50%); z-index: 2;
+    width: 56px; height: 56px; border-radius: 50%; cursor: pointer; font-size: 2.1rem; line-height: 1;
+    background: rgba(255,255,255,0.14); border: 1px solid rgba(255,255,255,0.35); color: #fff; }
+  .lb-nav:hover { background: var(--blue); border-color: var(--blue); }
+  .lb-prev { left: 24px; }
+  .lb-next { right: 24px; }
+
+  /* Instalaciones y servicios (lista en columnas) */
+  .svc { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.1em 1.4em; margin-top: 0.8em; }
+  .svc-col h4 { font-family: var(--fd); font-size: 0.5em; font-weight: 600; color: var(--blue);
+    margin: 0 0 0.55em; padding-bottom: 0.4em; border-bottom: 1px solid rgba(29,132,199,0.22); letter-spacing: 0.3px; }
+  section.dark .svc-col h4 { color: var(--light); border-bottom-color: rgba(166,218,241,0.28); }
+  .svc-col ul { list-style: none; margin: 0; padding: 0; }
+  .svc-col li { font-size: 0.4em; line-height: 1.4; color: var(--text-muted); margin-bottom: 0.5em; padding-left: 1.1em; position: relative; }
+  .svc-col li::before { content: ''; position: absolute; left: 0; top: 0.42em; width: 0.45em; height: 0.45em; border-radius: 50%; background: var(--jade); }
+  section.dark .svc-col li { color: rgba(255,255,255,0.8); }
+  .svc-col li strong { color: var(--navy); }
+  section.dark .svc-col li strong { color: #fff; }
+
+  /* Botón pantalla completa */
+  .fs-btn { position: fixed; top: 16px; right: 18px; z-index: 900;
+    background: rgba(23,46,68,0.7); color: #fff; border: 1px solid rgba(255,255,255,0.28);
+    border-radius: 100px; padding: 8px 16px; font-family: 'Poppins', sans-serif; font-size: 13px; font-weight: 500;
+    cursor: pointer; display: inline-flex; align-items: center; gap: 7px; backdrop-filter: blur(4px); transition: background 0.2s; }
+  .fs-btn:hover { background: var(--blue); border-color: var(--blue); }
+  .fs-btn svg { width: 15px; height: 15px; }
+
+  /* Ocultar controles al exportar a PDF / imprimir */
+  @media print { .fs-btn, .lightbox { display: none !important; } }
+  .reveal.print-pdf .fs-btn { display: none !important; }
+
+  /* Mobile: ocultar botón de pantalla completa */
+  @media screen and (max-width: 600px) { .fs-btn { display: none !important; } }
+
+  /* Aviso para teléfono en vertical (se desvanece solo) */
+  .rotate-hint { display: none; }
+  @media screen and (max-width: 600px) and (orientation: portrait) {
+    .rotate-hint {
+      display: flex; align-items: center; gap: 9px;
+      position: fixed; left: 12px; right: 12px; bottom: 12px; z-index: 950;
+      background: rgba(23,46,68,0.94); color: #fff; border: 1px solid rgba(166,218,241,0.35);
+      border-radius: 12px; padding: 11px 14px; font-family: 'Poppins', sans-serif; font-size: 13px; line-height: 1.35;
+      box-shadow: 0 10px 28px rgba(0,0,0,0.45);
+    }
+    .rotate-hint svg { width: 22px; height: 22px; flex-shrink: 0; color: var(--light); }
+  }
+</style>
+</head>
+<body>
+
+<div class="reveal">
+  <div class="slides">
+
+<!-- 1. PORTADA -->
+    <section class="bg-deep dark">
+      <div class="wrap">
+        <div class="tag">Plan de comunicación y promoción</div>
+        <h1 style="font-size:2.4em;">Comunicación y<br><strong>captación de pacientes</strong></h1>
+        <p class="lead" style="font-size:0.82em; color:var(--light);">Cómo CICAR se da a conocer y convierte alcance en turnos.</p>
+        <span class="cover-badge">Centro Médico CICAR · Barrio Norte</span>
+      </div>
+      <aside class="notes">Presentación para inversores: cómo la promoción trae pacientes y escala.</aside>
+    </section>
+
+    <!-- 2. OBJETIVO -->
+    <section class="bg-cream">
+      <div class="wrap">
+        <div class="tag">Objetivo</div>
+        <h2>Convertir alcance en <em>pacientes</em></h2>
+        <p class="lead">Un centro nuevo necesita visibilidad. Cada canal trabaja para llenar la agenda y construir una marca que los pacientes recomienden.</p>
+        <div class="g3" style="margin-top:0.7em;">
+          <div class="card"><div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l14-6v14L3 13z"/><path d="M3 11v2a2 2 0 0 0 2 2h2"/><path d="M8 15v3a2 2 0 0 0 2 2h0"/></svg></div><h3>Dar a conocer</h3><p>Que la zona sepa que CICAR abrió y qué ofrece.</p></div>
+          <div class="card"><div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div><h3>Captar turnos</h3><p>Transformar el interés en consultas y estudios.</p></div>
+          <div class="card"><div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.5-7 10-7 10z"/></svg></div><h3>Construir marca</h3><p>Confianza y recomendación para crecer sostenido.</p></div>
+        </div>
+      </div>
+      <aside class="notes">El marketing no es gasto: es el motor que llena la agenda de un centro nuevo.</aside>
+    </section>
+
+    <!-- 3. MAPA DE CANALES -->
+    <section class="bg-deep dark">
+      <div class="wrap">
+        <div class="tag">Canales</div>
+        <h2>Dónde <em>comunicamos</em></h2>
+        <div class="g2" style="margin-top:0.6em; gap:0.6em;">
+          <div class="channel"><div class="channel-logo ch-meta"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.5 2 2 6.5 2 12c0 5 3.7 9.1 8.4 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7C18.3 21.1 22 17 22 12c0-5.5-4.5-10-10-10z"/></svg></div><div><h3>Meta Ads</h3><p>Campañas pagas segmentadas en Facebook e Instagram.</p></div></div>
+          <div class="channel"><div class="channel-logo ch-ig"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></div><div><h3>Instagram</h3><p>@centromedicocicar · contenido y comunidad.</p></div></div>
+          <div class="channel"><div class="channel-logo ch-fb"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.07C24 5.4 18.6 0 12 0S0 5.4 0 12.07c0 6 4.4 11 10.1 11.9v-8.4H7.1v-3.5h3v-2.6c0-3 1.8-4.6 4.5-4.6 1.3 0 2.6.2 2.6.2v2.9h-1.5c-1.5 0-1.9.9-1.9 1.8v2.2h3.3l-.5 3.5h-2.8V24C19.6 23.1 24 18.1 24 12.07z"/></svg></div><div><h3>Facebook</h3><p>Difusión institucional y campañas.</p></div></div>
+          <div class="channel"><div class="channel-logo ch-web"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15 15 0 0 1 4 10 15 15 0 0 1-4 10 15 15 0 0 1-4-10 15 15 0 0 1 4-10z"/></svg></div><div><h3>Web · centrocicar.com</h3><p>Turnos online y conversión.</p></div></div>
+          <div class="channel"><div class="channel-logo" style="background:#25D366;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.5 8.5 0 0 1-12.5 7.5L3 21l2-5.5A8.5 8.5 0 1 1 21 11.5z"/></svg></div><div><h3>WhatsApp · bot IA</h3><p>Turnos automáticos 24/7 (en desarrollo).</p></div></div>
+        </div>
+      </div>
+      <aside class="notes">Cinco canales que trabajan juntos: pagos para alcance, orgánicos para confianza, web y WhatsApp para convertir.</aside>
+    </section>
+
+    <!-- 4. EMBUDO DE CAPTACIÓN -->
+    <section class="bg-cream">
+      <div class="wrap">
+        <div class="tag">Estrategia</div>
+        <h2>Del aviso al <em>turno</em></h2>
+        <div class="flow">
+          <div class="step"><div class="step-num">1</div><h4>Alcance</h4><p>Meta Ads · IG · FB</p></div>
+          <div class="step"><div class="step-num">2</div><h4>Interés</h4><p>Perfil y contenido</p></div>
+          <div class="step"><div class="step-num">3</div><h4>Visita web</h4><p>Info y recorrido</p></div>
+          <div class="step"><div class="step-num">4</div><h4>Turno</h4><p>Web o WhatsApp</p></div>
+          <div class="step"><div class="step-num">5</div><h4>Paciente</h4><p>Atención y recomendación</p></div>
+        </div>
+        <p class="lead" style="margin-top:1em;">Cada etapa es medible: sabemos cuánto cuesta traer un paciente y dónde optimizar la inversión.</p>
+      </div>
+      <aside class="notes">Embudo clásico de captación, todo trazable de punta a punta.</aside>
+    </section>
+
+    <!-- 5. META ADS -->
+    <section class="bg-navy dark">
+      <div class="wrap">
+        <div class="tag">Meta Ads</div>
+        <h2>Campañas pagas <em>medibles</em></h2>
+        <div class="g2" style="margin-top:0.5em; align-items:start;">
+          <ul class="check">
+            <li>Anuncios en Facebook e Instagram segmentados por zona (Barrio Norte y alrededores), edad e intereses de salud</li>
+            <li>Píxel de Meta instalado: medimos quién agenda y optimizamos</li>
+            <li>Presupuesto escalable: se invierte más en lo que funciona</li>
+          </ul>
+          <div class="card" style="align-self:center;"><h3>Para el inversor</h3><p>Marketing de respuesta directa: cada peso es trazable hasta el turno. Se mide el costo por paciente y se escala lo que rinde.</p></div>
+        </div>
+      </div>
+      <aside class="notes">El píxel ya está instalado en la web. La inversión en ads es medible y optimizable.</aside>
+    </section>
+
+    <!-- 6. INSTAGRAM -->
+    <section class="bg-cream">
+      <div class="wrap">
+        <div class="tag">Instagram · @centromedicocicar</div>
+        <h2>Comunidad y <em>confianza</em></h2>
+        <ul class="check">
+          <li>Contenido de prevención y salud cardiovascular</li>
+          <li>Presentación del equipo médico y de las instalaciones</li>
+          <li>Novedades, estudios disponibles y consejos</li>
+        </ul>
+        <p class="lead" style="margin-top:0.6em;">El orgánico baja el costo de captación: seguidores que confían y recomiendan, sin pagar por cada contacto.</p>
+      </div>
+      <aside class="notes">Lo orgánico construye marca y reduce el costo de adquisición a largo plazo.</aside>
+    </section>
+
+    <!-- 7. FACEBOOK -->
+    <section class="bg-deep dark">
+      <div class="wrap">
+        <div class="tag">Facebook</div>
+        <h2>Alcance en el <em>público adulto</em></h2>
+        <ul class="check">
+          <li>Difusión institucional y de campañas</li>
+          <li>Llega al segmento adulto y mayor, clave para cardiología</li>
+          <li>Integrado con Meta Ads: mismas campañas, más alcance</li>
+        </ul>
+      </div>
+      <aside class="notes">Facebook concentra al público de mayor edad, target natural de la cardiología.</aside>
+    </section>
+
+    <!-- 8. WEB -->
+    <section class="bg-cream">
+      <div class="wrap">
+        <div class="tag">Web · centrocicar.com</div>
+        <h2>El <em>centro de conversión</em></h2>
+        <div class="g2" style="margin-top:0.5em; align-items:start;">
+          <ul class="check">
+            <li>Turnos online disponibles 24/7</li>
+            <li>Recorrido del centro en fotos y videos</li>
+            <li>Especialidades, estudios y obras sociales</li>
+          </ul>
+          <div class="card" style="align-self:center;"><h3>Hub de todos los canales</h3><p>Todo el tráfico de Meta Ads, Instagram y Facebook termina en la web, donde el visitante se transforma en turno.</p></div>
+        </div>
+      </div>
+      <aside class="notes">La web es donde se concreta la conversión: el destino de todos los canales.</aside>
+    </section>
+
+    <!-- 9. WHATSAPP + BOT IA (destacado) -->
+    <section class="bg-navy dark">
+      <div class="wrap">
+        <div class="tag">WhatsApp · en desarrollo</div>
+        <h2>Bot con <em>IA</em> para turnos 24/7</h2>
+        <div class="g2" style="margin-top:0.5em; align-items:start;">
+          <div>
+            <p class="lead">Estamos desarrollando un asistente de WhatsApp con inteligencia artificial que atiende y agenda solo, a cualquier hora.</p>
+            <ul class="check" style="margin-top:0.3em;">
+              <li>Saca, reprograma y cancela turnos por chat</li>
+              <li>Responde consultas frecuentes: horarios, ubicación, obras sociales y estudios</li>
+              <li>Envía recordatorios y reduce el ausentismo</li>
+              <li>Deriva a una persona cuando hace falta</li>
+            </ul>
+          </div>
+          <div class="card" style="align-self:center;"><div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.5 8.5 0 0 1-12.5 7.5L3 21l2-5.5A8.5 8.5 0 1 1 21 11.5z"/><path d="M8.5 11.5h.01M12 11.5h.01M15.5 11.5h.01"/></svg></div><h3>Por qué importa</h3><p>Atiende a muchos pacientes a la vez, 24/7, sin sumar personal. Automatización que escala la captación y baja el costo de atención.</p></div>
+        </div>
+      </div>
+      <aside class="notes">Diferencial clave para el inversor: automatización con IA que escala la atención sin aumentar costos fijos.</aside>
+    </section>
+
+    <!-- 10. MEDICIÓN Y CRECIMIENTO -->
+    <section class="bg-cream">
+      <div class="wrap">
+        <div class="tag">Medición y crecimiento</div>
+        <h2>Marketing <em>medible</em>, crecimiento escalable</h2>
+        <div class="stats">
+          <div><div class="stat-num">24/7</div><div class="stat-label">Captación y turnos online</div></div>
+          <div><div class="stat-num">100%</div><div class="stat-label">Inversión trazable (Píxel)</div></div>
+          <div><div class="stat-num">5</div><div class="stat-label">Canales integrados</div></div>
+        </div>
+        <p class="bigquote" style="margin-top:0.7em; font-size:1.15em;">Difusión desde el día uno + <em>automatización con IA</em> = más pacientes, a costo decreciente.</p>
+      </div>
+      <aside class="notes">Cierre del argumento: todo es medible y la automatización mejora el retorno con el tiempo.</aside>
+    </section>
+
+    <!-- 11. CIERRE -->
+    <section data-background-color="#0E1F2E" class="dark">
+      <div class="wrap">
+        <div class="tag">Contacto</div>
+        <h1 style="font-size:2em;">Hagamos crecer <strong>CICAR</strong></h1>
+        <p class="lead" style="font-size:0.78em;">Un plan de comunicación listo para acompañar la apertura y el crecimiento del centro.</p>
+        <div class="contact">
+          <div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.94.36 1.86.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.95.34 1.87.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg><div><span>Matías Pantarotto</span><strong>11 4198-4555</strong></div></div>
+          <div class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.94.36 1.86.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.95.34 1.87.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg><div><span>Nicolás Ciancaglini</span><strong>11 7084-8881</strong></div></div>
+        </div>
+        <p class="cover-meta">centrocicar.com · @centromedicocicar</p>
+      </div>
+      <aside class="notes">Cierre con contacto. Dejar abierto a preguntas sobre inversión y proyección.</aside>
+    </section>
+
+  </div>
+</div>
+
+<!-- Aviso mobile (vertical) -->
+<div class="rotate-hint">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M12 18h.01"/><path d="M2 9l2-2 2 2"/></svg>
+  <span>Para verla bien, girá el teléfono (modo horizontal). Deslizá para cambiar de slide.</span>
+</div>
+
+<!-- Lightbox para ampliar imágenes -->
+<div class="lightbox" id="lightbox">
+  <span class="lb-close" id="lbClose">&times;</span>
+  <button class="lb-nav lb-prev" id="lbPrev" aria-label="Anterior">&#8249;</button>
+  <img id="lbImg" src="" alt="">
+  <video id="lbVid" controls playsinline style="display:none;"></video>
+  <button class="lb-nav lb-next" id="lbNext" aria-label="Siguiente">&#8250;</button>
+  <figcaption id="lbCap"></figcaption>
+  <div class="lb-hint">Flechas ← → para navegar · clic afuera o ESC para cerrar</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/notes/notes.js"></script>
+<script>
+  Reveal.initialize({
+    hash: true,
+    controls: true,
+    progress: true,
+    center: false,
+    fragments: false,             // todo el contenido de cada slide aparece junto
+    transition: 'slide',          // transición entre slides
+    backgroundTransition: 'fade',  // transición de fondos (fotos)
+    transitionSpeed: 'default',
+    slideNumber: 'c/t',
+    width: 1280,
+    height: 720,
+    margin: 0,
+    minScale: 0.2,
+    maxScale: 2.0,
+    pdfMaxPagesPerSlide: 1,        // 1 página por slide al exportar a PDF
+    pdfSeparateFragments: false,
+    plugins: [ RevealNotes ]
+  });
+
+  // Lightbox con navegación por grupos (galería por categorías)
+  (function () {
+    var lb = document.getElementById('lightbox');
+    var lbImg = document.getElementById('lbImg');
+    var lbCap = document.getElementById('lbCap');
+    var lbPrev = document.getElementById('lbPrev');
+    var lbNext = document.getElementById('lbNext');
+    var lbVid = document.getElementById('lbVid');
+    var current = [];
+    var idx = 0;
+    function render() {
+      var item = current[idx];
+      if (item.vid) {
+        lbImg.style.display = 'none';
+        if (lbVid.getAttribute('src') !== item.vid) lbVid.src = item.vid;
+        lbVid.style.display = '';
+      } else {
+        lbVid.pause();
+        lbVid.style.display = 'none';
+        lbImg.src = item.s;
+        lbImg.style.display = '';
+      }
+      lbCap.textContent = item.c + (current.length > 1 ? '   ·   ' + (idx + 1) + ' / ' + current.length : '');
+      var multi = current.length > 1;
+      lbPrev.style.display = multi ? '' : 'none';
+      lbNext.style.display = multi ? '' : 'none';
+    }
+    function open(set, start) { current = set; idx = start || 0; render(); lb.classList.add('open'); }
+    function close() { lbVid.pause(); lb.classList.remove('open'); }
+    function nav(d) { idx = (idx + d + current.length) % current.length; render(); }
+
+    // Categorías: cada una abre su set navegable
+    document.querySelectorAll('.cat').forEach(function (cat) {
+      cat.addEventListener('click', function (e) {
+        e.stopPropagation();
+        try { open(JSON.parse(cat.getAttribute('data-set')), 0); } catch (err) {}
+      });
+    });
+    // Imágenes sueltas (.gal) abren un set de una
+    document.querySelectorAll('.gal img').forEach(function (img) {
+      img.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var fig = img.closest('figure');
+        var cap = fig ? fig.querySelector('figcaption') : null;
+        open([{ s: img.src, c: cap ? cap.textContent : (img.alt || '') }], 0);
+      });
+    });
+
+    lbImg.addEventListener('click', function (e) { e.stopPropagation(); });
+    lbPrev.addEventListener('click', function (e) { e.stopPropagation(); nav(-1); });
+    lbNext.addEventListener('click', function (e) { e.stopPropagation(); nav(1); });
+    lb.addEventListener('click', close);
+    document.addEventListener('keydown', function (e) {
+      if (!lb.classList.contains('open')) return;
+      if (e.key === 'Escape') { e.stopPropagation(); e.preventDefault(); close(); }
+      else if (e.key === 'ArrowRight' && current.length > 1) { e.stopPropagation(); e.preventDefault(); nav(1); }
+      else if (e.key === 'ArrowLeft' && current.length > 1) { e.stopPropagation(); e.preventDefault(); nav(-1); }
+    }, true);
+  })();
+
+  // Botón de pantalla completa (oculta barra de tareas y entorno del SO)
+  (function () {
+    var btn = document.getElementById('fsBtn');
+    var label = document.getElementById('fsLabel');
+    btn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(function () {});
+      } else {
+        document.exitFullscreen();
+      }
+    });
+    document.addEventListener('fullscreenchange', function () {
+      label.textContent = document.fullscreenElement ? 'Salir de pantalla completa' : 'Pantalla completa';
+    });
+  })();
+</script>
+
+</body>
+</html>
