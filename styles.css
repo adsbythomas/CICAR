@@ -4102,3 +4102,36 @@
     color: var(--gold);
   }
 
+  /* === EQUIPO MÉDICO === */
+  .equipo-section { background: var(--white); padding: 80px 5vw 90px; }
+  .equipo-layout { max-width: 1180px; margin: 0 auto; }
+  .equipo-intro { text-align: center; margin-bottom: 48px; }
+  .equipo-intro .section-tag { justify-content: center; display: inline-flex; }
+  .equipo-intro h2.section-title { margin: 14px 0 16px; }
+  .equipo-intro .section-sub { max-width: 640px; margin: 0 auto; color: var(--text-muted); }
+  .equipo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; max-width: 1020px; margin: 0 auto; }
+  .medico {
+    background: var(--cream); border: 1px solid rgba(29,132,199,0.12);
+    border-radius: var(--radius-lg); padding: 36px 28px 30px; text-align: center;
+    transition: transform .25s ease, box-shadow .25s ease;
+  }
+  .medico:hover { transform: translateY(-4px); box-shadow: 0 18px 38px rgba(23,46,68,0.12); }
+  .medico-photo {
+    width: 150px; height: 150px; border-radius: 50%; overflow: hidden;
+    margin: 0 auto 20px; border: 4px solid rgba(166,218,241,0.55);
+    box-shadow: 0 10px 22px rgba(0,0,0,0.18);
+  }
+  .medico-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center 22%; display: block; }
+  .medico-name { font-family: var(--font-display); font-weight: 600; font-size: 20px; color: var(--navy); margin: 0 0 6px; }
+  .medico-mat {
+    font-family: var(--font-display); font-size: 12px; font-weight: 700; letter-spacing: 1.5px;
+    text-transform: uppercase; color: var(--blue); margin-bottom: 14px;
+  }
+  .medico-desc { font-size: 14.5px; line-height: 1.55; color: var(--text-muted); margin: 0; }
+
+  @media (max-width: 820px) {
+    .equipo-section { padding: 60px 5vw 70px; }
+    .equipo-grid { grid-template-columns: 1fr; max-width: 420px; gap: 22px; }
+    .medico-photo { width: 140px; height: 140px; }
+  }
+
