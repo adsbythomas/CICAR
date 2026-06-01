@@ -3282,6 +3282,8 @@
     scroll-behavior: smooth;
     padding: 8px 4px 24px;
     margin: 0;
+    justify-content: safe center;
+    align-items: stretch;
     scrollbar-width: thin;
     scrollbar-color: rgba(29,132,199,0.30) transparent;
   }
@@ -3292,13 +3294,12 @@
     border-radius: 3px;
   }
   .doctors-carousel .doctor-card {
-    flex: 0 0 360px;
+    flex: 0 0 340px;
     scroll-snap-align: start;
     display: flex !important;
     flex-direction: column !important;
     padding: 0 !important;
     overflow: hidden;
-    min-height: 520px;
     background: white;
     border-radius: var(--radius-lg);
     border: 1px solid rgba(29,132,199,0.10);
@@ -3396,7 +3397,7 @@
 
   @media (max-width: 900px) {
     .doctors-arrow { display: none; }
-    .doctors-carousel .doctor-card { flex: 0 0 300px; min-height: 480px; }
+    .doctors-carousel .doctor-card { flex: 0 0 300px; }
     .doctors-carousel .doctor-photo { height: 220px !important; }
   }
   @media (max-width: 600px) {
