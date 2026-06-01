@@ -79,6 +79,52 @@ src="https://www.facebook.com/tr?id=1486565559631508&ev=PageView&noscript=1"
   }, 2400);
 </script>
 
+<!-- POPUP DE APERTURA PRÓXIMA -->
+<div id="aperturaPopup" class="apertura-popup" role="dialog" aria-modal="true" aria-labelledby="aperturaTitle">
+  <div class="apertura-card" role="document">
+    <div class="apertura-badge">Próxima apertura</div>
+    <h2 id="aperturaTitle">El centro aún no está atendiendo</h2>
+    <p>Centro Médico CICAR está <strong>próximo a su apertura</strong>. Todavía no se están realizando consultas ni estudios.</p>
+    <p class="apertura-meta">Habilitado por el Ministerio de Salud de la Provincia de Buenos Aires. Habilitación de la Ciudad Autónoma de Buenos Aires en trámite.</p>
+    <p class="apertura-dismiss">Tocá en cualquier parte para continuar</p>
+  </div>
+</div>
+<style>
+  .apertura-popup{position:fixed;inset:0;z-index:9999;background:rgba(14,31,46,0.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity 0.35s ease}
+  .apertura-popup.visible{opacity:1;pointer-events:auto}
+  .apertura-card{background:#fff;border-radius:20px;max-width:520px;width:100%;padding:42px 36px 32px;text-align:center;box-shadow:0 32px 80px rgba(0,0,0,0.35);font-family:'Montserrat',system-ui,sans-serif;color:#172E44;transform:translateY(12px);transition:transform 0.4s cubic-bezier(.2,.8,.2,1)}
+  .apertura-popup.visible .apertura-card{transform:translateY(0)}
+  .apertura-badge{display:inline-block;background:rgba(29,132,199,0.12);color:#1D84C7;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:6px 14px;border-radius:999px;margin-bottom:18px}
+  .apertura-card h2{font-family:'Poppins',system-ui,sans-serif;font-size:24px;line-height:1.25;margin:0 0 14px;color:#172E44;font-weight:700}
+  .apertura-card p{font-size:15px;line-height:1.55;color:#4a6275;margin:0 0 12px}
+  .apertura-card p strong{color:#172E44}
+  .apertura-meta{font-size:13px;color:#53A1C6;background:rgba(166,218,241,0.18);padding:12px 14px;border-radius:10px;margin-top:18px !important}
+  .apertura-dismiss{font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:#1D84C7;font-weight:600;margin-top:22px !important;opacity:0.75}
+  @media (max-width:520px){.apertura-card{padding:32px 22px 26px}.apertura-card h2{font-size:20px}.apertura-card p{font-size:14px}}
+</style>
+<script>
+  (function(){
+    var pop = document.getElementById('aperturaPopup');
+    if(!pop) return;
+    document.body.style.overflow = 'hidden';
+    requestAnimationFrame(function(){ pop.classList.add('visible'); });
+    function dismiss(){
+      pop.classList.remove('visible');
+      document.body.style.overflow = '';
+      setTimeout(function(){ pop.remove(); }, 400);
+      document.removeEventListener('click', dismiss, true);
+      document.removeEventListener('keydown', onKey, true);
+      document.removeEventListener('touchstart', dismiss, true);
+    }
+    function onKey(e){ if(e.key==='Escape'||e.key==='Enter'||e.key===' ') dismiss(); }
+    setTimeout(function(){
+      document.addEventListener('click', dismiss, true);
+      document.addEventListener('touchstart', dismiss, true);
+      document.addEventListener('keydown', onKey, true);
+    }, 250);
+  })();
+</script>
+
 <!-- NAVIGATION -->
 <nav>
   <a href="#inicio" class="nav-logo" aria-label="CICAR Barrio Norte — Inicio">
