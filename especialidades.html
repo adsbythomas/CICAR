@@ -221,10 +221,6 @@ src="https://www.facebook.com/tr?id=1486565559631508&ev=PageView&noscript=1"
         var slug = TITLE_TO_SLUG[tile.dataset.title] || '';
         var url = slug ? ('https://centrocicar.medicloud.com.ar/?estudio=' + slug) : 'https://centrocicar.medicloud.com.ar/';
         tile.addEventListener('click', function () {
-          if (document.documentElement.classList.contains('simple-mode')) {
-            window.location.href = url;
-            return;
-          }
           titleEl.textContent = tile.dataset.title;
           descEl.textContent = tile.dataset.desc;
           if (ctaEl) ctaEl.href = url;
