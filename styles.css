@@ -127,13 +127,13 @@
     position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
     background: rgba(23, 46, 68, 0.97);
     backdrop-filter: blur(12px);
-    display: flex; align-items: center; justify-content: space-between;
+    display: flex; align-items: center; justify-content: flex-end; gap: 18px;
     padding: 0 5%;
     height: 92px;
     border-bottom: 1px solid rgba(166,218,241,0.15);
   }
 
-  .nav-logo { display: flex; align-items: center; text-decoration: none; }
+  .nav-logo { display: flex; align-items: center; text-decoration: none; margin-right: auto; }
   .nav-logo img { height: 64px; width: auto; display: block; }
 
   .nav-links { display: flex; align-items: center; gap: 8px; }
