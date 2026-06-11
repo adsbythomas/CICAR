@@ -92,6 +92,19 @@ funcional, ~39 media queries cubriendo breakpoints mobile.
 
 ---
 
+## Correcciones posteriores (reportadas por el usuario)
+
+- **NAV-1 — Logo recortado:** el nav (`display:flex; justify-content:flex-end`
+  sin wrap) desbordaba hacia la izquierda y **recortaba el logo** en todo el rango
+  ~900–1600px (verificado con capturas headless: a 1440 se veía solo "AR/RTE").
+  **Fix:** adelgazar el nav (logo 64→48px, gaps y padding de links menores,
+  `justify-content:flex-start` + `flex-shrink:0` en el logo) para que el nav
+  horizontal entre desde ~1340px, y **adelantar el menú hamburguesa a ≤1330px**
+  (nuevo `@media`). Verificado a 1366/1440/1500/1920 (horizontal completo) y
+  1280/480/390 (hamburguesa con logo intacto). `[x]`
+- **Skip-link visible:** era **caché del navegador** — el CSS desplegado ya oculta
+  `.skip-link` con `left:-9999px` (confirmado en vivo). Se resuelve con hard-refresh. `[~]`
+
 ## Orden de ejecución sugerido
 1. **SEO-1/2/3/5/6** en `index.html` (mayor ROI de marketing) → resto de páginas públicas.
 2. **SEO-4** robots.txt + sitemap.xml + noindex de paneles.
