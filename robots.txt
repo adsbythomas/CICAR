@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Paneles internos / herramientas — no indexar
+Disallow: /medico.html
+Disallow: /portal.html
+Disallow: /calculadora.html
+
+Sitemap: https://centrocicar.com/sitemap.xml
