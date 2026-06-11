@@ -45,11 +45,11 @@ Páginas a **excluir de indexación** (`noindex` + fuera del sitemap): `medico.h
 
 | # | Hallazgo | Ubicación | Prioridad | Estado |
 |---|----------|-----------|-----------|--------|
-| BUG-1 | Imágenes rotas (`imgs/*` inexistentes; viven en `propuestadepresentacion/imgs/`) | `presentacion/obras-sociales-pdf.html`, `presentacion/obras-sociales-reveal.html` | Crítico | `[x]` |
+| BUG-1 | Imágenes/videos rotos (`imgs/*` inexistentes; viven en `propuestadepresentacion/imgs/`) | `presentacion/obras-sociales-pdf.html`, `presentacion/obras-sociales-reveal.html` | Crítico | `[x]` repuntadas a propuestadepresentacion (evita duplicar ~88MB, incl. 55MB de .mov) |
 | BUG-2 | Link WhatsApp mal formado: `…CICAR` + `bookingId` pegado sin separador; botón "Sacar turno por web" apunta a WhatsApp | `practica.html` (CTA) | Importante | `[x]` |
 | BUG-3 | `portal.html` y `calculadora.html` huérfanas (sin links entrantes) | — | Importante (confirmar si es intencional) | `[ ]` |
 | BUG-4 | Password en texto plano en cliente (`PASS='cicar2026'`) + anon key | `medico.html:228-229` | Menor (riesgo) | `[ ]` |
-| BUG-5 | `src=""` en lightbox dispara request espuria | `recorrido/index.html:194`, `promocion/index.html:485` | Menor | `[ ]` |
+| BUG-5 | `src=""` en lightbox dispara request espuria | `recorrido/index.html:194`, `promocion/index.html:485` | Menor | `[x]` |
 | BUG-6 | Script Cloudflare local (404 fuera de CF) | `index.html:2201` | Menor | `[ ]` |
 
 **Sano (sin acción):** HTML válido y balanceado en las 8 páginas, sin IDs duplicados,
@@ -63,12 +63,12 @@ coherentes, sin referencias a "Medicloud".
 | # | Hallazgo | Ubicación | Prioridad | Estado |
 |---|----------|-----------|-----------|--------|
 | A11Y-1 | Sin `<h1>` (primer heading es h2→h4) | `consultorios.html`, `profesionales.html` | Importante | `[x]` |
-| A11Y-2 | Dos `<h1>` (estados mutuamente excluyentes) | `practica.html:471,487` | Importante | `[ ]` |
-| A11Y-3 | Sin skip-link "Saltar al contenido" | todas | Importante | `[ ]` |
-| A11Y-4 | Falta landmark `<main>` | `index`, `especialidades`, `profesionales`, `consultorios`, `calculadora` | Importante | `[ ]` |
+| A11Y-2 | Dos `<h1>` (estados mutuamente excluyentes) | `practica.html` | Importante | `[x]` verificado: son 2 `innerHTML` excluyentes, en el DOM hay 1 solo h1 — no era bug |
+| A11Y-3 | Sin skip-link "Saltar al contenido" | todas | Importante | `[x]` 4 páginas públicas |
+| A11Y-4 | Falta landmark `<main>` | `index`, `especialidades`, `profesionales`, `consultorios`, `calculadora` | Importante | `[~]` hecho en las 4 públicas; falta `calculadora` (panel interno) |
 | A11Y-5 | Botón cerrar sin nombre accesible (`x`) | `medico.html` | Importante | `[x]` |
 | A11Y-6 | Contraste insuficiente: `white@0.35` sobre navy = 3.02:1; `#53A1C6` texto sobre blanco = 2.88:1 | `styles.css:1243`, varios | Menor | `[~]` footer corregido (0.6); falta revisar `#53A1C6` como texto |
-| A11Y-7 | `outline:none` sin reemplazo claro en `.gloss:focus` | `styles.css:1379` | Menor | `[ ]` |
+| A11Y-7 | `outline:none` sin reemplazo claro en `.gloss:focus` | `styles.css:1379` | Menor | `[x]` (`:focus-visible` con outline) |
 
 **Sano:** `lang="es"` en todas, todas las `<img>` con `alt`, aria-labels en botones de
 ícono, modo accesible ("para mi mamá"), aria en componentes dinámicos.
@@ -82,7 +82,7 @@ coherentes, sin referencias a "Medicloud".
 | PERF-1 | JPG sin optimizar: `presentacion/imgs/` = 3.8 MB (06-sala-b 684KB, 03-recepcion-b 604KB, 17-bano 407KB) → WebP | `presentacion/imgs/` | Crítico | `[ ]` |
 | PERF-2 | ~61 KB de SVG inline (124 íconos) inflan `index.html` → sprite `<use>` | `index.html` | Importante | `[ ]` |
 | PERF-3 | `chart.js` render-blocking (sin `defer`, sin preconnect a jsdelivr) | `calculadora.html` | Importante | `[x]` (defer + preconnect + INIT en DOMContentLoaded) |
-| PERF-4 | Imágenes below-the-fold sin `loading="lazy"` | galerías, obras sociales, index | Importante | `[ ]` |
+| PERF-4 | Imágenes below-the-fold sin `loading="lazy"` | galerías, obras sociales, index | Importante | `[x]` (+`decoding="async"`) |
 | PERF-5 | Imágenes sin `width`/`height` → layout shift (CLS) | galería, equipo, logos | Importante | `[ ]` |
 | PERF-6 | CSS duplicado: 4 páginas no enlazan `styles.css` y reimplementan inline | `calculadora`, `practica`, `portal`, `medico` | Menor | `[ ]` |
 | PERF-7 | 6 pesos de Montserrat + 5 de Poppins (recortar a los usados) | `index.html` head | Menor | `[ ]` |
