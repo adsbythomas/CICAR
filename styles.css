@@ -147,23 +147,23 @@
     position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
     background: rgba(23, 46, 68, 0.97);
     backdrop-filter: blur(12px);
-    display: flex; align-items: center; justify-content: flex-start; gap: 10px;
+    display: flex; align-items: center; justify-content: flex-start; gap: 11px;
     padding: 0 2.5%;
     height: 92px;
     border-bottom: 1px solid rgba(166,218,241,0.15);
   }
 
   .nav-logo { display: flex; align-items: center; text-decoration: none; margin-right: auto; padding-left: 12px; flex-shrink: 0; }
-  .nav-logo img { height: 48px; width: auto; display: block; }
+  .nav-logo img { height: 52px; width: auto; display: block; }
 
-  .nav-links { display: flex; align-items: center; gap: 3px; }
+  .nav-links { display: flex; align-items: center; gap: 6px; }
   .nav-links a {
     color: rgba(255,255,255,0.78);
     text-decoration: none;
-    font-size: 12.5px;
+    font-size: 13.5px;
     font-weight: 500;
-    letter-spacing: 0.1px;
-    padding: 9px 10px;
+    letter-spacing: 0.2px;
+    padding: 9px 11px;
     border-radius: 8px;
     transition: color 0.25s ease, background 0.25s ease;
     position: relative;
@@ -179,6 +179,7 @@
     font-weight: 600 !important;
     letter-spacing: 0.4px !important;
     white-space: nowrap;
+    margin-left: 10px;
     transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease !important;
     box-shadow: 0 4px 14px rgba(29,132,199,0.35) !important;
   }
@@ -208,7 +209,7 @@
   /* El nav horizontal completo (logo + indicador + 8 links + CTA) solo entra
      a partir de ~1340px. Por debajo, mostramos el menú hamburguesa para no
      recortar el logo ni la CTA. (El bloque @900 agrega ajustes de grids.) */
-  @media (max-width: 1330px) {
+  @media (max-width: 1400px) {
     .nav-burger { display: inline-flex; }
     .nav-links {
       position: fixed; top: 92px; left: 0; right: 0;
