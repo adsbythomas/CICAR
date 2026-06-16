@@ -242,7 +242,7 @@
        izq/der y el watermark del corazon se vea centrado de verdad. */
     background: linear-gradient(180deg, var(--navy) 0%, var(--blue) 100%);
     display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
+    align-items: center; justify-content: safe center;
     padding: 120px 5% 64px;
     position: relative; overflow: hidden;
     text-align: center;
