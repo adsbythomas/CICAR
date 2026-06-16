@@ -237,7 +237,7 @@
 
   /* ─── HERO ─── */
   .hero {
-    min-height: calc(100vh - 95px);
+    min-height: calc(100vh + 100px);
     /* Gradiente vertical (no diagonal) para que el fondo sea simetrico
        izq/der y el watermark del corazon se vea centrado de verdad. */
     background: linear-gradient(180deg, var(--navy) 0%, var(--blue) 100%);
@@ -343,7 +343,10 @@
   /* Iconos sociales del hero */
   .hero-social {
     display: flex; gap: 14px; justify-content: center;
-    margin-top: 22px;
+    /* Anclados al fondo del hero; el hero se extiende por debajo del fold
+       (ver min-height) para que no se vean al entrar, solo al scrollear. */
+    position: absolute; left: 0; right: 0; bottom: 34px;
+    margin-top: 0;
   }
   .hero-social-icon {
     width: 42px; height: 42px;
