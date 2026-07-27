@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Presentación institucional — CICAR Barrio Norte | Obras Sociales</title>
+<meta name="description" content="Presentación institucional de CICAR Barrio Norte para obras sociales y prepagas: instalaciones, estudios, equipamiento, equipo médico y datos de habilitación. San Nicolás, CABA.">
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://centrocicar.com/obras-sociales.html">
+<meta name="theme-color" content="#172E44">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="CICAR Barrio Norte">
+<meta property="og:locale" content="es_AR">
+<meta property="og:title" content="Presentación institucional — CICAR Barrio Norte">
+<meta property="og:description" content="Instalaciones, estudios, equipamiento y equipo médico de CICAR Barrio Norte. Presentación para obras sociales.">
+<meta property="og:url" content="https://centrocicar.com/obras-sociales.html">
+<meta property="og:image" content="https://centrocicar.com/assets/logos/CICAR-05.png">
+<link rel="icon" type="image/png" href="assets/logos/CICAR-08.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=20260727d">
+<style>
+  body { min-height: 100vh; background: #fff; }
+
+  .os-topbar {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(23,46,68,0.98); backdrop-filter: blur(10px);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5%; height: 74px;
+    border-bottom: 1px solid rgba(166,218,241,0.15);
+  }
+  .os-topbar img { height: 42px; width: auto; display: block; }
+  .os-topbar-tag { color: var(--light); font-size: 12px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; }
+  @media (max-width: 620px){ .os-topbar-tag { display: none; } }
+
+  .os-hero {
+    background: linear-gradient(160deg, var(--navy) 0%, var(--blue) 100%);
+    color: #fff; padding: 64px 6% 60px; text-align: center; position: relative; overflow: hidden;
+  }
+  .os-hero .os-kicker { font-size: 12px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--light); font-weight: 700; margin-bottom: 14px; }
+  .os-hero h1 { font-family: var(--font-display); font-weight: 600; font-size: clamp(30px, 5vw, 52px); line-height: 1.08; margin: 0 0 16px; }
+  .os-hero h1 em { font-style: normal; color: var(--light); }
+  .os-hero p { max-width: 680px; margin: 0 auto; font-size: clamp(15px, 2vw, 18px); line-height: 1.6; color: rgba(255,255,255,0.9); }
+  .os-hero-badges { display: flex; gap: 10px 14px; justify-content: center; flex-wrap: wrap; margin-top: 24px; }
+  .os-hero-badge { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: #fff; padding: 8px 16px; border-radius: 100px; border: 1px solid rgba(166,218,241,0.30); background: rgba(255,255,255,0.06); }
+  .os-hero-badge svg { width: 16px; height: 16px; color: var(--light); }
+
+  .os-section { padding: 60px 6%; max-width: 1160px; margin: 0 auto; }
+  .os-section.alt { background: var(--cream); max-width: none; }
+  .os-section.alt > .os-inner { max-width: 1160px; margin: 0 auto; }
+  .os-section-head { margin-bottom: 34px; }
+  .os-section-head .section-tag { color: var(--blue); }
+  .os-section-head h2 { font-family: var(--font-display); font-weight: 600; font-size: clamp(24px, 3vw, 34px); color: var(--navy); line-height: 1.15; margin: 6px 0 8px; }
+  .os-section-head p { color: var(--text-muted); font-size: 15px; line-height: 1.6; max-width: 640px; }
+
+  /* Galería del centro (reusa consultorios-gallery/consultorio-item de styles.css) */
+
+  /* Datos institucionales */
+  .os-info-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .os-info-item { background: #fff; border: 1px solid rgba(29,132,199,0.14); border-radius: 14px; padding: 20px 22px; }
+  .os-info-item .lbl { font-size: 11px; letter-spacing: 1.2px; text-transform: uppercase; color: var(--blue); font-weight: 700; margin-bottom: 6px; }
+  .os-info-item .val { font-size: 15px; color: var(--navy); font-weight: 500; line-height: 1.45; }
+  .os-info-item .val a { color: var(--navy); text-decoration: none; }
+  @media (max-width: 820px){ .os-info-grid { grid-template-columns: repeat(2,1fr); } }
+  @media (max-width: 520px){ .os-info-grid { grid-template-columns: 1fr; } }
+
+  /* Estudios */
+  .os-estudios { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px 20px; }
+  .os-estudios li { display: flex; gap: 10px; align-items: flex-start; font-size: 15px; color: var(--text); line-height: 1.4; padding: 4px 0; list-style: none; }
+  .os-estudios li svg { width: 17px; height: 17px; color: var(--blue); flex-shrink: 0; margin-top: 2px; }
+  .os-estudios-sub { margin: 26px 0 10px; font-size: 12px; letter-spacing: 1.2px; text-transform: uppercase; color: var(--text-muted); font-weight: 700; }
+  @media (max-width: 820px){ .os-estudios { grid-template-columns: repeat(2,1fr); } }
+  @media (max-width: 520px){ .os-estudios { grid-template-columns: 1fr; } }
+
+  /* Equipamiento (chips, sin fotos) */
+  .os-equip { display: flex; flex-wrap: wrap; gap: 12px; }
+  .os-equip-item { display: flex; align-items: center; gap: 12px; background: #fff; border: 1px solid rgba(29,132,199,0.16); border-radius: 12px; padding: 14px 18px; font-size: 15px; color: var(--navy); font-weight: 500; }
+  .os-equip-item svg { width: 22px; height: 22px; color: var(--blue); flex-shrink: 0; }
+
+  /* Equipo médico */
+  .os-team { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .os-doc { background: #fff; border: 1px solid rgba(29,132,199,0.14); border-radius: 14px; padding: 22px 20px; }
+  .os-doc .esp { font-size: 10.5px; letter-spacing: 1.4px; text-transform: uppercase; color: var(--blue); font-weight: 700; margin-bottom: 4px; }
+  .os-doc .nom { font-family: var(--font-display); font-weight: 600; font-size: 18px; color: var(--navy); line-height: 1.2; margin-bottom: 6px; }
+  .os-doc .rol { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+  @media (max-width: 820px){ .os-team { grid-template-columns: repeat(2,1fr); } }
+  @media (max-width: 480px){ .os-team { grid-template-columns: 1fr; } }
+
+  /* Estética reparadora */
+  .os-note-card { background: var(--pale); border: 1px solid rgba(29,132,199,0.16); border-radius: 14px; padding: 22px 24px; font-size: 15px; color: var(--navy); line-height: 1.6; }
+  .os-note-card strong { color: var(--navy); }
+
+  /* QR */
+  .os-qr { background: var(--navy); color: #fff; text-align: center; padding: 60px 6%; }
+  .os-qr h2 { font-family: var(--font-display); font-weight: 600; font-size: clamp(24px, 3vw, 32px); margin-bottom: 12px; }
+  .os-qr p { color: rgba(255,255,255,0.85); max-width: 520px; margin: 0 auto 26px; font-size: 16px; line-height: 1.55; }
+  .os-qr-img { background: #fff; border-radius: 18px; padding: 16px; display: inline-block; box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
+  .os-qr-img img { width: 220px; height: 220px; display: block; }
+  .os-qr-url { margin-top: 18px; font-size: 14px; color: var(--light); font-weight: 600; }
+
+  .os-foot { background: #101f2e; color: rgba(255,255,255,0.6); text-align: center; padding: 24px 6%; font-size: 13px; }
+  .os-foot a { color: var(--light); text-decoration: none; }
+</style>
+</head>
+<body>
+
+<header class="os-topbar">
+  <a href="index.html" aria-label="CICAR Barrio Norte"><img src="assets/logos/CICAR-12.png" alt="CICAR Barrio Norte"></a>
+  <span class="os-topbar-tag">Presentación institucional</span>
+</header>
+
+<!-- HERO -->
+<section class="os-hero">
+  <div class="os-kicker">Para Obras Sociales y Prepagas</div>
+  <h1>Centro Médico <em>CICAR</em> — Barrio Norte</h1>
+  <p>Centro de cardiología y atención especializada con instalaciones nuevas, equipamiento de última generación y equipo médico universitario. Esta presentación se mantiene en línea y siempre actualizada.</p>
+  <div class="os-hero-badges">
+    <span class="os-hero-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>Habilitado por el Ministerio de Salud</span>
+    <span class="os-hero-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.5 13.5 17 22l-5-3-5 3 1.5-8.5"/></svg>FAC · CACI</span>
+    <span class="os-hero-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Uruguay 783, Piso 3 · CABA</span>
+  </div>
+</section>
+
+<!-- EL CENTRO -->
+<section class="os-section">
+  <div class="os-section-head">
+    <div class="section-tag">El centro</div>
+    <h2>Instalaciones nuevas y equipadas</h2>
+    <p>Recepción, sala de espera y ocho consultorios, cada uno pensado para una práctica específica, en un ambiente moderno y digital.</p>
+  </div>
+  <div class="consultorios-gallery">
+    <figure class="consultorio-item"><img src="assets/obras-sociales/sala-espera.jpg" alt="Sala de espera de CICAR Barrio Norte" loading="lazy" decoding="async"><figcaption>Sala de espera</figcaption></figure>
+    <figure class="consultorio-item"><img src="assets/obras-sociales/recepcion.jpg" alt="Recepción de CICAR Barrio Norte" loading="lazy" decoding="async"><figcaption>Recepción</figcaption></figure>
+    <figure class="consultorio-item"><img src="assets/obras-sociales/escritorio.jpg" alt="Escritorio de entrada de CICAR Barrio Norte" loading="lazy" decoding="async"><figcaption>Escritorio de entrada</figcaption></figure>
+    <figure class="consultorio-item"><img src="assets/consultorios/consultorio-1.jpg" alt="Consultorio médico" loading="lazy" decoding="async"><figcaption>Consultorio médico</figcaption></figure>
+    <figure class="consultorio-item"><img src="assets/consultorios/consultorio-3.jpg" alt="Consultorio de cardiología" loading="lazy" decoding="async"><figcaption>Consultorio de cardiología</figcaption></figure>
+    <figure class="consultorio-item"><img src="assets/consultorios/consultorio-5.jpg" alt="Sala de ergometría y ecodoppler" loading="lazy" decoding="async"><figcaption>Ergometría y ecodoppler</figcaption></figure>
+  </div>
+</section>
+
+<!-- ESTUDIOS -->
+<section class="os-section alt">
+  <div class="os-inner">
+    <div class="os-section-head">
+      <div class="section-tag">Prestaciones</div>
+      <h2>Estudios y prácticas</h2>
+      <p>Prácticas cardiológicas y de diagnóstico por imágenes que se realizan en el centro, más las especialidades asociadas.</p>
+    </div>
+    <ul class="os-estudios">
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Consulta de Cardiología Clínica</li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Electrocardiograma (ECG)</li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Holter 24 / 48 horas</li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>MAPA (presión ambulatoria)</li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Ergometría (prueba de esfuerzo)</li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Ecoestrés con ejercicio</li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Ecodoppler cardíaco color</li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Ecodoppler vascular periférico</li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Ecografía general</li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Análisis clínicos / laboratorio</li>
+    </ul>
+    <div class="os-estudios-sub">Especialidades asociadas</div>
+    <ul class="os-estudios">
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Nefrología</li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Nutrición cardiovascular</li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Salud mental</li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Neumonología</li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Hematología</li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Clínica médica</li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Rehabilitación cardíaca</li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Cese tabáquico</li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Telemedicina</li>
+    </ul>
+  </div>
+</section>
+
+<!-- EQUIPAMIENTO -->
+<section class="os-section">
+  <div class="os-section-head">
+    <div class="section-tag">Equipamiento</div>
+    <h2>Tecnología con la que cuenta el centro</h2>
+    <p>Equipamiento médico de última generación para diagnósticos precisos.</p>
+  </div>
+  <div class="os-equip">
+    <div class="os-equip-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12a10 10 0 0 1 20 0"/><path d="M5.5 12a6.5 6.5 0 0 1 13 0"/><circle cx="12" cy="12" r="2"/><line x1="12" y1="14" x2="12" y2="22"/></svg>Ecógrafo Doppler Mindray Consona 8</div>
+    <div class="os-equip-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Holter, MAPA y ECG Eccosur</div>
+    <div class="os-equip-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="13" cy="4" r="2"/><path d="M4 22l5-7-2-5 4-3 3 4 4 1"/><path d="M15 22l-2-7 2-3"/></svg>Cinta ergométrica Randers 8600</div>
+    <div class="os-equip-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>Desfibrilador y monitor multiparamétrico</div>
+    <div class="os-equip-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/></svg>Electrocardiógrafo digital de 12 derivaciones</div>
+  </div>
+</section>
+
+<!-- EQUIPO MÉDICO -->
+<section class="os-section alt">
+  <div class="os-inner">
+    <div class="os-section-head">
+      <div class="section-tag">Equipo médico</div>
+      <h2>Profesionales universitarios certificados</h2>
+    </div>
+    <div class="os-team">
+      <div class="os-doc"><div class="esp">Cardiólogo universitario</div><div class="nom">Dr. Nicolás Ciancaglini</div><div class="rol">Sub-especialista en ecodoppler cardíaco y transesofágico.</div></div>
+      <div class="os-doc"><div class="esp">Cardióloga universitaria</div><div class="nom">Dra. Yanina Croissant</div><div class="rol">Sub-especialista en imágenes cardiovasculares.</div></div>
+      <div class="os-doc"><div class="esp">Cardióloga universitaria</div><div class="nom">Dra. María Belén Barbosa</div><div class="rol">Sub-especialista en ecodoppler cardiovascular.</div></div>
+      <div class="os-doc"><div class="esp">Medicina estética</div><div class="nom">Dra. Daniela Serrano</div><div class="rol">Cirujana. Procedimientos reparadores.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- DATOS INSTITUCIONALES -->
+<section class="os-section">
+  <div class="os-section-head">
+    <div class="section-tag">Datos institucionales</div>
+    <h2>Información para la incorporación del centro</h2>
+  </div>
+  <div class="os-info-grid">
+    <div class="os-info-item"><div class="lbl">Nombre</div><div class="val">Centro Médico CICAR — Barrio Norte</div></div>
+    <div class="os-info-item"><div class="lbl">Dirección</div><div class="val"><a href="https://maps.google.com/?q=Uruguay+783,+CABA" target="_blank" rel="noopener">Uruguay 783, Piso 3, Of. 301 — San Nicolás, CABA</a></div></div>
+    <div class="os-info-item"><div class="lbl">Habilitación</div><div class="val">Habilitado por el Ministerio de Salud</div></div>
+    <div class="os-info-item"><div class="lbl">Certificaciones</div><div class="val">FAC (Fed. Argentina de Cardiología) · CACI</div></div>
+    <div class="os-info-item"><div class="lbl">Horarios</div><div class="val">Lun a Vie 8 a 20 h · Sáb 8 a 13 h</div></div>
+    <div class="os-info-item"><div class="lbl">Teléfono / WhatsApp</div><div class="val"><a href="tel:+5491122853697">+54 11 2285-3697</a></div></div>
+    <div class="os-info-item"><div class="lbl">Email</div><div class="val"><a href="mailto:administracion@centrocicar.com">administracion@centrocicar.com</a></div></div>
+    <div class="os-info-item"><div class="lbl">Web</div><div class="val"><a href="https://centrocicar.com" target="_blank" rel="noopener">centrocicar.com</a></div></div>
+    <div class="os-info-item"><div class="lbl">Modalidad</div><div class="val">Atención presencial y telemedicina</div></div>
+  </div>
+
+  <div style="margin-top:26px">
+    <div class="os-estudios-sub" style="margin-top:0">Medicina estética — solo reparadora</div>
+    <div class="os-note-card">
+      En medicina estética, el centro ofrece a las obras sociales <strong>únicamente procedimientos con fines reparadores y funcionales</strong> (por ejemplo, cirugía ambulatoria de lesiones de piel y procedimientos reparadores). Los tratamientos estéticos particulares no forman parte de la cobertura.
+    </div>
+  </div>
+</section>
+
+<!-- QR -->
+<section class="os-qr">
+  <h2>Presentación siempre actualizada</h2>
+  <p>Escaneá el código para acceder a esta presentación en línea. Se actualiza de forma permanente: siempre vas a ver la versión vigente.</p>
+  <div class="os-qr-img"><img src="assets/obras-sociales/qr.png" alt="Código QR — centrocicar.com/obras-sociales.html"></div>
+  <div class="os-qr-url">centrocicar.com/obras-sociales.html</div>
+</section>
+
+<footer class="os-foot">
+  © 2026 CICAR Barrio Norte · Uruguay 783, Piso 3, CABA · <a href="tel:+5491122853697">11 2285-3697</a> · <a href="https://centrocicar.com">centrocicar.com</a>
+</footer>
+
+</body>
+</html>
