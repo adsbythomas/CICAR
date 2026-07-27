@@ -45,7 +45,7 @@ src="https://www.facebook.com/tr?id=1486565559631508&ev=PageView&noscript=1"
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=20260727c">
+<link rel="stylesheet" href="styles.css?v=20260727d">
 
 <!-- Datos estructurados schema.org — SEO local / rich results -->
 <script type="application/ld+json">
@@ -1751,247 +1751,32 @@ src="https://www.facebook.com/tr?id=1486565559631508&ev=PageView&noscript=1"
   </div>
 </section>
 
-<!-- CONSULTORIOS — showcase interactivo (lista + spotlight) -->
-<section class="consultorios-home reveal" id="consultorios">
-  <div class="consultorios-home-header">
-    <div class="consultorios-home-intro">
-      <div class="section-tag">Nuestras instalaciones</div>
-      <h2 class="section-title">Conocé los <em>8 consultorios</em></h2>
-      <p class="section-sub">Cada espacio está pensado para una práctica específica. Pasá el cursor o tocá para descubrir cada uno.</p>
-    </div>
+<!-- EQUIPOS — teaser simple + CTA a consultorios -->
+<section class="equipos-home reveal" id="consultorios">
+  <div class="equipos-home-head">
+    <div class="section-tag">Nuestras instalaciones</div>
+    <h2 class="section-title">Conocé los <em>equipos</em> con los que te vamos a atender</h2>
+    <p class="section-sub">Tecnología de última generación para diagnósticos precisos y una atención de excelencia.</p>
+  </div>
+  <div class="consultorios-gallery equipos-grid">
+    <figure class="consultorio-item">
+      <img src="assets/equipos/mindray.jpg" alt="Ecodoppler Mindray Consona 8" loading="lazy" decoding="async">
+      <figcaption>Ecodoppler Mindray Consona 8</figcaption>
+    </figure>
+    <figure class="consultorio-item">
+      <img src="assets/equipos/ecg-holter.jpg" alt="Holter, MAPA y ECG de Eccosur" loading="lazy" decoding="async">
+      <figcaption>Holter, MAPA y ECG de Eccosur</figcaption>
+    </figure>
+    <figure class="consultorio-item">
+      <img src="assets/equipos/randers.jpg" alt="Cinta ergométrica Randers 8600" loading="lazy" decoding="async">
+      <figcaption>Cinta ergométrica Randers 8600</figcaption>
+    </figure>
+  </div>
+  <div class="equipos-cta-wrap">
     <a href="consultorios.html" class="consultorios-home-link">
-      Ver los 8 consultorios
+      Ver los consultorios y las fotos
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
     </a>
-  </div>
-
-  <div class="consultorios-showcase" id="consultoriosShowcase">
-    <!-- LISTA NUMERADA (desktop) -->
-    <div class="consultorios-list" role="tablist">
-      <button type="button" class="consultorios-list-item active" data-idx="0" role="tab" aria-selected="true">
-        <span class="consultorios-list-num">01</span>
-        <span class="consultorios-list-name">Cardiología Clínica</span>
-        <span class="consultorios-list-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></span>
-        <span class="consultorios-list-progress"></span>
-      </button>
-      <button type="button" class="consultorios-list-item" data-idx="1" role="tab" aria-selected="false">
-        <span class="consultorios-list-num">02</span>
-        <span class="consultorios-list-name">Ecodoppler cardíaco</span>
-        <span class="consultorios-list-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></span>
-        <span class="consultorios-list-progress"></span>
-      </button>
-      <button type="button" class="consultorios-list-item" data-idx="2" role="tab" aria-selected="false">
-        <span class="consultorios-list-num">03</span>
-        <span class="consultorios-list-name">Electrocardiografía y Holter</span>
-        <span class="consultorios-list-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></span>
-        <span class="consultorios-list-progress"></span>
-      </button>
-      <button type="button" class="consultorios-list-item" data-idx="3" role="tab" aria-selected="false">
-        <span class="consultorios-list-num">04</span>
-        <span class="consultorios-list-name">Ergometría</span>
-        <span class="consultorios-list-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></span>
-        <span class="consultorios-list-progress"></span>
-      </button>
-      <button type="button" class="consultorios-list-item" data-idx="4" role="tab" aria-selected="false">
-        <span class="consultorios-list-num">05</span>
-        <span class="consultorios-list-name">Ecoestrés con ejercicio</span>
-        <span class="consultorios-list-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></span>
-        <span class="consultorios-list-progress"></span>
-      </button>
-      <button type="button" class="consultorios-list-item" data-idx="5" role="tab" aria-selected="false">
-        <span class="consultorios-list-num">06</span>
-        <span class="consultorios-list-name">Ecodoppler Vascular</span>
-        <span class="consultorios-list-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></span>
-        <span class="consultorios-list-progress"></span>
-      </button>
-      <button type="button" class="consultorios-list-item" data-idx="6" role="tab" aria-selected="false">
-        <span class="consultorios-list-num">07</span>
-        <span class="consultorios-list-name">Ecografía General</span>
-        <span class="consultorios-list-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></span>
-        <span class="consultorios-list-progress"></span>
-      </button>
-      <button type="button" class="consultorios-list-item" data-idx="7" role="tab" aria-selected="false">
-        <span class="consultorios-list-num">08</span>
-        <span class="consultorios-list-name">Análisis Clínicos</span>
-        <span class="consultorios-list-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg></span>
-        <span class="consultorios-list-progress"></span>
-      </button>
-    </div>
-
-    <!-- SPOTLIGHT (panel grande) -->
-    <div class="consultorios-spotlight">
-      <article class="consultorios-slide active" data-idx="0" role="tabpanel">
-        <div class="consultorios-slide-watermark">01</div>
-        <div class="consultorios-slide-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-        </div>
-        <div class="consultorios-slide-body">
-          <div class="consultorios-slide-tag">Especialidades médicas</div>
-          <h3 class="consultorios-slide-name">Cardiología Clínica</h3>
-          <p class="consultorios-slide-desc">Consultorio para la evaluación cardiológica integral: anamnesis, examen físico, control de presión y oximetría.</p>
-          <a href="consultorios.html" class="consultorios-slide-cta">
-            Conocer este consultorio
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-          </a>
-        </div>
-      </article>
-
-      <article class="consultorios-slide" data-idx="1" role="tabpanel">
-        <div class="consultorios-slide-watermark">02</div>
-        <div class="consultorios-slide-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12a10 10 0 0 1 20 0"/><path d="M5.5 12a6.5 6.5 0 0 1 13 0"/><circle cx="12" cy="12" r="2"/><line x1="12" y1="14" x2="12" y2="22"/></svg>
-        </div>
-        <div class="consultorios-slide-body">
-          <div class="consultorios-slide-tag">Pruebas cardiológicas</div>
-          <h3 class="consultorios-slide-name">Ecodoppler cardíaco</h3>
-          <p class="consultorios-slide-desc">Ultrasonido del corazón en tiempo real para evaluar estructura, válvulas y función cardíaca.</p>
-          <a href="consultorios.html" class="consultorios-slide-cta">
-            Conocer este consultorio
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-          </a>
-        </div>
-      </article>
-
-      <article class="consultorios-slide" data-idx="2" role="tabpanel">
-        <div class="consultorios-slide-watermark">03</div>
-        <div class="consultorios-slide-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-        </div>
-        <div class="consultorios-slide-body">
-          <div class="consultorios-slide-tag">Pruebas cardiológicas</div>
-          <h3 class="consultorios-slide-name">Electrocardiografía y Holter</h3>
-          <p class="consultorios-slide-desc">ECG en reposo y monitoreo continuo de 24 a 72 horas para detectar arritmias y trastornos del ritmo.</p>
-          <a href="consultorios.html" class="consultorios-slide-cta">
-            Conocer este consultorio
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-          </a>
-        </div>
-      </article>
-
-      <article class="consultorios-slide" data-idx="3" role="tabpanel">
-        <div class="consultorios-slide-watermark">04</div>
-        <div class="consultorios-slide-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="13" cy="4" r="2"/><path d="M4 22l5-7-2-5 4-3 3 4 4 1"/><path d="M15 22l-2-7 2-3"/></svg>
-        </div>
-        <div class="consultorios-slide-body">
-          <div class="consultorios-slide-tag">Pruebas cardiológicas</div>
-          <h3 class="consultorios-slide-name">Ergometría</h3>
-          <p class="consultorios-slide-desc">Prueba de esfuerzo graduada en cinta, supervisada por especialista. Evalúa la respuesta del corazón al ejercicio.</p>
-          <a href="consultorios.html" class="consultorios-slide-cta">
-            Conocer este consultorio
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-          </a>
-        </div>
-      </article>
-
-      <article class="consultorios-slide" data-idx="4" role="tabpanel">
-        <div class="consultorios-slide-watermark">05</div>
-        <div class="consultorios-slide-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 20a9 9 0 0 1 18 0"/><circle cx="12" cy="9" r="2"/><path d="M5 13a8 8 0 0 1 14 0"/></svg>
-        </div>
-        <div class="consultorios-slide-body">
-          <div class="consultorios-slide-tag">Pruebas cardiológicas</div>
-          <h3 class="consultorios-slide-name">Ecoestrés con ejercicio</h3>
-          <p class="consultorios-slide-desc">Ecodoppler cardíaco durante y después del esfuerzo físico para evaluar la respuesta cardíaca al ejercicio.</p>
-          <a href="consultorios.html" class="consultorios-slide-cta">
-            Conocer este consultorio
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-          </a>
-        </div>
-      </article>
-
-      <article class="consultorios-slide" data-idx="5" role="tabpanel">
-        <div class="consultorios-slide-watermark">06</div>
-        <div class="consultorios-slide-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3v3M6 9v3M6 15v3M6 21h0"/><path d="M2 6h8M2 12h8M2 18h8"/><path d="M14 4l8 4-8 4"/><path d="M14 12l8 4-8 4"/></svg>
-        </div>
-        <div class="consultorios-slide-body">
-          <div class="consultorios-slide-tag">Imágenes vasculares</div>
-          <h3 class="consultorios-slide-name">Ecodoppler Vascular</h3>
-          <p class="consultorios-slide-desc">Estudio de arterias y venas con tecnología doppler color de alta resolución. Diagnóstico vascular no invasivo.</p>
-          <a href="consultorios.html" class="consultorios-slide-cta">
-            Conocer este consultorio
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-          </a>
-        </div>
-      </article>
-
-      <article class="consultorios-slide" data-idx="6" role="tabpanel">
-        <div class="consultorios-slide-watermark">07</div>
-        <div class="consultorios-slide-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 20a9 9 0 0 1 18 0"/><circle cx="12" cy="9" r="2"/><path d="M5 13a8 8 0 0 1 14 0"/></svg>
-        </div>
-        <div class="consultorios-slide-body">
-          <div class="consultorios-slide-tag">Diagnóstico por imágenes</div>
-          <h3 class="consultorios-slide-name">Ecografía General</h3>
-          <p class="consultorios-slide-desc">Estudios abdominales, ginecológicos, mamarios, tiroideos y musculoesqueléticos en alta definición.</p>
-          <a href="consultorios.html" class="consultorios-slide-cta">
-            Conocer este consultorio
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-          </a>
-        </div>
-      </article>
-
-      <article class="consultorios-slide" data-idx="7" role="tabpanel">
-        <div class="consultorios-slide-watermark">08</div>
-        <div class="consultorios-slide-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3v3a2 2 0 0 1-2 2H5"/><path d="M14 3v3a2 2 0 0 0 2 2h3"/><rect x="5" y="3" width="14" height="18" rx="2"/></svg>
-        </div>
-        <div class="consultorios-slide-body">
-          <div class="consultorios-slide-tag">Laboratorio</div>
-          <h3 class="consultorios-slide-name">Análisis Clínicos</h3>
-          <p class="consultorios-slide-desc">Toma de muestras en consultorio con derivación a laboratorio asociado de primera línea.</p>
-          <a href="consultorios.html" class="consultorios-slide-cta">
-            Conocer este consultorio
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-          </a>
-        </div>
-      </article>
-    </div>
-
-    <!-- GRID MOBILE — todas las cards visibles en pantallas chicas -->
-    <div class="consultorios-mobile-grid">
-      <a href="consultorios.html" class="consultorios-mini">
-        <span class="consultorios-mini-num">01</span>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-        <span class="consultorios-mini-name">Cardiología Clínica</span>
-      </a>
-      <a href="consultorios.html" class="consultorios-mini">
-        <span class="consultorios-mini-num">02</span>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12a10 10 0 0 1 20 0"/><path d="M5.5 12a6.5 6.5 0 0 1 13 0"/><circle cx="12" cy="12" r="2"/><line x1="12" y1="14" x2="12" y2="22"/></svg>
-        <span class="consultorios-mini-name">Ecodoppler cardíaco</span>
-      </a>
-      <a href="consultorios.html" class="consultorios-mini">
-        <span class="consultorios-mini-num">03</span>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-        <span class="consultorios-mini-name">Electro y Holter</span>
-      </a>
-      <a href="consultorios.html" class="consultorios-mini">
-        <span class="consultorios-mini-num">04</span>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="13" cy="4" r="2"/><path d="M4 22l5-7-2-5 4-3 3 4 4 1"/><path d="M15 22l-2-7 2-3"/></svg>
-        <span class="consultorios-mini-name">Ergometría</span>
-      </a>
-      <a href="consultorios.html" class="consultorios-mini">
-        <span class="consultorios-mini-num">05</span>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 20a9 9 0 0 1 18 0"/><circle cx="12" cy="9" r="2"/><path d="M5 13a8 8 0 0 1 14 0"/></svg>
-        <span class="consultorios-mini-name">Ecoestrés</span>
-      </a>
-      <a href="consultorios.html" class="consultorios-mini">
-        <span class="consultorios-mini-num">06</span>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3v3M6 9v3M6 15v3M6 21h0"/><path d="M2 6h8M2 12h8M2 18h8"/><path d="M14 4l8 4-8 4"/><path d="M14 12l8 4-8 4"/></svg>
-        <span class="consultorios-mini-name">Ecodoppler Vascular</span>
-      </a>
-      <a href="consultorios.html" class="consultorios-mini">
-        <span class="consultorios-mini-num">07</span>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 20a9 9 0 0 1 18 0"/><circle cx="12" cy="9" r="2"/><path d="M5 13a8 8 0 0 1 14 0"/></svg>
-        <span class="consultorios-mini-name">Ecografía General</span>
-      </a>
-      <a href="consultorios.html" class="consultorios-mini">
-        <span class="consultorios-mini-num">08</span>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3v3a2 2 0 0 1-2 2H5"/><path d="M14 3v3a2 2 0 0 0 2 2h3"/><rect x="5" y="3" width="14" height="18" rx="2"/></svg>
-        <span class="consultorios-mini-name">Análisis Clínicos</span>
-      </a>
-    </div>
   </div>
 </section>
 

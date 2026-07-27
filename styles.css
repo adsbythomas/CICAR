@@ -775,6 +775,15 @@
     .consultorios-gallery { grid-template-columns: 1fr; }
   }
 
+  /* ─── EQUIPOS (home): teaser simple ─── */
+  .equipos-home { padding: 76px 5%; background: #fff; }
+  .equipos-home-head { text-align: center; max-width: 700px; margin: 0 auto 42px; }
+  .equipos-home-head .section-tag { color: var(--blue); justify-content: center; }
+  .equipos-home-head .section-title { color: var(--navy); }
+  .equipos-home-head .section-sub { margin-left: auto; margin-right: auto; }
+  .equipos-grid { max-width: 1080px; }
+  .equipos-cta-wrap { text-align: center; margin-top: 34px; }
+
   /* ─── PROCESS / HOW IT WORKS ─── */
   .process {
     background: var(--navy);
