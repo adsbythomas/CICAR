@@ -687,7 +687,7 @@
     border: 1px solid rgba(29,132,199,0.15);
   }
 
-  /* ─── EQUIPO: grilla de tarjetas con monograma (sin fotos) ─── */
+  /* ─── EQUIPO: grilla de tarjetas (sin fotos) ─── */
   .team-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -709,16 +709,6 @@
     transform: translateY(-6px);
     border-color: rgba(29,132,199,0.28);
     box-shadow: 0 24px 60px -20px rgba(23,46,68,0.18);
-  }
-  .team-monogram {
-    width: 74px; height: 74px; border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 100%);
-    color: #fff;
-    font-family: var(--font-display);
-    font-size: 25px; font-weight: 600; letter-spacing: 0.5px;
-    margin-bottom: 18px;
-    box-shadow: 0 12px 26px -8px rgba(29,132,199,0.55);
   }
   .team-specialty {
     font-size: 10.5px; font-weight: 700; letter-spacing: 1.6px; text-transform: uppercase;
@@ -748,6 +738,41 @@
   }
   @media (max-width: 520px) {
     .team-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ─── CONSULTORIOS: galería de fotos reales ─── */
+  .consultorios-gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    max-width: 1180px;
+    margin: 0 auto;
+  }
+  .consultorio-item {
+    position: relative;
+    margin: 0;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: var(--navy);
+    box-shadow: 0 10px 30px rgba(23,46,68,0.10);
+    aspect-ratio: 3 / 2;
+  }
+  .consultorio-item img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+    transition: transform 0.5s ease;
+  }
+  .consultorio-item:hover img { transform: scale(1.05); }
+  .consultorio-item figcaption {
+    position: absolute; left: 0; right: 0; bottom: 0;
+    padding: 30px 18px 14px;
+    color: #fff; font-weight: 600; font-size: 14px; letter-spacing: 0.2px;
+    background: linear-gradient(transparent, rgba(14,31,46,0.85));
+  }
+  @media (max-width: 900px) {
+    .consultorios-gallery { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  }
+  @media (max-width: 560px) {
+    .consultorios-gallery { grid-template-columns: 1fr; }
   }
 
   /* ─── PROCESS / HOW IT WORKS ─── */
