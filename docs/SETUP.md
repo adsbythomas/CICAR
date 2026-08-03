@@ -99,7 +99,4 @@ gh pr merge --merge --delete-branch    # mergea → publica en Pages (~1-2 min)
 
 ## Pendientes abiertos (para retomar)
 
-- Pulir `obras-sociales.html` (dejar más prolija/profesional la presentación).
-- Reemplazar el redirect de WhatsApp del botón **"Turno por Web"** por el link
-  público de agenda de **Reservo** (cuando esté la URL).
 - (Opcional) foto real del equipo **Eccosur** para la sección de equipos del home.
