@@ -45,7 +45,7 @@ src="https://www.facebook.com/tr?id=1486565559631508&ev=PageView&noscript=1"
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=20260727d">
+<link rel="stylesheet" href="styles.css?v=20260825a">
 
 <!-- Datos estructurados schema.org — SEO local / rich results -->
 <script type="application/ld+json">
@@ -292,7 +292,7 @@ src="https://www.facebook.com/tr?id=1486565559631508&ev=PageView&noscript=1"
 </div>
 
 <!-- ───── BOTON WHATSAPP FLOTANTE ─────
-     Aparece cuando el usuario scrolea >30% de la pagina.
+     Aparece cuando el usuario scrolea >8% de la pagina.
      Sticky abajo a la derecha. Pulso suave para llamar atencion. -->
 <a href="https://wa.me/5491170848881?text=Hola%2C%20quisiera%20sacar%20un%20turno%20en%20CICAR"
    class="fab-whatsapp"
@@ -344,7 +344,7 @@ src="https://www.facebook.com/tr?id=1486565559631508&ev=PageView&noscript=1"
   <div class="hero-pills" aria-label="Credenciales del centro">
     <div class="hero-pill">
       <div class="hero-pill-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg></div>
-      <div class="hero-pill-text"><strong>Centro habilitado</strong><span>Provincia de Buenos Aires</span></div>
+      <div class="hero-pill-text"><strong>Ministerio de Salud</strong><span>Nación y Ciudad de Buenos Aires</span></div>
     </div>
     <div class="hero-pill">
       <div class="hero-pill-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg></div>
@@ -1528,7 +1528,7 @@ src="https://www.facebook.com/tr?id=1486565559631508&ev=PageView&noscript=1"
       </a>
       <!-- Secundarios -->
       <ul class="footer-contact-secondary">
-        <li><a href="mailto:administracion@centrocicar.com">administracion@centrocicar.com</a></li>
+        <li><a href="mailto:administracion@centrocicar.com">administracion@<wbr>centrocicar.com</a></li>
       </ul>
       <div class="footer-hours">
         <strong>Lun a Vie</strong> 8 a 20 hs<br>
@@ -2035,9 +2035,9 @@ src="https://www.facebook.com/tr?id=1486565559631508&ev=PageView&noscript=1"
       if (st > 40) navEl.classList.add('scrolled');
       else navEl.classList.remove('scrolled');
     }
-    // FAB: aparece despues de 30% scrolleado
+    // FAB: aparece despues de 8% scrolleado
     if (fab) {
-      if (pct > 30) fab.classList.add('is-visible');
+      if (pct > 8) fab.classList.add('is-visible');
       else fab.classList.remove('is-visible');
     }
     ticking = false;
