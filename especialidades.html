@@ -92,7 +92,7 @@ src="https://www.facebook.com/tr?id=1486565559631508&ev=PageView&noscript=1"
     <a href="consultorios.html">Consultorios</a>
     <a href="profesionales.html">Para profesionales</a>
     <a href="index.html#contacto">Información</a>
-    <a href="https://wa.me/5491170848881?text=Hola%2C%20quisiera%20sacar%20un%20turno%20en%20CICAR" class="nav-cta">Pedir Turno</a>
+    <a href="index.html#turno" class="nav-cta">Pedir Turno</a>
   </div>
   <button class="nav-burger" id="navBurger" aria-label="Abrir menú" aria-expanded="false">
     <span></span><span></span><span></span>
@@ -226,7 +226,7 @@ src="https://www.facebook.com/tr?id=1486565559631508&ev=PageView&noscript=1"
       <button class="service-modal-close" aria-label="Cerrar" onclick="closeServiceModal()">&times;</button>
       <h3 id="serviceModalTitle" class="service-modal-title"></h3>
       <p id="serviceModalDesc" class="service-modal-desc"></p>
-      <a href="https://wa.me/5491170848881?text=Hola%2C%20quisiera%20sacar%20un%20turno%20en%20CICAR" id="serviceModalCta" class="btn-primary">Sacar turno en esta área <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></a>
+      <a href="index.html#turno" id="serviceModalCta" class="btn-primary">Sacar turno en esta área <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></a>
     </div>
   </div>
   <script>
@@ -234,38 +234,11 @@ src="https://www.facebook.com/tr?id=1486565559631508&ev=PageView&noscript=1"
       var modal = document.getElementById('serviceModal');
       var titleEl = document.getElementById('serviceModalTitle');
       var descEl = document.getElementById('serviceModalDesc');
-      var ctaEl = document.getElementById('serviceModalCta');
-      var TITLE_TO_SLUG = {
-        'Cardiología Clínica': 'consulta-cardiologia',
-        'Ecodoppler cardíaco': 'consulta-ecocardiografia',
-        'Electrocardiografía': 'consulta-electrocardiografia',
-        'Ergometría': 'consulta-ergometria',
-        'Ecodoppler cardíaco color': 'ecodoppler-cardiaco',
-        'Ecodoppler vascular periférico': 'ecodoppler-vascular',
-        'Ecografía general': 'ecografia-general',
-        'Cese Tabáquico': 'consulta-tabaquismo',
-        'Nefrología': 'consulta-nefrologia',
-        'Nutrición Cardiovascular': 'consulta-nutricion',
-        'Salud Mental': 'consulta-saludmental',
-        'Hematología': 'consulta-hematologia',
-        'Clínica Médica': 'consulta-clinica-medica',
-        'Neumonología': 'consulta-neumonologia',
-        'Rehabilitación Cardíaca': 'consulta-rehabilitacion',
-        'Telemedicina': 'telemedicina',
-        'Medicina Estética': 'medicina-estetica',
-        'Toxina botulínica': 'toxina-botulinica',
-        'Plasma Rico en Plaquetas (PRP)': 'prp',
-        'Ácido hialurónico': 'acido-hialuronico',
-        'Cirugía estética': 'cirugia-estetica'
-      };
       document.querySelectorAll('.service-tile').forEach(function (tile) {
         if (tile.tagName === 'A') return; // las tiles-link (ej. Medicina Estética) navegan a su página
-        var slug = TITLE_TO_SLUG[tile.dataset.title] || '';
-        var url = slug ? ('https://wa.me/5491170848881?text=Hola%2C%20quisiera%20sacar%20un%20turno%20en%20CICAR' + slug) : 'https://wa.me/5491170848881?text=Hola%2C%20quisiera%20sacar%20un%20turno%20en%20CICAR';
         tile.addEventListener('click', function () {
           titleEl.textContent = tile.dataset.title;
           descEl.textContent = tile.dataset.desc;
-          if (ctaEl) ctaEl.href = url;
           modal.classList.add('open');
         });
       });
@@ -305,7 +278,7 @@ src="https://www.facebook.com/tr?id=1486565559631508&ev=PageView&noscript=1"
     <div class="footer-col">
       <h4>Pacientes</h4>
       <ul>
-        <li><a href="https://wa.me/5491170848881?text=Hola%2C%20quisiera%20sacar%20un%20turno%20en%20CICAR">Sacar turno</a></li>
+        <li><a href="index.html#turno">Sacar turno</a></li>
         <li><a href="https://wa.me/5491170848881?text=Hola%2C%20quisiera%20sacar%20un%20turno%20en%20CICAR">Resultados</a></li>
         <li><a href="index.html#contacto">Cartilla (próximamente)</a></li>
       </ul>
