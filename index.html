@@ -45,7 +45,7 @@ src="https://www.facebook.com/tr?id=1486565559631508&ev=PageView&noscript=1"
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=20260825a">
+<link rel="stylesheet" href="styles.css?v=20260826a">
 
 <!-- Datos estructurados schema.org — SEO local / rich results -->
 <script type="application/ld+json">
@@ -291,6 +291,25 @@ src="https://www.facebook.com/tr?id=1486565559631508&ev=PageView&noscript=1"
   </div>
 </div>
 
+<!-- ───── MODAL "TURNO POR WEB" (agenda de Reservo embebida) ───── -->
+<div class="turno-overlay" id="turnoOverlay" aria-hidden="true">
+  <div class="turno-modal" role="dialog" aria-modal="true" aria-labelledby="turnoModalTitle">
+    <button type="button" class="turno-close" id="closeTurnoModal" aria-label="Cerrar">✕</button>
+    <h3 id="turnoModalTitle" class="turno-modal-title">Sacá tu turno</h3>
+    <div class="turno-modal-body">
+      <iframe
+        src="https://agendamiento.reservo.cl/makereserva/agenda/q0IviAK090Vkq96B8k0952L245s1g0"
+        width="100%"
+        height="720"
+        frameborder="0"
+        style="border:0; display:block;"
+        title="Reserva de turno online — CICAR Barrio Norte"
+        loading="lazy">
+      </iframe>
+    </div>
+  </div>
+</div>
+
 <!-- ───── BOTON WHATSAPP FLOTANTE ─────
      Aparece cuando el usuario scrolea >8% de la pagina.
      Sticky abajo a la derecha. Pulso suave para llamar atencion. -->
@@ -320,7 +339,7 @@ src="https://www.facebook.com/tr?id=1486565559631508&ev=PageView&noscript=1"
     <p class="hero-tagline">Prevención, diagnóstico y tratamiento interdisciplinario.</p>
     <p>Consultas, estudios y tratamiento cardiovascular en un único centro. Estudios complementarios y atención continua a lo largo de todo el proceso.</p>
     <div class="hero-actions">
-      <a href="https://agendamiento.reservo.cl/makereserva/agenda/q0IviAK090Vkq96B8k0952L245s1g0" class="btn-primary" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Turno por Web</a>
+      <button type="button" class="btn-primary" id="openTurnoModal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Turno por Web</button>
       <a href="especialidades.html" class="btn-outline">Ver Especialidades →</a>
     </div>
     <div class="hero-hours" aria-label="Horarios de atención">
@@ -1095,6 +1114,34 @@ src="https://www.facebook.com/tr?id=1486565559631508&ev=PageView&noscript=1"
       restart.addEventListener('click', function () {
         history = [1];
         showStep('1');
+      });
+    })();
+
+    // ── Modal "Turno por Web" (agenda de Reservo embebida) ──
+    (function () {
+      var openBtn = document.getElementById('openTurnoModal');
+      var closeBtn = document.getElementById('closeTurnoModal');
+      var overlay = document.getElementById('turnoOverlay');
+      if (!openBtn || !overlay) return;
+
+      function open() {
+        overlay.classList.add('is-open');
+        overlay.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      }
+      function close() {
+        overlay.classList.remove('is-open');
+        overlay.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      }
+
+      openBtn.addEventListener('click', open);
+      closeBtn.addEventListener('click', close);
+      overlay.addEventListener('click', function (e) {
+        if (e.target === overlay) close();
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && overlay.classList.contains('is-open')) close();
       });
     })();
 
