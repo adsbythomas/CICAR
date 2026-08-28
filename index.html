@@ -45,7 +45,7 @@ src="https://www.facebook.com/tr?id=1486565559631508&ev=PageView&noscript=1"
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=20260826b">
+<link rel="stylesheet" href="styles.css?v=20260828a">
 
 <!-- Datos estructurados schema.org — SEO local / rich results -->
 <script type="application/ld+json">
@@ -293,19 +293,39 @@ src="https://www.facebook.com/tr?id=1486565559631508&ev=PageView&noscript=1"
 
 <!-- ───── MODAL "TURNO POR WEB" (agenda de Reservo embebida) ───── -->
 <div class="turno-overlay" id="turnoOverlay" aria-hidden="true">
-  <div class="turno-modal" role="dialog" aria-modal="true" aria-labelledby="turnoModalTitle">
+  <div class="turno-modal is-choice" id="turnoModal" role="dialog" aria-modal="true" aria-labelledby="turnoModalTitle">
     <button type="button" class="turno-close" id="closeTurnoModal" aria-label="Cerrar">✕</button>
     <h3 id="turnoModalTitle" class="turno-modal-title">Sacá tu turno</h3>
-    <div class="turno-modal-body">
-      <iframe
-        src="https://agendamiento.reservo.cl/makereserva/agenda/q0IviAK090Vkq96B8k0952L245s1g0"
-        width="100%"
-        height="720"
-        frameborder="0"
-        style="border:0; display:block;"
-        title="Reserva de turno online — CICAR Barrio Norte"
-        loading="lazy">
-      </iframe>
+
+    <!-- PASO 1: cobertura -->
+    <div class="turno-step" id="turnoStepChoice">
+      <p class="turno-modal-sub">¿Cómo vas a atenderte?</p>
+      <div class="turno-choices">
+        <button type="button" class="turno-choice" data-agenda="obra-social">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+          <strong>Por obra social o prepaga</strong>
+          <span>Atención con tu cobertura médica</span>
+        </button>
+        <button type="button" class="turno-choice" data-agenda="particular">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+          <strong>Particular</strong>
+          <span>Atención privada, sin cobertura</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- PASO 2: agenda de Reservo -->
+    <div class="turno-step" id="turnoStepAgenda" hidden>
+      <button type="button" class="turno-back" id="turnoBack">← Cambiar cobertura</button>
+      <div class="turno-modal-body">
+        <iframe
+          id="turnoIframe"
+          width="100%"
+          height="720"
+          frameborder="0"
+          style="border:0; display:block;"
+          title="Reserva de turno online — CICAR Barrio Norte"></iframe>
+      </div>
     </div>
   </div>
 </div>
@@ -1126,6 +1146,52 @@ src="https://www.facebook.com/tr?id=1486565559631508&ev=PageView&noscript=1"
       var overlay = document.getElementById('turnoOverlay');
       var studyHelperOverlay = document.getElementById('studyHelperOverlay');
       if (!triggers.length || !overlay) return;
+
+      // Paso 1 (cobertura) -> paso 2 (agenda de Reservo que corresponda)
+      var modal = document.getElementById('turnoModal');
+      var titleEl = document.getElementById('turnoModalTitle');
+      var stepChoice = document.getElementById('turnoStepChoice');
+      var stepAgenda = document.getElementById('turnoStepAgenda');
+      var iframe = document.getElementById('turnoIframe');
+      var backBtn = document.getElementById('turnoBack');
+      var AGENDAS = {
+        'obra-social': {
+          url: 'https://agendamiento.reservo.cl/makereserva/agenda/q0IviAK090Vkq96B8k0952L245s1g0',
+          title: 'Turno por obra social o prepaga'
+        },
+        'particular': {
+          url: 'https://agendamiento.reservo.cl/makereserva/agenda/H0meqJr0U0EKjB4L8N99GVm2y2h1oN',
+          title: 'Turno particular'
+        }
+      };
+
+      function showChoice() {
+        stepAgenda.hidden = true;
+        stepChoice.hidden = false;
+        modal.classList.add('is-choice');
+        titleEl.textContent = 'Sacá tu turno';
+      }
+      function showAgenda(key) {
+        var agenda = AGENDAS[key];
+        if (!agenda) return;
+        // Solo recargamos el iframe si cambia la agenda, para no perder
+        // el progreso si el paciente vuelve y elige lo mismo.
+        if (iframe.getAttribute('src') !== agenda.url) {
+          iframe.setAttribute('src', agenda.url);
+        }
+        titleEl.textContent = agenda.title;
+        stepChoice.hidden = true;
+        stepAgenda.hidden = false;
+        modal.classList.remove('is-choice');
+        modal.scrollTop = 0;
+      }
+
+      document.querySelectorAll('.turno-choice').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          showAgenda(btn.dataset.agenda);
+        });
+      });
+      backBtn.addEventListener('click', showChoice);
 
       function open() {
         if (studyHelperOverlay) {
