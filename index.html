@@ -44,8 +44,12 @@ src="https://www.facebook.com/tr?id=1486565559631508&ev=PageView&noscript=1"
 <link rel="icon" type="image/png" href="assets/logos/CICAR-08.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- Adelanta DNS+TLS de la agenda de Reservo para que el iframe del
+     pop up de turnos cargue mas rapido cuando el paciente elige cobertura -->
+<link rel="preconnect" href="https://agendamiento.reservo.cl" crossorigin>
+<link rel="dns-prefetch" href="https://agendamiento.reservo.cl">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=20260828a">
+<link rel="stylesheet" href="styles.css?v=20260830a">
 
 <!-- Datos estructurados schema.org — SEO local / rich results -->
 <script type="application/ld+json">
@@ -317,7 +321,13 @@ src="https://www.facebook.com/tr?id=1486565559631508&ev=PageView&noscript=1"
     <!-- PASO 2: agenda de Reservo -->
     <div class="turno-step" id="turnoStepAgenda" hidden>
       <button type="button" class="turno-back" id="turnoBack">← Cambiar cobertura</button>
-      <div class="turno-modal-body">
+      <div class="turno-modal-body" id="turnoBody">
+        <div class="turno-loading" id="turnoLoading" role="status" aria-live="polite">
+          <svg class="turno-loading-ecg" viewBox="0 0 400 60" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M0 30 L120 30 L138 30 L146 8 L154 52 L162 30 L200 30 L218 30 L226 4 L234 56 L242 30 L280 30 L298 30 L306 14 L314 46 L322 30 L400 30"/>
+          </svg>
+          <span>Cargando la agenda…</span>
+        </div>
         <iframe
           id="turnoIframe"
           width="100%"
@@ -1154,6 +1164,37 @@ src="https://www.facebook.com/tr?id=1486565559631508&ev=PageView&noscript=1"
       var stepAgenda = document.getElementById('turnoStepAgenda');
       var iframe = document.getElementById('turnoIframe');
       var backBtn = document.getElementById('turnoBack');
+      var body = document.getElementById('turnoBody');
+      var loadedUrl = null; // agenda que ya termino de cargar
+      // Duracion del trazo del ECG (igual que en styles.css). Se dibuja una
+      // sola vez: si la agenda carga antes, esperamos a que termine el trazo
+      // para no cortarlo por la mitad y que parezca que algo fallo.
+      var ECG_DRAW_MS = 1100;
+      var loadingStartedAt = 0;
+      var revealTimer = null;
+
+      var ecgPath = document.querySelector('.turno-loading-ecg path');
+
+      function startLoading() {
+        clearTimeout(revealTimer);
+        // Reiniciamos el trazo para que arranque desde cero en este click
+        // y quede en fase con el temporizador de abajo.
+        if (ecgPath) {
+          ecgPath.style.animation = 'none';
+          void ecgPath.offsetWidth; // fuerza reflow
+          ecgPath.style.animation = '';
+        }
+        loadingStartedAt = Date.now();
+        body.classList.add('is-loading');
+      }
+      function finishLoading() {
+        clearTimeout(revealTimer);
+        var elapsed = Date.now() - loadingStartedAt;
+        var waitForDrawEnd = Math.max(0, ECG_DRAW_MS - elapsed);
+        revealTimer = setTimeout(function () {
+          body.classList.remove('is-loading');
+        }, waitForDrawEnd);
+      }
       var AGENDAS = {
         'obra-social': {
           url: 'https://agendamiento.reservo.cl/makereserva/agenda/q0IviAK090Vkq96B8k0952L245s1g0',
@@ -1177,7 +1218,11 @@ src="https://www.facebook.com/tr?id=1486565559631508&ev=PageView&noscript=1"
         // Solo recargamos el iframe si cambia la agenda, para no perder
         // el progreso si el paciente vuelve y elige lo mismo.
         if (iframe.getAttribute('src') !== agenda.url) {
+          startLoading();
           iframe.setAttribute('src', agenda.url);
+        } else if (loadedUrl !== agenda.url) {
+          // Misma agenda pero todavia cargando: seguimos mostrando el ECG
+          startLoading();
         }
         titleEl.textContent = agenda.title;
         stepChoice.hidden = true;
@@ -1186,7 +1231,24 @@ src="https://www.facebook.com/tr?id=1486565559631508&ev=PageView&noscript=1"
         modal.scrollTop = 0;
       }
 
+      iframe.addEventListener('load', function () {
+        if (!iframe.getAttribute('src')) return;
+        loadedUrl = iframe.getAttribute('src');
+        finishLoading();
+      });
+
       document.querySelectorAll('.turno-choice').forEach(function (btn) {
+        // Al pasar el mouse ya abrimos la conexion con Reservo, asi el
+        // iframe arranca con el handshake hecho cuando hace click.
+        btn.addEventListener('mouseenter', function () {
+          var agenda = AGENDAS[btn.dataset.agenda];
+          if (!agenda || btn.dataset.warmed) return;
+          btn.dataset.warmed = '1';
+          var link = document.createElement('link');
+          link.rel = 'prefetch';
+          link.href = agenda.url;
+          document.head.appendChild(link);
+        }, { once: true });
         btn.addEventListener('click', function () {
           showAgenda(btn.dataset.agenda);
         });
@@ -1573,7 +1635,7 @@ src="https://www.facebook.com/tr?id=1486565559631508&ev=PageView&noscript=1"
       <div class="info-card-content contact-list">
         <div class="contact-row"><strong>Turnos</strong><a href="tel:+5491170848881">+54 11 7084-8881</a></div>
         <div class="contact-row"><strong>WhatsApp</strong><a href="https://wa.me/5491170848881">+54 9 11 7084-8881</a></div>
-        <div class="contact-row"><strong>Email</strong><a href="mailto:administracion@centrocicar.com">administracion@centrocicar.com</a></div>
+        <div class="contact-row"><strong>Email</strong><a href="mailto:administracion@centrocicar.com">administracion@<wbr>centrocicar.com</a></div>
         <div class="contact-row"><strong>Web</strong><span>centrocicar.com</span></div>
       </div>
     </div>
