@@ -49,7 +49,7 @@ src="https://www.facebook.com/tr?id=1486565559631508&ev=PageView&noscript=1"
 <link rel="preconnect" href="https://agendamiento.reservo.cl" crossorigin>
 <link rel="dns-prefetch" href="https://agendamiento.reservo.cl">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=20260902a">
+<link rel="stylesheet" href="styles.css?v=20260902b">
 
 <!-- Datos estructurados schema.org — SEO local / rich results -->
 <script type="application/ld+json">
@@ -341,8 +341,8 @@ src="https://www.facebook.com/tr?id=1486565559631508&ev=PageView&noscript=1"
 </div>
 
 <!-- ───── BOTON WHATSAPP FLOTANTE ─────
-     Aparece cuando el usuario scrolea >8% de la pagina.
-     Sticky abajo a la derecha. Pulso suave para llamar atencion. -->
+     Siempre visible, sticky abajo a la derecha.
+     Pulso suave para llamar atencion. -->
 <a href="https://wa.me/5491170848881?text=Hola%2C%20quisiera%20sacar%20un%20turno%20en%20CICAR"
    class="fab-whatsapp"
    id="fabWhatsapp"
@@ -2177,7 +2177,6 @@ src="https://www.facebook.com/tr?id=1486565559631508&ev=PageView&noscript=1"
   // ── Scroll progress bar + Nav scrolled + FAB whatsapp ──
   var bar  = document.querySelector('.scroll-progress span');
   var navEl = document.querySelector('nav');
-  var fab  = document.getElementById('fabWhatsapp');
   var ticking = false;
   function onScroll() {
     var h = document.documentElement;
@@ -2189,11 +2188,6 @@ src="https://www.facebook.com/tr?id=1486565559631508&ev=PageView&noscript=1"
     if (navEl) {
       if (st > 40) navEl.classList.add('scrolled');
       else navEl.classList.remove('scrolled');
-    }
-    // FAB: aparece despues de 8% scrolleado
-    if (fab) {
-      if (pct > 8) fab.classList.add('is-visible');
-      else fab.classList.remove('is-visible');
     }
     ticking = false;
   }
