@@ -3229,17 +3229,8 @@
     box-shadow: 0 12px 36px rgba(37, 211, 102, 0.45),
                 0 4px 12px rgba(0, 0, 0, 0.18);
     font-weight: 700; font-size: 14px;
-    transform: translateY(120px) scale(0.85);
-    opacity: 0;
-    pointer-events: none;
-    transition: transform 0.45s cubic-bezier(.34,1.56,.64,1),
-                opacity 0.3s ease,
-                box-shadow 0.25s ease;
-  }
-  .fab-whatsapp.is-visible {
-    transform: translateY(0) scale(1);
-    opacity: 1;
-    pointer-events: auto;
+    /* Siempre visible: no depende del scroll ni de JS */
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
   }
   .fab-whatsapp:hover {
     box-shadow: 0 16px 48px rgba(37, 211, 102, 0.55),
