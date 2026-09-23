@@ -3214,6 +3214,15 @@
   @media (max-width: 1100px) {
     .nav-live { display: none; }
   }
+  /* Entre 1401 y 1640px el nav horizontal completo no entra y "Pedir Turno"
+     quedaba cortado a la derecha. Ocultamos el indicador, compactamos los
+     links y dejamos aire a la derecha para que la CTA se vea entera. */
+  @media (min-width: 1401px) and (max-width: 1640px) {
+    nav { padding-right: 32px; }
+    .nav-live { display: none; }
+    .nav-links { gap: 2px; }
+    .nav-links a { padding: 9px 9px; }
+  }
 
   /* FAB WhatsApp flotante */
   .fab-whatsapp {
