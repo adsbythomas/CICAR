@@ -44,12 +44,8 @@ src="https://www.facebook.com/tr?id=1486565559631508&ev=PageView&noscript=1"
 <link rel="icon" type="image/png" href="assets/logos/CICAR-08.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<!-- Adelanta DNS+TLS de la agenda de Reservo para que el iframe del
-     pop up de turnos cargue mas rapido cuando el paciente elige cobertura -->
-<link rel="preconnect" href="https://agendamiento.reservo.cl" crossorigin>
-<link rel="dns-prefetch" href="https://agendamiento.reservo.cl">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=20260902b">
+<link rel="stylesheet" href="styles.css?v=20260925a">
 
 <!-- Datos estructurados schema.org — SEO local / rich results -->
 <script type="application/ld+json">
@@ -165,7 +161,7 @@ src="https://www.facebook.com/tr?id=1486565559631508&ev=PageView&noscript=1"
     <a href="consultorios.html">Consultorios</a>
     <a href="profesionales.html">Para profesionales</a>
     <a href="#contacto">Información</a>
-    <a href="#turno" class="nav-cta js-open-turno">Pedir Turno</a>
+    <a href="https://centrocicar.portal.omniasalud.com/out/login" target="_blank" rel="noopener" class="nav-cta">Pedir Turno</a>
   </div>
   <button class="nav-burger" id="navBurger" aria-label="Abrir menú" aria-expanded="false">
     <span></span><span></span><span></span>
@@ -281,7 +277,7 @@ src="https://www.facebook.com/tr?id=1486565559631508&ev=PageView&noscript=1"
       </div>
 
       <div class="study-helper-actions">
-        <a href="#turno" class="btn-primary js-open-turno" id="studyHelperBookBtn">
+        <a href="https://centrocicar.portal.omniasalud.com/out/login" target="_blank" rel="noopener" class="btn-primary" id="studyHelperBookBtn">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
           Sacar turno ahora
         </a>
@@ -291,51 +287,6 @@ src="https://www.facebook.com/tr?id=1486565559631508&ev=PageView&noscript=1"
         </a>
       </div>
       <button type="button" class="study-helper-restart" id="studyHelperRestart">Empezar de nuevo</button>
-    </div>
-  </div>
-</div>
-
-<!-- ───── MODAL "TURNO POR WEB" (agenda de Reservo embebida) ───── -->
-<div class="turno-overlay" id="turnoOverlay" aria-hidden="true">
-  <div class="turno-modal is-choice" id="turnoModal" role="dialog" aria-modal="true" aria-labelledby="turnoModalTitle">
-    <button type="button" class="turno-close" id="closeTurnoModal" aria-label="Cerrar">✕</button>
-    <h3 id="turnoModalTitle" class="turno-modal-title">Sacá tu turno</h3>
-
-    <!-- PASO 1: cobertura -->
-    <div class="turno-step" id="turnoStepChoice">
-      <p class="turno-modal-sub">¿Cómo vas a atenderte?</p>
-      <div class="turno-choices">
-        <button type="button" class="turno-choice" data-agenda="obra-social">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
-          <strong>Por obra social o prepaga</strong>
-          <span>Atención con tu cobertura médica</span>
-        </button>
-        <button type="button" class="turno-choice" data-agenda="particular">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
-          <strong>Particular</strong>
-          <span>Atención privada, sin cobertura</span>
-        </button>
-      </div>
-    </div>
-
-    <!-- PASO 2: agenda de Reservo -->
-    <div class="turno-step" id="turnoStepAgenda" hidden>
-      <button type="button" class="turno-back" id="turnoBack">← Cambiar cobertura</button>
-      <div class="turno-modal-body" id="turnoBody">
-        <div class="turno-loading" id="turnoLoading" role="status" aria-live="polite">
-          <svg class="turno-loading-ecg" viewBox="0 0 400 60" preserveAspectRatio="none" aria-hidden="true">
-            <path d="M0 30 L120 30 L138 30 L146 8 L154 52 L162 30 L200 30 L218 30 L226 4 L234 56 L242 30 L280 30 L298 30 L306 14 L314 46 L322 30 L400 30"/>
-          </svg>
-          <span>Cargando la agenda…</span>
-        </div>
-        <iframe
-          id="turnoIframe"
-          width="100%"
-          height="720"
-          frameborder="0"
-          style="border:0; display:block;"
-          title="Reserva de turno online — CICAR Barrio Norte"></iframe>
-      </div>
     </div>
   </div>
 </div>
@@ -369,7 +320,7 @@ src="https://www.facebook.com/tr?id=1486565559631508&ev=PageView&noscript=1"
     <p class="hero-tagline">Prevención, diagnóstico y tratamiento interdisciplinario.</p>
     <p>Consultas, estudios y tratamiento cardiovascular en un único centro. Estudios complementarios y atención continua a lo largo de todo el proceso.</p>
     <div class="hero-actions">
-      <button type="button" class="btn-primary js-open-turno" id="openTurnoModal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Turno por Web</button>
+      <a href="https://centrocicar.portal.omniasalud.com/out/login" target="_blank" rel="noopener" class="btn-primary"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Turno por Web</a>
       <a href="especialidades.html" class="btn-outline">Ver Especialidades →</a>
     </div>
     <div class="hero-hours" aria-label="Horarios de atención">
@@ -511,7 +462,7 @@ src="https://www.facebook.com/tr?id=1486565559631508&ev=PageView&noscript=1"
         <span class="estudio-card-tag">Esfuerzo físico</span>
         <h3>Ergometría</h3>
         <p>Evaluación cardiológica con esfuerzo controlado en cinta, supervisada por un especialista.</p>
-        <a href="#turno" class="estudio-card-cta js-open-turno">
+        <a href="https://centrocicar.portal.omniasalud.com/out/login" target="_blank" rel="noopener" class="estudio-card-cta">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
           Sacar turno
         </a>
@@ -546,7 +497,7 @@ src="https://www.facebook.com/tr?id=1486565559631508&ev=PageView&noscript=1"
         <span class="estudio-card-tag">Esfuerzo físico</span>
         <h3>Ecoestrés con ejercicio</h3>
         <p>Prueba cardiológica que combina una ecocardiografía con esfuerzo físico para evaluar el funcionamiento del corazón bajo estrés y detectar problemas cardiovasculares no visibles en reposo.</p>
-        <a href="#turno" class="estudio-card-cta js-open-turno">
+        <a href="https://centrocicar.portal.omniasalud.com/out/login" target="_blank" rel="noopener" class="estudio-card-cta">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
           Sacar turno
         </a>
@@ -583,7 +534,7 @@ src="https://www.facebook.com/tr?id=1486565559631508&ev=PageView&noscript=1"
         <span class="estudio-card-tag">Cardio y vasos</span>
         <h3>Ecodoppler cardíaco color</h3>
         <p>Estudio no invasivo que utiliza ultrasonido para ver la estructura y función del corazón, con doppler color para evaluar la dirección del flujo sanguíneo y diagnosticar patologías valvulares cardíacas.</p>
-        <a href="#turno" class="estudio-card-cta js-open-turno">
+        <a href="https://centrocicar.portal.omniasalud.com/out/login" target="_blank" rel="noopener" class="estudio-card-cta">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
           Sacar turno
         </a>
@@ -622,7 +573,7 @@ src="https://www.facebook.com/tr?id=1486565559631508&ev=PageView&noscript=1"
         <span class="estudio-card-tag">Cardio y vasos</span>
         <h3>Ecodoppler de vasos de cuello y vascular periférico</h3>
         <p>Estudio no invasivo del flujo en arterias y venas del cuello, brazos, piernas y aorta en sus diferentes segmentos. Útil para valorar presencia de placas o enfermedad vascular.</p>
-        <a href="#turno" class="estudio-card-cta js-open-turno">
+        <a href="https://centrocicar.portal.omniasalud.com/out/login" target="_blank" rel="noopener" class="estudio-card-cta">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
           Sacar turno
         </a>
@@ -660,7 +611,7 @@ src="https://www.facebook.com/tr?id=1486565559631508&ev=PageView&noscript=1"
         <span class="estudio-card-tag">Imagen</span>
         <h3>Ecografía general</h3>
         <p>Abdominal, ginecológica, mamaria, tiroidea y de partes blandas. Diagnóstico rápido sin radiación.</p>
-        <a href="#turno" class="estudio-card-cta js-open-turno">
+        <a href="https://centrocicar.portal.omniasalud.com/out/login" target="_blank" rel="noopener" class="estudio-card-cta">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
           Sacar turno
         </a>
@@ -698,7 +649,7 @@ src="https://www.facebook.com/tr?id=1486565559631508&ev=PageView&noscript=1"
         <span class="estudio-card-tag">Musculoesquelético</span>
         <h3>Ecografía musculoesquelética</h3>
         <p>Tendones, ligamentos, articulaciones y músculos. Ideal para lesiones deportivas y dolor articular.</p>
-        <a href="#turno" class="estudio-card-cta js-open-turno">
+        <a href="https://centrocicar.portal.omniasalud.com/out/login" target="_blank" rel="noopener" class="estudio-card-cta">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
           Sacar turno
         </a>
@@ -730,7 +681,7 @@ src="https://www.facebook.com/tr?id=1486565559631508&ev=PageView&noscript=1"
         <span class="estudio-card-tag">Especialidad</span>
         <h3>Cardiología Clínica</h3>
         <p>Diagnóstico y tratamiento integral de enfermedades cardiovasculares con seguimiento personalizado.</p>
-        <a href="#turno" class="estudio-card-cta js-open-turno">
+        <a href="https://centrocicar.portal.omniasalud.com/out/login" target="_blank" rel="noopener" class="estudio-card-cta">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
           Sacar turno
         </a>
@@ -754,7 +705,7 @@ src="https://www.facebook.com/tr?id=1486565559631508&ev=PageView&noscript=1"
         <span class="estudio-card-tag">Especialidad</span>
         <h3>Electrocardiograma</h3>
         <p>Registra la actividad eléctrica del corazón en reposo.</p>
-        <a href="#turno" class="estudio-card-cta js-open-turno">
+        <a href="https://centrocicar.portal.omniasalud.com/out/login" target="_blank" rel="noopener" class="estudio-card-cta">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
           Sacar turno
         </a>
@@ -794,7 +745,7 @@ src="https://www.facebook.com/tr?id=1486565559631508&ev=PageView&noscript=1"
         <span class="estudio-card-tag">Especialidad</span>
         <h3>Holter 24/48h</h3>
         <p>Indicado para el monitoreo del ritmo eléctrico cardíaco y detección de arritmias.</p>
-        <a href="#turno" class="estudio-card-cta js-open-turno">
+        <a href="https://centrocicar.portal.omniasalud.com/out/login" target="_blank" rel="noopener" class="estudio-card-cta">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
           Sacar turno
         </a>
@@ -1113,150 +1064,6 @@ src="https://www.facebook.com/tr?id=1486565559631508&ev=PageView&noscript=1"
       });
     })();
 
-    // ── Modal "Turno por Web" (agenda de Reservo embebida) ──
-    // Se abre desde cualquier elemento .js-open-turno (nav, tarjetas de
-    // estudio, footer, quiz) y tambien al llegar con #turno en la URL
-    // (usado por los links "Pedir/Sacar turno" de las demas paginas del sitio).
-    (function () {
-      var triggers = document.querySelectorAll('.js-open-turno');
-      var closeBtn = document.getElementById('closeTurnoModal');
-      var overlay = document.getElementById('turnoOverlay');
-      var studyHelperOverlay = document.getElementById('studyHelperOverlay');
-      if (!triggers.length || !overlay) return;
-
-      // Paso 1 (cobertura) -> paso 2 (agenda de Reservo que corresponda)
-      var modal = document.getElementById('turnoModal');
-      var titleEl = document.getElementById('turnoModalTitle');
-      var stepChoice = document.getElementById('turnoStepChoice');
-      var stepAgenda = document.getElementById('turnoStepAgenda');
-      var iframe = document.getElementById('turnoIframe');
-      var backBtn = document.getElementById('turnoBack');
-      var body = document.getElementById('turnoBody');
-      var loadedUrl = null; // agenda que ya termino de cargar
-      // Duracion del trazo del ECG (igual que en styles.css). Se dibuja una
-      // sola vez: si la agenda carga antes, esperamos a que termine el trazo
-      // para no cortarlo por la mitad y que parezca que algo fallo.
-      var ECG_DRAW_MS = 1100;
-      var loadingStartedAt = 0;
-      var revealTimer = null;
-
-      var ecgPath = document.querySelector('.turno-loading-ecg path');
-
-      function startLoading() {
-        clearTimeout(revealTimer);
-        // Reiniciamos el trazo para que arranque desde cero en este click
-        // y quede en fase con el temporizador de abajo.
-        if (ecgPath) {
-          ecgPath.style.animation = 'none';
-          void ecgPath.offsetWidth; // fuerza reflow
-          ecgPath.style.animation = '';
-        }
-        loadingStartedAt = Date.now();
-        body.classList.add('is-loading');
-      }
-      function finishLoading() {
-        clearTimeout(revealTimer);
-        var elapsed = Date.now() - loadingStartedAt;
-        var waitForDrawEnd = Math.max(0, ECG_DRAW_MS - elapsed);
-        revealTimer = setTimeout(function () {
-          body.classList.remove('is-loading');
-        }, waitForDrawEnd);
-      }
-      var AGENDAS = {
-        'obra-social': {
-          url: 'https://agendamiento.reservo.cl/makereserva/agenda/q0IviAK090Vkq96B8k0952L245s1g0',
-          title: 'Turno por obra social o prepaga'
-        },
-        'particular': {
-          url: 'https://agendamiento.reservo.cl/makereserva/agenda/H0meqJr0U0EKjB4L8N99GVm2y2h1oN',
-          title: 'Turno particular'
-        }
-      };
-
-      function showChoice() {
-        stepAgenda.hidden = true;
-        stepChoice.hidden = false;
-        modal.classList.add('is-choice');
-        titleEl.textContent = 'Sacá tu turno';
-      }
-      function showAgenda(key) {
-        var agenda = AGENDAS[key];
-        if (!agenda) return;
-        // Solo recargamos el iframe si cambia la agenda, para no perder
-        // el progreso si el paciente vuelve y elige lo mismo.
-        if (iframe.getAttribute('src') !== agenda.url) {
-          startLoading();
-          iframe.setAttribute('src', agenda.url);
-        } else if (loadedUrl !== agenda.url) {
-          // Misma agenda pero todavia cargando: seguimos mostrando el ECG
-          startLoading();
-        }
-        titleEl.textContent = agenda.title;
-        stepChoice.hidden = true;
-        stepAgenda.hidden = false;
-        modal.classList.remove('is-choice');
-        modal.scrollTop = 0;
-      }
-
-      iframe.addEventListener('load', function () {
-        if (!iframe.getAttribute('src')) return;
-        loadedUrl = iframe.getAttribute('src');
-        finishLoading();
-      });
-
-      document.querySelectorAll('.turno-choice').forEach(function (btn) {
-        // Al pasar el mouse ya abrimos la conexion con Reservo, asi el
-        // iframe arranca con el handshake hecho cuando hace click.
-        btn.addEventListener('mouseenter', function () {
-          var agenda = AGENDAS[btn.dataset.agenda];
-          if (!agenda || btn.dataset.warmed) return;
-          btn.dataset.warmed = '1';
-          var link = document.createElement('link');
-          link.rel = 'prefetch';
-          link.href = agenda.url;
-          document.head.appendChild(link);
-        }, { once: true });
-        btn.addEventListener('click', function () {
-          showAgenda(btn.dataset.agenda);
-        });
-      });
-      backBtn.addEventListener('click', showChoice);
-
-      function open() {
-        if (studyHelperOverlay) {
-          studyHelperOverlay.classList.remove('is-open');
-          studyHelperOverlay.setAttribute('aria-hidden', 'true');
-        }
-        overlay.classList.add('is-open');
-        overlay.setAttribute('aria-hidden', 'false');
-        document.body.style.overflow = 'hidden';
-      }
-      function close() {
-        overlay.classList.remove('is-open');
-        overlay.setAttribute('aria-hidden', 'true');
-        document.body.style.overflow = '';
-        if (location.hash === '#turno') {
-          history.replaceState(null, '', location.pathname + location.search);
-        }
-      }
-
-      triggers.forEach(function (t) {
-        t.addEventListener('click', function (e) {
-          e.preventDefault();
-          open();
-        });
-      });
-      closeBtn.addEventListener('click', close);
-      overlay.addEventListener('click', function (e) {
-        if (e.target === overlay) close();
-      });
-      document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape' && overlay.classList.contains('is-open')) close();
-      });
-
-      if (window.location.hash === '#turno') open();
-    })();
-
     // ── Doctors Carousel ──
     (function () {
       var track = document.getElementById('doctorsCarousel');
@@ -1485,7 +1292,7 @@ src="https://www.facebook.com/tr?id=1486565559631508&ev=PageView&noscript=1"
       <div class="tech-tile-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="13" cy="4" r="2"/><path d="M4 22l5-7-2-5 4-3 3 4 4 1"/><path d="M15 22l-2-7 2-3"/></svg></div>
       <div class="tech-tile-title">Ergometría graduada</div>
     </a>
-    <a href="#turno" class="tech-tile js-open-turno">
+    <a href="https://centrocicar.portal.omniasalud.com/out/login" target="_blank" rel="noopener" class="tech-tile">
       <div class="tech-tile-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="18" x2="12" y2="21"/></svg></div>
       <div class="tech-tile-title">Telemedicina</div>
     </a>
@@ -1661,7 +1468,7 @@ src="https://www.facebook.com/tr?id=1486565559631508&ev=PageView&noscript=1"
     <div class="footer-col">
       <h4>Pacientes</h4>
       <ul>
-        <li><a href="#turno" class="js-open-turno">Sacar turno</a></li>
+        <li><a href="https://centrocicar.portal.omniasalud.com/out/login" target="_blank" rel="noopener">Sacar turno</a></li>
         <li><a href="https://wa.me/5491170848881?text=Hola%2C%20quisiera%20sacar%20un%20turno%20en%20CICAR">Resultados</a></li>
         <li><a href="#contacto">Cartilla (próximamente)</a></li>
         <li><a href="#recordatorio">Recordatorio anual</a></li>
