@@ -526,7 +526,7 @@
 
   /* Columna izquierda: estudios destacados (links) */
   .hero-pills--left { right: auto; left: 4%; }
-  .hero-pills--left .hero-pill { text-decoration: none; width: 270px; }
+  .hero-pills--left .hero-pill { text-decoration: none; width: 290px; }
   .hero-pills--left .hero-pill:hover { transform: translateX(3px); }
   .hero-pills-title {
     color: var(--light);
@@ -541,9 +541,55 @@
   }
   .hero-pill--featured:hover { background: rgba(166,218,241,0.22); border-color: var(--light); }
 
-  /* En pantallas chicas se vuelve fila debajo del contenido del hero,
+  /* Mini resumen al pasar el mouse / con foco sobre cada estudio.
+     Escritorio ancho: a la derecha de la pildora. <1400px: arriba, centrado. */
+  .hero-pills--left .hero-pill { position: relative; }
+  .hero-pills--left .hero-pill:hover,
+  .hero-pills--left .hero-pill:focus-visible { z-index: 5; }
+  .hero-pill-tip {
+    position: absolute;
+    left: calc(100% + 14px); top: 50%;
+    transform: translate(-6px, -50%);
+    width: 260px;
+    padding: 12px 14px;
+    background: var(--navy);
+    border: 1px solid rgba(166,218,241,0.35);
+    border-radius: 12px;
+    box-shadow: 0 12px 32px rgba(0,0,0,0.3);
+    color: rgba(255,255,255,0.9);
+    font-size: 12.5px; line-height: 1.5; font-weight: 500;
+    text-align: left;
+    opacity: 0; visibility: hidden; pointer-events: none;
+    transition: opacity 0.18s, transform 0.18s, visibility 0.18s;
+  }
+  .hero-pill-tip::before {
+    content: ''; position: absolute;
+    right: 100%; top: 50%; margin-top: -6px;
+    border: 6px solid transparent; border-right-color: rgba(166,218,241,0.35);
+  }
+  .hero-pills--left .hero-pill:focus-visible .hero-pill-tip { opacity: 1; visibility: visible; transform: translate(0, -50%); }
+  @media (hover: hover) {
+    .hero-pills--left .hero-pill:hover .hero-pill-tip { opacity: 1; visibility: visible; transform: translate(0, -50%); }
+  }
+  @media (max-width: 1399px) {
+    .hero-pill-tip {
+      left: 50%; top: auto; bottom: calc(100% + 12px);
+      transform: translate(-50%, 6px);
+      width: 240px;
+    }
+    .hero-pill-tip::before {
+      right: auto; left: 50%; top: 100%; margin: 0 0 0 -6px;
+      border-right-color: transparent; border-top-color: rgba(166,218,241,0.35);
+    }
+    .hero-pills--left .hero-pill:focus-visible .hero-pill-tip { transform: translate(-50%, 0); }
+    @media (hover: hover) {
+      .hero-pills--left .hero-pill:hover .hero-pill-tip { transform: translate(-50%, 0); }
+    }
+  }
+
+  /* Debajo de 1400px se vuelve fila debajo del contenido del hero,
      sin overlap con el titulo */
-  @media (max-width: 1100px) {
+  @media (max-width: 1399px) {
     .hero-pills-title { width: 100%; }
     .hero-pills--left .hero-pill { width: auto; }
     .hero-pills {
