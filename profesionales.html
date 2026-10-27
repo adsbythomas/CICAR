@@ -316,5 +316,23 @@ src="https://www.facebook.com/tr?id=1486565559631508&ev=PageView&noscript=1"
   })();
 </script>
 
+
+<!-- Google Ads: conversion por clic en WhatsApp / telefono / turno en Omnia -->
+<script>
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[href]');
+    if (!a) return;
+    var href = a.getAttribute('href') || '';
+    if (/wa\.me|whatsapp\.com|api\.whatsapp|omniasalud\.com/i.test(href) || /^tel:/i.test(href)) {
+      if (typeof gtag !== 'function') return;
+      gtag('event', 'conversion', {
+        'send_to': 'AW-18369679801/qlZdCP2P6_YcELmjrLdE',
+        'value': 1.0,
+        'currency': 'ARS',
+        'transport_type': 'beacon'
+      });
+    }
+  }, true);
+</script>
 </body>
 </html>
