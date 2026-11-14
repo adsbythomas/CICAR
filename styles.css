@@ -635,7 +635,7 @@
   .hero-cma-title { font-family: var(--font-display); font-weight: 700; font-size: 21px; line-height: 1.18; margin-top: 12px; color: white; }
   .hero-cma-title span { color: var(--light); }
   .hero-cma-sub { font-size: 12.5px; line-height: 1.5; color: rgba(255,255,255,0.82); margin-top: 6px; }
-  .hero-cma-actions { display: flex; flex-direction: column; gap: 8px; margin-top: 14px; }
+  .hero-cma-actions { display: flex; flex-direction: column; gap: 18px; margin-top: 14px; }
   .hero-cma-btn {
     display: flex; align-items: center; justify-content: center; gap: 8px;
     font-family: var(--font-display); font-weight: 600; font-size: 14px;
@@ -648,21 +648,22 @@
   .hero-cma-btn--web:hover { filter: brightness(1.08); }
   .hero-cma-btn--wa { background: var(--light); color: var(--navy); }
   .hero-cma-btn--wa:hover { background: white; }
-  .hero-cma-note { font-size: 11px; line-height: 1.45; color: rgba(166,218,241,0.85); margin-top: 10px; }
-  .hero-cma-note strong { color: white; }
-  .hero-cma-more { display: inline-block; margin-top: 8px; font-size: 12.5px; font-weight: 600; color: white; text-decoration: none; border-bottom: 1px solid rgba(166,218,241,0.5); }
+  .hero-cma-web { display: flex; flex-direction: column; }
+  .hero-cma-hint { font-size: 11px; line-height: 1.4; color: rgba(166,218,241,0.9); text-align: center; margin-top: 5px; }
+  .hero-cma-hint strong { color: white; font-weight: 700; }
+  .hero-cma-more { display: inline-block; margin-top: 12px; font-size: 12.5px; font-weight: 600; color: white; text-decoration: none; border-bottom: 1px solid rgba(166,218,241,0.5); }
   .hero-cma-more:hover { border-bottom-color: white; }
   @media (max-width: 1399px) {
     .hero-cma {
       position: relative; top: auto; right: auto; transform: none;
       width: 100%; max-width: 520px; margin: 32px auto 0;
     }
-    .hero-cma-actions { flex-direction: row; }
-    .hero-cma-btn { flex: 1; }
+    .hero-cma-actions { flex-direction: row; align-items: flex-start; gap: 10px; }
+    .hero-cma-web, .hero-cma-btn--wa { flex: 1; }
   }
   @media (max-width: 480px) {
     .hero-cma { padding: 18px 16px 16px; }
-    .hero-cma-actions { flex-direction: column; }
+    .hero-cma-actions { flex-direction: column; align-items: stretch; gap: 18px; }
   }
 
   /* ─── SECTIONS GENERAL ─── */
