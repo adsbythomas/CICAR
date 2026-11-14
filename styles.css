@@ -589,7 +589,7 @@
 
   /* Debajo de 1400px se vuelve fila debajo del contenido del hero,
      sin overlap con el titulo */
-  @media (max-width: 1399px) {
+  @media (max-width: 1099px) {
     .hero-pills-title { width: 100%; }
     .hero-pills--left .hero-pill { width: auto; }
     .hero-pills {
@@ -653,7 +653,7 @@
   .hero-cma-hint strong { color: white; font-weight: 700; }
   .hero-cma-more { display: inline-block; margin-top: 12px; font-size: 12.5px; font-weight: 600; color: white; text-decoration: none; border-bottom: 1px solid rgba(166,218,241,0.5); }
   .hero-cma-more:hover { border-bottom-color: white; }
-  @media (max-width: 1399px) {
+  @media (max-width: 1099px) {
     .hero-cma {
       position: relative; top: auto; right: auto; transform: none;
       width: 100%; max-width: 520px; margin: 32px auto 0;
@@ -664,6 +664,19 @@
   @media (max-width: 480px) {
     .hero-cma { padding: 18px 16px 16px; }
     .hero-cma-actions { flex-direction: column; align-items: stretch; gap: 18px; }
+  }
+
+  /* Notebooks (1100–1399px): se mantienen las 3 columnas del hero
+     (estudios destacados · contenido · CMA) en versión compacta. */
+  @media (min-width: 1100px) and (max-width: 1399px) {
+    .hero-content { max-width: min(760px, calc(100vw - 620px)); }
+    .hero-pills { left: 2.5%; max-width: 250px; }
+    .hero-pills--left .hero-pill { width: 250px; padding: 9px 14px; }
+    .hero-pill-text strong { font-size: 12px; }
+    .hero-pill-text span { font-size: 10px; }
+    .hero-cma { right: 2.5%; width: 270px; padding: 18px 18px 16px; }
+    .hero-cma-title { font-size: 19px; }
+    .hero-cma-btn { font-size: 13.5px; padding: 10px 12px; }
   }
 
   /* ─── SECTIONS GENERAL ─── */
